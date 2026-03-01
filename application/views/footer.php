@@ -14,7 +14,7 @@
             </div>
             <div class="col-md-2 col-sm-4 col-6 mb-sm-20">
                 <div class="icon-box"> <span class="text-light-green"><i class="flaticon-help"></i></span>
-                    <span class="text-white">24 hours / 7 days<br>Support</span>
+                    <span class="text-white">244 hours / 7 days<br>Support</span>
                 </div>
             </div>
             <div class="col-md-2 col-sm-4 col-6">

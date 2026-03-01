@@ -28,7 +28,7 @@
                             <div class="login-sec" id="login_form">
                                 <div class="login-box">
                                     <form method="post" name="user_login" action="" novalidate=""  autocomplete="off">
-                                        <h4 class="text-light-black fw-600">Sign in with your TaskRabbit account</h4>
+                                        <h4 class="text-light-black fw-600">Sign in with your TaskRabbit aaccount</h4>
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
