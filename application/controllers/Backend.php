@@ -418,16 +418,16 @@ class Backend extends CI_Controller
                                                         <div class="featured-product-details padding-bottom-none height-151px">
 
                                                             <?php
-                                                            if ($single->service_status == "opened") {
-                                                                ?>
-                                                                <img src="<?php echo base_url(); ?>assets/img/open-res.png" class="wish-res-image  margin-right-17">
+                                                            // if ($single->service_status == "opened") {
+                                                            //     ?>
+                                                            //     <img src="<?php echo base_url(); ?>assets/img/open-res.png" class="wish-res-image  margin-right-17">
 
-                                                                <?php
-                                                            } else {
-                                                                ?>
-                                                                <img src="<?php echo base_url(); ?>assets/img/close-res.png" class="wish-res-image  margin-right-17">
-                                                                <?php
-                                                            }
+                                                            //     <?php
+                                                            // } else {
+                                                            //     ?>
+                                                            //     <img src="<?php echo base_url(); ?>assets/img/close-res.png" class="wish-res-image  margin-right-17">
+                                                            //     <?php
+                                                            // }
                                                             ?>
                         <!--<img src="<?php echo base_url(); ?>assets/img/bakery-shop.png" class="" >-->
 
@@ -1016,14 +1016,14 @@ class Backend extends CI_Controller
                                             if($single->service_status == "opened")
                                             {
                                         ?>
-                                                                                <img src="<?php echo base_url(); ?>assets/img/open-res.png" class="wish-res-image  margin-right-17">
+                                                                                <!-- <img src="<?php echo base_url(); ?>assets/img/open-res.png" class="wish-res-image  margin-right-17"> -->
 
                                         <?php
                                             }
                                             else
                                             {
                                          ?>
-                                                                                <img src="<?php echo base_url(); ?>assets/img/close-res.png" class="wish-res-image  margin-right-17">
+                                                                                <!-- <img src="<?php echo base_url(); ?>assets/img/close-res.png" class="wish-res-image  margin-right-17"> -->
                                         <?php
                                             }
                                         ?>
