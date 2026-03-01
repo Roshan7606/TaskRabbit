@@ -1,0 +1,394 @@
+.side-profile{
+    position: relative;
+}
+.side-profile span{
+    display: block;
+}
+.side-profile span label{
+    position: absolute;
+    top: 49px;
+    left: 106px;
+    cursor: pointer;
+}
+.fa-clock-o{
+    color: #000 !important; 
+}
+.fa-trash-alt:hover{
+    cursor: pointer;
+}
+.f-inline div{
+    display: inline-block;
+    width: 33%;
+}
+.my_error{
+    border:1px solid red !important;
+    outline: none !important;
+    box-shadow: none;
+}
+.my_error:focus{
+    box-shadow: none;
+}
+.form-php-error i{
+
+}
+.panel-body .fa-exclamation-circle{
+    margin-right: 5px !important; 
+}
+.my_alert_success{
+    background:#d3ffd3;
+    color: #000;
+    padding: 20px; 
+    width: 400px;
+    height:60px;
+    border-radius: 10px;
+    position: fixed !important;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+    margin: 10px;
+    box-shadow: 0 10px 10px #ccc;
+} 
+.my_alert_success i{
+    vertical-align: sub;
+    font-size: 25px;
+    margin-right: 5px;
+}
+.my_alert_success b{
+    font-weight: bold;
+}
+.my_alert{
+    background:#ffd3d3;
+    color: #1c1c1c;
+    padding: 20px; 
+    width: 400px;
+    height:60px;
+    border-radius: 10px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+    margin: 10px;
+    box-shadow: 0 10px 10px #ccc;
+} 
+.my_alert i{
+    vertical-align: sub;
+    font-size: 25px;
+    margin-right: 5px;
+}
+.my_alert b{
+    font-weight: bold;
+}
+
+.btnadd{
+    padding: 10px 20px;margin-top:2%;font-size: 15px;font-weight: 580 ;background-color: #1FD0F3;color: white;
+}
+.btn_clear{
+    background-color: #ff4747 !important;
+    color: white !important;
+}
+.btn_clear:hover{
+    background: #ff4747 !important;
+    color: black !important;
+}
+.btncancel{
+    padding: 10px 20px;margin-top:2%;font-size: 15px;font-weight: 580 ;background-color: #C3D1E8;color: white;
+}
+.btncancel:hover{
+    background: #C3D1E8;
+}
+.dt-button{
+    background: #e94e38;
+    padding: 10px;
+    color: #fff;
+}
+.form_error{
+    box-shadow: 0px 0px 2px red !important;
+    outline: none !important;
+    border:1px solid red !important;
+}
+.form_valid{
+    box-shadow: 0px 0px 2px green !important;
+    outline: none !important;
+    border:1px solid green !important;
+}
+.form-php-error + p{
+    color: red;
+    margin: 0px;
+    padding: 0px;
+}
+
+span.msg-icon {
+    display: inline-block;
+    font-size: 15px;
+    margin-right: 5px;
+    animation: spring 1s;
+    animation-timing-function: ease;
+    animation-iteration-count: infinite;
+}
+span.msg-close {
+    float: right;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 6px;
+}
+.msg-success{
+    background:#d3ffd3;
+    color: #000;
+    padding: 7px 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+.msg-error{
+    background:#ffd3d3;
+    color: #1c1c1c;
+    padding: 7px 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+.Back-meodel-box{
+    height: 40%;
+    width: 100%;
+    background-image: url(../..//assets/img/banner/banner-4.jpg);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+}
+.black-overlay{
+    background: rgba(255,255,255,0.4);
+    height: 70%;
+    width: 100%;
+}
+.white-overlay{
+    background: rgba(0,0,0,0.5);
+    height: 30%;
+    width: 100%;
+}
+.modelbox-img{
+    position: absolute;
+}
+.model-box-image{
+    margin-left: 310%;
+    box-shadow: 1px 1px 15px #dfdfdf; 
+    margin-top: 65%;
+    cursor: pointer;
+}
+.main-row{
+    margin-bottom: 5%;
+}
+.second-row{
+    position: relative;
+}
+.resname{
+    padding: 3.5% 0px 0px 3%;
+    cursor: pointer;
+    color: #fff;
+    font-size: 40px;
+    font-weight: 550;
+    letter-spacing: 1px;
+}
+.cover-photo-box{
+    position: absolute;
+    height: 40%;
+    width: 30%;
+}
+.main-row-contact{
+    margin-left: 15%;
+}
+.contact-main-head{
+    margin: 0;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+.admin-hr-line{
+    border-bottom: 3px solid gray;
+    border-radius: 80px;
+    width: 40%;
+    margin-bottom: 1%;
+    margin-top: 10px;
+}
+.admin-hr-line-other-detail{
+    border-bottom: 3px solid gray;
+    border-radius: 80px;
+    width: 46%;
+    margin-bottom: 1%;
+    margin-top: 10px;
+}
+.contact-detail{
+    margin-bottom: 3%;
+}
+.contact-fa-fa-icon{
+    font-size: 18px;
+    color: #53535F;
+}
+.contact-detail-head{
+    font-size: 15px;
+    color: #53535F;
+}
+.other-detail-main-row{
+    margin-bottom: 2%;
+}
+.other-detail-fa-fa-icon{
+    font-size: 18px;
+}
+.other-detail-details{
+    font-size: 15px;
+}
+.mar-bottom{
+    margin-bottom: 35px;
+}
+.modelbox_error{
+    color: red !important;
+    font-size: 15px !important;
+}
+.user-modal-col-5{
+    height: 78%;
+    width: 50%;
+    background-image: url(../..//admin_assets/images/userbg7.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    background-size: cover;
+}
+.user-modal-user-profile{
+    position: absolute;
+    margin-left: 89%;
+    margin-top: 10%;
+    height: 35%;
+    box-shadow: 0px 1px 10px gray;
+}
+#cover-img-pro{
+    display: none;
+}
+.cover-img-pro{
+    height: 210px;
+    width: 210px;
+    
+    top: 50%;
+    left: 42%;
+}
+.img{
+    height: 210px;
+    width: 210px;
+    border-radius: 100%;
+}
+.cover-img-pro:hover .img-overlay i{
+    visibility: visible;
+} 
+.img-overlay i{
+    visibility: hidden;
+}
+.user-img-pro:hover .img-overlay{
+    height: 210px;
+    width: 210px;
+    border-radius: 100%;
+    transition: 1.5s;
+    cursor: pointer;
+    position: relative;
+}
+.icon{
+    position: absolute;
+    font-size: 45px !important;
+    top: 41%;
+    color: white;
+    left: 41%;
+}
+.border-coupon{
+    border-bottom: 1px solid #B0B7C1;
+    margin-top: 1%;
+}
+.close-coupon i{
+    font-size: 17px;
+    margin-top: 1.5%;
+    margin-left: 3%;
+}
+.coupon-code input{
+    width: 30%;
+    margin-top: 1%;
+    margin-left: 2.5%;
+    position: relative;
+    display: inline-block;
+    border-color:#B0B7C1;
+}
+.coupon-code .btn-apply{
+    background: red;
+    position: absolute;
+    display: inline-block;
+    top: 8.5%;
+    left: 27.5%;
+    padding: 7px 20px;
+    color: #fff !important;
+    font-weight: 600;
+    box-shadow: 0px 0px 1px #000;
+}
+.coupon-desc{
+    margin-left: 2%;
+   
+   
+}
+.coupon1 h3{
+    font-size: 15px ;
+    font-weight: 600;
+    margin-left: 2%;
+    padding-top: 2%;
+}
+.coupon1 .coupon-simbol{
+    font-size: 15px;
+    margin-left: 2%;
+    height: 50px;
+    width: 50px;
+    border-left: 1px solid #000;
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
+    padding: 12px;
+    border-bottom-right-radius:5px; 
+    border-top-right-radius:5px; 
+    position: relative;
+    color: orange !important;
+}
+.coupon1 .coupon-name{
+    font-size: 15px;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
+    border-bottom-left-radius:5px; 
+    border-top-left-radius:5px; 
+    position: absolute;
+    padding: 12.5px;
+    cursor: pointer;
+}
+.coupon-desc input{
+    display:none;
+}
+.coupon1 h4{
+    font-size: 15px;
+    margin-left: 2%;
+    margin-top: 1%;
+    font-weight: 600;
+}
+.coupon1 h5{
+    font-size: 13px;
+    margin-left: 2%;
+    margin-top: 1%;
+    
+}
+.coupon1 .more-coupon{
+    margin-left: 2%;
+    font-size: 12px;
+    color: #ff0018 !important;
+    font-weight: 600;
+}
+.coupon1 .btn-applycupn{
+    border: 1px solid #ff0018;
+    margin-left: 2%;
+    color: #ff0018 !important;
+    padding: 0.5% 1%;
+    font-weight: 600;
+}
+.border-cupn{
+    /*border-bottom: 1px solid #ced4da;*/
+    margin-top: 2%;
+    margin-left: 2%;
+   width: 30%;
+}
