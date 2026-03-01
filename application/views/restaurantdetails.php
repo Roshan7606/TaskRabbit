@@ -162,7 +162,7 @@
                     <div class="col-12">
                         <div class="restaurent-menu scrollnav">
                             <ul class="nav nav-pills">
-                                <li class="nav-item"> <a class="nav-link active text-light-white fw-700" data-toggle="pill" href="#menu">Menu</a>
+                                <!-- <li class="nav-item"> <a class="nav-link active text-light-white fw-700" data-toggle="pill" href="#menu">Menu</a> -->
                                 </li>
                                 <li class="nav-item"> <a class="nav-link text-light-white fw-700" data-toggle="pill" href="#food">Food Item</a>
                                 </li>
@@ -212,14 +212,14 @@
         <div class="container">
             <div class="row check_menu">
 
-                <div class="col-md-6 menu_detail">
+                <!-- <div class="col-md-6 menu_detail">
                     <center>
                         <h4>What's my favourite food?</h4>
                         <img src="<?php echo base_url(); ?>assets/img/arrow4.png">
                         <h4>One you order out.</h4>
                     </center>
-                </div>
-                <div class=" menu_order col-md-6">
+                </div> -->
+                <!-- <div class=" menu_order col-md-6">
 
                     <a href="<?php echo base_url(); ?>Menu"><img src="<?php echo base_url(); ?>assets/img/menu-cover1.jpg"></a>
                     <div class="menu_text" >
@@ -229,7 +229,7 @@
                     </div>
 
 
-                </div>
+                </div> -->
 
 
             </div>
@@ -248,7 +248,7 @@
 
                                     <div class="user-menu scrollnav">
                                     <ul class="nav-pills">
-                                        <li class="user-menu-li">CUISINES</li>
+                                        <li class="user-menu-li">Prices</li>
                                         <li class="display-none"><a href="" class="active-cuisin ">Search Result</a></li>
                                         <?php 
                                         $c = 0;
@@ -258,7 +258,7 @@
                                         ?>
                                         <li><a  href="#it_<?php echo $single->category_id; ?>"  class="<?php
                                             
-                                        ?>"><?php echo $single->name; ?></a></li>
+                                        ?>"><?php echo  $single->name;?></a></li>
                                         <?php
                                             }
                                         ?>
