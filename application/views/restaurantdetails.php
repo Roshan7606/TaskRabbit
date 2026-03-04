@@ -170,7 +170,7 @@
                                 </li>
                                 <li class="nav-item"> <a class="nav-link text-light-white fw-700" data-toggle="pill" href="#review">Reviews</a>
                                 </li>
-                                <li class="nav-item"> <a class="nav-link text-light-white fw-700" data-toggle="pill" href="#mapgallery">Map & Gallery</a>
+                                <!-- <li class="nav-item"> <a class="nav-link text-light-white fw-700" data-toggle="pill" href="#mapgallery">Map & Gallery</a> -->
                                 </li>
                             </ul>
                             <div class="add-wishlist">
@@ -679,8 +679,8 @@
                 <div class="row">
                     <div class="col-md-6">
                         <h3 class="text-light-black fw-700 title"><?php echo ucwords($restaurent_detail[0]->restaurant_name); ?></h3>
-                        <p class="text-light-green no-margin">Item Category Provided By Us</p>
-                        <p class="text-light-white no-margin"><?php echo ucwords($restaurent_detail[0]->category); ?></p> 
+                        <p class="text-light-green no-margin">Services Category Provided By Us</p>
+                        <!-- <p class="text-light-white no-margin"><?php echo ucwords($restaurent_detail[0]->category); ?></p>  -->
                         <div class="rating"> 
                             <?php
                             $cnt_star = round($star_rating[0]->rate_star);
@@ -746,7 +746,7 @@
                     <div class="col-md-6">
                         <div class="restaurent-schdule">
                             <div class="card">
-                                <div class="card-header text-light-white fw-700 fs-16">Restaurant Service Time</div>
+                                <div class="card-header text-light-white fw-700 fs-16">Available Service Timing</div>
                                 <div class="card-body">
                                     <?php 
                                          foreach($schedule_details as $single)
@@ -754,7 +754,7 @@
                                     ?>
                                     <div class="schedule-box">
                                         <div class="day text-light-black"><?php echo $single->day_name; ?></div>
-                                        <div class="time text-light-black">Delivery: <?php echo date("h:ia",strtotime($single->open_time));?> - <?php echo date("h:ia",strtotime($single->close_time));?></div>
+                                        <div class="time text-light-black">Available: <?php echo date("h:ia",strtotime($single->open_time));?> - <?php echo date("h:ia",strtotime($single->close_time));?></div>
                                     </div>
                                     <?php 
                                          }
@@ -769,7 +769,7 @@
         </section>
         <!-- restaurent about -->
         <!-- map gallery -->
-        <div class="map-gallery-sec section-padding bg-light-theme smoothscroll" id="mapgallery">
+        <!-- <div class="map-gallery-sec section-padding bg-light-theme smoothscroll" id="mapgallery">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
@@ -783,7 +783,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- map gallery -->
         <!-- restaurent reviews -->
         <section class="section-padding restaurent-review smoothscroll" id="review">
