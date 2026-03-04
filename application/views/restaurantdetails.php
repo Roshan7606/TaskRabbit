@@ -250,17 +250,15 @@
                                     <ul class="nav-pills">
                                         <li class="user-menu-li">Prices</li>
                                         <li class="display-none"><a href="" class="active-cuisin ">Search Result</a></li>
-                                         <?php 
+                                        <?php 
                                         $c = 0;
                                             foreach($food_menu_cuisin as $single)
                                             {
                                                 $c++;
-                                        ?> 
-                                        
+                                        ?>
                                         <li><a  href="#it_<?php echo $single->category_id; ?>"  class="<?php
                                             
-                                        ?>">
-                                        <?php echo  $single->name;?></a></li>
+                                        ?>"><?php echo  $single->name;?></a></li>
                                         <?php
                                             }
                                         ?>
