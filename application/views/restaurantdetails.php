@@ -343,11 +343,11 @@
                                                                                     <?php
                                                                                 } elseif ($data->category == "Non veg") {
                                                                                     ?>
-                                                                                    <span class="rectangle-tag product-label-non-veg">Non-Veg</span>
+                                                                                    <span class="rectangle-tag product-label-non-veg">Good</span>
                                                                                     <?php
                                                                                 } else {
                                                                                     ?>
-                                                                                    <span class="rectangle-tag product-label-ovo-veg-tag">Ovo-Veg</span>
+                                                                                    <span class="rectangle-tag product-label-ovo-veg-tag">Excellent</span>
                                                                                     <?php
                                                                                 }
                                                                                 ?>
@@ -1200,7 +1200,7 @@
             if($restaurent_detail[0]->service_status == "closed")
             {
         ?>
-        <div class="restaurant-closed-msg">
+        <!-- <div class="restaurant-closed-msg">
             <div class="row">
                 <div class="col-md-2 padding-right-none padding-left-none">
                 <img src="<?php echo base_url(); ?>assets/img/res-closed.png">
@@ -1211,7 +1211,7 @@
                 </div>
             </div>
             
-        </div>
+        </div> -->
 <?php        
             }
         ?>
