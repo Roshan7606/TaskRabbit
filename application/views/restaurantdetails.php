@@ -32,8 +32,8 @@
                         <div class="heading padding-tb-10">
                             <h3 class="text-light-black title fw-700 no-margin">
                                 <?php
-                                if ($restaurent_detail[0]->restaurant_name != "") {
-                                    echo $restaurent_detail[0]->restaurant_name;
+                                if ($restaurent_detail[0]->service_name != "") {
+                                    echo $restaurent_detail[0]->service_name;
                                 } else {
                                     echo "Data not inserted";
                                 }

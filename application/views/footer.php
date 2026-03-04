@@ -19,7 +19,7 @@
             </div>
             <div class="col-md-2 col-sm-4 col-6">
                 <div class="icon-box"> <span class="text-light-green"><i class="flaticon-truck"></i></span>
-                    <span class="text-white">Free Delivery<br>with &#8377;50</span>
+                    <span class="text-white">Home Services<br>from &#8377;50</span>
                 </div>
             </div>
             <div class="col-md-2 col-sm-4 col-6">
@@ -64,11 +64,11 @@
                     <ul>
                         <li class="fw-600"><span class="text-white">Call Us</span> <a href="tel:+917046221211" class="text-white">+(91) 7046221211</a>
                         </li>
-                        <li class="fw-600"><span class="text-white">Email</span> <a href="mailto:munchbox@domain.com" class="text-white">munchbox@domain.com</a>
+                        <li class="fw-600"><span class="text-white">Email</span> <a href="mailto:taskrabbit@domain.com" class="text-white">TaskRabbit@domain.com</a>
                         </li>
-                        <li class="fw-600"><span class="text-white">Join our twitter</span> <a href="#" class="text-white">@munchbox</a>
+                        <li class="fw-600"><span class="text-white">Join our twitter</span> <a href="#" class="text-white">@TaskRabbit</a>
                         </li>
-                        <li class="fw-600"><span class="text-white">Join our instagram</span> <a href="#" class="text-white">@munchbox</a>
+                        <li class="fw-600"><span class="text-white">Join our instagram</span> <a href="#" class="text-white">@TaskRabbit</a>
                         </li>
                     </ul>
                 </div>
@@ -112,7 +112,7 @@
             </div>
             <div class="col-xl col-lg-3 col-md-3 col-sm-6">
                 <div class="footer-links">
-                    <h6 class="text-white">Restaurants</h6>
+                    <h6 class="text-white">service</h6>
                     <ul>
                         <?php 
                             $record_city = $this->md->my_query("select * from tbl_restaurant LIMIT 5");
@@ -178,7 +178,7 @@
                             </span> 
                             
                         </div>
-                        <p style="margin-top: 2%;color: #fff;font-size: 14px;" id="email-message">Subscribe to our newsletter to get latest update and amazing offer on food ordering.</p>
+                        <p style="margin-top: 2%;color: #fff;font-size: 14px;" id="email-message">Subscribe to our newsletter to get latest update and amazing offer</p>
                     </div>
                 </div>
             </div>
@@ -201,12 +201,27 @@
                 </div>
             </div>
             <div class="col-lg-4 text-center medewithlove align-self-center">
-                <a href="http://www.slidesigma.com/" class="text-white">Made with Real <i class="fas fa-heart"></i> Indian's Food</a>
+                <a href="http://www.slidesigma.com/" class="text-white">Made with Bharat <i class="fas fa-heart"></i></a>
             </div>
             <div class="col-lg-4">
-                <div class="copyright-text"> <span class="text-white">All Rights © <?php echo date('Y'); ?> Reserved , Design & Developed By <a href="#" class="text-white">MUNCHBOX</a></span>
+                <!-- <div class="copyright-text"> <span class="text-white">All Rights © <?php echo date('Y'); ?> Reserved , Design & Developed By <a href="#" class="text-white">TaskRabbit</a></span> -->
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+
+window.addEventListener("scroll",function(){
+
+let header=document.querySelector(".header");
+
+if(window.scrollY>60){
+header.classList.add("scrolled");
+}else{
+header.classList.remove("scrolled");
+}
+
+});
+
+</script>

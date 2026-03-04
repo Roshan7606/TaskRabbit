@@ -28,7 +28,7 @@
                 </video>                    <div class="col-md-6 bg-home-sub">
                         <div class="section-2 main-page main-padding home-padding">
                             <div class="top-nav">
-                                <a href="<?php echo base_url("Restaurant-Sign-Up"); ?>"><h5>Partner with us?</h5></a>
+                                <!-- <a href="<?php echo base_url("Restaurant-Sign-Up"); ?>"><h5>Partner with us?</h5></a> -->
                                 <!--h5><a href="login.php" class="text-light-green fw-700">Sign up</a></h5-->
                             </div>
                             <div class="login-box bg-login">

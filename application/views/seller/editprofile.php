@@ -59,7 +59,7 @@ $seller_detail = $this->md->my_select("tbl_restaurant", "*", array("restaurant_i
                                                             <div class="form-group col-md-4">
                                                                 <label class="font-weight-semibold" for="restaurantName">Restaurant Name:</label>
                                                                 <input type="text" name="resname" disabled="" autofocus="" class="form-control" id="restaurantName" placeholder="<?php
-                                                                if ($data->restaurant_name == "") {
+                                                                if ($data->service_name == "") {
                                                                     echo 'Data Not Found';
                                                                 } else {
                                                                     echo $data->restaurant_name;
@@ -103,7 +103,7 @@ $seller_detail = $this->md->my_select("tbl_restaurant", "*", array("restaurant_i
                                                             <div class="form-group col-md-4">
                                                                 <label class="font-weight-semibold" for="restaurantName">Restaurant Name:</label>
                                                                 <input type="text" name="resname" check_control="" autofocus="" class="form-control" id="restaurantName" value="<?php
-                                                                if ($data->restaurant_name == "") {
+                                                                if ($data->service_name == "") {
                                                                     echo 'Data Not Found';
                                                                 } else {
                                                                     echo $data->restaurant_name;

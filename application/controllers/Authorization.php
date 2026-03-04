@@ -316,7 +316,7 @@ class Authorization extends CI_Controller
     {
         $this->security();
         $data = array();
-        $data["request_detail"] = $this->md->my_query("select rq.*,se.restaurant_name from tbl_request as rq,tbl_restaurant as se where se.restaurant_id = rq.restaurant_id");
+        $data["request_detail"] = $this->md->my_query("select rq.*,se.service_name from tbl_request as rq,tbl_restaurant as se where se.restaurant_id = rq.restaurant_id");
         $this->load->view("admin/request",$data); 
     }
     public function manageactivestores() 
