@@ -10,7 +10,7 @@
 
 
     <head>
-        <title>User-Order | Munchbox-Foodies food</title>
+        <title>User-Order | TaskRabbit</title>
         <?php
         $this->load->view("CSS");
         ?>
@@ -38,18 +38,18 @@
                 ?>
                 <div class="col-md-9 col-sm-9 col-xs-12">
                     <div class="user-menu-display">
-                        <h2>Order</h2>
+                        <h2>Booking</h2>
                         <div class="wishlist-nav">
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs " role="tablist">
                                 <li role="presentation" class="wishlist-li active" id="wishlist-item">
-                                    <a href="#fooditem" aria-controls="fooditem" role="tab" data-toggle="tab">Active Orders</a>
+                                    <a href="#fooditem" aria-controls="fooditem" role="tab" data-toggle="tab">Active booking</a>
                                 </li>
                                 <li role="presentation" class="" id="wishlist-res">
-                                    <a href="#restaurant" aria-controls="restaurant" role="tab" data-toggle="tab">Past Orders</a>
+                                    <a href="#restaurant" aria-controls="restaurant" role="tab" data-toggle="tab">Past booking</a>
                                 </li>
                                 <li role="presentation" class="" id="wishlist-cancel">
-                                    <a href="#cancelorder" aria-controls="cancelorder" role="tab" data-toggle="tab">Canceled Orders</a>
+                                    <a href="#cancelorder" aria-controls="cancelorder" role="tab" data-toggle="tab">Canceled booking</a>
                                 </li>
                             </ul>
 
@@ -63,9 +63,9 @@
                                          ?>
                                             <div class="wishlist-empty">
                                                 <center>
-                                                    <img src="<?php echo base_url(); ?>assets/img/no-order-vis.png">
-                                                    <h3>Where is the order?</h3>
-                                                    <h6>Once you place a order, it will display here.</h6>
+                                                    <!-- <img src="<?php echo base_url(); ?>assets/img/no-order-vis.png"> -->
+                                                    <h3>Where is the Booking?</h3>
+                                                    <h6>Once you place a Booking, it will display here.</h6>
                                                 </center>
                                             </div>
                                         <?php
@@ -138,9 +138,9 @@
                                          ?>
                                             <div class="wishlist-empty">
                                                 <center>
-                                                    <img src="<?php echo base_url(); ?>assets/img/no-order-vis.png">
-                                                    <h3>Where is your order?</h3>
-                                                    <h6>Once your order is Delivered,It will display here.</h6>
+                                                    <!-- <img src="<?php echo base_url(); ?>assets/img/no-order-vis.png"> -->
+                                                    <h3>Where is your Booking?</h3>
+                                                    <h6>Once your Book is Delivered,It will display here.</h6>
                                                 </center>
                                             </div>
                                         <?php
@@ -200,9 +200,9 @@
                                          ?>
                                             <div class="wishlist-empty">
                                                 <center>
-                                                    <img src="<?php echo base_url(); ?>assets/img/no-order-vis.png">
-                                                    <h3>Where is your order?</h3>
-                                                    <h6>Once you Canceled Order,It will display here.</h6>
+                                                    <!-- <img src="<?php echo base_url(); ?>assets/img/no-order-vis.png"> -->
+                                                    <h3>Where is your Booking?</h3>
+                                                    <h6>Once you Canceled Booking,It will display here.</h6>
                                                 </center>
                                             </div>
                                         <?php

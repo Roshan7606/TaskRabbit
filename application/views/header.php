@@ -167,7 +167,7 @@
                                             <hr>
                                             <div class="img_emtcart">
                                                 <center> 
-                                                    <img src="<?php echo base_url(); ?>assets/img/emt_cart.png"><br><br>
+                                                    <!-- <img src="<?php echo base_url(); ?>assets/img/emt_cart.png"><br><br> -->
                                                     <p>Your cart is empty.</p>
                                                     <p>Add an item to begin.</p>
                                                 </center>

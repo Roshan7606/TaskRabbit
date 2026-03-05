@@ -9,7 +9,7 @@
 
 
     <head>
-        <title>User-Favourite | Munchbox-Foodies food</title>
+        <title>User-Favourite | TaskRabbit</title>
         <?php
         $this->load->view("CSS");
         ?>
@@ -40,10 +40,10 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs " role="tablist">
                                 <li role="presentation" class="wishlist-li active" id="wishlist-item">
-                                    <a href="#fooditem" aria-controls="fooditem" role="tab" data-toggle="tab">Food Item</a>
+                                    <a href="#fooditem" aria-controls="fooditem" role="tab" data-toggle="tab">Service provider</a>
                                 </li>
                                 <li role="presentation" class="" id="wishlist-res">
-                                    <a href="#restaurant" aria-controls="restaurant" role="tab" data-toggle="tab">Restaurant</a>
+                                    <a href="#restaurant" aria-controls="restaurant" role="tab" data-toggle="tab">Services</a>
                                 </li>
                             </ul>
 
@@ -59,7 +59,7 @@
                                                 <center>
                                                     <img src="<?php echo base_url(); ?>assets/img/empty_favorites_food_wishlist.png">
                                                     <h3>Where is the love?</h3>
-                                                    <h6>Once you favourite a food, it will appear here.</h6>
+                                                    <h6>Once you favourite a Service, it will appear here.</h6>
                                                 </center>
                                             </div>
 
@@ -141,7 +141,7 @@
                                             ?>
                                             <div class="wishlist-empty">
                                                 <center>
-                                                    <img src="<?php echo base_url(); ?>assets/img/empty_favourites_restaurant_wishlist.png">
+                                                    <!-- <img src="<?php echo base_url(); ?>assets/img/empty_favourites_restaurant_wishlist.png"> -->
                                                     <h3>Where is the love?</h3>
                                                     <h6>Once you favourite a restaurant, it will appear here.</h6>
                                                 </center>
