@@ -6,7 +6,7 @@
                     <!-- logo -->
                     <div class="logo mainNavCol"style="margin-left: 2%;">
                         <a href="index.php">
-                            <!-- <a href="<?php echo base_url("Home"); ?>">  <img src="<?php echo base_url(); ?>assets/img/logo.png" class="img-fluid" alt="Logo" style="width: 65%;height: 65%;"></a> -->
+                            <img src="<?php echo base_url(); ?>assets/img/logo.png" alt="Logo" style="height:40px;width:auto; transform:scale(4);">
                         </a>
                     </div>
                     <!-- logo -->
