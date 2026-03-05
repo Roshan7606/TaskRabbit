@@ -836,42 +836,38 @@ class Backend extends CI_Controller
                 {
                     if($this->input->post("search")=="")
                     {
-                        $query = "select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it where se.restaurant_id = it.restaurant_id and subcat.category_id = it.category_id and se.status = 1 GROUP BY it.restaurant_id ORDER BY se.restaurant_name ASC"; 
-                        $recordset=$this->md->my_query($query); 
+$query = "select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it where se.restaurant_id = it.restaurant_id and subcat.category_id = it.category_id and se.status = 1 GROUP BY it.restaurant_id ORDER BY se.restaurant_name ASC";                         $recordset=$this->md->my_query($query); 
                     }
                     else
                     {
                        $name="%".$this->input->post("search")."%";
-                       $query = "select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it,tbl_location as ar where ar.location_id = se.location_id and se.status = 1 and se.restaurant_id = it.restaurant_id and subcat.category_id = it.category_id and  ar.name like '".$name."' GROUP BY it.restaurant_id ORDER BY se.restaurant_name ASC "; 
-                       $recordset=$this->md->my_query($query); 
+$query = "select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it,tbl_location as ar where ar.location_id = se.location_id and se.status = 1 and se.restaurant_id = it.restaurant_id and subcat.category_id = it.category_id and  ar.name like '".$name."' GROUP BY it.restaurant_id ORDER BY se.restaurant_name ASC ";                        $recordset=$this->md->my_query($query); 
                     } 
                 }
                 elseif($this->input->post("id")==2)
                 {
                     if($this->input->post("search")=="")
                     {
-                        $query = "select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it where se.restaurant_id = it.restaurant_id and se.status = 1 and subcat.category_id = it.category_id GROUP BY it.restaurant_id ORDER BY se.restaurant_name ASC"; 
+                        $query = "select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it where se.restaurant_id = it.restaurant_id and se.status = 1 and subcat.category_id = it.category_id GROUP BY it.restaurant_id ORDER BY se.restaurant_name  ASC"; 
                         $recordset=$this->md->my_query($query); 
                     }
                     else
                     {
                        $name="%".$this->input->post("search")."%";
-                       $query = "select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it where  se.restaurant_id = it.restaurant_id and se.status = 1 and  subcat.category_id = it.category_id and it.item_name like '".$name."' GROUP BY it.restaurant_id ORDER BY se.restaurant_name ASC "; 
-                       $recordset=$this->md->my_query($query);
+$query = "select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it where  se.restaurant_id = it.restaurant_id and se.status = 1 and  subcat.category_id = it.category_id and it.item_name like '".$name."' GROUP BY it.restaurant_id ORDER BY se.restaurant_name ASC ";                       $recordset=$this->md->my_query($query);
                     }
                 }
                 elseif($this->input->post("id")==3)
                 {
                     if($this->input->post("search")=="")
                     {
-                        $query = "select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it where se.restaurant_id = it.restaurant_id and se.status = 1 and subcat.category_id = it.category_id GROUP BY it.restaurant_id ORDER BY se.restaurant_name ASC"; 
+                        $query = "select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it where se.restaurant_id = it.restaurant_id and se.status = 1 and subcat.category_id = it.category_id GROUP BY it.restaurant_id ORDER BY se.restaurant_name  ASC"; 
                         $recordset=$this->md->my_query($query); 
                     }
                     else
                     {
                        $name="%".$this->input->post("search")."%";
-                       $query = "select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it where se.restaurant_id = it.restaurant_id and se.status = 1 and subcat.category_id = it.category_id and se.restaurant_name like '".$name."' GROUP BY it.restaurant_id ORDER BY se.restaurant_name ASC";
-                       $recordset=$this->md->my_query($query);
+$query = "select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it where se.restaurant_id = it.restaurant_id and se.status = 1 and subcat.category_id = it.category_id and se.restaurant_name like '".$name."' GROUP BY it.restaurant_id ORDER BY se.restaurant_name ASC";                       $recordset=$this->md->my_query($query);
                     }
                 }
         }
@@ -881,27 +877,24 @@ class Backend extends CI_Controller
                 {
                     if($this->input->post("search")=="")
                     {
-                        $query = "select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it,tbl_location as ar,tbl_location as ct where se.restaurant_id = it.restaurant_id  and subcat.category_id = it.category_id and ar.location_id = se.location_id and ct.location_id = ar.parent_id and ct.location_id = '".$id."' GROUP BY it.restaurant_id ORDER BY se.restaurant_name ASC"; 
-                        $recordset=$this->md->my_query($query); 
+$query = "select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it,tbl_location as ar,tbl_location as ct where se.restaurant_id = it.restaurant_id  and subcat.category_id = it.category_id and ar.location_id = se.location_id and ct.location_id = ar.parent_id and ct.location_id = '".$id."' GROUP BY it.restaurant_id ORDER BY se.restaurant_name ASC";                        $recordset=$this->md->my_query($query); 
                     }
                     else
                     {
                        $name="%".$this->input->post("search")."%";
-                       $query = "select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it,tbl_location as ar,tbl_location as ct  where ar.location_id = se.location_id and ct.location_id = ar.parent_id and se.status = 1 and ct.location_id = '".$id."' and se.restaurant_id = it.restaurant_id and subcat.category_id = it.category_id and  ar.name like '".$name."' GROUP BY it.restaurant_id ORDER BY se.restaurant_name ASC "; 
-                       $recordset=$this->md->my_query($query); 
+$query = "select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it,tbl_location as ar,tbl_location as ct  where ar.location_id = se.location_id and ct.location_id = ar.parent_id and se.status = 1 and ct.location_id = '".$id."' and se.restaurant_id = it.restaurant_id and subcat.category_id = it.category_id and  ar.name like '".$name."' GROUP BY it.restaurant_id ORDER BY se.restaurant_name ASC ";                       $recordset=$this->md->my_query($query); 
                     } 
                 }
                 elseif($this->input->post("id")==2)
                 {
                     if($this->input->post("search")=="")
                     {
-                        $query = "select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it,tbl_location as ar,tbl_location as ct where se.restaurant_id = it.restaurant_id  and subcat.category_id = it.category_id and ar.location_id = se.location_id and ct.location_id = ar.parent_id and ct.location_id = '".$id."' GROUP BY it.restaurant_id ORDER BY se.restaurant_name ASC"; 
-                        $recordset=$this->md->my_query($query); 
+$query = "select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it,tbl_location as ar,tbl_location as ct where se.restaurant_id = it.restaurant_id  and subcat.category_id = it.category_id and ar.location_id = se.location_id and ct.location_id = ar.parent_id and ct.location_id = '".$id."' GROUP BY it.restaurant_id ORDER BY se.restaurant_name ASC";                        $recordset=$this->md->my_query($query); 
                     }
                     else
                     {
                        $name="%".$this->input->post("search")."%";
-                       $query = "select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it,tbl_location as ar,tbl_location as ct where ar.location_id = se.location_id and ct.location_id = ar.parent_id and se.status = 1 and ct.location_id = '".$id."' and  se.restaurant_id = it.restaurant_id and subcat.category_id = it.category_id and it.item_name like '".$name."' GROUP BY it.restaurant_id ORDER BY se.restaurant_name ASC "; 
+                       $query = "select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it,tbl_location as ar,tbl_location as ct where ar.location_id = se.location_id and ct.location_id = ar.parent_id and se.status = 1 and ct.location_id = '".$id."' and  se.restaurant_id = it.restaurant_id and subcat.category_id = it.category_id and it.item_name like '".$name."' GROUP BY it.restaurant_id ORDER BY se.restaurant_name  ASC "; 
                        $recordset=$this->md->my_query($query);
                     }
                 }
@@ -909,14 +902,13 @@ class Backend extends CI_Controller
                 {
                     if($this->input->post("search")=="")
                     {
-                        $query = "select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it,tbl_location as ar,tbl_location as ct where se.restaurant_id = it.restaurant_id  and subcat.category_id = it.category_id and ar.location_id = se.location_id and ct.location_id = ar.parent_id and ct.location_id = '".$id."' GROUP BY it.restaurant_id ORDER BY se.restaurant_name ASC"; 
+                        $query = "select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it,tbl_location as ar,tbl_location as ct where se.restaurant_id = it.restaurant_id  and subcat.category_id = it.category_id and ar.location_id = se.location_id and ct.location_id = ar.parent_id and ct.location_id = '".$id."' GROUP BY it.restaurant_id ORDER BY se.restaurant_name  ASC"; 
                         $recordset=$this->md->my_query($query); 
                     }
                     else
                     {
                        $name="%".$this->input->post("search")."%";
-                       $query = "select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it,tbl_location as ar,tbl_location as ct where ar.location_id = se.location_id and ct.location_id = ar.parent_id and se.status = 1 and ct.location_id = '".$id."' and se.restaurant_id = it.restaurant_id and subcat.category_id = it.category_id and se.restaurant_name like '".$name."' GROUP BY it.restaurant_id ORDER BY se.restaurant_name ASC";
-                       $recordset=$this->md->my_query($query);
+$query = "select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it,tbl_location as ar,tbl_location as ct where ar.location_id = se.location_id and ct.location_id = ar.parent_id and se.status = 1 and ct.location_id = '".$id."' and se.restaurant_id = it.restaurant_id and subcat.category_id = it.category_id and se.restaurant_name like '".$name."' GROUP BY it.restaurant_id ORDER BY se.restaurant_name ASC";                       $recordset=$this->md->my_query($query);
                     }
                 }
                 
@@ -1771,8 +1763,7 @@ class Backend extends CI_Controller
     }
     public function viewmoreitem()
     {
-        $detail = $this->md->my_query("select cat.name as category,subcat.name as subcategory , res.restaurant_name ,item.* from tbl_category as cat,tbl_category as subcat,tbl_restaurant as res,tbl_item as item where item.item_id > ".$this->input->post("last_item_id")." and subcat.category_id = item.category_id and cat.category_id = subcat.parent_id and item.image != '' and res.restaurant_id = item.restaurant_id and item.status=1  ORDER by item_id ASC LIMIT 12");
-        ?>
+$detail = $this->md->my_query("select cat.name as category,subcat.name as subcategory , res.restaurant_name ,item.* from tbl_category as cat,tbl_category as subcat,tbl_restaurant as res,tbl_item as item where item.item_id > ".$this->input->post("last_item_id")." and subcat.category_id = item.category_id and cat.category_id = subcat.parent_id and item.image != '' and res.restaurant_id = item.restaurant_id and item.status=1  ORDER by item_id ASC LIMIT 12");        ?>
     <div class="row">
         <?php
         foreach($detail as $data)

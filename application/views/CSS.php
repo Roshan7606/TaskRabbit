@@ -27,6 +27,9 @@
 <!-- Custom Stylesheet -->
 <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet">
 
+<!-- HEADER CSS (new) -->
+<link href="<?php echo base_url(); ?>assets/css/header.css" rel="stylesheet">
+
 <!-- Custom Responsive -->
 <link href="<?php echo base_url(); ?>assets/css/responsive.css" rel="stylesheet">
 

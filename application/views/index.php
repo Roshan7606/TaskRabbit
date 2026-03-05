@@ -28,7 +28,7 @@
                 </video>                    <div class="col-md-6 bg-home-sub">
                         <div class="section-2 main-page main-padding home-padding">
                             <div class="top-nav">
-                                <a href="<?php echo base_url("Restaurant-Sign-Up"); ?>"><h5>Partner with us?</h5></a>
+                                <!-- <a href="<?php echo base_url("Restaurant-Sign-Up"); ?>"><h5>Partner with us?</h5></a> -->
                                 <!--h5><a href="login.php" class="text-light-green fw-700">Sign up</a></h5-->
                             </div>
                             <div class="login-box bg-login">
@@ -88,7 +88,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="section-header-left">
-                            <h3 class="text-light-black header-title title">Explore our collections</h3>
+                            <h3 class="text-light-black header-title title">Explore our Work-partner</h3>
                         </div>
                     </div>
                 </div>
@@ -147,7 +147,7 @@
                                                         </a>
                                                     <a href="<?php echo base_url(); ?>Restaurant-Details/<?php echo $data->restaurant_id; ?>" class="btn-add-to-cart">
                                                         <span class="type-tag bg-gradient-green text-custom-white btn-addtocart top-137">
-                                                            Visit Restaurant
+                                                            Visit Services
                                                         </span>
                                                     </a>
                                                 </div>
@@ -164,15 +164,15 @@
                                                     <?php
                                                     if ($data->category == "Veg") {
                                                     ?>
-                                                    <span class="rectangle-tag product-label-veg padding-top-5">Veg</span>
+                                                    <span class="rectangle-tag product-label-veg padding-top-5">Excellent</span>
                                                     <?php
                                                 } elseif ($data->category == "Non veg") {
                                                     ?>
-                                                    <span class="rectangle-tag product-label-non-veg padding-top-5">Non-Veg</span>
+                                                    <span class="rectangle-tag product-label-non-veg padding-top-5">Good</span>
                                                     <?php
                                                 } else {
                                                     ?>
-                                                    <span class="rectangle-tag product-label-ovo-veg">Ovo-Veg</span>
+                                                    <span class="rectangle-tag product-label-ovo-veg">Average</span>
                                                     <?php
                                                 }
                                                 ?>
@@ -202,16 +202,16 @@
                                             </div>
                                             <div class="product-footer"> 
                                                 <span class="text-custom-white square-tag">
-                                                    <img src="<?php echo base_url(); ?>assets/img/svg/005-chef.svg" alt="tag" style="padding:4px;">
+                                                    <img src="<?php echo base_url(); ?>assets/img/svg/cleaning_2971406.png" alt="tag" style="padding:4px;">
                                                 </span>
                                                 <span class="text-custom-white square-tag">
-                                                    <img src="<?php echo base_url(); ?>assets/img/svg/004-leaf.svg" alt="tag">
+                                                    <img src="<?php echo base_url(); ?>assets/img/svg/polisher_13481448.png" alt="tag">
                                                 </span>
                                                 <span class="text-custom-white square-tag">
-                                                    <img src="<?php echo base_url(); ?>assets/img/svg/006-chili.svg" alt="tag">
+                                                    <img src="<?php echo base_url(); ?>assets/img/svg/cleaning_12211111.png" alt="tag">
                                                 </span>
                                                 <span class="text-custom-white square-tag">
-                                                    <img src="<?php echo base_url(); ?>assets/img/svg/008-protein.svg" alt="tag">
+                                                    <!-- <img src="<?php echo base_url(); ?>assets/img/svg/008-protein.svg" alt="tag"> -->
                                                 </span>
                                                 <a href="<?php echo base_url(); ?>Restaurant-Details/<?php echo $data->restaurant_id; ?>">
                                                 <span class="text-dark text-right btnprice" id="card">

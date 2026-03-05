@@ -32,8 +32,8 @@
                         <div class="heading padding-tb-10">
                             <h3 class="text-light-black title fw-700 no-margin">
                                 <?php
-                                if ($restaurent_detail[0]->restaurant_name != "") {
-                                    echo $restaurent_detail[0]->restaurant_name;
+                                if ($restaurent_detail[0]->restaurant_name  != "") {
+                                    echo $restaurent_detail[0]->restaurant_name ;
                                 } else {
                                     echo "Data not inserted";
                                 }
@@ -250,17 +250,15 @@
                                     <ul class="nav-pills">
                                         <li class="user-menu-li">Prices</li>
                                         <li class="display-none"><a href="" class="active-cuisin ">Search Result</a></li>
-                                         <?php 
+                                        <?php 
                                         $c = 0;
                                             foreach($food_menu_cuisin as $single)
                                             {
                                                 $c++;
-                                        ?> 
-                                        
+                                        ?>
                                         <li><a  href="#it_<?php echo $single->category_id; ?>"  class="<?php
                                             
-                                        ?>">
-                                        <?php echo  $single->name;?></a></li>
+                                        ?>"><?php echo  $single->name;?></a></li>
                                         <?php
                                             }
                                         ?>
@@ -345,11 +343,11 @@
                                                                                     <?php
                                                                                 } elseif ($data->category == "Non veg") {
                                                                                     ?>
-                                                                                    <span class="rectangle-tag product-label-non-veg">Non-Veg</span>
+                                                                                    <span class="rectangle-tag product-label-non-veg">Good</span>
                                                                                     <?php
                                                                                 } else {
                                                                                     ?>
-                                                                                    <span class="rectangle-tag product-label-ovo-veg-tag">Ovo-Veg</span>
+                                                                                    <span class="rectangle-tag product-label-ovo-veg-tag">Excellent</span>
                                                                                     <?php
                                                                                 }
                                                                                 ?>
@@ -1202,7 +1200,7 @@
             if($restaurent_detail[0]->service_status == "closed")
             {
         ?>
-        <div class="restaurant-closed-msg">
+        <!-- <div class="restaurant-closed-msg">
             <div class="row">
                 <div class="col-md-2 padding-right-none padding-left-none">
                 <img src="<?php echo base_url(); ?>assets/img/res-closed.png">
@@ -1213,7 +1211,7 @@
                 </div>
             </div>
             
-        </div>
+        </div> -->
 <?php        
             }
         ?>

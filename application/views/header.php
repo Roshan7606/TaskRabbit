@@ -119,7 +119,7 @@
                             ?>
                         <div class="gem-points">
                             <a href="<?php echo base_url("Log-in"); ?>">
-                                <span>LogIn / Register</span>
+                                <span>LogIn</span>
                             </a>
                         </div>
                          

@@ -4242,3 +4242,94 @@ footer .footer-links .appimg {
     font-size: 18px;
     margin-top: 10px;
 }
+
+
+/* ===== PREMIUM FOOTER DESIGN ===== */
+
+footer{
+    background: linear-gradient(180deg,#000,#0a0a0a);
+}
+
+/* headings
+footer h6{
+    font-size:18px;
+    font-weight:600;
+    letter-spacing:1px;
+    margin-bottom:20px;
+    position:relative;
+}
+
+/* underline effect */
+/* footer h6::after{
+    content:"";
+    width:35px;
+    height:2px;
+    background:#ff0018;
+    position:absolute;
+    bottom:-8px;
+    left:0;
+} */ */
+
+/* links style */
+footer .footer-links ul li a{
+    color:#cfcfcf !important;
+    transition:0.3s;
+}
+
+/* hover effect */
+footer .footer-links ul li a:hover{
+    color:#ff0018 !important;
+    padding-left:6px;
+}
+
+/* contact links */
+footer .footer-contact a{
+    color:#cfcfcf !important;
+    transition:0.3s;
+}
+
+footer .footer-contact a:hover{
+    color:#ff0018 !important;
+}
+
+/* social icons premium */
+footer .ft-social-media ul li{
+    border:1px solid rgba(255,255,255,0.2);
+    background:#0f0f0f;
+    transition:0.4s;
+}
+
+/* footer .ft-social-media ul li:hover{
+    background:#ff0018;
+    border-color:#ff0018;
+    transform:translateY(-6px) scale(1.05);
+} */
+
+/* newsletter input */
+footer .subscribe_form input{
+    /* background:#111; */
+    border:1px solid rgba(255,255,255,0.15);
+    color:#fff;
+}
+
+/* newsletter button */
+footer .btn-submit{
+    border-radius:4px;
+    background:#ff0018;
+    box-shadow:0 5px 15px rgba(255,0,24,0.4);
+}
+
+/* copyright */
+.copyright{
+    border-top:1px solid rgba(255,255,255,0.08);
+}
+
+/* payment icons */
+.payment-logo img{
+    margin-right:8px;
+    transition:0.3s;
+}
+
+.payment-logo img:hover{
+    transform:scale(1.1);
+}

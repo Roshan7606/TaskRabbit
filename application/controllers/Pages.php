@@ -67,8 +67,7 @@ class Pages extends CI_Controller {
 
     public function index() {
         $data = array();
-        $data["food_item_detail"] = $this->md->my_query("select cat.name as category,subcat.name as subcategory , res.restaurant_name ,item.* from tbl_category as cat,tbl_category as subcat,tbl_restaurant as res,tbl_item as item where subcat.category_id = item.category_id and cat.category_id = subcat.parent_id and res.restaurant_id = item.restaurant_id and item.status=1 ORDER by item_id ASC LIMIT 12");
-        $this->load->view("index", $data);
+$data["food_item_detail"] = $this->md->my_query("select cat.name as category,subcat.name as subcategory , res.restaurant_name ,item.* from tbl_category as cat,tbl_category as subcat,tbl_restaurant as res,tbl_item as item where subcat.category_id = item.category_id and cat.category_id = subcat.parent_id and res.restaurant_id = item.restaurant_id and item.status=1 ORDER by item_id ASC LIMIT 12");        $this->load->view("index", $data);
     }
 
     public function terms() {
@@ -214,8 +213,7 @@ class Pages extends CI_Controller {
         $id = $this->uri->segment(2);
         $query = "SELECT st.name as state,ct.name as city,ar.name as area from tbl_location as st,tbl_location as ct,tbl_location as ar ,tbl_restaurant as se where se.location_id = ar.location_id and ar.parent_id = ct.location_id and ct.parent_id = st.location_id and se.restaurant_id = " . $id;
         $data["restaurent_address_detail"] = $this->md->my_query($query);
-        $data["restaurent_detail"] = $this->md->my_query("select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it where se.restaurant_id = it.restaurant_id and se.restaurant_id = " . $id . " and subcat.category_id = it.category_id GROUP BY it.restaurant_id ORDER BY se.restaurant_name ASC");
-        $data["user_detail"] = $this->md->my_select("tbl_user", "*", array("user_id" => $this->session->userdata("user_username")));
+ $data["restaurent_detail"] = $this->md->my_query("select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it where se.restaurant_id = it.restaurant_id and se.restaurant_id = " . $id . " and subcat.category_id = it.category_id GROUP BY it.restaurant_id ORDER BY se.restaurant_name ASC");        $data["user_detail"] = $this->md->my_select("tbl_user", "*", array("user_id" => $this->session->userdata("user_username")));
         $query = "select cat.name as category,subcat.name,item.* from tbl_category as cat ,tbl_category as subcat,tbl_item as item where item.restaurant_id = " . $id . " and subcat.category_id = item.category_id and cat.category_id = subcat.parent_id and status = 1 order by subcat.name";
         $data["food_item_count"] = $this->md->my_query($query);
         $data["star_rating"] = $this->md->my_query("select AVG(rating) as rate_star , count(*) as cnt_rate from tbl_review_rating where restaurant_id = " . $id);
