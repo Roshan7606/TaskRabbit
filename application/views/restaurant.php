@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <meta name="keywords" content="#">
         <meta name="description" content="#">
-        <title>Restaurant | MUNCHBOX-The foodies food</title>
+        <title>Restaurant | TaskRabbit</title>
         <!-- Fav and touch icons -->
         <?php
         $this->load->view("CSS");
@@ -35,9 +35,9 @@
                                         </div>
                                         <div class="col-md-10">
                                             <select class="form-control" id="select_search" name="select_search" onchange="findres($('#searchbox-textbox').val(),this.value)">
-                                                <option value="1">Area</option>
-                                                <option value="2">Food</option>
-                                                <option value="3">Restaurant</option>
+                                                <!-- <option value="1"></option>
+                                                <option value="2"></option> -->
+                                                <option value="3">Service</option>
                                             </select>
                                         </div>
                                     </div>

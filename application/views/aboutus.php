@@ -9,7 +9,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <meta name="keywords" content="#">
         <meta name="description" content="#">
-        <title>About Us || MUNCHBOX-The Foodies Food</title>
+        <title>About Us || TaskRabbit</title>
         <!-- Fav and touch icons -->
         <?php
         $this->load->view("CSS");
@@ -32,7 +32,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6">
                         <div class="history-title mb-md-40">
-                            <h2 class="text-light-black">A History Has Written For Munchbox Explore <span class="text-light-green">more Our Story</span></h2>
+                            <h2 class="text-light-black">A History Has Written For TaskRabbit Explore <span class="text-light-green">more Our Story</span></h2>
                             <p class="text-light-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
                             <p class="text-light-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse.</p>
                         </div>
@@ -73,7 +73,7 @@
                                     <span class="number-box">01</span>
                                 </span>
                                 <h6>Search</h6>
-                                <p>We provided facility to search your favourite restaurant or near by restaurant.</p>
+                                <p>We provided facility to search your favourite Service.</p>
                             </div>
                         </div>
                     </div>
@@ -84,7 +84,7 @@
                                     <span class="number-box">02</span>
                                 </span>
                                 <h6>Select</h6>
-                                <p>We have number of restaurants where you can select your favourite food item.</p>
+                                <p>We have number of services where you can select your favourite service provider.</p>
                             </div>
                         </div>
                     </div>
@@ -94,8 +94,8 @@
                                     <img src="<?php echo base_url(); ?>assets/img/002-stopwatch.png" alt="icon">
                                     <span class="number-box">03</span>
                                 </span>
-                                <h6>Order</h6>
-                                <p>We provide facility for place order within restaurant service time,order process is easy and convenient for every user.</p>
+                                <h6>Book</h6>
+                                <p>We provide facility for place Book within  service time,service process is easy and convenient for every user.</p>
                             </div>
                         </div>
                     </div>
@@ -106,7 +106,7 @@
                                     <span class="number-box">04</span>
                                 </span>
                                 <h6>Enjoy</h6>
-                                <p>We provide your favourite food at your doorstep so you enjoy your favourite food item.</p>
+                                <p>We provide your favourite service at your doorstep so you enjoy your favourite things.</p>
                             </div>
                         </div>
                     </div>

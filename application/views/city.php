@@ -9,7 +9,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <meta name="keywords" content="#">
         <meta name="description" content="#">
-        <title>Cities || MUNCHBOX-The Foodies Food</title>
+        <title>Cities || TaskRabbit</title>
         <!-- Fav and touch icons -->
         <?php
           $this->load->view("CSS");
@@ -73,7 +73,7 @@
                                         <p class="text-light-white" style="font-size: 15px;">India &Longrightarrow; <?php echo $data->state ?></p>
                                         <div class="product-details">
                                             <div class="price-time"> 
-                                                <span class="text-light-black time" style="font-size: 15px;">Total Restaurants</span>
+                                                <span class="text-light-black time" style="font-size: 15px;">Total Services</span>
                                                 <!--<span class="text-light-white price">$10 min</span>-->
                                             </div>
                                             <div class="rating">  
@@ -84,7 +84,7 @@
                                 </div>
                                 <div class="product-footer-2">  
                                     <div class="discount-coupon"> 
-                                        <a href="<?php echo base_url(); ?>Restaurant/<?php echo $data->res_location; ?>"><span class="text-light-white fs-14">Show All Restaurants</span></a>
+                                        <a href="<?php echo base_url(); ?>Restaurant/<?php echo $data->res_location; ?>"><span class="text-light-white fs-14">Show All Services</span></a>
                                     </div>
                                 </div>
                             </div>
