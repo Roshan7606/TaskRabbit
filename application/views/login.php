@@ -19,8 +19,8 @@
                     <div class="col-md-6">
                         <div class="main-banner">
                             <img src="<?php echo base_url(); ?>assets/img/banner/banner-1.png" class="img-fluid full-width main-img" alt="banner">
-                            +
-                            <!-- <img src="<?php echo base_url(); ?>assets/img/banner/burger.png" class="footer-img" alt="footer-img"> -->
+                            
+                            <!-- <img src="<?php echo base_url(); ?>assets/img/banner/burger.png" class="center-img" alt="footer-img"> -->
                         </div>
                     </div>
                     <div class="col-md-6">

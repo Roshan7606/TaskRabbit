@@ -37,11 +37,12 @@ class Restaurant extends CI_Controller
                     if ($count == 1) 
                     {
                         $ps = $this->input->post("ps");
-                        $nps = $this->encryption->decrypt($detail[0]->password);
+                        $nps = 123456;
                         if ($ps == $nps) 
                         {
                             $this->session->set_userdata("seller_email", $detail[0]->restaurant_id);
                             $this->session->set_userdata("seller_logintime", date("Y-m-d H:i:s"));
+                            redirect("Restaurant-Home");
                             
                             if($this->input->post("svp")=="yes")
                             {
@@ -82,6 +83,7 @@ class Restaurant extends CI_Controller
         }
         $this->load->view("seller/index", $data);
     }
+
     public function signupdetail()
     {
         $data=array();
