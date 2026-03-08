@@ -1,6 +1,12 @@
+<?php if($this->session->flashdata('success')){ ?>
+<div class="alert alert-success">
+<?php echo $this->session->flashdata('success'); ?>
+</div>
+<?php } ?>
 <?php
 $seller_detail = $this->md->my_select("tbl_restaurant", "*", array("restaurant_id" => $this->session->userdata("seller_email")));
 ?>
+<?php $provider = isset($edit_profile[0]) ? $edit_profile[0] : null; ?>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -175,39 +181,39 @@ $seller_detail = $this->md->my_select("tbl_restaurant", "*", array("restaurant_i
                                                     <h4 class="card-title">Professional Details</h4>
                                                 </div>
                                                 <div class="card-body">
-                                                    <form method="post" action="">
+                                                    <form method="post" action="<?= base_url('Restaurant/update_profile'); ?>">
                                                         <div class="form-row">
                                                             <div class="form-group col-md-6">
                                                                 <label class="font-weight-semibold">Primary Skill:</label>
-                                                                <input type="text" name="primary_skill" class="form-control" placeholder="e.g. Electrician, Plumber, Cleaner">
+                                                                <input type="text" name="primary_skill" class="form-control" placeholder="e.g. Electrician, Plumber, Cleaner" value="<?php echo ($provider && isset($provider->primary_skill)) ? $provider->primary_skill : ''; ?>">
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label class="font-weight-semibold">Experience:</label>
-                                                                <input type="text" name="experience" class="form-control" placeholder="e.g. 3 Years">
+                                                                <input type="text" name="experience" class="form-control" placeholder="e.g. 3 Years" value="<?php echo ($provider && isset($provider->experience)) ? $provider->experience : ''; ?>">
                                                             </div>
                                                         </div>
 
                                                         <div class="form-row">
                                                             <div class="form-group col-md-6">
                                                                 <label class="font-weight-semibold">Starting Price:</label>
-                                                                <input type="text" name="starting_price" class="form-control" placeholder="e.g. 299">
+                                                                <input type="text" name="starting_price" class="form-control" placeholder="e.g. 299" value="<?php echo ($provider && isset($provider->starting_price)) ? $provider->starting_price : ''; ?>">
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label class="font-weight-semibold">Languages Known:</label>
-                                                                <input type="text" name="languages" class="form-control" placeholder="e.g. Gujarati, Hindi, English">
+                                                                <input type="text" name="languages" class="form-control" placeholder="e.g. Gujarati, Hindi, English" value="<?php echo ($provider && isset($provider->languages)) ? $provider->languages : ''; ?>">
                                                             </div>
                                                         </div>
 
                                                         <div class="form-row">
                                                             <div class="form-group col-md-12">
                                                                 <label class="font-weight-semibold">About Me:</label>
-                                                                <textarea name="about_me" class="form-control" rows="4" placeholder="Write a short introduction about your work experience and services"></textarea>
+                                                                <textarea name="about_me" class="form-control" rows="4" placeholder="Write a short introduction about your work experience and services"><?php echo ($provider && isset($provider->about_me)) ? $provider->about_me : ''; ?></textarea>
                                                             </div>
                                                         </div>
 
                                                         <div class="form-row">
                                                             <div class="col-md-4">
-                                                                <button type="submit" class="btn change-profile-btn" name="updateprofessional">Save Details</button>
+                                                                <button type="submit" class="btn change-profile-btn">Save Details</button>
                                                             </div>
                                                         </div>
                                                     </form>
