@@ -27,8 +27,8 @@ class Restaurant extends CI_Controller
             $this->form_validation->set_rules("ps", "", "required",array('required' => "Please Enter Password."));
             if($this->form_validation->run() == TRUE) 
             {
-             if ($this->input->post("email") != "") 
-             {
+                if ($this->input->post("email") != "") 
+            {
                 if ($this->input->post("ps") != "") 
                 {
                     $email = $this->input->post("email");
@@ -42,12 +42,6 @@ class Restaurant extends CI_Controller
                         {
                             $this->session->set_userdata("seller_email", $detail[0]->restaurant_id);
                             $this->session->set_userdata("seller_logintime", date("Y-m-d H:i:s"));
-<<<<<<< Updated upstream
-                            
-=======
-                            redirect("Restaurant-Home");
-
->>>>>>> Stashed changes
                             if($this->input->post("svp")=="yes")
                             {
                                 $exp = 60 * 60 * 24 * 3;
@@ -56,7 +50,7 @@ class Restaurant extends CI_Controller
                             }
                             else
                             {
-                               set_cookie("seller_email","",-10);
+                             set_cookie("seller_email","",-10);
                                set_cookie("seller_password","",-10);
                             }
                             if($detail[0]->status == 0)
@@ -135,7 +129,7 @@ class Restaurant extends CI_Controller
                  }
                  else
                  {
-                     $data["error"] = "Something is wrong";
+                    $data["error"] = "Something is wrong";
                  }
              }   
         }
