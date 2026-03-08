@@ -14,7 +14,7 @@ class Restaurant extends CI_Controller
             redirect("Restaurant-Sign-In");
         } 
 //        if($this->session->userdata("seller_email_package"))
-//        {
+//        {d
 //            redirect("Restaurant-Home");
 //        }
     }
