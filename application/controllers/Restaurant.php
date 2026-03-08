@@ -42,11 +42,7 @@ class Restaurant extends CI_Controller
                         {
                             $this->session->set_userdata("seller_email", $detail[0]->restaurant_id);
                             $this->session->set_userdata("seller_logintime", date("Y-m-d H:i:s"));
-                            redirect("Restaurant-Home");
-<<<<<<< HEAD
-                            
-=======
->>>>>>> 53a2c32adf11d0aa59f61e45602aaa3f8ff9acb9
+                            redirect("Restaurant-Home");    
                             if($this->input->post("svp")=="yes")
                             {
                                 $exp = 60 * 60 * 24 * 3;
@@ -662,7 +658,7 @@ public function update_profile()
 
     $this->md->my_update("tbl_restaurant", $ins, $wh);
 
-    redirect("Restaurant-Edit-Profile");
+    redirect("Restaurant/editprofile");
 }
 }
     
