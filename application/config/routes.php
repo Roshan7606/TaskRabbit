@@ -39,7 +39,7 @@ $route['User-Editprofile'] = "Pages/editprofile";
 $route['Remove-Visitor/(:any)/(:any)'] = "Pages/delete/$2/$3";
 $route['Insert-billing-information/(:any)'] = "Backend/insert_bill/$2";
 $route['User-Bill/(:any)/(:any)'] = "Pages/userbill/$2/$3";
-
+$route['addtocart'] = 'cart/addtocart';
 
 
 

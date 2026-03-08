@@ -381,7 +381,7 @@ function viewqty(pro_id,sel_id,user_id,price)
 {
     
     $data = {pro_id: pro_id,sel_id:sel_id,user_id:user_id,qty:1,action:'ins_cart',price:price};
-        $path = $base_url + "Backend/addtocart";
+        $path = $base_url + "addtocart";
         $.post($path, $data, function (data) {
         if(data=="cart_already_added")
         {
@@ -398,7 +398,7 @@ function viewqty(pro_id,sel_id,user_id,price)
         $("#cart_counter").html(data);
     });
              $("#qty-num-product-"+pro_id).val(1);
-            $("#cart_"+user_id).html(data);
+            $("#cart_box").html(data);
             $("#cart_shop_"+user_id).html(data);
             $("#add-product-" + pro_id).hide();
             $("#product-qty-" + pro_id).show();
@@ -413,7 +413,7 @@ function qtydecre(pro_id,sel_id,user_id,price)
     $("#qty-num-"+pro_id).val($qty);
     $("#qty-num-product-"+pro_id).val($qty);
     $data = {pro_id: pro_id,sel_id:sel_id,user_id:user_id,qty:$qty,action:'up_cart',price:price};
-    $path = $base_url + "Backend/addtocart";
+    $path = $base_url + "addtocart";
     $.post($path, $data, function (data) {
         if(data=="Error_login")
         {
@@ -427,7 +427,7 @@ function qtydecre(pro_id,sel_id,user_id,price)
 
         $("#cart_counter").html(data);
     });
-            $("#cart_"+user_id).html(data);
+            $("#cart_box").html(data);
             $("#cart_shop_"+user_id).html(data);
         }
     });
@@ -448,7 +448,7 @@ function qtydecre(pro_id,sel_id,user_id,price)
         
         $("#cart_counter").html(data);
     });
-            $("#cart_"+user_id).html(data);
+            $("#cart_box").html(data);
             $("#cart_shop_"+user_id).html(data);
             $("#add-product-" + pro_id).show();
             $("#product-qty-" + pro_id).hide();
@@ -464,7 +464,7 @@ function qtyincre(pro_id,sel_id,user_id,price)
     $("#qty-num-"+pro_id).val($qty);
     $("#qty-num-product-"+pro_id).val($qty);
     $data = {pro_id: pro_id,sel_id:sel_id,user_id:user_id,qty:$qty,action:'up_cart',price:price};
-    $path = $base_url + "Backend/addtocart";
+    $path = $base_url + "addtocart";
     $.post($path, $data, function (data) {
          $path = $base_url + "Backend/getcount";
     $data = {};
@@ -472,7 +472,7 @@ function qtyincre(pro_id,sel_id,user_id,price)
       
         $("#cart_counter").html(data);
     });
-       $("#cart_"+user_id).html(data); 
+       $("#cart_box").html(data);
        $("#cart_shop_"+user_id).html(data); 
     });
 }

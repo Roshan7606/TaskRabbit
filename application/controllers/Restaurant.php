@@ -43,12 +43,17 @@ class Restaurant extends CI_Controller
                             $this->session->set_userdata("seller_email", $detail[0]->restaurant_id);
                             $this->session->set_userdata("seller_logintime", date("Y-m-d H:i:s"));
                             redirect("Restaurant-Home");
+<<<<<<< HEAD
                             
+=======
+>>>>>>> 53a2c32adf11d0aa59f61e45602aaa3f8ff9acb9
                             if($this->input->post("svp")=="yes")
                             {
                                 $exp = 60 * 60 * 24 * 3;
                                 set_cookie("seller_email",$this->input->post("email"),$exp);
                                 set_cookie("seller_password",$this->input->post("ps"),$exp);
+                                                                
+
                             }
                             else
                             {
@@ -57,7 +62,7 @@ class Restaurant extends CI_Controller
                             }
                             if($detail[0]->status == 0)
                             {
-                                redirect("Restaurant-Active-Request");
+                            redirect("Restaurant-Active-Request");
                             }
                             else
                             {
@@ -128,7 +133,7 @@ class Restaurant extends CI_Controller
                      $this->session->unset_userdata("contact_no","");
                      $this->session->unset_userdata("email","");
                      $this->session->unset_userdata("ps","");
-                     redirect("Packages");
+                     redirect("Restaurant-Home");
                  }
                  else
                  {
@@ -181,7 +186,7 @@ class Restaurant extends CI_Controller
                     $this->session->set_userdata("restaurant_name",$this->input->post("resname"));
                     $this->session->set_userdata("contact_no",$this->input->post("mobile"));
                     $this->session->set_userdata("email",$this->input->post("email"));
-                    $this->session->set_userdata("password",$this->input->post("ps"));
+                    $this->session->set_userdata("ps",$this->input->post("ps"));
                     
                     
                     
@@ -591,53 +596,73 @@ class Restaurant extends CI_Controller
         $this->load->view("seller/manageschedule",$data);
     }
     public function delete($data) 
-    {      
-        $table = $this->uri->segment(2);
-        if ($table == "maincat") 
+{      
+    $table = $this->uri->segment(2);
+    if ($table == "maincat") 
+    {
+        $wh['parent_id'] = $this->uri->segment(3);
+        $where['category_id'] = $this->uri->segment(3);
+        $recordset=$this->md->my_select("tbl_category","*",$wh);
+        $cnt=count($recordset);
+        if($cnt == 0)
         {
-            $wh['parent_id'] = $this->uri->segment(3);
-            $where['category_id'] = $this->uri->segment(3);
-            $recordset=$this->md->my_select("tbl_category","*",$wh);
-            $cnt=count($recordset);
-            if($cnt == 0)
-            {
-                $this->md->my_delete("tbl_category", $where);
-                redirect("Restaurant-Main-Category");
-            }
-            else
-            {
-                redirect("Restaurant-Main-Category");
-            }
+            $this->md->my_delete("tbl_category", $where);
+            redirect("Restaurant-Main-Category");
         }
-        elseif ($table == "subcat") 
+        else
         {
-            $wh['parent_id'] = $this->uri->segment(3);
-            $where['category_id'] = $this->uri->segment(3);
-            $recordset=$this->md->my_select("tbl_category","*",$wh);
-            $cnt=count($recordset);
-            if($cnt == 0)
-            {
-                $this->md->my_delete("tbl_category", $where);
-                redirect("Restaurant-Sub-Category");
-            }
-            else
-            {
-                redirect("Restaurant-Sub-Category");
-            }
-        }
-        elseif ($table == "petacat") 
-        {
-            $wh['category_id'] = $this->uri->segment(3);
-            $this->md->my_delete("tbl_category", $wh);
-            redirect("Restaurant-Peta-Category");
-        }
-        elseif ($table == "item") 
-        {
-            $wh['item_id'] = $this->uri->segment(3);
-            $path = $this->md->my_select("tbl_item","*",$wh)[0]->image;
-            unlink($path);
-            $this->md->my_delete("tbl_item", $wh);
-            redirect("Restaurant-Manage-Items");
+            redirect("Restaurant-Main-Category");
         }
     }
- }
+    elseif ($table == "subcat") 
+    {
+        $wh['parent_id'] = $this->uri->segment(3);
+        $where['category_id'] = $this->uri->segment(3);
+        $recordset=$this->md->my_select("tbl_category","*",$wh);
+        $cnt=count($recordset);
+        if($cnt == 0)
+        {
+            $this->md->my_delete("tbl_category", $where);
+            redirect("Restaurant-Sub-Category");
+        }
+        else
+        {
+            redirect("Restaurant-Sub-Category");
+        }
+    }
+    elseif ($table == "petacat") 
+    {
+        $wh['category_id'] = $this->uri->segment(3);
+        $this->md->my_delete("tbl_category", $wh);
+        redirect("Restaurant-Peta-Category");
+    }
+    elseif ($table == "item") 
+    {
+        $wh['item_id'] = $this->uri->segment(3);
+        $path = $this->md->my_select("tbl_item","*",$wh)[0]->image;
+        unlink($path);
+        $this->md->my_delete("tbl_item", $wh);
+        redirect("Restaurant-Manage-Items");
+    }
+}
+
+public function update_profile()
+{
+    $this->security();
+
+    $restaurant_id = $this->session->userdata("seller_email");
+
+    $ins["primary_skill"]  = $this->input->post("primary_skill");
+    $ins["experience"]     = $this->input->post("experience");
+    $ins["starting_price"] = $this->input->post("starting_price");
+    $ins["languages"]      = $this->input->post("languages");
+    $ins["about_me"]       = $this->input->post("about_me");
+
+    $wh["restaurant_id"] = $restaurant_id;
+
+    $this->md->my_update("tbl_restaurant", $ins, $wh);
+
+    redirect("Restaurant-Edit-Profile");
+}
+}
+    

@@ -90,13 +90,13 @@
                                         <a href="<?php echo base_url("Restaurant-Sub-Category"); ?>">
                                             <div class="media align-products-center">
                                                 <div class="avatar avatar-icon avatar-lg avatar-blue">
-                                                    <i class="fa fa-utensils"></i>
+                                                    <i class="fas fa-briefcase"></i>
                                                 </div>
                                                 <div class="m-l-15">
                                                     <h2 class="m-b-0">
                                                         <?php echo $c = count($this->md->my_select("tbl_category","*"));?>
                                                     </h2>
-                                                    <p class="m-b-0 text-muted">Category</p>
+                                                    <p class="m-b-0 text-muted">Total Services</p>
                                                 </div>
                                             </div>
                                         </a>
@@ -116,7 +116,7 @@
                                                     <h2 class="m-b-0">
                                                         <?php echo $c = count($this->md->my_select("tbl_review_rating", "*",array("restaurant_id"=>$this->session->userdata("seller_email"))));?>
                                                     </h2>
-                                                    <p class="m-b-0 text-muted">Review and Rating</p>
+                                                    <p class="m-b-0 text-muted">Total Reviews</p>
                                                 </div>
                                             </div>
                                         </a>
@@ -135,7 +135,7 @@
                                                     <h2 class="m-b-0">
                                                         <?php echo $c = count($this->md->my_select("tbl_item", "*",array("restaurant_id"=>$this->session->userdata("seller_email"))));?>
                                                     </h2>
-                                                    <p class="m-b-0 text-muted">Item</p>
+                                                    <p class="m-b-0 text-muted">Total Services</p>
                                                 </div>
                                             </div>
                                         </a>
@@ -154,7 +154,7 @@
                                                     <h2 class="m-b-0">
                                                         <?php echo $c = count($this->md->my_query("select * from tbl_bill where status IN ('pending,','pending,prepared,','pending,prepared,readydeliver,','pending,prepared,readydeliver,delivered') and restaurant_id = ".$this->session->userdata("seller_email")));?>
                                                     </h2>
-                                                    <p class="m-b-0 text-muted">Orders</p>
+                                                    <p class="m-b-0 text-muted">Total Bookings</p>
                                                 </div>
                                             </div>
                                         </a>

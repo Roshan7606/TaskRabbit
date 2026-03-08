@@ -96,7 +96,6 @@
                                                         <label for="checkbox"><span>Remember Me</span></label>
                                                     </div>
                                                     <input type="submit" class="btn btn-primary" value="Sign In" name="login">
-
                                                 </div>
 
                                             </div>
