@@ -1,12 +1,52 @@
 <?php 
     $seller_detail = $this->md->my_select("tbl_restaurant", "*",array("restaurant_id"=>$this->session->userdata("seller_email")));
 ?>
+
+<style>
+.provider-logo-wrap{
+    display:flex;
+    align-items:center;
+    height:170px;
+    padding-left:30px;
+    text-decoration:none;
+}
+
+.provider-logo-main{
+    max-height:170px;
+    width:auto;
+    display:block;
+    object-fit:contain;
+}
+
+.provider-logo-fold{
+    max-height:32px;
+    width:auto;
+    display:none;
+    object-fit:contain;
+}
+
+.side-nav-folded .provider-logo-main{
+    display:none;
+}
+
+.side-nav-folded .provider-logo-fold{
+    display:block;
+    margin:auto;
+}
+
+.logo.logo-dark{
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+}
+</style>
+
 <!-- Header START -->
 <div class="header">
     <div class="logo logo-dark">
-        <a href="<?php echo base_url("Restaurant-Home"); ?>">
-            <img src="<?php echo base_url(); ?>seller_assets/images/logo/logo.png" class="index-logo-main" alt="Logo" style="">
-            <img class="logo-fold index-logo-fold" src="<?php echo base_url(); ?>seller_assets/images/logo/logo-fold.png" alt="Logo">
+        <a href="<?php echo base_url("Restaurant-Home"); ?>" class="provider-logo-wrap">
+            <img src="<?php echo base_url(); ?>seller_assets/images/logo/logo.png" class="provider-logo-main" alt="TaskRabbit Logo">
+            <img src="<?php echo base_url(); ?>seller_assets/images/logo/logo-fold.png" class="provider-logo-fold" alt="TaskRabbit Small Logo">
         </a>
     </div>
     <div class="nav-wrap">
@@ -132,7 +172,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="javascript:void(0);" class="dropdown-item d-block p-h-15 p-v-10">
+                    <a href="<?php echo base_url('Restaurant-Edit-Profile'); ?>" class="dropdown-item d-block p-h-15 p-v-10">
                         <div class="d-flex align-items-center justify-content-between">
                             <div>
                                 <i class="opacity-04 font-size-16 fas fa-user"></i>
@@ -141,7 +181,7 @@
                             <i class="anticon font-size-10 anticon-right"></i>
                         </div>
                     </a>
-                    <a href="javascript:void(0);" class="dropdown-item d-block p-h-15 p-v-10">
+                    <a href="<?php echo base_url('Restaurant-Change-Password'); ?>" class="dropdown-item d-block p-h-15 p-v-10">
                         <div class="d-flex align-items-center justify-content-between">
                             <div>
                                 <i class="opacity-04 font-size-16 fas fa-lock"></i>
@@ -150,7 +190,7 @@
                             <i class="anticon font-size-10 anticon-right"></i>
                         </div>
                     </a>
-                    <a href="javascript:void(0);" class="dropdown-item d-block p-h-15 p-v-10">
+                    <a href="<?php echo base_url('Restaurant-Edit-Profile'); ?>" class="dropdown-item d-block p-h-15 p-v-10">
                         <div class="d-flex align-items-center justify-content-between">
                             <div>
                                 <i class="opacity-04 font-size-16 fas fa-university"></i>
@@ -159,7 +199,7 @@
                             <i class="anticon font-size-10 anticon-right"></i>
                         </div>
                     </a>
-                    <a href="javascript:void(0);" class="dropdown-item d-block p-h-15 p-v-10">
+                    <a href="<?php echo base_url('Restaurant-Edit-Profile'); ?>" class="dropdown-item d-block p-h-15 p-v-10">
                         <div class="d-flex align-items-center justify-content-between">
                             <div>
                                 <i class="opacity-04 font-size-16 fas fa-street-view"></i>

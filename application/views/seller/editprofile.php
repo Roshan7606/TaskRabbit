@@ -5,10 +5,15 @@ $seller_detail = $this->md->my_select("tbl_restaurant", "*", array("restaurant_i
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Munchbox | Restaurant Editprofile</title>
+        <title>TaskRabbit | Service Provider Profile</title>
         <?php
         $this->load->view("seller/headerscript");
         ?>
+        <style>
+        .provider-section{
+            display:block;
+        }
+        </style>
     </head>
     <body>
         <div class="app">
@@ -23,30 +28,27 @@ $seller_detail = $this->md->my_select("tbl_restaurant", "*", array("restaurant_i
                     <!-- Content Wrapper START -->
                     <div class="main-content">
                         <div class="page-header no-gutters has-tab">
-                            <h2 class="font-weight-normal">Edit Profile</h2>
-                            <ul class="nav nav-tabs" >
+                            <h2 class="font-weight-normal">Service Provider Profile</h2>
+                            <ul class="nav nav-tabs">
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#tab-account">Account</a>
-                                </li>
-<!--                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#tab-bank">Bank Detail</a>
-                                </li>-->
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#tab-network">Location</a>
+                                    <a class="nav-link active provider-tab-link" href="#" data-target="tab-account">Profile</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#tab-notification">Gallary</a>
+                                    <a class="nav-link provider-tab-link" href="#" data-target="tab-network">Location</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link provider-tab-link" href="#" data-target="tab-notification">Gallery</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="">
                             <div class="tab-content m-t-15">
-                                <div class="tab-pane fade show active" id="tab-account" >
+                                <div id="tab-account" class="provider-section">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="card">
                                         <div class="card-header">
-                                            <h4 class="card-title">Account Infomation :</h4>
+                                            <h4 class="card-title">Provider Account Information</h4>
                                         </div>
                                         <div class="card-body">
                                             <form method="post" action="">
@@ -57,7 +59,7 @@ $seller_detail = $this->md->my_select("tbl_restaurant", "*", array("restaurant_i
 
                                                         <div class="form-row">
                                                             <div class="form-group col-md-4">
-                                                                <label class="font-weight-semibold" for="restaurantName">Restaurant Name:</label>
+                                                                <label class="font-weight-semibold" for="restaurantName">Provider Name:</label>
                                                                 <input type="text" name="resname" disabled="" autofocus="" class="form-control" id="restaurantName" placeholder="<?php
                                                                 if ($data->restaurant_name  == "") {
                                                                     echo 'Data Not Found';
@@ -101,7 +103,7 @@ $seller_detail = $this->md->my_select("tbl_restaurant", "*", array("restaurant_i
 
                                                         <div class="form-row">
                                                             <div class="form-group col-md-4">
-                                                                <label class="font-weight-semibold" for="restaurantName">Restaurant Name:</label>
+                                                                <label class="font-weight-semibold" for="restaurantName">Provider Name:</label>
                                                                 <input type="text" name="resname" check_control="" autofocus="" class="form-control" id="restaurantName" value="<?php
                                                                 if ($data->restaurant_name  == "") {
                                                                     echo 'Data Not Found';
@@ -168,55 +170,51 @@ $seller_detail = $this->md->my_select("tbl_restaurant", "*", array("restaurant_i
                                     </div>
                                         </div>
                                         <div class="col-md-6">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h4 class="card-title card-header">Package Information :</h4>
-                                            <div class="table-responsive">
-                                                <table class="product-info-table m-t-20">
-                                                    <tbody>
-                                                        <?php
-                                                        foreach ($package_detail as $single) {
-                                                            ?>
-                                                            <tr>
-                                                                <td>Package Name:</td>
-                                                                <td>
-                                                                    <?php echo $single->name; ?>    
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Package Price:</td>
-                                                                <td>
-                                                                    &#8377; <?php echo $single->price; ?>    
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Package Duration:</td>
-                                                                <td>
-                                                                    <?php echo $single->duration; ?>    
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Package Description:</td>
-                                                                <td>
-                                                                    <?php echo $single->description; ?>    
-                                                                </td>
-                                                            </tr>
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h4 class="card-title">Professional Details</h4>
+                                                </div>
+                                                <div class="card-body">
+                                                    <form method="post" action="">
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-6">
+                                                                <label class="font-weight-semibold">Primary Skill:</label>
+                                                                <input type="text" name="primary_skill" class="form-control" placeholder="e.g. Electrician, Plumber, Cleaner">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label class="font-weight-semibold">Experience:</label>
+                                                                <input type="text" name="experience" class="form-control" placeholder="e.g. 3 Years">
+                                                            </div>
+                                                        </div>
 
-                                                        </tbody>
-                                                    </table>
-                                                    <div class="col-md-6">
-                                                        <a href="<?php echo base_url("Packages"); ?>" class="btn change-package-btn">Edit Package</a>
-                                                    </div>
-                                                    <?php
-                                                }
-                                                ?>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-6">
+                                                                <label class="font-weight-semibold">Starting Price:</label>
+                                                                <input type="text" name="starting_price" class="form-control" placeholder="e.g. 299">
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label class="font-weight-semibold">Languages Known:</label>
+                                                                <input type="text" name="languages" class="form-control" placeholder="e.g. Gujarati, Hindi, English">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-12">
+                                                                <label class="font-weight-semibold">About Me:</label>
+                                                                <textarea name="about_me" class="form-control" rows="4" placeholder="Write a short introduction about your work experience and services"></textarea>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-row">
+                                                            <div class="col-md-4">
+                                                                <button type="submit" class="btn change-profile-btn" name="updateprofessional">Save Details</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>        
-                                        </div>
-                                    </div>
-                                    
-                                    
+                                     </div>
                                 </div>
 <!--                                <div class="tab-pane fade" id="tab-bank">
                                     <div class="row">
@@ -460,12 +458,12 @@ $seller_detail = $this->md->my_select("tbl_restaurant", "*", array("restaurant_i
                                         </div>
                                     </div>
                                 </div>-->
-                                <div class="tab-pane fade" id="tab-network">
+                                <div id="tab-network" class="provider-section" style="display:none;">
                                     <div class="row">
                                         <div class="col-md-12 mx-auto">
                                             <div class="card">
                                                 <div class="card-header">
-                                                    <h4 class="card-title">Location Details</h4>
+                                                    <h4 class="card-title">Service Locations</h4>
                                                 </div>
                                                 <div class="card-body">
                                                     <form method="post" action="">
@@ -521,7 +519,7 @@ $seller_detail = $this->md->my_select("tbl_restaurant", "*", array("restaurant_i
                                                             <div class="form-row">
 
                                                                 <div class="form-group col-md-12">
-                                                                    <label class="font-weight-semibold" for="locmap">Map Address:</label>                            
+                                                                    <label class="font-weight-semibold" for="locmap">Work Location Map:</label>                            
                                                                     <input type="text" id="locmap" class="locmap form-control" value="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3718.942535551661!2d72.86207421488687!3d21.234127185887505!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04f1a6f801b9f%3A0xf9141eda48610fdb!2sNova%20One%20Click%20Solution!5e0!3m2!1sen!2sin!4v1575889003656!5m2!1sen!2sin" disabled="">
                                                                 </div>
                                                             </div>
@@ -530,7 +528,7 @@ $seller_detail = $this->md->my_select("tbl_restaurant", "*", array("restaurant_i
                                                                     <a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">Need Help ?</a>
                                                                 </div>
                                                                 <div class="form-group col-md-12">
-                                                                    <a href="Edit-Restaurant-Location-Info" class="btn change-profile-btn" name="editlocation">Edit Location Info</a>
+                                                                    <a href="Edit-Restaurant-Location-Info" class="btn change-profile-btn" name="editlocation">Edit Service Area</a>
                                                                 </div>
                                                             </div>
                                                             <?php
@@ -568,7 +566,7 @@ $seller_detail = $this->md->my_select("tbl_restaurant", "*", array("restaurant_i
                                                             </div>
                                                             <div class="form-row">
                                                                 <div class="form-group col-md-12">
-                                                                    <label class="font-weight-semibold" for="locmap">Map Address:</label>                            
+                                                                    <label class="font-weight-semibold" for="locmap">Work Location Map:</label>                            
                                                                     <input type="text" id="locmap" class="locmap form-control" value="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3718.942535551661!2d72.86207421488687!3d21.234127185887505!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04f1a6f801b9f%3A0xf9141eda48610fdb!2sNova%20One%20Click%20Solution!5e0!3m2!1sen!2sin!4v1575889003656!5m2!1sen!2sin">
                                                                 </div>
                                                             </div>
@@ -577,7 +575,7 @@ $seller_detail = $this->md->my_select("tbl_restaurant", "*", array("restaurant_i
                                                                     <a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">Need Help ?</a>
                                                                 </div>
                                                                 <div class="form-group col-md-12">
-                                                                    <button class="btn btnadd m-t-30" type="submit" value="updatelocation" name="updatelocation">Update Location</button>
+                                                                    <button class="btn btnadd m-t-30" type="submit" value="updatelocation" name="updatelocation">Update Service Area</button>
                                                                 </div>
                                                             </div>
                                                             <?php
@@ -590,11 +588,11 @@ $seller_detail = $this->md->my_select("tbl_restaurant", "*", array("restaurant_i
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="tab-notification">
+                                <div id="tab-notification" class="provider-section" style="display:none;">
                                     <form action="" name="banner_upload" method="post" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-md-12  mx-auto">
-                                                <h4>Gallary</h4>
+                                                <h4>Gallery</h4>
 
                                                 <div class="container">
                                                     <div class="row">
@@ -657,7 +655,7 @@ $seller_detail = $this->md->my_select("tbl_restaurant", "*", array("restaurant_i
 
         </div>
         <!-- Content Wrapper END -->
-        <button type="button" class="btn btn-primary" >Large modal</button>
+        <!-- <button type="button" class="btn btn-primary" >Large modal</button> -->
 
         <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
             <div class="modal-dialog modal-lg" role="document">
@@ -676,6 +674,32 @@ $seller_detail = $this->md->my_select("tbl_restaurant", "*", array("restaurant_i
         ?>
         <script src="<?php echo base_url(); ?>seller_assets/js/munchbox_ajax.js" type="text/javascript"></script>
 
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const links = document.querySelectorAll('.provider-tab-link');
+            const sections = document.querySelectorAll('.provider-section');
+
+            links.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute('data-target');
+
+                    links.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+
+                    sections.forEach(section => {
+                        section.style.display = 'none';
+                    });
+
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        targetSection.style.display = 'block';
+                    }
+                });
+            });
+        });
+        </script>
 
     </body>
 </html>

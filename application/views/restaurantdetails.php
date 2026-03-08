@@ -508,7 +508,7 @@
                                                                 </div>-->
                                     <div class="cart-detail-box cart-detail-box-restaurant">
                                         <div class="card">
-                                            <div class="card-header padding-15 fw-700" id="cart_<?php echo $this->session->userdata("user_username"); ?>">
+                                            <div class="card-header padding-15 fw-700" id="cart_box">
                                                 <?php
                                                 if ($this->session->userdata("user_username")) {
                                                     $cart_detail = $this->md->my_query("select pr.item_name,cat.name as category,ac.* from tbl_item as pr,tbl_addtocart as ac,tbl_category as cat,tbl_category as subcat where pr.item_id=ac.item_id and pr.category_id = subcat.category_id and cat.category_id = subcat.parent_id and ac.user_id = " . $this->session->userdata("user_username"));
