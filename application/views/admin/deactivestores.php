@@ -3,7 +3,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Admin Deactive Restaurants || MUNCHBOX - The Foodies Food</title>
+        <title>Admin Deactive Services || TaskRabbit</title>
         <?php
         $this->load->view('admin/headscript');
         ?>
@@ -19,10 +19,10 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-title">
-                                <h1>Manage Restaurants Data<small></small></h1>
+                                <h1>Manage Services Data<small></small></h1>
                                 <ol class="breadcrumb">
                                     <li><a href="<?php echo base_url("Admin-Home") ?>"><i class="fa fa-home"></i></a></li>
-                                    <li class="active">Manage Deactive Restaurants</li>
+                                    <li class="active">Manage Deactive Services</li>
                                 </ol>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                             <div class="panel panel-card ">
                                 <!-- Start .panel -->
                                 <div class="panel-heading">
-                                    <h4 class="panel-title">Manage Deactive Restaurants Data</h4>
+                                    <h4 class="panel-title">Manage Deactive Services Data</h4>
                                     <div class="panel-actions">
                                         <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
                                         <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
@@ -43,18 +43,15 @@
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>Restaurant Name</th>
-                                                <th>Mobile No.</th>
-                                                <th>Email</th>
+                                                <th>Services Name</th>
                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>Restaurant Name</th>
-                                                <th>Mobile No.</th>
-                                                <th>Email</th>
+                                                <th>Service Name</th>
+                                              
                                                 <th>Action</th>
                                             </tr>
                                         </tfoot>
@@ -67,12 +64,24 @@
                                                 <tr>
                                                     <td><?php echo $c; ?></td>
                                                     <td><?php echo $deactivestore->restaurant_name; ?></td>
-                                                    <td><?php echo $deactivestore->contact_no; ?></td>
-                                                    <td><?php echo $deactivestore->email; ?></td>
-                                                    <td align="center">
-                                                        <a title="Click For Active Restaurant" onclick="$('#deactivestore').attr('href','<?php echo base_url(); ?>Active-Deactive/activestore/<?php echo $deactivestore->restaurant_id; ?>')" data-toggle="modal" data-target=".bs-example-modal-md" ><i class="fas fa-thumbs-down text-danger"></i> </a> &nbsp;&nbsp;
-                                                        <a href="#" onclick="set_modal('<?php echo $deactivestore->restaurant_id; ?>');" data-toggle="modal" data-target=".bs-example-modal-lg">Read more</a>
-                                                    </td>
+                                                 
+                                                   <td align="center">
+
+<?php if($deactivestore->status == 0){ ?>
+
+<a onclick="$('#deactivestore').attr('href','<?php echo base_url(); ?>Active-Deactive/activestore/<?php echo $deactivestore->restaurant_id; ?>')" 
+data-toggle="modal" data-target=".bs-example-modal-md">
+<button class="btn btn-danger btn-sm">Inactive</button>
+</a>
+<?php } else { ?>
+
+
+
+
+
+<?php } ?>
+
+</td>
                                                 </tr>
                                                 <?php
                                             }
@@ -92,9 +101,9 @@
             <div class="modal-dialog modal-md" role="document">
                 <div class="modal-content" style="padding: 30px;">
                     <center>
-                        <img src="<?php echo base_url(); ?>admin_assets/images/activerestaurant.png" height="120" width="100" >
+                        <!-- <img src="<?php echo base_url(); ?>admin_assets/images/activerestaur" height="120" width="100" > -->
                         <p style="margin-top: 5%;font-size: 20px;">Are you sure want to active ?</p>
-                        <p style="margin-top: 1%;font-size: 14px;margin-bottom: 4%;">If you active restaurant than you can able to upload images and other information of restaurant.</p>
+                        <p style="margin-top: 1%;font-size: 14px;margin-bottom: 4%;">If you active Service than you can able to upload images and other information of service.</p>
                         <a id="deactivestore" href="#" class="btn btn-danger" style="padding:10px 40px;">Yes</a>
                         <a href="#" class="btn btn-default" data-dismiss="modal" style="padding:10px 40px;">NO</a>
                     </center>

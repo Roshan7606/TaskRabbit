@@ -70,10 +70,26 @@
                                                     <td><?php echo $c; ?></td>
                                                     <td><?php echo $activeuser->name; ?></td>
                                                     <td><?php echo $activeuser->contact_no; ?></td>
-                                                    <td><?php echo $activeuser->email; ?></td><td align="center">
-                                                        <a title="Click For Deactive User" onclick="$('#activeuser').attr('href', '<?php echo base_url(); ?>Active-Deactive/deactiveuser/<?php echo $activeuser->user_id; ?>')" data-toggle="modal" data-target=".bs-example-modal-md"><i class="fas fa-thumbs-up "></i> </a> &nbsp;&nbsp;
-                                                        <!--<a href="#" class="text-danger" data-toggle="modal" data-target=".bs-example-modal-lg" >Read more</a>-->
-                                                    </td>
+                                                    <td><?php echo $activeuser->email; ?></td>
+   <td align="center">
+
+<?php if($activeuser->status == 1){ ?>
+
+<a onclick="$('#activeuser').attr('href','<?php echo base_url(); ?>Active-Deactive/deactiveuser/<?php echo $activeuser->user_id; ?>')" 
+data-toggle="modal" data-target=".bs-example-modal-md">
+
+<button class="btn btn-success btn-sm">Active</button>
+
+</a>
+
+<?php } else { ?>
+
+
+
+<?php } ?>
+
+</td>                                     <!--<a href="#" class="text-danger" data-toggle="modal" data-target=".bs-example-modal-lg" >Read more</a>-->
+                                                    
                                                 </tr>
                                                 <?php
                                             }

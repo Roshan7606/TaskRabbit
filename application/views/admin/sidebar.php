@@ -44,7 +44,7 @@
                         <li><a href="<?php echo base_url("Admin-Manage-Area"); ?>">Area</a></li>
                     </ul>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="#"><i class="fas fa-pager"></i> <span class="nav-label">Pages</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
                         <li><a href="<?php echo base_url("Admin-Manage-Contact"); ?>">Contact</a></li>
@@ -54,12 +54,12 @@
                         <li><a href="<?php echo base_url("Admin-Manage-Banner"); ?>">Banner</a></li>
 
                     </ul>
-                </li>
+                </li> -->
                 <li>
-                    <a href="#"><i class="fas fa-store"></i> <span class="nav-label">Restaurants</span><span class="fa arrow"></span></a>
+                    <a href="#"><i class="fas fa-tools"></i> <span class="nav-label">Serices</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
-                        <li><a href="<?php echo base_url("Admin-Manage-Active-Stores"); ?>">Active Restaurants</a></li>
-                        <li><a href="<?php echo base_url("Admin-Manage-Deactive-Stores"); ?>">Deactive Restaurants</a></li>
+                        <li><a href="<?php echo base_url("Admin-Manage-Active-Stores"); ?>">Active Services</a></li>
+                        <li><a href="<?php echo base_url("Admin-Manage-Deactive-Stores"); ?>">Deactive Services</a></li>
 
                     </ul>
                 </li>

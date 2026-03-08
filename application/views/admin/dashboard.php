@@ -32,16 +32,16 @@
                     <div class="row">
                         <div class="col-md-3 col-sm-6 col-xs-12 ">
                             <div class="widget-box clearfix dash-hover">
-                                <a href="<?php echo base_url('Admin-Manage-Contact'); ?>">
-                                    <div>
+                                <!-- <a href="<?php echo base_url('Admin-Manage-Contact'); ?>">
+                                     <div>
                                         <h4>Contact</h4>
                                         <h2>
                                             <?php
                                             echo count($this->md->my_select("tbl_contactus", "*"));
                                             ?>
                                             <i class="fa fa-id-card pull-right"></i></h2>
-                                    </div>
-                                </a>
+                                    </div> -->
+                                </a> 
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6 col-xs-12 ">
