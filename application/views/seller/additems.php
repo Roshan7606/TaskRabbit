@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>MUNCHBOX | Add Item</title>
+        <title>MUNCHBOXx | Add Item</title>
         <?php
         $this->load->view("seller/headerscript");
         ?>
