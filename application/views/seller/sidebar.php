@@ -22,6 +22,15 @@
             </li>
             
             <li class="nav-item dropdown">
+                <a class="dropdown-toggle" href="<?php echo base_url('Restaurant-My-Services'); ?>">
+                    <span class="icon-holder">
+                        <i class="fa fa-briefcase sidebar-icon" title="My Services"></i>
+                    </span>
+                    <span class="title sidebar-title">My Services</span>
+                </a>
+            </li>
+
+            <li class="nav-item dropdown">
                 <a class="dropdown-toggle" href="#">
                     <span class="icon-holder">
                         <i class="fas fa-tools sidebar-icon" title="Services"></i>

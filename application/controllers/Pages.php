@@ -194,33 +194,99 @@ $data["food_item_detail"] = $this->md->my_query("select cat.name as category,sub
 
     public function restaurant() {
         $data = array();
-        //$this->security();
         $id = $this->uri->segment(2);
         $this->session->set_userdata("search_restaurant", $id);
-        if ($id == 0) {
 
-            $query = "select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it where se.restaurant_id = it.restaurant_id and se.status = 1 and subcat.category_id = it.category_id GROUP BY it.restaurant_id ORDER BY se.restaurant_name";
-        } else {
-            $query = "select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it,tbl_location as ct,tbl_location as ar where ct.location_id = " . $id . " and se.status = 1 and ar.parent_id = ct.location_id and ar.location_id = se.location_id and se.restaurant_id = it.restaurant_id and subcat.category_id = it.category_id GROUP BY it.restaurant_id ORDER BY se.restaurant_name";
-        }
+    $query = "SELECT category_id, name as restaurant_name, '' as coverpic, 1 as restaurant_id
+            FROM tbl_category
+            ORDER BY name ASC";
+
         $data["restaurent"] = $this->md->my_query($query);
         $this->load->view("restaurant", $data);
     }
 
-    public function restaurantdetails() {
-        //$this->security();
+    public function restaurantdetails()
+    {
         $data = array();
         $id = $this->uri->segment(2);
-        $query = "SELECT st.name as state,ct.name as city,ar.name as area from tbl_location as st,tbl_location as ct,tbl_location as ar ,tbl_restaurant as se where se.location_id = ar.location_id and ar.parent_id = ct.location_id and ct.parent_id = st.location_id and se.restaurant_id = " . $id;
+
+        $query = "SELECT st.name as state, ct.name as city, ar.name as area
+                FROM tbl_location as st, tbl_location as ct, tbl_location as ar, tbl_restaurant as se
+                WHERE se.location_id = ar.location_id
+                AND ar.parent_id = ct.location_id
+                AND ct.parent_id = st.location_id
+                AND se.restaurant_id = ".$id;
         $data["restaurent_address_detail"] = $this->md->my_query($query);
- $data["restaurent_detail"] = $this->md->my_query("select GROUP_CONCAT(DISTINCT subcat.name) as category,se.* from tbl_restaurant as se,tbl_category as cat,tbl_category as subcat,tbl_item as it where se.restaurant_id = it.restaurant_id and se.restaurant_id = " . $id . " and subcat.category_id = it.category_id GROUP BY it.restaurant_id ORDER BY se.restaurant_name ASC");        $data["user_detail"] = $this->md->my_select("tbl_user", "*", array("user_id" => $this->session->userdata("user_username")));
-        $query = "select cat.name as category,subcat.name,item.* from tbl_category as cat ,tbl_category as subcat,tbl_item as item where item.restaurant_id = " . $id . " and subcat.category_id = item.category_id and cat.category_id = subcat.parent_id and status = 1 order by subcat.name";
-        $data["food_item_count"] = $this->md->my_query($query);
-        $data["star_rating"] = $this->md->my_query("select AVG(rating) as rate_star , count(*) as cnt_rate from tbl_review_rating where restaurant_id = " . $id);
-        $data["review_rating"] = $this->md->my_query("select us.*,re.* from tbl_user as us,tbl_review_rating as re where re.restaurant_id = '" . $id . "' and us.user_id = re.user_id");
-        $data["food_menu_cuisin"] = $this->md->my_query("select DISTINCT cat.name,it.category_id from tbl_category as cat,tbl_item as it where cat.category_id = it.category_id and cat.label = 'subcat' and it.status = 1 and it.restaurant_id = " . $id . " order by cat.name");
-        $data["schedule_details"] = $this->md->my_select("tbl_schedule", "*", array("restaurant_id" => $id));
+
+        $data["restaurent_detail"] = $this->db
+            ->where("restaurant_id", $id)
+            ->get("tbl_restaurant")
+            ->result();
+
+        $data["user_detail"] = $this->md->my_select(
+            "tbl_user",
+            "*",
+            array("user_id" => $this->session->userdata("user_username"))
+        );
+
+        $data["current_provider_id"] = $id;
+
+        $data["service_items"] = $this->db
+            ->select("ps.*, c.name as category_name")
+            ->from("tbl_provider_services ps")
+            ->join("tbl_category c", "c.category_id = ps.category_id", "left")
+            ->where("ps.provider_id", $id)
+            ->order_by("c.name", "ASC")
+            ->get()
+            ->result();
+
+        $data["star_rating"] = $this->md->my_query(
+            "select AVG(rating) as rate_star , count(*) as cnt_rate
+            from tbl_review_rating
+            where restaurant_id = ".$id
+        );
+
+        $data["review_rating"] = $this->md->my_query(
+            "select us.*, re.*
+            from tbl_user as us, tbl_review_rating as re
+            where re.restaurant_id = '".$id."'
+            and us.user_id = re.user_id"
+        );
+
+        $data["schedule_details"] = $this->md->my_select(
+            "tbl_schedule",
+            "*",
+            array("restaurant_id" => $id)
+        );
+
         $this->load->view("restaurantdetails", $data);
+    }
+
+        public function service_providers()
+    {
+        $data = array();
+        $category_id = $this->uri->segment(2);
+
+        // current selected service/category detail
+        $data["service_detail"] = $this->db
+            ->where("category_id", $category_id)
+            ->get("tbl_category")
+            ->row();
+
+        // all providers who selected this service in provider panel
+        $data["providers"] = $this->db
+            ->select("r.*, ps.service_price, ps.category_id, c.name as category_name")
+            ->from("tbl_provider_services ps")
+            ->join("tbl_restaurant r", "r.restaurant_id = ps.provider_id", "left")
+            ->join("tbl_category c", "c.category_id = ps.category_id", "left")
+            ->where("ps.category_id", $category_id)
+            ->where("ps.status", 1)
+            ->where("r.status", 1)
+            ->order_by("ps.id", "DESC")
+            ->get()
+            ->result();
+
+        $this->load->view("service_providers", $data);
     }
 
     public function sidebar() {

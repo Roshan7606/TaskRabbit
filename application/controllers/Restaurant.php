@@ -43,7 +43,6 @@ class Restaurant extends CI_Controller
                             $this->session->set_userdata("seller_email", $detail[0]->restaurant_id);
                             $this->session->set_userdata("seller_logintime", date("Y-m-d H:i:s"));
                             redirect("Restaurant-Home");
-
                             if($this->input->post("svp")=="yes")
                             {
                                 $exp = 60 * 60 * 24 * 3;
@@ -649,17 +648,99 @@ public function update_profile()
 
     $restaurant_id = $this->session->userdata("seller_email");
 
-    $ins["primary_skill"]  = $this->input->post("primary_skill");
-    $ins["experience"]     = $this->input->post("experience");
-    $ins["starting_price"] = $this->input->post("starting_price");
-    $ins["languages"]      = $this->input->post("languages");
-    $ins["about_me"]       = $this->input->post("about_me");
+    if (!$restaurant_id) {
+        redirect("Restaurant-Sign-In");
+        return;
+    }
 
-    $wh["restaurant_id"] = $restaurant_id;
+    $ins = array(
+        "primary_skill"  => trim($this->input->post("primary_skill")),
+        "experience"     => trim($this->input->post("experience")),
+        "starting_price" => trim($this->input->post("starting_price")),
+        "languages"      => trim($this->input->post("languages")),
+        "about_me"       => trim($this->input->post("about_me"))
+    );
 
-    $this->md->my_update("tbl_restaurant", $ins, $wh);
+    $this->db->where("restaurant_id", $restaurant_id);
+    $result = $this->db->update("tbl_restaurant", $ins);
 
-    redirect("Restaurant/editprofile");
+    if ($result) {
+        $this->session->set_flashdata("success", "Professional details updated successfully.");
+    } else {
+        $this->session->set_flashdata("error", "Professional details update failed.");
+    }
+
+    redirect("Restaurant/editprofile", "refresh");
+    exit;
+}
+
+public function my_services()
+{
+    $provider_id = $this->session->userdata('seller_email');
+
+    if (!$provider_id) {
+        redirect('Restaurant');
+    }
+
+    $data['seller'] = $this->db
+        ->where('restaurant_id', $provider_id)
+        ->get('tbl_restaurant')
+        ->row();
+
+    $data['categories'] = $this->db
+        ->get('tbl_category')
+        ->result();
+
+    $data['provider_services'] = $this->db
+        ->where('provider_id', $provider_id)
+        ->get('tbl_provider_services')
+        ->result();
+
+    $this->load->view('seller/my_services', $data);
+}
+
+public function save_services()
+{
+    $this->security();
+
+    $provider_id = $this->session->userdata('seller_email');
+
+    if (!$provider_id) {
+        redirect('Restaurant');
+        return;
+    }
+
+    $category_ids = $this->input->post('category_id');
+    $prices       = $this->input->post('price');
+
+    // pehla old provider services delete
+    $this->db->where('provider_id', $provider_id);
+    $this->db->delete('tbl_provider_services');
+
+    if (!empty($category_ids)) {
+        foreach ($category_ids as $cat_id) {
+
+            $service_price = 0;
+            if (isset($prices[$cat_id]) && $prices[$cat_id] !== '') {
+                $service_price = $prices[$cat_id];
+            }
+
+            $ins = array(
+                'provider_id'    => $provider_id,
+                'category_id'    => $cat_id,
+                'service_price'  => $service_price,
+                'experience'     => '',
+                'description'    => '',
+                'status'         => 1,
+                'created_at'     => date('Y-m-d H:i:s')
+            );
+
+            $this->db->insert('tbl_provider_services', $ins);
+        }
+    }
+
+    $this->session->set_flashdata('success', 'Services saved successfully.');
+    redirect('Restaurant-My-Services');
 }
 }
     
