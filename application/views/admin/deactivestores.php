@@ -69,10 +69,31 @@
                                                     <td><?php echo $deactivestore->restaurant_name; ?></td>
                                                     <td><?php echo $deactivestore->contact_no; ?></td>
                                                     <td><?php echo $deactivestore->email; ?></td>
-                                                    <td align="center">
-                                                        <a title="Click For Active Restaurant" onclick="$('#deactivestore').attr('href','<?php echo base_url(); ?>Active-Deactive/activestore/<?php echo $deactivestore->restaurant_id; ?>')" data-toggle="modal" data-target=".bs-example-modal-md" ><i class="fas fa-thumbs-down text-danger"></i> </a> &nbsp;&nbsp;
-                                                        <a href="#" onclick="set_modal('<?php echo $deactivestore->restaurant_id; ?>');" data-toggle="modal" data-target=".bs-example-modal-lg">Read more</a>
-                                                    </td>
+                                                   <td align="center">
+
+
+
+<?php if($deactivestore->status == 1){ ?>
+
+<a onclick="$('#deactivestore').attr('href','<?php echo base_url(); ?>Active-Deactive/deactivestore/<?php echo $deactivestore->restaurant_id; ?>')" 
+data-toggle="modal" data-target=".bs-example-modal-md">
+
+<button class="btn btn-success btn-sm">Active</button>
+
+</a>
+
+<?php } else { ?>
+
+<a onclick="$('#deactivestore').attr('href','<?php echo base_url(); ?>Active-Deactive/activestore/<?php echo $deactivestore->restaurant_id; ?>')" 
+data-toggle="modal" data-target=".bs-example-modal-md">
+
+<button class="btn btn-danger btn-sm">Inactive</button>
+
+</a>
+
+<?php } ?>
+
+</td>
                                                 </tr>
                                                 <?php
                                             }

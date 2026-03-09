@@ -21,10 +21,10 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-title">
-                                <h1>Manage Restaurants Data<small></small></h1>
+                                <h1>Manage Service Provider Data<small></small></h1>
                                 <ol class="breadcrumb">
                                     <li><a href="<?php echo base_url("Admin-Home"); ?>"><i class="fa fa-home"></i></a></li>
-                                    <li class="active">Manage Active Restaurants</li>
+                                    <li class="active">Manage Active Service Provider</li>
                                 </ol>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                             <div class="panel panel-card ">
                                 <!-- Start .panel -->
                                 <div class="panel-heading">
-                                    <h4 class="panel-title">Manage Active Restaurants Data</h4>
+                                    <h4 class="panel-title">Manage Active Service provider Data</h4>
                                     <div class="panel-actions">
                                         <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
                                         <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
@@ -45,7 +45,7 @@
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>Restaurant Name</th>
+                                                <th>Service Provider Name</th>
                                                 <th>Mobile No.</th>
                                                 <th>Email</th>
                                                 <th>Action</th>
@@ -71,10 +71,29 @@
                                                     <td><?php echo $activestore->restaurant_name; ?></td>
                                                     <td><?php echo $activestore->contact_no; ?></td>
                                                     <td><?php echo $activestore->email; ?></td>
-                                                    <td align="center">
-                                                        <a onclick="$('#activestore').attr('href', '<?php echo base_url(); ?>Active-Deactive/deactivestore/<?php echo $activestore->restaurant_id; ?>')" data-toggle="modal" data-target=".bs-example-modal-md" title="Click For Deactive Restaurant"><i class="fas fa-thumbs-up "></i> </a> &nbsp;&nbsp;
-                                                        <a href="#" onclick="set_modal('<?php echo $activestore->restaurant_id; ?>');" class="text-danger" data-toggle="modal" data-target=".bs-example-modal-lg">Read more</a>
-                                                    </td>
+                                             <td align="center">
+
+<?php if($activestore->status == 1){ ?>
+
+<a onclick="$('#activestore').attr('href','<?php echo base_url(); ?>Active-Deactive/deactivestore/<?php echo $activestore->restaurant_id; ?>')" 
+data-toggle="modal" data-target=".bs-example-modal-md">
+
+<button class="btn btn-success btn-sm">Active</button>
+
+</a>
+
+<?php } else { ?>
+
+<a onclick="$('#activestore').attr('href','<?php echo base_url(); ?>Active-Deactive/activestore/<?php echo $activestore->restaurant_id; ?>')" 
+data-toggle="modal" data-target=".bs-example-modal-md">
+
+<button class="btn btn-danger btn-sm">Inactive</button>
+
+</a>
+
+<?php } ?>
+
+</td>
                                                 </tr>
                                                 <?php
                                             }

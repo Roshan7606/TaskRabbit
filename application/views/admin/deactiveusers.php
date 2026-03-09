@@ -71,10 +71,22 @@
                                                     <td><?php echo $deactiveuser->name; ?></td>
                                                     <td><?php echo $deactiveuser->contact_no; ?></td>
                                                     <td><?php echo $deactiveuser->email; ?></td>
-                                                    <td align="center">
-                                                        <a title="Click For Active User" onclick="$('#deactiveuser').attr('href', '<?php echo base_url(); ?>Active-Deactive/activeuser/<?php echo $deactiveuser->user_id; ?>')" data-toggle="modal" data-target=".bs-example-modal-md"><i class="fas fa-thumbs-down text-danger"></i> </a> &nbsp;&nbsp;
-                                                        <a href="#">Read more</a>
-                                                    </td>
+                                                   <td align="center">
+
+<a title="Click For Active User"
+onclick="$('#deactiveuser').attr('href','<?php echo base_url(); ?>Active-Deactive/activeuser/<?php echo $deactiveuser->user_id; ?>')"
+data-toggle="modal" data-target=".bs-example-modal-md">
+
+<button class="btn btn-danger btn-sm">
+<i class="fas fa-user-times"></i> Inactive
+</button>
+
+</a>
+
+&nbsp;&nbsp;
+
+
+</td>
                                                 </tr>
                                                 <?php
                                             }
