@@ -96,7 +96,7 @@
                                             <?php
                                             } else {
                                             ?>
-                                                <img src="<?php echo base_url() . $single->coverpic; ?>" class="img-res-cover full-width" alt="#">
+                                                <img src="<?php echo base_url(); ?>uploads/category/<?php echo $single->coverpic; ?>" class="img-res-cover full-width" alt="#">
                                             <?php
                                             }
                                             ?>

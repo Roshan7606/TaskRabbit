@@ -197,9 +197,9 @@ $data["food_item_detail"] = $this->md->my_query("select cat.name as category,sub
         $id = $this->uri->segment(2);
         $this->session->set_userdata("search_restaurant", $id);
 
-    $query = "SELECT category_id, name as restaurant_name, '' as coverpic, 1 as restaurant_id
-            FROM tbl_category
-            ORDER BY name ASC";
+    $query = "SELECT category_id, name as restaurant_name, image as coverpic, 1 as restaurant_id
+                FROM tbl_category
+                ORDER BY name ASC";
 
         $data["restaurent"] = $this->md->my_query($query);
         $this->load->view("restaurant", $data);
