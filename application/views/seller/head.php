@@ -8,8 +8,8 @@
     display:flex;
     align-items:center;
     height:170px;
-    height:50px;
-    padding-left:30px;
+    height:170px;
+    padding-left:50px;
     text-decoration:none;
 }
 
