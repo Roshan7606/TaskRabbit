@@ -595,7 +595,7 @@ $seller_detail = $this->md->my_select("tbl_restaurant", "*", array("restaurant_i
                                     </div>
                                 </div>
                                 <div id="tab-notification" class="provider-section" style="display:none;">
-                                    <form action="" name="banner_upload" method="post" enctype="multipart/form-data">
+                                    <form action="<?= base_url('Restaurant/update_profile'); ?>" name="banner_upload" method="post" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-md-12  mx-auto">
                                                 <h4>Gallery</h4>
@@ -621,18 +621,18 @@ $seller_detail = $this->md->my_select("tbl_restaurant", "*", array("restaurant_i
                                                                     <div class="user-img">
                                                                         <div class="img-overlay">
                                                                             <?php
-                                                                            if ($seller_detail[0]->profile_pic == "") {
-                                                                                ?>
-                                                                                <img class="img" src="<?php echo base_url(); ?>seller_assets/images/seller_profile/default_profile.jpg"  alt="">
-                                                                                <?php
+                                                                            if ($seller_detail[0]->coverpic == "") {
+                                                                            ?>
+                                                                            <img class="img" src="<?php echo base_url(); ?>seller_assets/images/seller_profile/default_profile.jpg">
+                                                                            <?php
                                                                             } else {
-                                                                                ?>
-                                                                                <img class="img" src="<?php echo base_url() . $seller_detail[0]->profile_pic; ?>"  alt="">
-                                                                                <?php
+                                                                            ?>
+                                                                            <img class="img" src="<?php echo base_url() . $seller_detail[0]->coverpic; ?>">
+                                                                            <?php
                                                                             }
                                                                             ?>
                                                                             <i class="fas fa-camera text-white icon" style="font-size: 25px;" title="Choose Profile Picture"></i>
-                                                                            <input type="file" id="user-img" name="seller_profile" onchange="readURL1(this);" style="display: none;">
+                                                                            <input type="file" id="user-img" name="provider_photo" onchange="readURL1(this);" style="display: none;">
                                                                             <p class="form-php-error"></p>
                                                                         </div>
                                                                     </div>  

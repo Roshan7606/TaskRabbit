@@ -72,13 +72,13 @@
                                     <div class="featured-img">
                                         <a href="<?php echo base_url(); ?>Restaurant-Details/<?php echo $single->restaurant_id; ?>">
                                             <?php
-                                            $provider_image = "";
-                                            if (!empty($single->coverpic)) {
-                                                $provider_image = base_url() . $single->coverpic;
-                                            } elseif (!empty($single->profile_pic)) {
-                                                $provider_image = base_url() . $single->profile_pic;
-                                            } else {
-                                                $provider_image = base_url() . "assets/img/deals/360x178/shop-1.jpg";
+                                            if(!empty($single->coverpic))
+                                            {
+                                                $provider_image = base_url($single->coverpic);
+                                            }
+                                            else
+                                            {
+                                                $provider_image = base_url("assets/img/deals/360x178/shop-1.jpg");
                                             }
                                             ?>
                                             <img src="<?php echo $provider_image; ?>" class="img-res-cover full-width" alt="#">

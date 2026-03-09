@@ -672,6 +672,28 @@ public function update_profile()
 
     redirect("Restaurant/editprofile", "refresh");
     exit;
+
+    if(!empty($_FILES['provider_photo']['name']))
+    {
+        $config['upload_path'] = './uploads/providers/';
+        $config['allowed_types'] = 'jpg|jpeg|png';
+        $config['file_name'] = 'provider_'.$this->session->userdata('seller_email');
+        $config['overwrite'] = TRUE;
+
+        $this->load->library('upload',$config);
+
+        if($this->upload->do_upload('provider_photo'))
+        {
+            $upload_data = $this->upload->data();
+
+            $image_path = 'uploads/providers/'.$upload_data['file_name'];
+
+            $this->db->where('restaurant_id',$this->session->userdata('seller_email'));
+            $this->db->update('tbl_restaurant',array(
+                'coverpic'=>$image_path
+            ));
+        }
+    }
 }
 
 public function my_services()
