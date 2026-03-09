@@ -695,7 +695,48 @@ public function update_profile()
         }
     }
 }
+public function upload_provider_image()
+{
+    $id = $this->session->userdata('seller_email');
 
+    $config['upload_path'] = './uploads/providers/';
+    $config['allowed_types'] = 'jpg|jpeg|png';
+    $config['encrypt_name'] = TRUE;
+
+    $this->load->library('upload');
+
+    $data = array();
+
+    if(!empty($_FILES['profile_pic']['name']))
+    {
+        $this->upload->initialize($config);
+
+        if($this->upload->do_upload('profile_pic'))
+        {
+            $upload = $this->upload->data();
+            $data['profile_pic'] = 'uploads/providers/'.$upload['file_name'];
+        }
+    }
+
+    if(!empty($_FILES['cover_pic']['name']))
+    {
+        $this->upload->initialize($config);
+
+        if($this->upload->do_upload('cover_pic'))
+        {
+            $upload = $this->upload->data();
+            $data['coverpic'] = 'uploads/providers/'.$upload['file_name'];
+        }
+    }
+
+    if(!empty($data))
+    {
+        $this->db->where('restaurant_id',$id);
+        $this->db->update('tbl_restaurant',$data);
+    }
+
+    redirect('Restaurant-Edit-Profile');
+}
 public function my_services()
 {
     $provider_id = $this->session->userdata('seller_email');
