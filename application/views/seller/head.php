@@ -2,11 +2,13 @@
     $seller_detail = $this->md->my_select("tbl_restaurant", "*",array("restaurant_id"=>$this->session->userdata("seller_email")));
 ?>
 
+
 <style>
 .provider-logo-wrap{
     display:flex;
     align-items:center;
     height:170px;
+    height:50px;
     padding-left:30px;
     text-decoration:none;
 }
@@ -40,6 +42,7 @@
     overflow:hidden;
 }
 </style>
+
 
 <!-- Header START -->
 <div class="header">
