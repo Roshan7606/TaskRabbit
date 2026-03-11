@@ -318,6 +318,19 @@
                                                                                 ?>
                                                                             </span>
                                                                         </div>
+                                                                        <div style="margin-top: 15px;">
+                                                                            <button type="button"
+                                                                                    class="btn btn-danger"
+                                                                                    onclick="openBookingModal(
+                                                                                        '<?php echo $restaurent_detail[0]->restaurant_id; ?>',
+                                                                                        '<?php echo $item->id; ?>',
+                                                                                        '<?php echo $item->category_id; ?>',
+                                                                                        '<?php echo htmlspecialchars($item->category_name, ENT_QUOTES); ?>',
+                                                                                        '<?php echo $item->service_price; ?>'
+                                                                                    )">
+                                                                                Book Now
+                                                                            </button>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -782,6 +795,76 @@
             </div>
         </div>
 
+        <div class="modal fade" id="bookingModal" tabindex="-1" role="dialog" aria-labelledby="bookingModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <form method="post" action="<?php echo base_url('submit-booking'); ?>">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="bookingModalLabel">Book Service</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span>&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <input type="hidden" name="provider_id" id="modal_provider_id">
+                            <input type="hidden" name="provider_service_id" id="modal_provider_service_id">
+                            <input type="hidden" name="category_id" id="modal_category_id">
+
+                            <div class="form-group">
+                                <label>Service Name</label>
+                                <input type="text" id="modal_service_name" class="form-control" readonly>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Service Price</label>
+                                <input type="text" id="modal_service_price" class="form-control" readonly>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Your Name</label>
+                                <input type="text" name="customer_name" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="text" name="customer_phone" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" name="customer_email" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Address</label>
+                                <textarea name="customer_address" class="form-control" required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea name="customer_description" class="form-control" placeholder="Write your work details" required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Preferred Date</label>
+                                <input type="date" name="service_date" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Preferred Time</label>
+                                <input type="time" name="service_time" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger">Confirm Booking</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <!-- Wishlist Like & Dislike Message Box Code START -->
         <div class="add-wishlist-msg ">
             <p></p>
@@ -850,6 +933,17 @@
                     }
                 });
             }).scroll();
+
+            function openBookingModal(provider_id, provider_service_id, category_id, category_name, service_price)
+                {
+                    $('#modal_provider_id').val(provider_id);
+                    $('#modal_provider_service_id').val(provider_service_id);
+                    $('#modal_category_id').val(category_id);
+                    $('#modal_service_name').val(category_name);
+                    $('#modal_service_price').val('₹ ' + service_price);
+
+                    $('#bookingModal').modal('show');
+                }
         </script>
     </body>
 </html>

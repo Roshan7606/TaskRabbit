@@ -117,3 +117,19 @@ $route['Restaurant-Active-Request'] = "Restaurant/activestatus";
 //Backend related routes
 $route['Package-Update/(:any)/(:any)'] = "Backend/package_update/$2/$3";
 
+/* BOOKING ROUTES START */
+$route['submit-booking'] = "Pages/submit_booking";
+$route['check-booking-status/(:num)'] = "Pages/check_booking_status/$1";
+$route['booking-waiting/(:num)'] = "Pages/booking_waiting/$1";
+
+$route['Restaurant-Booking-Requests'] = "Restaurant/booking_requests";
+$route['Restaurant-Accept-Booking/(:num)'] = "Restaurant/accept_booking/$1";
+$route['Restaurant-Reject-Booking/(:num)'] = "Restaurant/reject_booking/$1";
+
+/* CHANGE THIS ONLY IF NEEDED */
+$route['Admin-Bookings'] = "Authorization/bookings";
+/* BOOKING ROUTES END */
+
+$route['Restaurant-Booking-Requests'] = 'Restaurant/booking_requests';
+$route['Restaurant-Accept-Booking/(:num)'] = 'Restaurant/accept_booking/$1';
+$route['Restaurant-Reject-Booking/(:num)'] = 'Restaurant/reject_booking/$1';
