@@ -4398,20 +4398,129 @@ footer .btn-submit{
 }
 
 .featured-product{
-    transition:0.3s;
+opacity:0;
+transform:translateY(40px);
+animation:cardFade 0.8s forwards;
 }
 
+
+.featured-product:nth-child(2){animation-delay:.1s;}
+.featured-product:nth-child(3){animation-delay:.2s;}
+.featured-product:nth-child(4){animation-delay:.3s;}
+.featured-product:nth-child(5){animation-delay:.4s;}
+
+@keyframes cardFade{
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+
+
 .featured-product:hover{
-    transform:translateY(-6px);
-    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+transform:translateY(-12px);
+box-shadow:0 30px 70px rgba(0,0,0,0.18);
+}
+
+
+.featured-img{
+position:relative;
+overflow:hidden;
+border-radius:18px 18px 0 0;
 }
 
 .featured-img img{
-    transition:0.4s;
+width:100%;
+height:220px;
+object-fit:cover;
+transition:0.6s ease;
+}
+
+.reataurant-wishlist-icon{
+width:40px;
+height:40px;
+border-radius:50%;
+background:white;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 8px 25px rgba(0,0,0,0.2);
+transition:0.3s;
+}
+
+.reataurant-wishlist-icon:hover{
+background:#ff3b3b;
+transform:scale(1.15);
+}
+
+.reataurant-wishlist-icon img{
+width:16px;
+}
+
+.restaurant-name{
+font-size:18px;
+font-weight:600;
+color:#222;
+margin-bottom:6px;
+}
+
+.star i{
+color:#ffb400;
+font-size:15px;
+margin-right:2px;
+}
+
+/* card body */
+
+.featured-product-details{
+padding:22px;
+}
+
+
+/* category text */
+
+.restaurent-rating span{
+font-size:13px;
+color:#777;
+}
+
+.featured-img::after{
+content:"";
+position:absolute;
+bottom:0;
+left:0;
+width:100%;
+height:70%;
+background:linear-gradient(to top,rgba(0,0,0,0.35),transparent);
+opacity:0;
+transition:0.4s;
+}
+
+.featured-product:hover .featured-img::after{
+opacity:1;
+}
+
+.featured-product::before{
+content:"Popular";
+position:absolute;
+top:14px;
+left:14px;
+background:linear-gradient(135deg,#ff3b3b,#ff6b6b);
+color:white;
+font-size:11px;
+padding:5px 10px;
+border-radius:30px;
+opacity:0;
+transition:0.3s;
+}
+
+.featured-product:hover::before{
+opacity:1;
 }
 
 .featured-product:hover img{
-    transform:scale(1.05);
+transform:scale(1.12);
 }
 
 .header-title{
@@ -5092,18 +5201,20 @@ transform:scale(1.05);
 }
 
 .section-header-left .header-title{
-font-size:32px;
+font-size:36px;
 font-weight:700;
 position:relative;
+margin-bottom:30px;
 }
 
 .section-header-left .header-title::after{
 content:"";
-width:60px;
-height:3px;
-background:#ff3b3b;
+width:80px;
+height:4px;
+background:linear-gradient(90deg,#ff3b3b,#ff7a7a);
 display:block;
 margin-top:8px;
+border-radius:10px;
 }
 
 .index-serch{
