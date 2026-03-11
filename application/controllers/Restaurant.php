@@ -804,5 +804,49 @@ public function save_services()
     $this->session->set_flashdata('success', 'Services saved successfully.');
     redirect('Restaurant-My-Services');
 }
+
+public function booking_requests()
+{
+    $this->security();
+
+    $provider_id = $this->session->userdata("seller_email");
+
+    $data["bookings"] = $this->db
+        ->select("b.*,c.name as category_name")
+        ->from("tbl_service_bookings b")
+        ->join("tbl_category c","c.category_id=b.category_id","left")
+        ->where("b.provider_id",$provider_id)
+        ->order_by("b.booking_id","DESC")
+        ->get()
+        ->result();
+
+    $this->load->view("seller/booking_requests",$data);
+}
+
+public function accept_booking($id)
+{
+    $this->security();
+
+    $this->db->where("booking_id",$id);
+    $this->db->update("tbl_service_bookings",array(
+        "booking_status"=>"accepted",
+        "action_at"=>date("Y-m-d H:i:s")
+    ));
+
+    redirect("Restaurant-Booking-Requests");
+}
+
+public function reject_booking($id)
+{
+    $this->security();
+
+    $this->db->where("booking_id",$id);
+    $this->db->update("tbl_service_bookings",array(
+        "booking_status"=>"rejected",
+        "action_at"=>date("Y-m-d H:i:s")
+    ));
+
+    redirect("Restaurant-Booking-Requests");
+}
 }
     

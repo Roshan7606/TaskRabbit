@@ -262,6 +262,123 @@ $data["food_item_detail"] = $this->md->my_query("select cat.name as category,sub
         $this->load->view("restaurantdetails", $data);
     }
 
+    public function submit_booking()
+    {
+        date_default_timezone_set("Asia/Kolkata");
+
+        $provider_id = $this->input->post('provider_id');
+        $provider_service_id = $this->input->post('provider_service_id');
+        $category_id = $this->input->post('category_id');
+
+        $customer_name = $this->input->post('customer_name');
+        $customer_phone = $this->input->post('customer_phone');
+        $customer_email = $this->input->post('customer_email');
+        $customer_address = $this->input->post('customer_address');
+        $customer_description = $this->input->post('customer_description');
+        $service_date = $this->input->post('service_date');
+        $service_time = $this->input->post('service_time');
+
+        $expires_at = date('Y-m-d H:i:s', strtotime('+2 minutes'));
+
+        $ins = array(
+            'provider_id' => $provider_id,
+            'provider_service_id' => $provider_service_id,
+            'category_id' => $category_id,
+            'customer_name' => $customer_name,
+            'customer_phone' => $customer_phone,
+            'customer_email' => $customer_email,
+            'customer_address' => $customer_address,
+            'customer_description' => $customer_description,
+            'service_date' => $service_date,
+            'service_time' => $service_time,
+            'booking_status' => 'pending',
+            'expires_at' => $expires_at
+        );
+
+        $this->db->insert('tbl_service_bookings', $ins);
+        $booking_id = $this->db->insert_id();
+
+        redirect(base_url('booking-waiting/' . $booking_id));
+    }
+
+    public function booking_waiting($booking_id)
+    {
+        $booking = $this->db
+            ->where('booking_id', $booking_id)
+            ->get('tbl_service_bookings')
+            ->row();
+
+        if (!$booking) {
+            show_404();
+        }
+
+        $data['booking'] = $booking;
+        $this->load->view('booking_waiting', $data);
+    }
+
+    public function check_booking_status($booking_id)
+    {
+        date_default_timezone_set("Asia/Kolkata");
+
+        $booking = $this->db
+            ->where('booking_id', $booking_id)
+            ->get('tbl_service_bookings')
+            ->row();
+
+        if (!$booking) {
+            header('Content-Type: application/json');
+            echo json_encode(array(
+                'status' => 'not_found',
+                'remaining_seconds' => 0
+            ));
+            exit;
+        }
+
+        if ($booking->booking_status == 'pending' && strtotime($booking->expires_at) <= time()) {
+            $this->db->where('booking_id', $booking_id);
+            $this->db->update('tbl_service_bookings', array(
+                'booking_status' => 'expired',
+                'action_at' => date('Y-m-d H:i:s')
+            ));
+            $booking->booking_status = 'expired';
+        }
+
+        $remaining_seconds = strtotime($booking->expires_at) - time();
+        if ($remaining_seconds < 0) {
+            $remaining_seconds = 0;
+        }
+
+        $response = array(
+            'status' => $booking->booking_status,
+            'remaining_seconds' => $remaining_seconds
+        );
+
+        if ($booking->booking_status == 'accepted') {
+            $provider = $this->db
+                ->where('restaurant_id', $booking->provider_id)
+                ->get('tbl_restaurant')
+                ->row();
+
+            if ($provider) {
+                $response['provider'] = array(
+                    'owner_name'    => $provider->owner_name,
+                    'primary_skill' => $provider->primary_skill,
+                    'experience'    => $provider->experience,
+                    'languages'     => $provider->languages,
+                    'about_me'      => $provider->about_me,
+                    'contact_no'    => $provider->contact_no,
+                    'email'         => $provider->email,
+                    'profile_pic'   => $provider->profile_pic,
+                    'coverpic'      => $provider->coverpic
+                );
+            }
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        exit;
+    }
+
         public function service_providers()
     {
         $data = array();
