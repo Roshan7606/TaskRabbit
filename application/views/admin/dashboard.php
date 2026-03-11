@@ -30,34 +30,6 @@
                         </div>
                     </div><!-- end .page title-->
                     <div class="row">
-                        <div class="col-md-3 col-sm-6 col-xs-12 ">
-                            <div class="widget-box clearfix dash-hover">
-                                <a href="<?php echo base_url('Admin-Manage-Contact'); ?>">
-                                    <div>
-                                        <h4>Contact</h4>
-                                        <h2>
-                                            <?php
-                                            echo count($this->md->my_select("tbl_contactus", "*"));
-                                            ?>
-                                            <i class="fa fa-id-card pull-right"></i></h2>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 col-xs-12 ">
-                            <div class="widget-box clearfix dash-hover">
-                                <a href="<?php echo base_url('Admin-Manage-Feedback'); ?>">
-                                    <div>
-                                        <h4>Feedback</h4>
-                                        <h2>
-                                            <?php
-                                            echo count($this->md->my_select("tbl_feedback", "*"));
-                                            ?>    
-                                            <i class="fa fa-user-edit pull-right"></i></h2>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
                         <div class="col-md-3 col-sm-6 col-xs-12">
                             <div class="widget-box clearfix dash-hover">
                                 <a href="<?php echo base_url('Admin-Manage-Active-Users'); ?>">
@@ -86,46 +58,19 @@
                                 </a>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-                            <div class="widget-box clearfix dash-hover">
-                                <a href="<?php echo base_url('Admin-Manage-Email'); ?>">
-                                    <div>
-                                        <h4>Email</h4>
-                                        <h2>
-                                            <?php
-                                            echo count($this->md->my_select("tbl_email_subscriber", "*"));
-                                            ?>    
-                                            <i class="fa fa-envelope pull-right"></i></h2>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 col-xs-12">
-                            <div class="widget-box clearfix dash-hover">
-                                <a href="<?php echo base_url('Admin-Manage-Banner'); ?>">
-                                    <div>
-                                        <h4>Banner</h4>
-                                        <h2>
-                                            <?php
-                                            echo count($this->md->my_select("tbl_banner", "*"));
-                                            ?>
-                                            <i class="fa fa-image pull-right"></i></h2>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
+                   
+                        
+                        
                         <div class="col-md-3 col-sm-6 col-xs-12">
                             <div class="widget-box clearfix dash-hover">
                                 <a href="<?php echo base_url('Admin-Manage-Active-Stores'); ?>">
                                     <div>
-                                        <h4>Active Stores</h4>
+                                        <h4>Active Service Provider</h4>
                                         <h2>
                                             <?php
                                             echo count($this->md->my_select("tbl_restaurant", "*", array("status" => 1)));
                                             ?> 
-                                            <i class="fa fa-store-alt pull-right" style="color: green"></i></h2>
+                                            <i class="fa fa-tools pull-right" style="color: green"></i></h2>
                                     </div>
                                 </a>
                             </div>
@@ -134,12 +79,12 @@
                             <div class="widget-box clearfix dash-hover">
                                 <a href="<?php echo base_url('Admin-Manage-Deactive-Stores'); ?>">
                                     <div>
-                                        <h4>Deactive Stores</h4>
+                                        <h4>Deactive Service Provider</h4>
                                         <h2>
                                             <?php
                                             echo count($this->md->my_select("tbl_restaurant", "*", array("status" => 0)));
                                             ?>
-                                            <i class="fa fa-store-alt pull-right " style="color: orangered"></i></h2>
+                                            <i class="fa fa-tools pull-right" style="color: orangered;"></i></h2>
                                     </div>
                                 </a>
                             </div>

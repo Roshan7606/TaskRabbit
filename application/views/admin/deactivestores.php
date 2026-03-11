@@ -43,7 +43,7 @@
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>Restaurant Name</th>
+                                                <th>Service Provider Name</th>
                                                 <th>Mobile No.</th>
                                                 <th>Email</th>
                                                <th>Action</th>
@@ -52,7 +52,7 @@
                                         <tfoot>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>Restaurant Name</th>
+                                                <th>Service Provider Name</th>
                                                 <th>Mobile No.</th>
                                                 <th>Email</th>
                                                 <th>Action</th>
@@ -115,7 +115,7 @@ data-toggle="modal" data-target=".bs-example-modal-md">
                     <center>
                         <img src="<?php echo base_url(); ?>admin_assets/images/activerestaurant.png" height="120" width="100" >
                         <p style="margin-top: 5%;font-size: 20px;">Are you sure want to active ?</p>
-                        <p style="margin-top: 1%;font-size: 14px;margin-bottom: 4%;">If you active restaurant than you can able to upload images and other information of restaurant.</p>
+                        <p style="margin-top: 1%;font-size: 14px;margin-bottom: 4%;">If you active Service Provider than you can able to upload images and other information of Service Provider.</p>
                         <a id="deactivestore" href="#" class="btn btn-danger" style="padding:10px 40px;">Yes</a>
                         <a href="#" class="btn btn-default" data-dismiss="modal" style="padding:10px 40px;">NO</a>
                     </center>

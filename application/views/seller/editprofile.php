@@ -211,20 +211,18 @@ value="<?php echo $data->contact_no; ?>">
 
 <div class="card-body">
 
-<form action="<?= base_url('Restaurant/upload_provider_image'); ?>" method="post" enctype="multipart/form-data">
+<form action="<?= base_url('Restaurant/upload_provider_image') ?>" method="post" enctype="multipart/form-data">
 
-<div class="form-row">
+<input type="hidden" name="restaurant_id" value="<?= $provider->restaurant_id ?>">
 
-<div class="form-group col-md-6">
+<div class="form-group">
 <label>Profile Photo</label>
 <input type="file" name="profile_pic" class="form-control">
 </div>
 
-<div class="form-group col-md-6">
+<div class="form-group">
 <label>Cover Photo</label>
 <input type="file" name="cover_pic" class="form-control">
-</div>
-
 </div>
 
 <button type="submit" class="btn btn-primary">
@@ -232,7 +230,6 @@ Upload Photos
 </button>
 
 </form>
-
 </div>
 </div>
 

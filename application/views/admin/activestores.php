@@ -3,7 +3,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Admin Active Restaurants || MUNCHBOX - The Foodies Food</title>
+        <title>Admin Active Service Provider || TaskRabbit</title>
         <?php
         $this->load->view('admin/headscript');
         ?>
@@ -54,7 +54,7 @@
                                         <tfoot>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>Restaurant Name</th>
+                                                <th>Service Provider Name</th>
                                                 <th>Mobile No.</th>
                                                 <th>Email</th>
                                                 <th>Action</th>
@@ -114,7 +114,7 @@ data-toggle="modal" data-target=".bs-example-modal-md">
                     <center>
                         <img src="<?php echo base_url(); ?>admin_assets/images/deactiveres.jpg" height="120" width="60" >
                         <p style="margin-top: 5%;font-size: 20px;">Are you sure want to deactive ?</p>
-                        <p style="margin-top: 1%;font-size: 14px;margin-bottom: 4%;padding: 0px 40px;">If you deactive restaurant than you can't able to upload images and other information of restaurant.</p>
+                        <p style="margin-top: 1%;font-size: 14px;margin-bottom: 4%;padding: 0px 40px;">If you deactive Service Provider than you can't able to upload images and other information of Service Provider.</p>
                         <a id="activestore" href="#"   class="btn btn-danger" style="padding:10px 40px;">Yes</a>
                         <a href="#" class="btn btn-default" data-dismiss="modal" style="padding:10px 40px;" >NO</a>
                     </center>
