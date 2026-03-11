@@ -266,17 +266,93 @@ $data["food_item_detail"] = $this->md->my_query("select cat.name as category,sub
     {
         date_default_timezone_set("Asia/Kolkata");
 
+        if (!$this->session->userdata("user_username")) {
+            redirect("Log-in");
+            return;
+        }
+
+        $this->form_validation->set_rules('provider_id', '', 'required|numeric');
+        $this->form_validation->set_rules('provider_service_id', '', 'required|numeric');
+        $this->form_validation->set_rules('category_id', '', 'required|numeric');
+
+        $this->form_validation->set_rules(
+            'customer_first_name',
+            'First Name',
+            'required|regex_match[/^[A-Za-z ]+$/]|min_length[2]|max_length[50]'
+        );
+
+        $this->form_validation->set_rules(
+            'customer_last_name',
+            'Last Name',
+            'required|regex_match[/^[A-Za-z ]+$/]|min_length[2]|max_length[50]'
+        );
+
+        $this->form_validation->set_rules(
+            'customer_phone',
+            'Phone Number',
+            'required|regex_match[/^[0-9]{10}$/]'
+        );
+
+        $this->form_validation->set_rules(
+            'customer_email',
+            'Email',
+            'required|valid_email|max_length[100]'
+        );
+
+        $this->form_validation->set_rules(
+            'customer_address',
+            'Address',
+            'required|min_length[10]|max_length[300]'
+        );
+
+        $this->form_validation->set_rules(
+            'customer_description',
+            'Description',
+            'required|min_length[10]|max_length[500]'
+        );
+
+        $this->form_validation->set_rules('service_date', 'Service Date', 'required');
+        $this->form_validation->set_rules('service_time', 'Service Time', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata('error', validation_errors());
+            redirect($_SERVER['HTTP_REFERER']);
+            return;
+        }
+
         $provider_id = $this->input->post('provider_id');
         $provider_service_id = $this->input->post('provider_service_id');
         $category_id = $this->input->post('category_id');
 
-        $customer_name = $this->input->post('customer_name');
-        $customer_phone = $this->input->post('customer_phone');
-        $customer_email = $this->input->post('customer_email');
-        $customer_address = $this->input->post('customer_address');
-        $customer_description = $this->input->post('customer_description');
+        $customer_first_name = trim($this->input->post('customer_first_name'));
+        $customer_last_name = trim($this->input->post('customer_last_name'));
+        $customer_name = $customer_first_name . ' ' . $customer_last_name;
+
+        $customer_phone = trim($this->input->post('customer_phone'));
+        $customer_email = trim($this->input->post('customer_email'));
+        $customer_address = trim($this->input->post('customer_address'));
+        $customer_description = trim($this->input->post('customer_description'));
         $service_date = $this->input->post('service_date');
         $service_time = $this->input->post('service_time');
+
+        if (strtotime($service_date) < strtotime(date('Y-m-d'))) {
+            $this->session->set_flashdata('error', 'Past date is not allowed.');
+            redirect($_SERVER['HTTP_REFERER']);
+            return;
+        }
+
+        $service_exists = $this->db
+            ->where('id', $provider_service_id)
+            ->where('provider_id', $provider_id)
+            ->where('category_id', $category_id)
+            ->get('tbl_provider_services')
+            ->row();
+
+        if (!$service_exists) {
+            $this->session->set_flashdata('error', 'Invalid service selected.');
+            redirect($_SERVER['HTTP_REFERER']);
+            return;
+        }
 
         $expires_at = date('Y-m-d H:i:s', strtotime('+2 minutes'));
 

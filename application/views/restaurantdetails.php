@@ -11,6 +11,44 @@
         <?php
         $this->load->view("CSS");
         ?>
+
+        <style>
+        .position-relative {
+            position: relative;
+        }
+
+        .valid-tick {
+            display: none;
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #28a745;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .textarea-tick {
+            top: 18px;
+            transform: none;
+        }
+
+        .premium-input.input-valid {
+            border: 2px solid #28a745 !important;
+            box-shadow: 0 0 0 0.1rem rgba(40, 167, 69, 0.15);
+        }
+
+        .premium-input.input-invalid {
+            border: 2px solid #dc3545 !important;
+            box-shadow: 0 0 0 0.1rem rgba(220, 53, 69, 0.15);
+        }
+
+        .validation-summary {
+            display: none;
+            margin-bottom: 15px;
+        }
+        </style>
+
     </head>
 
     <body>
@@ -275,10 +313,16 @@
                                 <div class="card" id="search_food_item">
                                     <div id="">
                                         <div class="card-body no-padding">
+
+                                            <?php if ($this->session->flashdata('error')) { ?>
+                                                <div class="alert alert-danger" style="margin:15px;">
+                                                    <?php echo $this->session->flashdata('error'); ?>
+                                                </div>
+                                            <?php } ?>
                                             <div class="row">
 
                                                 <?php if (!empty($service_items)) { ?>
-                                                    <?php foreach ($service_items as $item) { ?>
+                                                    <?php foreach ($service_items as $item) { ?>    
                                                         <div class="col-md-12 food-category-detail-heading">
                                                             <h4><?php echo ucwords($item->category_name); ?></h4>
                                                             <p>1 Service</p>
@@ -321,7 +365,7 @@
                                                                         <div style="margin-top: 15px;">
                                                                             <button type="button"
                                                                                     class="btn btn-danger"
-                                                                                    onclick="openBookingModal(
+                                                                                    onclick="handleBookingClick(
                                                                                         '<?php echo $restaurent_detail[0]->restaurant_id; ?>',
                                                                                         '<?php echo $item->id; ?>',
                                                                                         '<?php echo $item->category_id; ?>',
@@ -798,7 +842,7 @@
         <div class="modal fade" id="bookingModal" tabindex="-1" role="dialog" aria-labelledby="bookingModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                    <form method="post" action="<?php echo base_url('submit-booking'); ?>">
+                    <form method="post" action="<?php echo base_url('submit-booking'); ?>" id="bookingForm">
                         <div class="modal-header">
                             <h5 class="modal-title" id="bookingModalLabel">Book Service</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -816,44 +860,85 @@
                                 <input type="text" id="modal_service_name" class="form-control" readonly>
                             </div>
 
+                            <div class="alert alert-danger validation-summary" id="validation_summary">
+                                Please correct the highlighted fields.
+                            </div>
+
                             <div class="form-group">
                                 <label>Service Price</label>
                                 <input type="text" id="modal_service_price" class="form-control" readonly>
                             </div>
 
                             <div class="form-group">
-                                <label>Your Name</label>
-                                <input type="text" name="customer_name" class="form-control" required>
+                                <label>First Name</label>
+                                <div class="position-relative">
+                                    <input type="text" name="customer_first_name" id="customer_first_name" class="form-control premium-input" maxlength="50" required>
+                                    <span class="valid-tick" id="tick_customer_first_name">✔</span>
+                                </div>
+                                <small class="text-danger" id="error_customer_first_name"></small>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <div class="position-relative">
+                                    <input type="text" name="customer_last_name" id="customer_last_name" class="form-control premium-input" maxlength="50" required>
+                                    <span class="valid-tick" id="tick_customer_last_name">✔</span>
+                                </div>
+                                <small class="text-danger" id="error_customer_last_name"></small>
                             </div>
 
                             <div class="form-group">
                                 <label>Phone Number</label>
-                                <input type="text" name="customer_phone" class="form-control" required>
+                                <div class="position-relative">
+                                    <input type="text" name="customer_phone" id="customer_phone" class="form-control premium-input" maxlength="10" required>
+                                    <span class="valid-tick" id="tick_customer_phone">✔</span>
+                                </div>
+                                <small class="text-danger" id="error_customer_phone"></small>
                             </div>
 
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="email" name="customer_email" class="form-control" required>
+                                <div class="position-relative">
+                                    <input type="email" name="customer_email" id="customer_email" class="form-control premium-input" maxlength="100" required>
+                                    <span class="valid-tick" id="tick_customer_email">✔</span>
+                                </div>
+                                <small class="text-danger" id="error_customer_email"></small>
                             </div>
 
                             <div class="form-group">
                                 <label>Address</label>
-                                <textarea name="customer_address" class="form-control" required></textarea>
+                                <div class="position-relative">
+                                    <textarea name="customer_address" id="customer_address" class="form-control premium-input" maxlength="300" required></textarea>
+                                    <span class="valid-tick textarea-tick" id="tick_customer_address">✔</span>
+                                </div>
+                                <small class="text-danger" id="error_customer_address"></small>
                             </div>
 
                             <div class="form-group">
                                 <label>Description</label>
-                                <textarea name="customer_description" class="form-control" placeholder="Write your work details" required></textarea>
+                                <div class="position-relative">
+                                    <textarea name="customer_description" id="customer_description" class="form-control premium-input" placeholder="Write your work details" maxlength="500" required></textarea>
+                                    <span class="valid-tick textarea-tick" id="tick_customer_description">✔</span>
+                                </div>
+                                <small class="text-danger" id="error_customer_description"></small>
                             </div>
 
                             <div class="form-group">
                                 <label>Preferred Date</label>
-                                <input type="date" name="service_date" class="form-control" required>
+                                <div class="position-relative">
+                                    <input type="date" name="service_date" id="service_date" class="form-control premium-input" min="<?php echo date('Y-m-d'); ?>" required>
+                                    <span class="valid-tick" id="tick_service_date">✔</span>
+                                </div>
+                                <small class="text-danger" id="error_service_date"></small>
                             </div>
 
                             <div class="form-group">
                                 <label>Preferred Time</label>
-                                <input type="time" name="service_time" class="form-control" required>
+                                <div class="position-relative">
+                                    <input type="time" name="service_time" id="service_time" class="form-control premium-input" required>
+                                    <span class="valid-tick" id="tick_service_time">✔</span>
+                                </div>
+                                <small class="text-danger" id="error_service_time"></small>
                             </div>
                         </div>
 
@@ -907,43 +992,371 @@
         ?>
         <script src="<?php echo base_url() ?>assets/js/munchbox.js" type="text/javascript"></script>
         <script src="<?php echo base_url() ?>assets/js/less.min.js" type="text/javascript"></script>
+        
         <script>
-            $(document).ready(function() {
-                $('a[href*=#]').bind('click', function(e) {
-                    e.preventDefault();
+    $(document).ready(function() {
+        $('a[href*=#]').bind('click', function(e) {
+            e.preventDefault();
 
-                    var target = $(this).attr("href");
+            var target = $(this).attr("href");
 
-                    $('html, body').stop().animate({
-                        scrollTop: $(target).offset().top
-                    }, 600, function() {
-                        location.hash = target;
-                    });
-
-                    return false;
-                });
+            $('html, body').stop().animate({
+                scrollTop: $(target).offset().top
+            }, 600, function() {
+                location.hash = target;
             });
 
-            $(window).scroll(function() {
-                var scrollDistance = $(window).scrollTop();
-                $('.fooditem-section').each(function(i) {
-                    if ($(this).position().top <= scrollDistance) {
-                        $('.sidebar-card .user-menu ul li a.active-cuisin').removeClass('active-cuisin');
-                        $('.sidebar-card .user-menu ul li a').eq(i).addClass('active-cuisin');
-                    }
-                });
-            }).scroll();
+            return false;
+        });
+    });
 
-            function openBookingModal(provider_id, provider_service_id, category_id, category_name, service_price)
-                {
-                    $('#modal_provider_id').val(provider_id);
-                    $('#modal_provider_service_id').val(provider_service_id);
-                    $('#modal_category_id').val(category_id);
-                    $('#modal_service_name').val(category_name);
-                    $('#modal_service_price').val('₹ ' + service_price);
+    $(window).scroll(function() {
+        var scrollDistance = $(window).scrollTop();
+        $('.fooditem-section').each(function(i) {
+            if ($(this).position().top <= scrollDistance) {
+                $('.sidebar-card .user-menu ul li a.active-cuisin').removeClass('active-cuisin');
+                $('.sidebar-card .user-menu ul li a').eq(i).addClass('active-cuisin');
+            }
+        });
+    }).scroll();
 
-                    $('#bookingModal').modal('show');
+    function resetBookingValidationUI()
+    {
+        var summary = document.getElementById('validation_summary');
+        if (summary) summary.style.display = 'none';
+
+        var fields = document.querySelectorAll('.premium-input');
+        fields.forEach(function(field){
+            field.classList.remove('input-valid');
+            field.classList.remove('input-invalid');
+        });
+
+        var ticks = document.querySelectorAll('.valid-tick');
+        ticks.forEach(function(tick){
+            tick.style.display = 'none';
+        });
+
+        var errors = document.querySelectorAll('[id^="error_"]');
+        errors.forEach(function(error){
+            error.innerText = '';
+        });
+    }
+
+    function handleBookingClick(provider_id, provider_service_id, category_id, category_name, service_price)
+    {
+        var isLoggedIn = <?php echo $this->session->userdata("user_username") ? 'true' : 'false'; ?>;
+
+        if (!isLoggedIn) {
+            sessionStorage.setItem('pending_booking_provider_id', provider_id);
+            sessionStorage.setItem('pending_booking_provider_service_id', provider_service_id);
+            sessionStorage.setItem('pending_booking_category_id', category_id);
+            sessionStorage.setItem('pending_booking_category_name', category_name);
+            sessionStorage.setItem('pending_booking_service_price', service_price);
+
+            fetch("<?php echo base_url('set-booking-redirect'); ?>", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: "redirect_url=" + encodeURIComponent(window.location.href)
+            });
+
+            $('#cartmodal').modal('show');
+            return;
+        }
+
+        openBookingModal(provider_id, provider_service_id, category_id, category_name, service_price);
+    }
+
+    function openBookingModal(provider_id, provider_service_id, category_id, category_name, service_price)
+    {
+        $('#modal_provider_id').val(provider_id);
+        $('#modal_provider_service_id').val(provider_service_id);
+        $('#modal_category_id').val(category_id);
+        $('#modal_service_name').val(category_name);
+        $('#modal_service_price').val('₹ ' + service_price);
+
+        resetBookingValidationUI();
+        $('#bookingModal').modal('show');
+    }
+
+    function showError(id, message) {
+        var errorEl = document.getElementById('error_' + id);
+        var inputEl = document.getElementById(id);
+        var tickEl = document.getElementById('tick_' + id);
+
+        if (errorEl) errorEl.innerText = message;
+        if (inputEl) {
+            inputEl.classList.remove('input-valid');
+            inputEl.classList.add('input-invalid');
+        }
+        if (tickEl) tickEl.style.display = 'none';
+    }
+
+    function showValid(id) {
+        var errorEl = document.getElementById('error_' + id);
+        var inputEl = document.getElementById(id);
+        var tickEl = document.getElementById('tick_' + id);
+
+        if (errorEl) errorEl.innerText = '';
+        if (inputEl) {
+            inputEl.classList.remove('input-invalid');
+            inputEl.classList.add('input-valid');
+        }
+        if (tickEl) tickEl.style.display = 'inline';
+    }
+
+    function clearFieldState(id) {
+        var errorEl = document.getElementById('error_' + id);
+        var inputEl = document.getElementById(id);
+        var tickEl = document.getElementById('tick_' + id);
+
+        if (errorEl) errorEl.innerText = '';
+        if (inputEl) {
+            inputEl.classList.remove('input-invalid');
+            inputEl.classList.remove('input-valid');
+        }
+        if (tickEl) tickEl.style.display = 'none';
+    }
+
+    function debounce(fn, delay) {
+        var timer;
+        return function() {
+            var context = this;
+            var args = arguments;
+            clearTimeout(timer);
+            timer = setTimeout(function() {
+                fn.apply(context, args);
+            }, delay);
+        };
+    }
+
+    function validateFirstName() {
+        var id = 'customer_first_name';
+        var value = document.getElementById(id).value.trim();
+        var regex = /^[A-Za-z ]+$/;
+
+        if (value === '') return showError(id, 'First name is required'), false;
+        if (value.length < 2) return showError(id, 'Minimum 2 characters required'), false;
+        if (!regex.test(value)) return showError(id, 'Only letters allowed'), false;
+
+        showValid(id);
+        return true;
+    }
+
+    function validateLastName() {
+        var id = 'customer_last_name';
+        var value = document.getElementById(id).value.trim();
+        var regex = /^[A-Za-z ]+$/;
+
+        if (value === '') return showError(id, 'Last name is required'), false;
+        if (value.length < 2) return showError(id, 'Minimum 2 characters required'), false;
+        if (!regex.test(value)) return showError(id, 'Only letters allowed'), false;
+
+        showValid(id);
+        return true;
+    }
+
+    function validatePhone() {
+        var id = 'customer_phone';
+        var value = document.getElementById(id).value.trim();
+        var regex = /^[0-9]{10}$/;
+
+        if (value === '') return showError(id, 'Phone number is required'), false;
+        if (!regex.test(value)) return showError(id, 'Enter valid 10 digit phone number'), false;
+
+        showValid(id);
+        return true;
+    }
+
+    function validateEmail() {
+        var id = 'customer_email';
+        var value = document.getElementById(id).value.trim();
+        var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (value === '') return showError(id, 'Email is required'), false;
+        if (!regex.test(value)) return showError(id, 'Enter valid email address'), false;
+
+        showValid(id);
+        return true;
+    }
+
+    function validateAddress() {
+        var id = 'customer_address';
+        var value = document.getElementById(id).value.trim();
+
+        if (value === '') return showError(id, 'Address is required'), false;
+        if (value.length < 10) return showError(id, 'Address must be at least 10 characters'), false;
+
+        showValid(id);
+        return true;
+    }
+
+    function validateDescription() {
+        var id = 'customer_description';
+        var value = document.getElementById(id).value.trim();
+
+        if (value === '') return showError(id, 'Description is required'), false;
+        if (value.length < 10) return showError(id, 'Description must be at least 10 characters'), false;
+
+        showValid(id);
+        return true;
+    }
+
+    function validateServiceDate() {
+        var id = 'service_date';
+        var value = document.getElementById(id).value;
+
+        if (value === '') return showError(id, 'Date is required'), false;
+
+        var today = new Date();
+        today.setHours(0,0,0,0);
+
+        var selectedDate = new Date(value);
+        selectedDate.setHours(0,0,0,0);
+
+        if (selectedDate < today) return showError(id, 'Past date is not allowed'), false;
+
+        showValid(id);
+        return true;
+    }
+
+    function validateServiceTime() {
+        var id = 'service_time';
+        var value = document.getElementById(id).value;
+
+        if (value === '') return showError(id, 'Time is required'), false;
+
+        showValid(id);
+        return true;
+    }
+
+    function validateBookingForm() {
+        var valid = true;
+
+        if (!validateFirstName()) valid = false;
+        if (!validateLastName()) valid = false;
+        if (!validatePhone()) valid = false;
+        if (!validateEmail()) valid = false;
+        if (!validateAddress()) valid = false;
+        if (!validateDescription()) valid = false;
+        if (!validateServiceDate()) valid = false;
+        if (!validateServiceTime()) valid = false;
+
+        var summary = document.getElementById('validation_summary');
+        if (summary) summary.style.display = valid ? 'none' : 'block';
+
+        return valid;
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var bookingForm = document.getElementById('bookingForm');
+
+        var debouncedFirstName = debounce(validateFirstName, 300);
+        var debouncedLastName = debounce(validateLastName, 300);
+        var debouncedPhone = debounce(validatePhone, 300);
+        var debouncedEmail = debounce(validateEmail, 300);
+        var debouncedAddress = debounce(validateAddress, 300);
+        var debouncedDescription = debounce(validateDescription, 300);
+
+        var firstName = document.getElementById('customer_first_name');
+        var lastName = document.getElementById('customer_last_name');
+        var phone = document.getElementById('customer_phone');
+        var email = document.getElementById('customer_email');
+        var address = document.getElementById('customer_address');
+        var description = document.getElementById('customer_description');
+        var serviceDate = document.getElementById('service_date');
+        var serviceTime = document.getElementById('service_time');
+
+        if (firstName) {
+            firstName.addEventListener('input', function(){
+                if (this.value.trim() === '') clearFieldState('customer_first_name');
+                else debouncedFirstName();
+            });
+            firstName.addEventListener('blur', validateFirstName);
+        }
+
+        if (lastName) {
+            lastName.addEventListener('input', function(){
+                if (this.value.trim() === '') clearFieldState('customer_last_name');
+                else debouncedLastName();
+            });
+            lastName.addEventListener('blur', validateLastName);
+        }
+
+        if (phone) {
+            phone.addEventListener('input', function(){
+                this.value = this.value.replace(/\D/g, '');
+                if (this.value.trim() === '') clearFieldState('customer_phone');
+                else debouncedPhone();
+            });
+            phone.addEventListener('blur', validatePhone);
+        }
+
+        if (email) {
+            email.addEventListener('input', function(){
+                if (this.value.trim() === '') clearFieldState('customer_email');
+                else debouncedEmail();
+            });
+            email.addEventListener('blur', validateEmail);
+        }
+
+        if (address) {
+            address.addEventListener('input', function(){
+                if (this.value.trim() === '') clearFieldState('customer_address');
+                else debouncedAddress();
+            });
+            address.addEventListener('blur', validateAddress);
+        }
+
+        if (description) {
+            description.addEventListener('input', function(){
+                if (this.value.trim() === '') clearFieldState('customer_description');
+                else debouncedDescription();
+            });
+            description.addEventListener('blur', validateDescription);
+        }
+
+        if (serviceDate) {
+            serviceDate.addEventListener('change', validateServiceDate);
+            serviceDate.addEventListener('blur', validateServiceDate);
+        }
+
+        if (serviceTime) {
+            serviceTime.addEventListener('change', validateServiceTime);
+            serviceTime.addEventListener('blur', validateServiceTime);
+        }
+
+        if (bookingForm) {
+            bookingForm.addEventListener('submit', function(e) {
+                if (!validateBookingForm()) {
+                    e.preventDefault();
                 }
+            });
+        }
+
+        var isLoggedIn = <?php echo $this->session->userdata("user_username") ? 'true' : 'false'; ?>;
+
+        if (isLoggedIn) {
+            var provider_id = sessionStorage.getItem('pending_booking_provider_id');
+            var provider_service_id = sessionStorage.getItem('pending_booking_provider_service_id');
+            var category_id = sessionStorage.getItem('pending_booking_category_id');
+            var category_name = sessionStorage.getItem('pending_booking_category_name');
+            var service_price = sessionStorage.getItem('pending_booking_service_price');
+
+            if (provider_id && provider_service_id && category_id && category_name && service_price) {
+                openBookingModal(provider_id, provider_service_id, category_id, category_name, service_price);
+
+                sessionStorage.removeItem('pending_booking_provider_id');
+                sessionStorage.removeItem('pending_booking_provider_service_id');
+                sessionStorage.removeItem('pending_booking_category_id');
+                sessionStorage.removeItem('pending_booking_category_name');
+                sessionStorage.removeItem('pending_booking_service_price');
+            }
+        }
+    });
+</script>
         </script>
     </body>
 </html>
+
