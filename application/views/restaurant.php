@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <meta name="keywords" content="#">
         <meta name="description" content="#">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <title>Restaurant | TaskRabbit</title>
         <!-- Fav and touch icons -->
         <?php
@@ -43,7 +44,23 @@
                                     </div>
                                 </div>
                                 <div class="col-md-8 search-res-textbox">
-                                    <input type="text" name="text_search" class="form-control" onkeyup="findres(this.value,$('#select_search').val())" id="searchbox-textbox" placeholder="Enter Area To Find ">
+                                    <input type="text"
+                                        name="text_search"
+                                        class="form-control"
+                                        onkeyup="findres(this.value,$('#select_search').val())"
+                                        id="searchbox-textbox"
+                                        placeholder="Enter Area To Find"
+                                        autocomplete="off">
+
+                                    <div id="search_suggestion" style="
+                                        position:absolute;
+                                        background:white;
+                                        width:100%;
+                                        z-index:999;
+                                        border:1px solid #ddd;
+                                        border-radius:10px;
+                                        display:none;">
+                                        </div>
                                 </div>
                                 <div class="col-md-1 search-res-btn">
                                     <img src="<?php echo base_url(); ?>assets/img/love.png" class="search-img-find-icon">
@@ -56,10 +73,292 @@
                     </div>
                 </div>
             </section>
+
+
+<!-- TASKRABBIT SERVICE BAR -->
+<section class="task-service-bar">
+    <div class="container">
+        <div class="service-wrapper">
+
+            <div class="service-item active" data-service="assembly">
+            <i class="fas fa-tools"></i>
+            <p>Assembly</p>
+            </div>
+
+            <div class="service-item" data-service="mounting">
+            <i class="fas fa-tv"></i>
+            <p>Mounting</p>
+            </div>
+
+            <div class="service-item" data-service="moving">
+            <i class="fas fa-truck"></i>
+            <p>Moving</p>
+            </div>
+
+            <div class="service-item" data-service="cleaning">
+            <i class="fas fa-broom"></i>
+            <p>Cleaning</p>
+            </div>
+
+            <div class="service-item" data-service="outdoor">
+            <i class="fas fa-tree"></i>
+            <p>Outdoor Help</p>
+            </div>
+
+            <div class="service-item" data-service="repairs">
+            <i class="fas fa-hammer"></i>
+            <p>Home Repairs</p>
+            </div>
+
+            <div class="service-item" data-service="painting">
+            <i class="fas fa-paint-roller"></i>
+            <p>Painting</p>
+            </div>
+
+            <div class="service-item" data-service="trending">
+            <i class="fas fa-fire"></i>
+            <p>Trending</p>
+            </div>
+        </div>
+    </div>
+</section>
+            
+
+
+<div id="serviceContent">
+
+<!-- Assembly -->
+<div class="service-box" id="assembly">
+
+<div class="service-bg">
+
+<div class="service-image">
+<img src="<?php echo base_url(); ?>assets/img/services/assembly.webp">
+</div>
+
+<div class="service-card">
+<h3>Assembly</h3>
+
+<ul>
+<li>Assemble or disassemble furniture items.</li>
+<li>Now Trending: desks, shelves and furniture builds.</li>
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Mounting -->
+<div class="service-box" id="mounting" style="display:none;">
+<div class="service-bg">
+
+<div class="service-image">
+<img src="<?php echo base_url(); ?>assets/img/services/mounting.webp">
+</div>
+
+<div class="service-card">
+<h3>Mounting</h3>
+<ul>
+<li>Securely mount TVs, mirrors and shelves.</li>
+<li>Now Trending: gallery walls and wraparound shelves.</li>
+</ul>
+</div>
+
+</div>
+</div>
+
+
+<!-- Moving -->
+<div class="service-box" id="moving" style="display:none;">
+<div class="service-bg">
+
+<div class="service-image">
+<img src="<?php echo base_url(); ?>assets/img/services/moving.webp">
+</div>
+
+<div class="service-card">
+<h3>Moving</h3>
+<ul>
+<li>Help moving furniture and heavy items.</li>
+<li>Now Trending: apartment moves and packing help.</li>
+</ul>
+</div>
+
+</div>
+</div>
+
+
+<!-- Cleaning -->
+<div class="service-box" id="cleaning" style="display:none;">
+<div class="service-bg">
+
+<div class="service-image">
+<img src="<?php echo base_url(); ?>assets/img/services/cleaning.webp">
+</div>
+
+<div class="service-card">
+<h3>Cleaning</h3>
+<ul>
+<li>Professional home and office cleaning.</li>
+<li>Now Trending: deep cleaning and eco-friendly cleaning.</li>
+</ul>
+</div>
+
+</div>
+</div>
+
+
+<!-- Outdoor -->
+<div class="service-box" id="outdoor" style="display:none;">
+<div class="service-bg">
+
+<div class="service-image">
+<img src="<?php echo base_url(); ?>assets/img/services/outdoor.webp">
+</div>
+
+<div class="service-card">
+<h3>Outdoor Help</h3>
+<ul>
+<li>Yard work, lawn care and snow removal.</li>
+<li>Now Trending: seasonal yard maintenance.</li>
+</ul>
+</div>
+
+</div>
+</div>
+
+
+<!-- Repairs -->
+<div class="service-box" id="repairs" style="display:none;">
+<div class="service-bg">
+
+<div class="service-image">
+<img src="<?php echo base_url(); ?>assets/img/services/repair.webp">
+</div>
+
+<div class="service-card">
+<h3>Home Repairs</h3>
+<ul>
+<li>Electrical, plumbing and home fixes.</li>
+<li>Now Trending: small home improvement projects.</li>
+</ul>
+</div>
+
+</div>
+</div>
+
+
+<!-- Painting -->
+<div class="service-box" id="painting" style="display:none;">
+<div class="service-bg">
+
+<div class="service-image">
+<img src="<?php echo base_url(); ?>assets/img/services/painting.webp">
+</div>
+
+<div class="service-card">
+<h3>Painting</h3>
+<ul>
+<li>Interior and exterior painting services.</li>
+<li>Now Trending: accent walls and decorative painting.</li>
+</ul>
+</div>
+
+</div>
+</div>
+
+
+<!-- Trending -->
+<div class="service-box" id="trending" style="display:none;">
+<div class="service-bg">
+
+<div class="service-image">
+<img src="<?php echo base_url(); ?>assets/img/services/trending.webp">
+</div>
+
+<div class="service-card">
+<h3>Trending</h3>
+<ul>
+<li>Most popular services requested by users.</li>
+<li>Book trusted taskers for trending tasks.</li>
+</ul>
+</div>
+
+</div>
+</div>
+
+<section class="faq-section">
+<div class="container">
+
+<div class="faq-header text-center">
+<h2>Frequently Asked Questions</h2>
+<p>Everything you need to know about our services</p>
+</div>
+
+<div class="faq-wrapper">
+
+<div class="faq-item">
+<button class="faq-question">
+How does TaskRabbit work?
+<span class="faq-icon">+</span>
+</button>
+
+<div class="faq-answer">
+<p>Choose a service, select a Tasker and schedule the task at your convenience.</p>
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-question">
+How do I book a service?
+<span class="faq-icon">+</span>
+</button>
+
+<div class="faq-answer">
+<p>Select your service, choose a Tasker and confirm the booking.</p>
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-question">
+Are Taskers verified?
+<span class="faq-icon">+</span>
+</button>
+
+<div class="faq-answer">
+<p>Yes, all Taskers go through verification and background checks.</p>
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-question">
+What services are available?
+<span class="faq-icon">+</span>
+</button>
+
+<div class="faq-answer">
+<p>We provide Assembly, Mounting, Moving, Cleaning, Painting and more.</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</section>
+
+
+
+
+
         <!-- exclusive deals -->
         <!-- Featured partners -->
         <section class="featured-partners section-padding-top">
-            <div class="container" id="result">
+            <div class="container">
+
+
+
                 <div class="row section-padding-bottom u-line">
                     <div class="col-12">
                         <div class="section-header-left">
@@ -338,6 +637,59 @@ $this->load->view("footerscript");
        alert("hello leave"); 
     });
     </script>
+    <script>
+
+function findres(keyword)
+{
+    if(keyword.length < 1)
+    {
+        $("#search_suggestion").hide();
+        return;
+    }
+
+    $.ajax({
+        url:"<?php echo base_url();?>Restaurant/live_search",
+        type:"POST",
+        data:{keyword:keyword},
+        success:function(data)
+        {
+            $("#search_suggestion").show();
+            $("#search_suggestion").html(data);
+        }
+    });
+}
+
+function selectItem(name)
+{
+    $("#searchbox-textbox").val(name);
+    $("#search_suggestion").hide();
+}
+
+$('.service-item').click(function(){
+
+$('.service-item').removeClass('active');
+$(this).addClass('active');
+
+var service = $(this).data('service');
+
+$('.service-box').hide();
+
+$('#'+service).fadeIn();
+
+});
+$('.faq-question').click(function(){
+
+var parent = $(this).parent();
+
+parent.toggleClass('active');
+
+parent.find('.faq-answer').slideToggle();
+
+parent.siblings().removeClass('active');
+parent.siblings().find('.faq-answer').slideUp();
+
+});
+</script>
 </body>
 
 

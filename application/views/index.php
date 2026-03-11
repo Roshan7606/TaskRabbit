@@ -25,7 +25,9 @@
                 <div class="row no-gutters bg-home">
                 <video autoplay muted loop class="bg-video">
                         <source src="<?php echo base_url(); ?>assets/video/bg.mp4" type="video/mp4">
-                </video>                    <div class="col-md-6 bg-home-sub">
+                </video>
+                        <div class="video-overlay"></div>
+                                    <div class="col-md-6 bg-home-sub">
                         <div class="section-2 main-page main-padding home-padding">
                             <div class="top-nav">
                                 <!-- <a href="<?php echo base_url("Restaurant-Sign-Up"); ?>"><h5>Partner with us?</h5></a> -->
@@ -83,6 +85,216 @@
         <!-- Browse by category -->
         <!-- your previous order -->
         <!-- Explore collection -->
+
+
+
+
+<!-- Why Choose Us -->
+
+<section class="why-premium">
+
+<div class="container">
+
+<h2 class="why-heading">Why Choose TaskRabbit</h2>
+
+<div class="row">
+
+<div class="col-md-3">
+<div class="premium-card">
+
+<div class="icon-circle">
+<i class="fas fa-user-check"></i>
+</div>
+
+<h4>Verified Taskers</h4>
+<p>Background checked professionals you can trust.</p>
+
+</div>
+</div>
+
+
+<div class="col-md-3">
+<div class="premium-card">
+
+<div class="icon-circle">
+<i class="fas fa-bolt"></i>
+</div>
+
+<h4>Fast Booking</h4>
+<p>Book services instantly within seconds.</p>
+
+</div>
+</div>
+
+
+<div class="col-md-3">
+<div class="premium-card">
+
+<div class="icon-circle">
+<i class="fas fa-star"></i>
+</div>
+
+<h4>Top Rated</h4>
+<p>Highly rated service providers in your city.</p>
+
+</div>
+</div>
+
+
+<div class="col-md-3">
+<div class="premium-card">
+
+<div class="icon-circle">
+<i class="fas fa-headset"></i>
+</div>
+
+<h4>24/7 Support</h4>
+<p>Our support team is always ready to help.</p>
+
+</div>
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<section class="trust-section">
+
+<div class="trust-container">
+
+<!-- LEFT IMAGE -->
+
+<div class="trust-image">
+
+<img src="<?php echo base_url();  ?>assets/img/poster.webp" alt="trust">
+
+<div class="rating-card">
+<img src="<?php echo base_url();  ?>assets/img/poster_photo.webp">
+<div>
+<h4>5.0 ⭐</h4>
+<p>Overall Rating</p>
+</div>
+</div>
+
+<div class="status-card">
+👍 Job completed
+</div>
+
+<div class="status-card2">
+✔ Payment released
+</div>
+
+</div>
+
+
+<!-- RIGHT CONTENT -->
+
+<div class="trust-content">
+
+<h2>Trust and safety<br>features for your<br>protection</h2>
+
+<div class="trust-item">
+
+<h4>💲 Secure payments</h4>
+<p>Only release payment when the task is completed to your satisfaction</p>
+
+</div>
+
+<div class="trust-item">
+
+<h4>⭐ Trusted ratings and reviews</h4>
+<p>Pick the right person for the task based on real ratings and reviews from other users</p>
+
+</div>
+
+<div class="trust-item">
+
+<h4>🛡 Insurance for peace of mind</h4>
+<p>We provide liability insurance for Taskers performing most task activities</p>
+
+</div>
+
+<a class="trust-btn">Post your task for free</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+<section class="boss-section">
+
+<div class="boss-container">
+
+<!-- LEFT -->
+<div class="boss-left">
+
+<h2>Be your own boss</h2>
+
+<p class="boss-desc">
+Whether you're a genius spreadsheet guru or a diligent carpenter,
+find your next job on Airtasker.
+</p>
+
+<ul class="boss-list">
+<li>Free access to thousands of job opportunities</li>
+<li>No subscription or credit fees</li>
+<li>Earn extra income on a flexible schedule</li>
+<li>Grow your business and client base</li>
+</ul>
+
+<a href="#" class="boss-btn">Earn money as a Tasker</a>
+
+</div>
+
+
+<!-- RIGHT -->
+<div class="boss-right">
+
+<img src="<?php echo base_url();  ?>assets/img/earn_task.webp" class="boss-img">
+
+
+<div class="payment-card">
+<span>Payment received!</span>
+<h4>Paint chairs</h4>
+<strong>$179</strong>
+</div>
+
+<div class="alert-card">
+🔔 New job alert!
+</div>
+
+
+<div class="earning-card">
+<p>Total earnings</p>
+<h3>$13,066</h3>
+<span>↑ 20% vs last month</span>
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+
+
+<!-- RIGHT AUTO SCROLL -->
+
+
+
+
         <section class="ex-collection section-padding">
             <div class="container">
                 <div class="row">
@@ -235,6 +447,82 @@
                 </center>
             </div>
         </section>
+
+
+
+        <!-- Top Taskers -->
+
+<section class="top-taskers section-padding">
+
+<div class="container">
+
+<h2 class="text-center">Top Taskers</h2>
+
+<div class="row">
+
+<div class="col-md-4">
+<div class="tasker-card">
+<img src="<?php echo base_url(); ?>assets/img/taskers/tasker1.jpg">
+<h4>Rahul Sharma</h4>
+<p>Handyman Expert</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="tasker-card">
+<img src="<?php echo base_url(); ?>assets/img/taskers/tasker2.jpg">
+<h4>Amit Patel</h4>
+<p>Cleaning Specialist</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="tasker-card">
+<img src="<?php echo base_url(); ?>assets/img/taskers/tasker3.jpg">
+<h4>Ravi Kumar</h4>
+<p>Electrician</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+<section class="app-download section-padding">
+
+<div class="container">
+
+<div class="row align-items-center">
+
+<div class="col-md-6">
+<h2>Download Our App</h2>
+<p>Book services anytime anywhere.</p>
+
+<img src="<?php echo base_url(); ?>assets/img/playstore.png">
+<img src="<?php echo base_url(); ?>assets/img/appstore.png">
+
+</div>
+
+<div class="col-md-6">
+<img src="<?php echo base_url(); ?>assets/img/mobile-app.png" class="img-fluid">
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+
+
         <!-- Explore collection -->
         <!-- footer -->
         <?php
@@ -306,6 +594,49 @@
                 speed: 300,
                 loop: true
             }).go();
+
+const counters=document.querySelectorAll(".counter");
+
+counters.forEach(counter=>{
+counter.innerText='0';
+
+const updateCounter=()=>{
+const target=+counter.getAttribute("data-target");
+const c=+counter.innerText;
+
+const increment=target/200;
+
+if(c < target){
+counter.innerText=Math.ceil(c+increment);
+setTimeout(updateCounter,10);
+}else{
+counter.innerText=target;
+}
+
+};
+
+updateCounter();
+});
+
+const cards = document.querySelectorAll('.premium-card');
+
+window.addEventListener('scroll',()=>{
+
+cards.forEach(card=>{
+
+const top = card.getBoundingClientRect().top;
+const screen = window.innerHeight;
+
+if(top < screen-100){
+card.style.opacity = "1";
+card.style.transform = "translateY(0)";
+}
+
+});
+
+});
+
+
         </script>
     </body>
 

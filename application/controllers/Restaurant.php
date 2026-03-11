@@ -661,5 +661,33 @@ public function update_profile()
 
     redirect("Restaurant-Edit-Profile");
 }
+
+public function live_search()
+{
+    $keyword = $this->input->post("keyword");
+
+    $data = $this->md->my_query("
+        SELECT * FROM tbl_restaurant
+        WHERE restaurant_name LIKE '%".$keyword."%'
+    ");
+
+    if(count($data) > 0)
+    {
+        foreach($data as $single)
+        {
+            echo '
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="featured-product">
+                    <h6>'.$single->restaurant_name.'</h6>
+                </div>
+            </div>
+            ';
+        }
+    }
+    else
+    {
+        echo "<center>No Result Found</center>";
+    }
 }
-    
+
+}

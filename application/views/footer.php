@@ -3,32 +3,32 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2 col-sm-4 col-6 mb-sm-20">
-                <div class="icon-box"> <span class="text-light-green"><i class="flaticon-credit-card-1"></i></span>
+                <div class="icon-box premium-icon-box"> <span class="text-light-green"><i class="flaticon-credit-card-1"></i></span>
                     <span class="text-white">100% Payment<br>Secured</span>
                 </div>
             </div>
             <div class="col-md-2 col-sm-4 col-6 mb-sm-20">
-                <div class="icon-box"> <span class="text-light-green"><i class="flaticon-wallet-1"></i></span>
+                <div class="icon-box premium-icon-box"> <span class="text-light-green"><i class="flaticon-wallet-1"></i></span>
                     <span class="text-white">Support lots<br> of Payments</span>
                 </div>
             </div>
             <div class="col-md-2 col-sm-4 col-6 mb-sm-20">
-                <div class="icon-box"> <span class="text-light-green"><i class="flaticon-help"></i></span>
-                    <span class="text-white">244 hours / 7 days<br>Support</span>
+                <div class="icon-box premium-icon-box"> <span class="text-light-green"><i class="flaticon-help"></i></span>
+                    <span class="text-white">24 hours / 7 days<br>Support</span>
                 </div>
             </div>
             <div class="col-md-2 col-sm-4 col-6">
-                <div class="icon-box"> <span class="text-light-green"><i class="flaticon-truck"></i></span>
+                <div class="icon-box premium-icon-box"> <span class="text-light-green"><i class="flaticon-truck"></i></span>
                     <span class="text-white">Home Services<br>from &#8377;50</span>
                 </div>
             </div>
             <div class="col-md-2 col-sm-4 col-6">
-                <div class="icon-box"> <span class="text-light-green"><i class="flaticon-guarantee"></i></span>
+                <div class="icon-box premium-icon-box"> <span class="text-light-green"><i class="flaticon-guarantee"></i></span>
                     <span class="text-white">Best Price<br>Guaranteed</span>
                 </div>
             </div>
             <div class="col-md-2 col-sm-4 col-6">
-                <div class="icon-box"> <span class="text-light-green"><i class="flaticon-app-file-symbol"></i></span>
+                <div class="icon-box premium-icon-box"> <span class="text-light-green"><i class="flaticon-app-file-symbol"></i></span>
                     <span class="text-white">Mobile Apps<br>Ready</span>
                 </div>
             </div>
