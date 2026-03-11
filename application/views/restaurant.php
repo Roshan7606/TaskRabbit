@@ -63,7 +63,7 @@
                             </div>
 
                             <div class="col-md-8 search-res-textbox">
-                                <input type="text" name="text_search" class="form-control" onkeyup="findres(this.value,$('#select_search').val())" id="searchbox-textbox" placeholder="Enter Area To Find ">
+        
                             </div>
 
                             <div class="col-md-1 search-res-btn">
@@ -613,16 +613,4 @@ parent.siblings().find('.faq-answer').slideUp();
 </script>
 </body>
 
-
-
-        <?php
-        $this->load->view("footerscript");
-        ?>
-        <script src="<?php echo base_url() ?>assets/js/munchbox.js" type="text/javascript"></script>
-        <script>
-            $(document).unload(function(){
-                alert("hello leave");
-            });
-        </script>
-    </body>
 </html>
