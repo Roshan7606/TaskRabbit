@@ -39,14 +39,12 @@
                                         </select>
                                     </div>
                                 </div>
-<<<<<<< HEAD
                                 <div class="col-md-8 search-res-textbox">
                                     <input type="text"
                                         name="text_search"
                                         class="form-control"
                                         onkeyup="findres(this.value,$('#select_search').val())"
                                         id="searchbox-textbox"
-                                        placeholder="Enter Area To Find"
                                         autocomplete="off">
 
                                     <div id="search_suggestion" style="
@@ -60,9 +58,8 @@
                                         </div>
                                 </div>
                                 <div class="col-md-1 search-res-btn">
-                                    <img src="<?php echo base_url(); ?>assets/img/love.png" class="search-img-find-icon">
+                                    <!-- <img src="<?php echo base_url(); ?>assets/img/love.png" class="search-img-find-icon"> -->
                                 </div>
-=======
                             </div>
 
                             <div class="col-md-8 search-res-textbox">
@@ -71,14 +68,13 @@
 
                             <div class="col-md-1 search-res-btn">
                                 <img src="<?php echo base_url(); ?>assets/img/love.png" class="search-img-find-icon">
->>>>>>> b451d1c68beb5f4574ddc6c0f7ef68b7e135bbb2
+
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-1"></div>
                 </div>
-<<<<<<< HEAD
             </section>
 
 
@@ -360,11 +356,10 @@ What services are available?
 
 
         <!-- exclusive deals -->
-=======
             </div>
         </section>
 
->>>>>>> b451d1c68beb5f4574ddc6c0f7ef68b7e135bbb2
+
         <!-- Featured partners -->
         <section class="featured-partners section-padding-top">
             <div class="container">
@@ -554,7 +549,6 @@ What services are available?
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
     <?php
 $this->load->view("footerscript");
 ?>
@@ -620,8 +614,6 @@ parent.siblings().find('.faq-answer').slideUp();
 </body>
 
 
-=======
->>>>>>> b451d1c68beb5f4574ddc6c0f7ef68b7e135bbb2
 
         <?php
         $this->load->view("footerscript");

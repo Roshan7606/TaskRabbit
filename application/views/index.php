@@ -286,7 +286,22 @@ find your next job on Airtasker.
 </section>
 
 
+<section class="join-section">
+<div class="container join-wrap">
 
+<div class="join-left">
+<h2>Create your Profile And Start Browsing Jobs</h2>
+<p>It’s free and takes less than a minute to sign up.</p>
+
+<a href="#" class="join-btn">Join TaskRabbit</a>
+</div>
+
+<div class="join-right">
+<img src="<?php echo base_url();  ?>assets/img/mobile.webp" alt="app preview">
+</div>
+
+</div>
+</section>
 
 
 
