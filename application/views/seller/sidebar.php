@@ -12,15 +12,24 @@
                 </a>
             </li>
             
-            <li class="nav-item dropdown">
+            <!-- <li class="nav-item dropdown">
                 <a class="dropdown-toggle" href="<?php echo base_url("Restaurant-Sub-Category"); ?>">
                     <span class="icon-holder">
                         <i class="fas fa-briefcase sidebar-icon" title="Service Categories"></i>
                     </span>
                     <span class="title sidebar-title">Service Categories</span>
                 </a>
-            </li>
+            </li> -->
             
+            <li class="nav-item dropdown">
+                <a class="dropdown-toggle" href="<?php echo base_url('Restaurant-My-Services'); ?>">
+                    <span class="icon-holder">
+                        <i class="fa fa-briefcase sidebar-icon" title="My Services"></i>
+                    </span>
+                    <span class="title sidebar-title">My Services</span>
+                </a>
+            </li>
+
             <li class="nav-item dropdown">
                 <a class="dropdown-toggle" href="#">
                     <span class="icon-holder">
@@ -50,17 +59,17 @@
                 </a>
             </li>
 
-            <li class="nav-item dropdown">
+            <!-- <li class="nav-item dropdown">
                 <a class="dropdown-toggle" href="<?php echo base_url("Restaurant-Manage-Bill-Payment"); ?>">
                     <span class="icon-holder">
                         <i class="fas fa-wallet sidebar-icon" title="Payouts"></i>
                     </span>
                     <span class="title sidebar-title">Payouts</span>
                 </a>
-            </li>
+            </li> -->
 
             <li class="nav-item dropdown">
-                <a class="dropdown-toggle" href="<?php echo base_url("Restaurant-Order"); ?>">
+                <a class="dropdown-toggle" href="<?php echo base_url("Restaurant-Booking-Requests"); ?>">
                     <span class="icon-holder">
                         <i class="fas fa-calendar-plus sidebar-icon" title="Booking Requests"></i>
                     </span>

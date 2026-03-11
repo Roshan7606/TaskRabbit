@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Admin Manage Main Category || MUNCHBOX - The Foodies Food</title>
+        <title>Admin Manage Services || TaskRabbit</title>
         <?php
         $this->load->view('admin/headscript');
         ?>
@@ -23,10 +23,10 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="page-title">
-                                <h1>Manage Main Category Data <small></small></h1>
+                                <h1>Manage Service Data <small></small></h1>
                                 <ol class="breadcrumb">
                                     <li><a href="<?php echo base_url("Admin-Home") ?>"><i class="fa fa-home"></i></a></li>
-                                    <li class="active">Manage Main Category</li>
+                                    <li class="active">Manage Main Services</li>
                                 </ol>
                             </div>
                         </div>
@@ -41,16 +41,16 @@
                                 <div class="panel panel-card margin-b-30">
                                     <!-- Start .panel -->
                                     <div class="panel-heading">
-                                        <h4 class="panel-title">Enter Main Category</h4>
+                                        <h4 class="panel-title">Enter Main Services</h4>
                                         <div class="panel-actions">
                                             <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
                                             <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
                                         </div>
                                     </div>
                                     <div class="panel-body">
-                                        <form role="form" method="post" action="" name="maincat" novalidate="">
+                                        <form role="form" method="post" action="" name="maincat" enctype="multipart/form-data">
                                             <div class="form-group">
-                                                <label>Main Category</label>
+                                                <label>Main Services</label>
                                                 <input type="text" check_control="alpha" title="Only Alphabet Allow" placeholder="Enter Main Category" name="maincat" class="form-control <?php
                                                 if (form_error('maincat')) {
                                                     echo 'my_error';
@@ -69,8 +69,12 @@
                                                     }
                                                     ?>
                                                 </p>
+                                                <div class="form-group">
+<label>Service Image</label>
+<input type="file" name="image" class="form-control">
+</div>
                                             </div>
-                                            <button class="btn btnadd"  type="submit" name="add" value="add">Add Main Category </button>
+                                            <button class="btn btnadd"  type="submit" name="add" value="add">Add Main service </button>
                                             <button class="btn btnadd btn_clear" type="reset">Clear</button>
                                         </form>
                                     </div>
@@ -81,7 +85,7 @@
                                 <div class="panel panel-card margin-b-30">
                                     <!-- Start .panel -->
                                     <div class="panel-heading">
-                                        <h4 class="panel-title">Edit Main Category</h4>
+                                        <h4 class="panel-title">Edit Main Service</h4>
                                         <div class="panel-actions">
                                             <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
                                             <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
@@ -90,7 +94,7 @@
                                     <div class="panel-body">
                                         <form role="form" method="post" action="" name="maincat_edit" novalidate="">
                                             <div class="form-group">
-                                                <label>Main Category</label>
+                                                <label>Main Service</label>
                                                 <input type="text" title="Only Alphabet Allow" placeholder="Enter Main Category" name="maincat" class="form-control <?php
                                                 if (form_error('maincat')) {
                                                     echo 'my_error';
@@ -112,6 +116,10 @@
                                                         echo form_error("maincat");
                                                     }
                                                     ?>
+                                                <div class="form-group">
+<label>Service Image</label>
+<input type="file" name="image" class="form-control">
+</div>
                                             </div>
                                             <button class="btn btnadd" href=""  type="submit" name="update" value="update">Edit Main Category </button>
                                             <a href="<?php echo base_url(); ?>Admin-Main-Category" class="btn btncancel">Cancel</a>
@@ -127,7 +135,7 @@
                             <div class="panel panel-card ">
                                 <!-- Start .panel -->
                                 <div class="panel-heading">
-                                    <h4 class="panel-title"> Manage Main Category Data</h4>
+                                    <h4 class="panel-title"> Manage Main Services Data</h4>
                                     <div class="panel-actions">
                                         <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
                                         <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
@@ -138,7 +146,7 @@
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>Main Category</th>
+                                                <th>Main Services</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>

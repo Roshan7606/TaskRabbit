@@ -108,6 +108,23 @@ class Authorization extends CI_Controller
                     $ins['name'] = $name;
                     $ins['parent_id'] = 0;
                     $ins['label'] = "maincat";
+                    
+                    if($_FILES['image']['name'] != "")
+                        {
+                            $config['upload_path'] = './uploads/category/';
+                            $config['allowed_types'] = 'jpg|jpeg|png';
+                            $config['file_name'] = time();
+
+                            $this->load->library('upload',$config);
+                            $this->upload->initialize($config);
+
+                            if($this->upload->do_upload('image'))
+                            {
+                                $file = $this->upload->data();
+                                $ins['image'] = $file['file_name'];
+                            }
+                        }
+
                     $result = $this->md->my_insert("tbl_category", $ins);
                     if ($result == 1) 
                     {

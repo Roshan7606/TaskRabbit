@@ -14,7 +14,7 @@ class Restaurant extends CI_Controller
             redirect("Restaurant-Sign-In");
         } 
 //        if($this->session->userdata("seller_email_package"))
-//        {
+//        {d
 //            redirect("Restaurant-Home");
 //        }
     }
@@ -43,7 +43,6 @@ class Restaurant extends CI_Controller
                             $this->session->set_userdata("seller_email", $detail[0]->restaurant_id);
                             $this->session->set_userdata("seller_logintime", date("Y-m-d H:i:s"));
                             redirect("Restaurant-Home");
-
                             if($this->input->post("svp")=="yes")
                             {
                                 $exp = 60 * 60 * 24 * 3;
@@ -649,17 +648,205 @@ public function update_profile()
 
     $restaurant_id = $this->session->userdata("seller_email");
 
-    $ins["primary_skill"]  = $this->input->post("primary_skill");
-    $ins["experience"]     = $this->input->post("experience");
-    $ins["starting_price"] = $this->input->post("starting_price");
-    $ins["languages"]      = $this->input->post("languages");
-    $ins["about_me"]       = $this->input->post("about_me");
+    if (!$restaurant_id) {
+        redirect("Restaurant-Sign-In");
+        return;
+    }
 
-    $wh["restaurant_id"] = $restaurant_id;
+    $ins = array(
+        "primary_skill"  => trim($this->input->post("primary_skill")),
+        "experience"     => trim($this->input->post("experience")),
+        "starting_price" => trim($this->input->post("starting_price")),
+        "languages"      => trim($this->input->post("languages")),
+        "about_me"       => trim($this->input->post("about_me"))
+    );
 
-    $this->md->my_update("tbl_restaurant", $ins, $wh);
+    $this->db->where("restaurant_id", $restaurant_id);
+    $result = $this->db->update("tbl_restaurant", $ins);
 
-    redirect("Restaurant-Edit-Profile");
+    if ($result) {
+        $this->session->set_flashdata("success", "Professional details updated successfully.");
+    } else {
+        $this->session->set_flashdata("error", "Professional details update failed.");
+    }
+
+    redirect("Restaurant/editprofile", "refresh");
+    exit;
+
+    if(!empty($_FILES['provider_photo']['name']))
+    {
+        $config['upload_path'] = './uploads/providers/';
+        $config['allowed_types'] = 'jpg|jpeg|png';
+        $config['file_name'] = 'provider_'.$this->session->userdata('seller_email');
+        $config['overwrite'] = TRUE;
+
+        $this->load->library('upload',$config);
+
+        if($this->upload->do_upload('provider_photo'))
+        {
+            $upload_data = $this->upload->data();
+
+            $image_path = 'uploads/providers/'.$upload_data['file_name'];
+
+            $this->db->where('restaurant_id',$this->session->userdata('seller_email'));
+            $this->db->update('tbl_restaurant',array(
+                'coverpic'=>$image_path
+            ));
+        }
+    }
+}
+public function upload_provider_image()
+{
+    $restaurant_id = $this->input->post('restaurant_id');
+
+    $config['upload_path']   = './uploads/providers/';
+    $config['allowed_types'] = 'jpg|jpeg|png';
+    $config['max_size']      = 2048;
+    $config['encrypt_name']  = TRUE;
+
+    $this->load->library('upload', $config);
+
+    $data = [];
+
+    // profile photo
+    if(!empty($_FILES['profile_pic']['name']))
+    {
+        if($this->upload->do_upload('profile_pic'))
+        {
+            $file = $this->upload->data();
+            $data['profile_pic'] = 'uploads/providers/'.$file['file_name'];
+        }
+    }
+
+    // cover photo
+    if(!empty($_FILES['cover_pic']['name']))
+    {
+        if($this->upload->do_upload('cover_pic'))
+        {
+            $file = $this->upload->data();
+            $data['coverpic'] = 'uploads/providers/'.$file['file_name'];
+        }
+    }
+
+    if(!empty($data))
+    {
+        $this->db->where('restaurant_id',$restaurant_id);
+        $this->db->update('tbl_restaurant',$data);
+    }
+
+    redirect('Restaurant-Edit-Profile');
+}
+public function my_services()
+{
+    $provider_id = $this->session->userdata('seller_email');
+
+    if (!$provider_id) {
+        redirect('Restaurant');
+    }
+
+    $data['seller'] = $this->db
+        ->where('restaurant_id', $provider_id)
+        ->get('tbl_restaurant')
+        ->row();
+
+    $data['categories'] = $this->db
+        ->get('tbl_category')
+        ->result();
+
+    $data['provider_services'] = $this->db
+        ->where('provider_id', $provider_id)
+        ->get('tbl_provider_services')
+        ->result();
+
+    $this->load->view('seller/my_services', $data);
+}
+
+public function save_services()
+{
+    $this->security();
+
+    $provider_id = $this->session->userdata('seller_email');
+
+    if (!$provider_id) {
+        redirect('Restaurant');
+        return;
+    }
+
+    $category_ids = $this->input->post('category_id');
+    $prices       = $this->input->post('price');
+
+    // pehla old provider services delete
+    $this->db->where('provider_id', $provider_id);
+    $this->db->delete('tbl_provider_services');
+
+    if (!empty($category_ids)) {
+        foreach ($category_ids as $cat_id) {
+
+            $service_price = 0;
+            if (isset($prices[$cat_id]) && $prices[$cat_id] !== '') {
+                $service_price = $prices[$cat_id];
+            }
+
+            $ins = array(
+                'provider_id'    => $provider_id,
+                'category_id'    => $cat_id,
+                'service_price'  => $service_price,
+                'experience'     => '',
+                'description'    => '',
+                'status'         => 1,
+                'created_at'     => date('Y-m-d H:i:s')
+            );
+
+            $this->db->insert('tbl_provider_services', $ins);
+        }
+    }
+
+    $this->session->set_flashdata('success', 'Services saved successfully.');
+    redirect('Restaurant-My-Services');
+}
+
+public function booking_requests()
+{
+    $this->security();
+
+    $provider_id = $this->session->userdata("seller_email");
+
+    $data["bookings"] = $this->db
+        ->select("b.*,c.name as category_name")
+        ->from("tbl_service_bookings b")
+        ->join("tbl_category c","c.category_id=b.category_id","left")
+        ->where("b.provider_id",$provider_id)
+        ->order_by("b.booking_id","DESC")
+        ->get()
+        ->result();
+
+    $this->load->view("seller/booking_requests",$data);
+}
+
+public function accept_booking($id)
+{
+    $this->security();
+
+    $this->db->where("booking_id",$id);
+    $this->db->update("tbl_service_bookings",array(
+        "booking_status"=>"accepted",
+        "action_at"=>date("Y-m-d H:i:s")
+    ));
+
+    redirect("Restaurant-Booking-Requests");
+}
+
+public function reject_booking($id)
+{
+    $this->security();
+
+    $this->db->where("booking_id",$id);
+    $this->db->update("tbl_service_bookings",array(
+        "booking_status"=>"rejected",
+        "action_at"=>date("Y-m-d H:i:s")
+    ));
+
+    redirect("Restaurant-Booking-Requests");
 }
 
 public function live_search()

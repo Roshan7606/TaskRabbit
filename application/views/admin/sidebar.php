@@ -44,22 +44,12 @@
                         <li><a href="<?php echo base_url("Admin-Manage-Area"); ?>">Area</a></li>
                     </ul>
                 </li>
+            
                 <li>
-                    <a href="#"><i class="fas fa-pager"></i> <span class="nav-label">Pages</span><span class="fa arrow"></span></a>
+                    <a href="#"><i class="fas fa-tools"></i> <span class="nav-label">Service Provider</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
-                        <li><a href="<?php echo base_url("Admin-Manage-Contact"); ?>">Contact</a></li>
-                        <li><a href="<?php echo base_url("Admin-Manage-Feedback"); ?>">Feedback</a></li>
-                        <li><a href="<?php echo base_url("Admin-Manage-Email"); ?>">Email</a></li>
-
-                        <li><a href="<?php echo base_url("Admin-Manage-Banner"); ?>">Banner</a></li>
-
-                    </ul>
-                </li>
-                <li>
-                    <a href="#"><i class="fas fa-store"></i> <span class="nav-label">Restaurants</span><span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level collapse">
-                        <li><a href="<?php echo base_url("Admin-Manage-Active-Stores"); ?>">Active Restaurants</a></li>
-                        <li><a href="<?php echo base_url("Admin-Manage-Deactive-Stores"); ?>">Deactive Restaurants</a></li>
+                        <li><a href="<?php echo base_url("Admin-Manage-Active-Stores"); ?>">Active Service Provider</a></li>
+                        <li><a href="<?php echo base_url("Admin-Manage-Deactive-Stores"); ?>">Deactive Service Provider</a></li>
 
                     </ul>
                 </li>
@@ -81,14 +71,14 @@
                     </ul>
                 </li-->
                 <li>
-                    <a href="<?php echo base_url("Admin-Main-Category"); ?>"><i class="fas fa-utensils"></i><span class="nav-label">Main Category</span></span></a>
+                    <a href="<?php echo base_url("Admin-Main-Category"); ?>"><i class="fa fa-user-cog "></i><span class="nav-label">Services</span></span></a>
                 </li>
 <!--                <li>
                     <a href="<?php echo base_url("Admin-Manage-Promocode"); ?>"><i class="fas fa-money-check-alt"></i><span class="nav-label">Promocode</span></span></a>
                 </li>-->
-                <li>
+                <!-- <li>
                     <a href="<?php echo base_url("Admin-Manage-Packages"); ?>"><i class="fas fa-box-open"></i><span class="nav-label">Packages</span></span></a>
-                </li>
+                </li> -->
 
                 <li>
                     <a href="<?php echo base_url("Admin-Edit-Profile"); ?>"><i class="fas fa-cogs"></i><span class="nav-label">Settings</span></span></a>

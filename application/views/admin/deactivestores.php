@@ -43,7 +43,7 @@
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>Restaurant Name</th>
+                                                <th>Service Provider Name</th>
                                                 <th>Mobile No.</th>
                                                 <th>Email</th>
                                                <th>Action</th>
@@ -52,7 +52,7 @@
                                         <tfoot>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>Restaurant Name</th>
+                                                <th>Service Provider Name</th>
                                                 <th>Mobile No.</th>
                                                 <th>Email</th>
                                                 <th>Action</th>
@@ -69,10 +69,31 @@
                                                     <td><?php echo $deactivestore->restaurant_name; ?></td>
                                                     <td><?php echo $deactivestore->contact_no; ?></td>
                                                     <td><?php echo $deactivestore->email; ?></td>
-                                                    <td align="center">
-                                                        <a title="Click For Active Restaurant" onclick="$('#deactivestore').attr('href','<?php echo base_url(); ?>Active-Deactive/activestore/<?php echo $deactivestore->restaurant_id; ?>')" data-toggle="modal" data-target=".bs-example-modal-md" ><i class="fas fa-thumbs-down text-danger"></i> </a> &nbsp;&nbsp;
-                                                        <a href="#" onclick="set_modal('<?php echo $deactivestore->restaurant_id; ?>');" data-toggle="modal" data-target=".bs-example-modal-lg">Read more</a>
-                                                    </td>
+                                                   <td align="center">
+
+
+
+<?php if($deactivestore->status == 1){ ?>
+
+<a onclick="$('#deactivestore').attr('href','<?php echo base_url(); ?>Active-Deactive/deactivestore/<?php echo $deactivestore->restaurant_id; ?>')" 
+data-toggle="modal" data-target=".bs-example-modal-md">
+
+<button class="btn btn-success btn-sm">Active</button>
+
+</a>
+
+<?php } else { ?>
+
+<a onclick="$('#deactivestore').attr('href','<?php echo base_url(); ?>Active-Deactive/activestore/<?php echo $deactivestore->restaurant_id; ?>')" 
+data-toggle="modal" data-target=".bs-example-modal-md">
+
+<button class="btn btn-danger btn-sm">Inactive</button>
+
+</a>
+
+<?php } ?>
+
+</td>
                                                 </tr>
                                                 <?php
                                             }
@@ -94,7 +115,7 @@
                     <center>
                         <img src="<?php echo base_url(); ?>admin_assets/images/activerestaurant.png" height="120" width="100" >
                         <p style="margin-top: 5%;font-size: 20px;">Are you sure want to active ?</p>
-                        <p style="margin-top: 1%;font-size: 14px;margin-bottom: 4%;">If you active restaurant than you can able to upload images and other information of restaurant.</p>
+                        <p style="margin-top: 1%;font-size: 14px;margin-bottom: 4%;">If you active Service Provider than you can able to upload images and other information of Service Provider.</p>
                         <a id="deactivestore" href="#" class="btn btn-danger" style="padding:10px 40px;">Yes</a>
                         <a href="#" class="btn btn-default" data-dismiss="modal" style="padding:10px 40px;">NO</a>
                     </center>

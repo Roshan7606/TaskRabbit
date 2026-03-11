@@ -15,9 +15,14 @@ $route['Sign-up'] = "Pages/signup";
 $route['About-us'] = "Pages/aboutus";
 $route['Contact-us'] = "Pages/contactus";
 $route['Privacy-policy'] = "Pages/privacypolicy";
-$route['Restaurant/(:any)'] = "Pages/restaurant/$2";
-$route['Restaurant-Details/(:any)'] = "Pages/restaurantdetails/$2";
-$route['City'] = "Pages/city";
+$route['Restaurant/update_profile'] = "Restaurant/update_profile";
+$route['Restaurant/editprofile'] = "Restaurant/editprofile";
+$route['Restaurant/my_services'] = "Restaurant/my_services";
+$route['Restaurant/save_services'] = "Restaurant/save_services";    
+$route['Restaurant/(:any)'] = "Pages/restaurant/$1";
+$route['Service-Providers/(:any)'] = "Pages/service_providers/$1";
+$route['Restaurant-Details/(:any)'] = "Pages/restaurantdetails/$1";
+$route['City'] = "Pages/city";  
 $route['Profile'] = "Pages/userprofile";
 $route['User-Shipment'] = "Pages/usershipment";
 $route['User-Setting'] = "Pages/usersetting";
@@ -83,6 +88,7 @@ $route['Edit-Promocode/(:any)'] = "Edit/promocode/$2";
 //SELLER ROUTESS
 $route['Restaurant-Sign-In'] = "Restaurant/index";
 $route['Restaurant-Sign-Up'] = "Restaurant/signup";
+$route['Restaurant-My-Services'] = "Restaurant/my_services";
 $route['Restaurant-Sign-Up-Details'] = "Restaurant/signupdetail";
 $route['Restaurant-Logout'] = "Restaurant/logout";
 $route['Restaurant-Forgot-Password'] = "Restaurant/forgotpassword";
@@ -111,3 +117,19 @@ $route['Restaurant-Active-Request'] = "Restaurant/activestatus";
 //Backend related routes
 $route['Package-Update/(:any)/(:any)'] = "Backend/package_update/$2/$3";
 
+/* BOOKING ROUTES START */
+$route['submit-booking'] = "Pages/submit_booking";
+$route['check-booking-status/(:num)'] = "Pages/check_booking_status/$1";
+$route['booking-waiting/(:num)'] = "Pages/booking_waiting/$1";
+
+$route['Restaurant-Booking-Requests'] = "Restaurant/booking_requests";
+$route['Restaurant-Accept-Booking/(:num)'] = "Restaurant/accept_booking/$1";
+$route['Restaurant-Reject-Booking/(:num)'] = "Restaurant/reject_booking/$1";
+
+/* CHANGE THIS ONLY IF NEEDED */
+$route['Admin-Bookings'] = "Authorization/bookings";
+/* BOOKING ROUTES END */
+
+$route['Restaurant-Booking-Requests'] = 'Restaurant/booking_requests';
+$route['Restaurant-Accept-Booking/(:num)'] = 'Restaurant/accept_booking/$1';
+$route['Restaurant-Reject-Booking/(:num)'] = 'Restaurant/reject_booking/$1';

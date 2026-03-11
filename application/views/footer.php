@@ -37,25 +37,22 @@
 </div>
 <footer class="section-padding bg-light-theme pt-0 u-line bg-black">
     <div class="u-line instagram-slider swiper-container">
-        <ul class="hm-list hm-instagram swiper-wrapper">
-            <?php
-                $img_res = $this->md->my_select("tbl_restaurant","*");
+    <ul class="hm-list hm-instagram swiper-wrapper">
+        <?php
+            $img_res = $this->md->my_query("SELECT * FROM tbl_category WHERE label='maincat'");
                    
-                foreach($img_res as $data)
-                {
-                    $itm_add = $this->md->my_select("tbl_item","*",array("restaurant_id"=>$data->restaurant_id,"status"=>1));
-                            if(count($itm_add) != 0)
-                            {
-            ?>
-            <li class="swiper-slide" title="<?php echo $data->restaurant_name; ?>">
-                    <a href="<?php echo base_url(""); ?>/Restaurant-Details/<?php echo $data->restaurant_id; ?>"><img src="<?php echo base_url().$data->coverpic; ?>" class="swiper-slide-footer-img" alt="instagram"></a>
-                </li>
-            <?php
-                            }
-                }
-            ?>
-        </ul>
-    </div>
+            foreach($img_res as $data)
+            {
+        ?>
+        <li class="swiper-slide" title="<?php echo $data->name; ?>">
+            <a href="<?php echo base_url('Service-Providers/'.$data->category_id); ?>">
+<img src="<?php echo base_url('uploads/category/'.$data->image); ?>" class="swiper-slide-footer-img" alt="<?php echo $data->name; ?>">            </a>
+        </li>
+        <?php
+            }
+        ?>
+    </ul>
+</div>
     <div class="container">
         <div class="row bg-black">
             <div class="col-xl col-lg-3 col-md-3 col-sm-6">
