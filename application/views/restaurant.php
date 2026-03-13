@@ -308,7 +308,7 @@
                 <div class="row section-padding-bottom u-line">
                     <div class="col-12">
                         <div class="section-header-left">
-                            <h3 class="text-light-black header-title">Featured partners</h3>
+                            <h3 class="text-light-black header-title">Populer Services</h3>
                             <div class="user-line margin-b-none m-t-10"></div>
                         </div>
                     </div>
@@ -524,7 +524,7 @@ What services are available?
             </div>
         </div>
 
-        <div class="modal fade" id="wishlistmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade" id="wish    listmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="text-center wishlist-model-box">
@@ -553,11 +553,11 @@ What services are available?
 $this->load->view("footerscript");
 ?>
 <script src="<?php echo base_url() ?>assets/js/munchbox.js" type="text/javascript"></script>
-<script>
+<!-- <script>
     $(document).unload(function(){
        alert("hello leave"); 
     });
-    </script>
+    </script> -->
     <script>
 
 function findres(keyword)

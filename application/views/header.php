@@ -4,8 +4,8 @@
             <div class="row">
                 <div class="col-12 mainNavCol">
                     <!-- logo -->
-                    <div class="logo mainNavCol"style="margin-left: 2%;">
-                        <a href="index.php">
+                    <div class="logo mainNavCol" style="margin-left: 2%;">
+                        <a href="<?php echo base_url(); ?>">
                             <img src="<?php echo base_url(); ?>assets/img/logo.png" alt="Logo" style="height:40px;width:auto; transform:scale(4);">
                         </a>
                     </div>

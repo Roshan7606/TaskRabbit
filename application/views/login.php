@@ -8,12 +8,36 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <meta name="keywords" content="#">
         <meta name="description" content="#">
-        <title>Munchbox | Authentication</title>
+        <title>TaskRabbit | Authentication</title>
         <?php
         $this->load->view("CSS");
         ?>
     </head>
+<script>
+document.getElementById("email").addEventListener("input", function(){
 
+    var email = this.value.trim();
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var error = document.getElementById("email_error");
+
+    if(email === "")
+    {
+        error.innerHTML = "Email is required";
+        this.style.border = "2px solid red";
+    }
+    else if(!emailPattern.test(email))
+    {
+        error.innerHTML = "Enter valid email address";
+        this.style.border = "2px solid red";
+    }
+    else
+    {
+        error.innerHTML = "";
+        this.style.border = "2px solid green";
+    }
+
+});
+</script>
     <body>
         <div class="inner-wrapper">
             <div class="container-fluid no-padding">
@@ -49,12 +73,18 @@
                                                         }
                                                      ?>   
                                                     
-                                                    <input type="email" name="email" class="form-control form-control-submit <?php
-                                                        if(form_error("email"))
-                                                        {
-                                                            echo "form_vis_error";
-                                                        }                                                
-                                                   ?>" placeholder="Email I'd" required>
+                                                   <input type="email" 
+       id="email"
+       name="email" 
+       class="form-control form-control-submit <?php
+            if(form_error("email"))
+            {
+                echo "form_vis_error";
+            }
+       ?>" 
+       placeholder="Email Id" required>
+
+<small id="email_error" style="color:red;"></small>
                                                   
                                                 </div>
                                                 <div class="form-group">

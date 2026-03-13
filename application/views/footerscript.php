@@ -3,7 +3,7 @@
 <!-- jQuery -->
 <script src="<?php echo base_url(); ?>assets/js/jquery.min.js"></script>
 <!-- Popper -->
-<script src="<?php echo base_url(); ?>assets/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<!-- <script src="<?php echo base_url(); ?>assets/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script> -->
 <script src="<?php echo base_url(); ?>assets/js/popper.min.js"></script>
 <!-- Bootstrap -->
 <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>

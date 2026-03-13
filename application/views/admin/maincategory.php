@@ -70,9 +70,9 @@
                                                     ?>
                                                 </p>
                                                 <div class="form-group">
-<label>Service Image</label>
-<input type="file" name="image" class="form-control">
-</div>
+                                                    <label>Service Image</label>
+                                                    <input type="file" name="image" class="form-control">
+                                                    </div>
                                             </div>
                                             <button class="btn btnadd"  type="submit" name="add" value="add">Add Main service </button>
                                             <button class="btn btnadd btn_clear" type="reset">Clear</button>

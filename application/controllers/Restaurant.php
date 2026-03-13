@@ -699,32 +699,47 @@ public function upload_provider_image()
 {
     $restaurant_id = $this->input->post('restaurant_id');
 
-    $config['upload_path']   = './uploads/providers/';
+    $config['upload_path']   = FCPATH.'uploads/providers/';
     $config['allowed_types'] = 'jpg|jpeg|png';
-    $config['max_size']      = 2048;
     $config['encrypt_name']  = TRUE;
 
-    $this->load->library('upload', $config);
-
+    $this->load->library('upload');
     $data = [];
 
-    // profile photo
+    // Profile Image Upload
     if(!empty($_FILES['profile_pic']['name']))
     {
+        $this->upload->initialize($config);
+
         if($this->upload->do_upload('profile_pic'))
         {
-            $file = $this->upload->data();
-            $data['profile_pic'] = 'uploads/providers/'.$file['file_name'];
+            $fileData = $this->upload->data();
+
+            $data['profile_pic'] = 'uploads/providers/'.$fileData['file_name'];
+            // print_r($data['profile_pic']);
+        }
+        else
+        {
+            echo $this->upload->display_errors();
+            die;
         }
     }
 
-    // cover photo
+    // Cover Image Upload
     if(!empty($_FILES['cover_pic']['name']))
     {
+        $this->upload->initialize($config);
+
         if($this->upload->do_upload('cover_pic'))
         {
-            $file = $this->upload->data();
-            $data['coverpic'] = 'uploads/providers/'.$file['file_name'];
+            $fileData = $this->upload->data();
+
+            $data['coverpic'] = 'uploads/providers/'.$fileData['file_name'];
+        }
+        else
+        {
+            echo $this->upload->display_errors();
+            die;
         }
     }
 

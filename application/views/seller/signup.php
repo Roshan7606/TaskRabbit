@@ -22,7 +22,7 @@
                                 <div class="card-body">
                                     <div class="d-flex align-items-center justify-content-between m-b-30">
                                             <!--img class="img-fluid" alt="" src="<?php echo base_url(); ?>seller_assets/images/logo/logo.png"-->
-                                            <h2 class="m-b-0 log-head">Restaurant Signup</h2>
+                                            <h2 class="m-b-0 log-head">Service Provider Signup</h2>
                                         </div>
                                         <form method="post" action="" name="signup">
                                             <div class="form-group">
@@ -161,7 +161,7 @@
                     </div>
                 </div>
                 <div class="d-none d-md-flex  p-h-40 justify-content-between">
-                    <span class="">All Rights © <?php echo date('Y'); ?> Reserved , Design & Developed By <a href="#" class="text-red"><b>MUNCHBOX</b></a></span>
+                    <span class="">All Rights © <?php echo date('Y'); ?> Reserved , Design & Developed By <a href="#" class="text-red"><b>TaskRabbit</b></a></span>
                     <ul class="list-inline">
                         <li class="list-inline-item">
                             <a class="text-dark text-link" href="<?php echo base_url("Privacy-policy"); ?>" >Privacy Policy</a>
