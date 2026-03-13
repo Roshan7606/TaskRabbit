@@ -795,6 +795,9 @@
         $this->load->view("footer");
         ?>
 
+        
+
+
         <div class="modal fade" id="cartmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -987,9 +990,20 @@
             </div>
         </div>
 
+        <!-- Sticky Book Button -->
+<div class="sticky-book-btn">
+    <button onclick="scrollToServices()">
+        Book Service
+    </button>
+</div>
+
+
         <?php
         $this->load->view("footerscript");
         ?>
+
+        
+
         <script src="<?php echo base_url() ?>assets/js/munchbox.js" type="text/javascript"></script>
         <script src="<?php echo base_url() ?>assets/js/less.min.js" type="text/javascript"></script>
         
@@ -1355,6 +1369,12 @@
             }
         }
     });
+
+    function scrollToServices(){
+    document.getElementById("food").scrollIntoView({
+        behavior:"smooth"
+    });
+}
 </script>
         </script>
     </body>

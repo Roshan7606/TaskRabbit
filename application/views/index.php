@@ -297,7 +297,12 @@ find your next job on Airtasker.
 </div>
 
 <div class="join-right">
-<img src="<?php echo base_url();  ?>assets/img/mobile.webp" alt="app preview">
+   <div class="phone-mockup">
+    <video autoplay muted loop playsinline class="mobile-video">
+<source src="<?php echo base_url(); ?>assets/video/mobile.mp4" type="video/mp4">
+    </video>
+
+    </div>
 </div>
 
 </div>

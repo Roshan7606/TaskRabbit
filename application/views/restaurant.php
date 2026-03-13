@@ -292,67 +292,6 @@
 </div>
 </div>
 
-<section class="faq-section">
-<div class="container">
-
-<div class="faq-header text-center">
-<h2>Frequently Asked Questions</h2>
-<p>Everything you need to know about our services</p>
-</div>
-
-<div class="faq-wrapper">
-
-<div class="faq-item">
-<button class="faq-question">
-How does TaskRabbit work?
-<span class="faq-icon">+</span>
-</button>
-
-<div class="faq-answer">
-<p>Choose a service, select a Tasker and schedule the task at your convenience.</p>
-</div>
-</div>
-
-<div class="faq-item">
-<button class="faq-question">
-How do I book a service?
-<span class="faq-icon">+</span>
-</button>
-
-<div class="faq-answer">
-<p>Select your service, choose a Tasker and confirm the booking.</p>
-</div>
-</div>
-
-<div class="faq-item">
-<button class="faq-question">
-Are Taskers verified?
-<span class="faq-icon">+</span>
-</button>
-
-<div class="faq-answer">
-<p>Yes, all Taskers go through verification and background checks.</p>
-</div>
-</div>
-
-<div class="faq-item">
-<button class="faq-question">
-What services are available?
-<span class="faq-icon">+</span>
-</button>
-
-<div class="faq-answer">
-<p>We provide Assembly, Mounting, Moving, Cleaning, Painting and more.</p>
-</div>
-</div>
-
-</div>
-
-</div>
-</section>
-
-
-
 
 
         <!-- exclusive deals -->
@@ -480,6 +419,67 @@ What services are available?
                 </div>
             </div>
         </section>
+
+
+        <section class="faq-section">
+<div class="container">
+
+<div class="faq-header text-center">
+<h2>Frequently Asked Questions</h2>
+<p>Everything you need to know about our services</p>
+</div>
+
+<div class="faq-wrapper">
+
+<div class="faq-item">
+<button class="faq-question">
+How does TaskRabbit work?
+<span class="faq-icon">+</span>
+</button>
+
+<div class="faq-answer">
+<p>Choose a service, select a Tasker and schedule the task at your convenience.</p>
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-question">
+How do I book a service?
+<span class="faq-icon">+</span>
+</button>
+
+<div class="faq-answer">
+<p>Select your service, choose a Tasker and confirm the booking.</p>
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-question">
+Are Taskers verified?
+<span class="faq-icon">+</span>
+</button>
+
+<div class="faq-answer">
+<p>Yes, all Taskers go through verification and background checks.</p>
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-question">
+What services are available?
+<span class="faq-icon">+</span>
+</button>
+
+<div class="faq-answer">
+<p>We provide Assembly, Mounting, Moving, Cleaning, Painting and more.</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</section>
+
 
         <!-- footer -->
         <?php
