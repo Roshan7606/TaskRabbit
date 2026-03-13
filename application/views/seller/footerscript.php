@@ -11,6 +11,7 @@
 <script src="<?php echo base_url(); ?>seller_assets/vendors/datatables/dataTables.bootstrap.min.js"></script>
 <script src="<?php echo base_url(); ?>seller_assets/js/pages/datatables.js"></script>
 <script src="<?php echo base_url(); ?>seller_assets/js/pages/e-commerce-order-list.js"></script>
+<script src="<?php echo base_url();?>assets/js/form-validation.js"></script>
 
 <!-- Core JS -->
 <script src="<?php echo base_url(); ?>seller_assets/js/app.min.js"></script>

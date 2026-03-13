@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+
+ 
+ <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -60,7 +62,7 @@ document.getElementById("email").addEventListener("input", function(){
                                                         if(form_error("email"))
                                                         {
                                                     ?>
-                                                    <label class="text-light-white fs-14 form_vis_error_text"><?php echo form_error("email"); ?></label>
+                                                    <label class="text-light-white fs-14 form_vis_er0ror_text"><?php echo form_error("email"); ?></label>
                                                     <?php
                                                         }
                                                         else
