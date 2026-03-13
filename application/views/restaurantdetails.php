@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <meta name="keywords" content="#">
         <meta name="description" content="#">
-        <title><?php echo $restaurent_detail[0]->restaurant_name; ?> | MUNCHBOX-The Foodies Food</title>
+        <title><?php echo $restaurent_detail[0]->restaurant_name; ?> | TaskRabbit</title>
 
         <?php
         $this->load->view("CSS");
@@ -190,8 +190,7 @@
                         </div>
 
                         <div class="restaurent-logo" style="margin-left: 40%;">
-                            <img src="<?php echo base_url() . $restaurent_detail[0]->coverpic; ?>" class="img-fluid" alt="#">
-                        </div>
+<img src="<?php echo base_url('uploads/providers/'.$restaurent_detail[0]->coverpic); ?>" class="img-fluid" alt="#">                        </div>
                     </div>
                 </div>
             </div>
@@ -394,145 +393,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-xl-3 col-lg-3">
-                                <div class="sidebar">
-                                    <div class="cart-detail-box cart-detail-box-restaurant">
-                                        <div class="card">
-                                            <div class="card-header padding-15 fw-700" id="cart_box">
-                                                <?php
-                                                if ($this->session->userdata("user_username")) {
-                                                    $cart_detail = $this->md->my_query("select pr.item_name,cat.name as category,ac.* from tbl_item as pr,tbl_addtocart as ac,tbl_category as cat,tbl_category as subcat where pr.item_id=ac.item_id and pr.category_id = subcat.category_id and cat.category_id = subcat.parent_id and ac.user_id = " . $this->session->userdata("user_username"));
-                                                    if (count($cart_detail) == 0) {
-                                                        ?>
-                                                        <a class="emt_cart">Your Order</a>
-                                                        <hr>
-                                                        <div class="img_emtcart">
-                                                            <center>
-                                                                <p>Your cart is empty.</p>
-                                                                <p>Add an item to begin.</p>
-                                                            </center>
-                                                        </div>
-                                                        <?php
-                                                    } else {
-                                                        ?>
-                                                        <a class="emt_cart">Your Order</a>
-                                                        <hr>
-                                                        <div class="side-cart-item <?php
-                                                        if (count($cart_detail) >= 3) {
-                                                            echo "cart-item-scroll";
-                                                        }
-                                                        ?>">
-                                                            <?php
-                                                            foreach ($cart_detail as $cart) {
-                                                                ?>
-                                                                <div class="item-list margin-top-10">
-                                                                    <div class="row">
-                                                                        <div class="col-md-2">
-                                                                            <?php
-                                                                            if ($cart->category == "Veg") {
-                                                                                ?>
-                                                                                <img src="<?php echo base_url(); ?>assets/img/veg-tag.png">
-                                                                                <?php
-                                                                            } elseif ($cart->category == "Non veg") {
-                                                                                ?>
-                                                                                <img src="<?php echo base_url(); ?>assets/img/nonvag-tag.png">
-                                                                                <?php
-                                                                            } else {
-                                                                                ?>
-                                                                                <img src="<?php echo base_url(); ?>assets/img/ovoveg-tag.png">
-                                                                                <?php
-                                                                            }
-                                                                            ?>
-                                                                        </div>
-                                                                        <div class="col-md-10 item-list-option">
-                                                                            <p class="item-list-option-name"><?php echo $cart->item_name; ?></p>
-                                                                            <div class="item-list-qty">
-                                                                                <button class="item-list-qty-plus" onclick="qtyincre('<?php echo $cart->item_id; ?>', '<?php echo $cart->restaurant_id; ?>', '<?php echo $this->session->userdata("user_username"); ?>', '<?php echo $cart->price; ?>')">+</button>
-                                                                                <input type="text" value="<?php echo $cart->qty; ?>" id="qty-num-<?php echo $cart->item_id; ?>" class="item-list-qty-number"/>
-                                                                                <button class="item-list-qty-minus" onclick="qtydecre('<?php echo $cart->item_id; ?>', '<?php echo $cart->restaurant_id; ?>', '<?php echo $this->session->userdata("user_username"); ?>', '<?php echo $cart->price; ?>')">-</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row cart-food-price">
-                                                                        <div class="col-md-4  offset-md-2">
-                                                                            <span class="food-item-price">&#8377;<?php echo $cart->price . " x " . $cart->qty; ?></span>
-                                                                        </div>
-                                                                        <div class="col-md-6 text-right">
-                                                                            <span class="food-item-price">&#8377;<?php echo $cart->total_price; ?></span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <?php
-                                                            }
-                                                            ?>
-                                                        </div>
-                                                        <hr>
-
-                                                        <div class="cart-footer">
-                                                            <div class="row">
-                                                                <div class="col-md-6 text-left">
-                                                                    <p>Item Total</p>
-                                                                    <p>Tax&nbsp;
-                                                                    <div class="tooltip bs-tooltip-top" role="tooltip">
-                                                                        <div class="arrow"></div>
-                                                                        <div class="tooltip-inner">
-                                                                            Some tooltip text!
-                                                                        </div>
-                                                                    </div>
-                                                                    </p>
-                                                                    <p>Delivery Fee</p>
-                                                                </div>
-                                                                <div class="col-md-6 text-right">
-                                                                    <?php
-                                                                    $subtotal = $this->md->my_query("select SUM(`total_price`) as subtotal from tbl_addtocart where user_id = " . $this->session->userdata("user_username"))[0]->subtotal;
-                                                                    ?>
-                                                                    <p>&#8377; <?php echo $subtotal; ?></p>
-                                                                    <p>+ &#8377;<?php
-                                                                        $tax = round($subtotal * 10 / 100);
-                                                                        echo $tax;
-                                                                        ?></p>
-                                                                    <p class="text-color-green">Free</p>
-                                                                </div>
-
-                                                                <div class="total-pay-line-1"></div>
-
-                                                                <div class="col-md-12">
-                                                                    <div class="row total-to-pay">
-                                                                        <div class="col-md-6">
-                                                                            <p class="cart-pay-text">To Pay</p>
-                                                                        </div>
-                                                                        <div class="col-md-6 text-right">
-                                                                            <p class="cart-pay-text">&#8377; <?php
-                                                                                $amount = $subtotal + $tax;
-                                                                                echo $amount;
-                                                                                ?></p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-12 cart-footer-button">
-                                                                    <a href="<?php echo base_url("Order-review"); ?>" class="form-control">Proceed To Checkout</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <?php
-                                                    }
-                                                } else {
-                                                    ?>
-                                                    <a class="emt_cart">Your Order</a>
-                                                    <hr>
-                                                    <div class="img_emtcart">
-                                                        <center>
-                                                            <img src="<?php echo base_url(); ?>assets/img/emt_cart.png"><br><br>
-                                                            <p>Your cart is empty.</p>
-                                                            <p>SignIn or SignUp to Add an item in cart.</p>
-                                                        </center>
-                                                    </div>
-                                                    <?php
-                                                }
-                                                ?>
-                                            </div>
-                                        </div>
+                            
                                     </div>
                                 </div>
                             </div>

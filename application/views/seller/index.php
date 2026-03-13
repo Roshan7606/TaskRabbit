@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Munchbox | Restaurant SignUp</title>
+        <title>TaskRabbit | Service Provider SignUp</title>
         <?php
         $this->load->view("seller/headerscript");
         ?>
@@ -31,7 +31,7 @@
                                     <div class="d-flex align-items-center justify-content-between m-b-30">
                                             <!--img class="img-fluid" alt="" src="<?php echo base_url(); ?>seller_assets/images/logo/logo.png"-->
                           
-                                            <h2 class="m-b-0 log-head">Restaurant Signin</h2>
+                                            <h2 class="m-b-0 log-head">Service Provider Signin</h2>
                                         </div>
                                         <form method="post" autocomplete="off" action="" name="add">
                                             <div class="form-group">
@@ -131,12 +131,12 @@
                             </div>
                         </div>
                         <div class="offset-md-1 col-md-6 d-none d-md-block">
-                            <img class="img-fluid" src="<?php echo base_url(); ?>seller_assets/images/others/undraw_Chef_cu0r.svg" alt="">
+                            <img class="img-fluid" src="<?php echo base_url(); ?>seller_assets/images/others/image2.png" alt="">
                         </div>
                     </div>
                 </div>
                 <div class="d-none d-md-flex  p-h-40 justify-content-between">
-                    <span class="">All Rights © <?php echo date('Y'); ?> Reserved , Design & Developed By <a href="#" class="text-red"><b>MUNCHBOX</b></a></span>
+                    <span class="">All Rights © <?php echo date('Y'); ?> Reserved , Design & Developed By <a href="#" class="text-red"><b>TaskRabbit</b></a></span>
                     <ul class="list-inline">
                         <li class="list-inline-item">
                             <a class="text-dark text-link" href="<?php echo base_url("Privacy-policy"); ?>" >Privacy Policy</a>

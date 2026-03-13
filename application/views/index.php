@@ -250,7 +250,7 @@ find your next job on Airtasker.
 <li>Grow your business and client base</li>
 </ul>
 
-<a href="#" class="boss-btn">Earn money as a Tasker</a>
+<a href="<?php echo base_url('Restaurant'); ?>" class="boss-btn">Earn money as a Tasker</a>
 
 </div>
 

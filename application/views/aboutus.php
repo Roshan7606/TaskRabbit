@@ -354,7 +354,7 @@
 
 <p>Book trusted professionals for any service you need.</p>
 
-<a href="<?php echo base_url(); ?>Services" class="cta-btn">
+<a href="<?php echo base_url(); ?>Restaurant" class="cta-btn">
 Book a Tasker
 </a>
 

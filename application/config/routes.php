@@ -94,6 +94,7 @@ $route['Restaurant-Logout'] = "Restaurant/logout";
 $route['Restaurant-Forgot-Password'] = "Restaurant/forgotpassword";
 $route['Restaurant-Home'] = "Restaurant/home";
 $route['Restaurant-Edit-Profile'] = "Restaurant/editprofile";
+$route['upload_provider_image'] = 'Restaurant/upload_provider_image';
 $route['Restaurant-Change-Password'] = "Restaurant/changepassword";
 $route['Restaurant-Sub-Category'] = "Restaurant/subcategory";
 //$route['Restaurant-Peta-Category']="Restaurant/petacategory";
