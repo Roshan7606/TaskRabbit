@@ -736,7 +736,7 @@
                             <div class="form-group">
                                 <label>First Name</label>
                                 <div class="position-relative">
-                                    <input type="text" name="customer_first_name" id="customer_first_name" class="form-control premium-input" maxlength="50" required>
+                                    <input type="text" name="customer_first_name" id="customer_first_name" class="form-control premium-input" maxlength="50" required onblur="validateName('customer_first_name')">
                                     <span class="valid-tick" id="tick_customer_first_name">✔</span>
                                 </div>
                                 <small class="text-danger" id="error_customer_first_name"></small>
@@ -745,7 +745,7 @@
                             <div class="form-group">
                                 <label>Last Name</label>
                                 <div class="position-relative">
-                                    <input type="text" name="customer_last_name" id="customer_last_name" class="form-control premium-input" maxlength="50" required>
+                                    <input type="text" name="customer_last_name" id="customer_last_name" class="form-control premium-input" maxlength="50" required onblur="validateName('customer_last_name')">
                                     <span class="valid-tick" id="tick_customer_last_name">✔</span>
                                 </div>
                                 <small class="text-danger" id="error_customer_last_name"></small>
@@ -754,7 +754,7 @@
                             <div class="form-group">
                                 <label>Phone Number</label>
                                 <div class="position-relative">
-                                    <input type="text" name="customer_phone" id="customer_phone" class="form-control premium-input" maxlength="10" required>
+                                    <input type="text" name="customer_phone" id="customer_phone" class="form-control premium-input" maxlength="10" required onblur="validatePhone('customer_phone')">
                                     <span class="valid-tick" id="tick_customer_phone">✔</span>
                                 </div>
                                 <small class="text-danger" id="error_customer_phone"></small>
@@ -763,7 +763,7 @@
                             <div class="form-group">
                                 <label>Email</label>
                                 <div class="position-relative">
-                                    <input type="email" name="customer_email" id="customer_email" class="form-control premium-input" maxlength="100" required>
+                                    <input type="email" name="customer_email" id="customer_email" class="form-control premium-input" maxlength="100" required onblur="validateEmail('customer_email')">
                                     <span class="valid-tick" id="tick_customer_email">✔</span>
                                 </div>
                                 <small class="text-danger" id="error_customer_email"></small>
@@ -772,7 +772,7 @@
                             <div class="form-group">
                                 <label>Address</label>
                                 <div class="position-relative">
-                                    <textarea name="customer_address" id="customer_address" class="form-control premium-input" maxlength="300" required></textarea>
+                                    <textarea name="customer_address" id="customer_address" class="form-control premium-input" maxlength="300" required onblur="validateRequired('customer_address', 'Address is required')"></textarea>
                                     <span class="valid-tick textarea-tick" id="tick_customer_address">✔</span>
                                 </div>
                                 <small class="text-danger" id="error_customer_address"></small>
@@ -781,7 +781,7 @@
                             <div class="form-group">
                                 <label>Description</label>
                                 <div class="position-relative">
-                                    <textarea name="customer_description" id="customer_description" class="form-control premium-input" placeholder="Write your work details" maxlength="500" required></textarea>
+                                    <textarea name="customer_description" id="customer_description" class="form-control premium-input" placeholder="Write your work details" maxlength="500" required onblur="validateRequired('customer_description', 'Description is required')"></textarea>
                                     <span class="valid-tick textarea-tick" id="tick_customer_description">✔</span>
                                 </div>
                                 <small class="text-danger" id="error_customer_description"></small>
@@ -790,7 +790,7 @@
                             <div class="form-group">
                                 <label>Preferred Date</label>
                                 <div class="position-relative">
-                                    <input type="date" name="service_date" id="service_date" class="form-control premium-input" min="<?php echo date('Y-m-d'); ?>" required>
+                                    <input type="date" name="service_date" id="service_date" class="form-control premium-input" min="<?php echo date('Y-m-d'); ?>" required onblur="validateRequired('service_date', 'Date is required')">
                                     <span class="valid-tick" id="tick_service_date">✔</span>
                                 </div>
                                 <small class="text-danger" id="error_service_date"></small>
@@ -799,7 +799,7 @@
                             <div class="form-group">
                                 <label>Preferred Time</label>
                                 <div class="position-relative">
-                                    <input type="time" name="service_time" id="service_time" class="form-control premium-input" required>
+                                    <input type="time" name="service_time" id="service_time" class="form-control premium-input" required onblur="validateRequired('service_time', 'Time is required')">
                                     <span class="valid-tick" id="tick_service_time">✔</span>
                                 </div>
                                 <small class="text-danger" id="error_service_time"></small>
@@ -955,32 +955,6 @@
         $('#bookingModal').modal('show');
     }
 
-    function showError(id, message) {
-        var errorEl = document.getElementById('error_' + id);
-        var inputEl = document.getElementById(id);
-        var tickEl = document.getElementById('tick_' + id);
-
-        if (errorEl) errorEl.innerText = message;
-        if (inputEl) {
-            inputEl.classList.remove('input-valid');
-            inputEl.classList.add('input-invalid');
-        }
-        if (tickEl) tickEl.style.display = 'none';
-    }
-
-    function showValid(id) {
-        var errorEl = document.getElementById('error_' + id);
-        var inputEl = document.getElementById(id);
-        var tickEl = document.getElementById('tick_' + id);
-
-        if (errorEl) errorEl.innerText = '';
-        if (inputEl) {
-            inputEl.classList.remove('input-invalid');
-            inputEl.classList.add('input-valid');
-        }
-        if (tickEl) tickEl.style.display = 'inline';
-    }
-
     function clearFieldState(id) {
         var errorEl = document.getElementById('error_' + id);
         var inputEl = document.getElementById(id);
@@ -1006,230 +980,126 @@
         };
     }
 
-    function validateFirstName() {
-        var id = 'customer_first_name';
-        var value = document.getElementById(id).value.trim();
-        var regex = /^[A-Za-z ]+$/;
+function validateBookingForm() {
+    var valid = true;
 
-        if (value === '') return showError(id, 'First name is required'), false;
-        if (value.length < 2) return showError(id, 'Minimum 2 characters required'), false;
-        if (!regex.test(value)) return showError(id, 'Only letters allowed'), false;
+    if (!validateName('customer_first_name')) valid = false;
+    if (!validateName('customer_last_name')) valid = false;
+    if (!validatePhone('customer_phone')) valid = false;
+    if (!validateEmail('customer_email')) valid = false;
+    if (!validateRequired('customer_address', 'Address is required')) valid = false;
+    if (!validateRequired('customer_description', 'Description is required')) valid = false;
+    if (!validateRequired('service_date', 'Date is required')) valid = false;
+    if (!validateRequired('service_time', 'Time is required')) valid = false;
 
-        showValid(id);
-        return true;
+    var summary = document.getElementById('validation_summary');
+    if (summary) summary.style.display = valid ? 'none' : 'block';
+
+    return valid;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    var bookingForm = document.getElementById('bookingForm');
+
+    var debouncedFirstName = debounce(function(){ validateName('customer_first_name'); }, 300);
+    var debouncedLastName = debounce(function(){ validateName('customer_last_name'); }, 300);
+    var debouncedPhone = debounce(function(){ validatePhone('customer_phone'); }, 300);
+    var debouncedEmail = debounce(function(){ validateEmail('customer_email'); }, 300);
+    var debouncedAddress = debounce(function(){ validateRequired('customer_address', 'Address is required'); }, 300);
+    var debouncedDescription = debounce(function(){ validateRequired('customer_description', 'Description is required'); }, 300);
+
+    var firstName = document.getElementById('customer_first_name');
+    var lastName = document.getElementById('customer_last_name');
+    var phone = document.getElementById('customer_phone');
+    var email = document.getElementById('customer_email');
+    var address = document.getElementById('customer_address');
+    var description = document.getElementById('customer_description');
+    var serviceDate = document.getElementById('service_date');
+    var serviceTime = document.getElementById('service_time');
+
+    if (firstName) {
+        firstName.addEventListener('input', function () {
+            if (this.value.trim() === '') clearFieldState('customer_first_name');
+            else debouncedFirstName();
+        });
     }
 
-    function validateLastName() {
-        var id = 'customer_last_name';
-        var value = document.getElementById(id).value.trim();
-        var regex = /^[A-Za-z ]+$/;
-
-        if (value === '') return showError(id, 'Last name is required'), false;
-        if (value.length < 2) return showError(id, 'Minimum 2 characters required'), false;
-        if (!regex.test(value)) return showError(id, 'Only letters allowed'), false;
-
-        showValid(id);
-        return true;
+    if (lastName) {
+        lastName.addEventListener('input', function () {
+            if (this.value.trim() === '') clearFieldState('customer_last_name');
+            else debouncedLastName();
+        });
     }
 
-    function validatePhone() {
-        var id = 'customer_phone';
-        var value = document.getElementById(id).value.trim();
-        var regex = /^[0-9]{10}$/;
-
-        if (value === '') return showError(id, 'Phone number is required'), false;
-        if (!regex.test(value)) return showError(id, 'Enter valid 10 digit phone number'), false;
-
-        showValid(id);
-        return true;
+    if (phone) {
+        phone.addEventListener('input', function () {
+            this.value = this.value.replace(/\D/g, '');
+            if (this.value.trim() === '') clearFieldState('customer_phone');
+            else debouncedPhone();
+        });
     }
 
-    function validateEmail() {
-        var id = 'customer_email';
-        var value = document.getElementById(id).value.trim();
-        var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        if (value === '') return showError(id, 'Email is required'), false;
-        if (!regex.test(value)) return showError(id, 'Enter valid email address'), false;
-
-        showValid(id);
-        return true;
+    if (email) {
+        email.addEventListener('input', function () {
+            if (this.value.trim() === '') clearFieldState('customer_email');
+            else debouncedEmail();
+        });
     }
 
-    function validateAddress() {
-        var id = 'customer_address';
-        var value = document.getElementById(id).value.trim();
-
-        if (value === '') return showError(id, 'Address is required'), false;
-        if (value.length < 10) return showError(id, 'Address must be at least 10 characters'), false;
-
-        showValid(id);
-        return true;
+    if (address) {
+        address.addEventListener('input', function () {
+            if (this.value.trim() === '') clearFieldState('customer_address');
+            else debouncedAddress();
+        });
     }
 
-    function validateDescription() {
-        var id = 'customer_description';
-        var value = document.getElementById(id).value.trim();
-
-        if (value === '') return showError(id, 'Description is required'), false;
-        if (value.length < 10) return showError(id, 'Description must be at least 10 characters'), false;
-
-        showValid(id);
-        return true;
+    if (description) {
+        description.addEventListener('input', function () {
+            if (this.value.trim() === '') clearFieldState('customer_description');
+            else debouncedDescription();
+        });
     }
 
-    function validateServiceDate() {
-        var id = 'service_date';
-        var value = document.getElementById(id).value;
-
-        if (value === '') return showError(id, 'Date is required'), false;
-
-        var today = new Date();
-        today.setHours(0,0,0,0);
-
-        var selectedDate = new Date(value);
-        selectedDate.setHours(0,0,0,0);
-
-        if (selectedDate < today) return showError(id, 'Past date is not allowed'), false;
-
-        showValid(id);
-        return true;
+    if (serviceDate) {
+        serviceDate.addEventListener('change', function () {
+            validateRequired('service_date', 'Date is required');
+        });
     }
 
-    function validateServiceTime() {
-        var id = 'service_time';
-        var value = document.getElementById(id).value;
-
-        if (value === '') return showError(id, 'Time is required'), false;
-
-        showValid(id);
-        return true;
+    if (serviceTime) {
+        serviceTime.addEventListener('change', function () {
+            validateRequired('service_time', 'Time is required');
+        });
     }
 
-    function validateBookingForm() {
-        var valid = true;
-
-        if (!validateFirstName()) valid = false;
-        if (!validateLastName()) valid = false;
-        if (!validatePhone()) valid = false;
-        if (!validateEmail()) valid = false;
-        if (!validateAddress()) valid = false;
-        if (!validateDescription()) valid = false;
-        if (!validateServiceDate()) valid = false;
-        if (!validateServiceTime()) valid = false;
-
-        var summary = document.getElementById('validation_summary');
-        if (summary) summary.style.display = valid ? 'none' : 'block';
-
-        return valid;
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-        var bookingForm = document.getElementById('bookingForm');
-
-        var debouncedFirstName = debounce(validateFirstName, 300);
-        var debouncedLastName = debounce(validateLastName, 300);
-        var debouncedPhone = debounce(validatePhone, 300);
-        var debouncedEmail = debounce(validateEmail, 300);
-        var debouncedAddress = debounce(validateAddress, 300);
-        var debouncedDescription = debounce(validateDescription, 300);
-
-        var firstName = document.getElementById('customer_first_name');
-        var lastName = document.getElementById('customer_last_name');
-        var phone = document.getElementById('customer_phone');
-        var email = document.getElementById('customer_email');
-        var address = document.getElementById('customer_address');
-        var description = document.getElementById('customer_description');
-        var serviceDate = document.getElementById('service_date');
-        var serviceTime = document.getElementById('service_time');
-
-        if (firstName) {
-            firstName.addEventListener('input', function(){
-                if (this.value.trim() === '') clearFieldState('customer_first_name');
-                else debouncedFirstName();
-            });
-            firstName.addEventListener('blur', validateFirstName);
-        }
-
-        if (lastName) {
-            lastName.addEventListener('input', function(){
-                if (this.value.trim() === '') clearFieldState('customer_last_name');
-                else debouncedLastName();
-            });
-            lastName.addEventListener('blur', validateLastName);
-        }
-
-        if (phone) {
-            phone.addEventListener('input', function(){
-                this.value = this.value.replace(/\D/g, '');
-                if (this.value.trim() === '') clearFieldState('customer_phone');
-                else debouncedPhone();
-            });
-            phone.addEventListener('blur', validatePhone);
-        }
-
-        if (email) {
-            email.addEventListener('input', function(){
-                if (this.value.trim() === '') clearFieldState('customer_email');
-                else debouncedEmail();
-            });
-            email.addEventListener('blur', validateEmail);
-        }
-
-        if (address) {
-            address.addEventListener('input', function(){
-                if (this.value.trim() === '') clearFieldState('customer_address');
-                else debouncedAddress();
-            });
-            address.addEventListener('blur', validateAddress);
-        }
-
-        if (description) {
-            description.addEventListener('input', function(){
-                if (this.value.trim() === '') clearFieldState('customer_description');
-                else debouncedDescription();
-            });
-            description.addEventListener('blur', validateDescription);
-        }
-
-        if (serviceDate) {
-            serviceDate.addEventListener('change', validateServiceDate);
-            serviceDate.addEventListener('blur', validateServiceDate);
-        }
-
-        if (serviceTime) {
-            serviceTime.addEventListener('change', validateServiceTime);
-            serviceTime.addEventListener('blur', validateServiceTime);
-        }
-
-        if (bookingForm) {
-            bookingForm.addEventListener('submit', function(e) {
-                if (!validateBookingForm()) {
-                    e.preventDefault();
-                }
-            });
-        }
-
-        var isLoggedIn = <?php echo $this->session->userdata("user_username") ? 'true' : 'false'; ?>;
-
-        if (isLoggedIn) {
-            var provider_id = sessionStorage.getItem('pending_booking_provider_id');
-            var provider_service_id = sessionStorage.getItem('pending_booking_provider_service_id');
-            var category_id = sessionStorage.getItem('pending_booking_category_id');
-            var category_name = sessionStorage.getItem('pending_booking_category_name');
-            var service_price = sessionStorage.getItem('pending_booking_service_price');
-
-            if (provider_id && provider_service_id && category_id && category_name && service_price) {
-                openBookingModal(provider_id, provider_service_id, category_id, category_name, service_price);
-
-                sessionStorage.removeItem('pending_booking_provider_id');
-                sessionStorage.removeItem('pending_booking_provider_service_id');
-                sessionStorage.removeItem('pending_booking_category_id');
-                sessionStorage.removeItem('pending_booking_category_name');
-                sessionStorage.removeItem('pending_booking_service_price');
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', function (e) {
+            if (!validateBookingForm()) {
+                e.preventDefault();
             }
+        });
+    }
+
+    var isLoggedIn = <?php echo $this->session->userdata("user_username") ? 'true' : 'false'; ?>;
+
+    if (isLoggedIn) {
+        var provider_id = sessionStorage.getItem('pending_booking_provider_id');
+        var provider_service_id = sessionStorage.getItem('pending_booking_provider_service_id');
+        var category_id = sessionStorage.getItem('pending_booking_category_id');
+        var category_name = sessionStorage.getItem('pending_booking_category_name');
+        var service_price = sessionStorage.getItem('pending_booking_service_price');
+
+        if (provider_id && provider_service_id && category_id && category_name && service_price) {
+            openBookingModal(provider_id, provider_service_id, category_id, category_name, service_price);
+
+            sessionStorage.removeItem('pending_booking_provider_id');
+            sessionStorage.removeItem('pending_booking_provider_service_id');
+            sessionStorage.removeItem('pending_booking_category_id');
+            sessionStorage.removeItem('pending_booking_category_name');
+            sessionStorage.removeItem('pending_booking_service_price');
         }
-    });
+    }
+});
 
     function scrollToServices(){
     document.getElementById("food").scrollIntoView({
@@ -1237,7 +1107,6 @@
     });
 }
 </script>
-        </script>
     </body>
 </html>
 

@@ -21,67 +21,66 @@ class Restaurant extends CI_Controller
     public function index()
     {
         $data = array();
+
         if ($this->input->post("login")) 
         {
-            $this->form_validation->set_rules("email", "", "required",array('required' => "Please Enter Email."));
-            $this->form_validation->set_rules("ps", "", "required",array('required' => "Please Enter Password."));
-            if($this->form_validation->run() == TRUE) 
-            {
-             if ($this->input->post("email") != "") 
-             {
-                if ($this->input->post("ps") != "") 
-                {
-                    $email = $this->input->post("email");
-                    $detail = $this->md->my_select("tbl_restaurant", "*", array("email" => $email));
-                    $count = count($detail);
-                    if ($count == 1) 
-                    {
-                        $ps = $this->input->post("ps");
-                        $nps = 123456;
-                        if ($ps == $nps) 
-                        {
-                            $this->session->set_userdata("seller_email", $detail[0]->restaurant_id);
-                            $this->session->set_userdata("seller_logintime", date("Y-m-d H:i:s"));
-                            redirect("Restaurant-Home");
-                            if($this->input->post("svp")=="yes")
-                            {
-                                $exp = 60 * 60 * 24 * 3;
-                                set_cookie("seller_email",$this->input->post("email"),$exp);
-                                set_cookie("seller_password",$this->input->post("ps"),$exp);
-                                                                
+            $this->form_validation->set_rules("email", "", "required", array('required' => "Please Enter Email."));
+            $this->form_validation->set_rules("ps", "", "required", array('required' => "Please Enter Password."));
 
-                            }
-                            else
-                            {
-                               set_cookie("seller_email","",-10);
-                               set_cookie("seller_password","",-10);
-                            }
-                            if($detail[0]->status == 0)
-                            {
-                            redirect("Restaurant-Active-Request");
-                            }
-                            else
-                            {
-                                redirect("Restaurant-Home");
-                            }
-                        }
-                        else 
+            if ($this->form_validation->run() == TRUE) 
+            {
+                $email = trim();
+                $ps    = trim($this->input->post("ps"));
+
+                $detail = $this->md->my_select("tbl_restaurant", "*", array("email" => $email));
+                $count  = count($detail);
+
+                if ($count == 1) 
+                {
+                    // IMPORTANT:
+                    // atyare tamara code ma hardcoded password check che: 123456
+                    // have same logic rehva didhu che, khali message better kariyu che
+
+                    $nps = 123456;
+
+                    if ($ps == $nps) 
+                    {
+                        $this->session->set_userdata("seller_email", $detail[0]->restaurant_id);
+                        $this->session->set_userdata("seller_logintime", date("Y-m-d H:i:s"));
+
+                        if ($this->input->post("svp") == "yes")
                         {
-                            $data["error"] = "Invalid Username Or Password";
+                            $exp = 60 * 60 * 24 * 3;
+                            set_cookie("seller_email", $this->input->post("email"), $exp);
+                            set_cookie("seller_password", $this->input->post("ps"), $exp);
                         }
-                    } 
+                        else
+                        {
+                            set_cookie("seller_email", "", -10);
+                            set_cookie("seller_password", "", -10);
+                        }
+
+                        if ($detail[0]->status == 0)
+                        {
+                            redirect("Restaurant-Active-Request");
+                        }
+                        else
+                        {
+                            redirect("Restaurant-Home");
+                        }
+                    }
                     else 
                     {
-                        $data["error"] = "Invalid Username Or Password";
+                        $data["error"] = "Invalid password.";
                     }
                 } 
                 else 
                 {
-                    $data["error"] = "Invalid Username Or Password";
+                    $data["error"] = "Account not found. Please register first.";
                 }
-             }   
-            } 
+            }
         }
+
         $this->load->view("seller/index", $data);
     }
 

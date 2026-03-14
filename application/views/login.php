@@ -12,32 +12,42 @@
         <?php
         $this->load->view("CSS");
         ?>
+        <style>
+            .premium-field-wrap {
+                position: relative;
+            }
+
+            .premium-input.input-valid {
+                border: 2px solid #28a745 !important;
+                box-shadow: 0 0 0 0.12rem rgba(40, 167, 69, 0.15) !important;
+            }
+
+            .premium-input.input-invalid {
+                border: 2px solid #dc3545 !important;
+                box-shadow: 0 0 0 0.12rem rgba(220, 53, 69, 0.15) !important;
+            }
+
+            .valid-tick {
+                display: none;
+                position: absolute;
+                right: 42px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #28a745;
+                font-weight: bold;
+                font-size: 16px;
+                z-index: 5;
+            }
+
+            .premium-error {
+                display: block;
+                margin-top: 6px;
+                font-size: 13px;
+                color: #dc3545;
+                font-weight: 500;
+            }
+        </style>
     </head>
-<script>
-document.getElementById("email").addEventListener("input", function(){
-
-    var email = this.value.trim();
-    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    var error = document.getElementById("email_error");
-
-    if(email === "")
-    {
-        error.innerHTML = "Email is required";
-        this.style.border = "2px solid red";
-    }
-    else if(!emailPattern.test(email))
-    {
-        error.innerHTML = "Enter valid email address";
-        this.style.border = "2px solid red";
-    }
-    else
-    {
-        error.innerHTML = "";
-        this.style.border = "2px solid green";
-    }
-
-});
-</script>
     <body>
         <div class="inner-wrapper">
             <div class="container-fluid no-padding">
@@ -53,7 +63,7 @@ document.getElementById("email").addEventListener("input", function(){
                         <div class="section-2 user-page main-padding">
                             <div class="login-sec" id="login_form">
                                 <div class="login-box">
-                                    <form method="post" name="user_login" action="" novalidate=""  autocomplete="off">
+                                    <form method="post" name="user_login" action="" novalidate="" autocomplete="off" id="userLoginForm">
                                         <h4 class="text-light-black fw-600">Sign in with your TaskRabbit account</h4>
                                         <div class="row">
                                             <div class="col-12">
@@ -71,21 +81,25 @@ document.getElementById("email").addEventListener("input", function(){
                                                     <label class="text-light-white fs-14">Email</label>
                                                     <?php
                                                         }
-                                                     ?>   
-                                                    
-                                                   <input type="email" 
-       id="email"
-       name="email" 
-       class="form-control form-control-submit <?php
-            if(form_error("email"))
-            {
-                echo "form_vis_error";
-            }
-       ?>" 
-       placeholder="Email Id" required>
+                                                    ?>   
 
-<small id="email_error" style="color:red;"></small>
-                                                  
+                                                    <div class="premium-field-wrap">
+                                                        <input type="email" 
+                                                            id="email"
+                                                            name="email" 
+                                                            class="form-control form-control-submit premium-input <?php
+                                                                    if(form_error("email"))
+                                                                    {
+                                                                        echo "form_vis_error";
+                                                                    }
+                                                            ?>" 
+                                                            placeholder="Email Id"
+                                                            required
+                                                            onblur="validateEmail('email')">
+                                                        <span class="valid-tick" id="tick_email">✔</span>
+                                                    </div>
+
+                                                    <small id="error_email" class="premium-error"></small>
                                                 </div>
                                                 <div class="form-group">
                                                     <?php
@@ -98,18 +112,30 @@ document.getElementById("email").addEventListener("input", function(){
                                                         else
                                                         {
                                                     ?>
-                                                    <label class="text-light-white fs-14">Paasword</label>
+                                                    <label class="text-light-white fs-14">Password</label>
                                                     <?php
                                                         }
-                                                     ?>   
-                                                    <input type="password" id="password-field" name="ps" class="form-control form-control-submit <?php
-                                                        if(form_error("ps"))
-                                                        {
-                                                            echo "form_vis_error";
-                                                        }                                                
-                                                   ?>" placeholder="Password" required>
-                                                   
-                                                    <div data-name="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></div>
+                                                    ?>   
+
+                                                    <div class="premium-field-wrap">
+                                                        <input type="password" 
+                                                            id="password-field" 
+                                                            name="ps" 
+                                                            class="form-control form-control-submit premium-input <?php
+                                                                    if(form_error("ps"))
+                                                                    {
+                                                                        echo "form_vis_error";
+                                                                    }                                                
+                                                            ?>" 
+                                                            placeholder="Password"
+                                                            required
+                                                            onblur="validatePassword('password-field')">
+
+                                                        <span class="valid-tick" id="tick_password-field">✔</span>
+                                                        <div data-name="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></div>
+                                                    </div>
+
+                                                    <small id="error_password-field" class="premium-error"></small>
                                                 </div>
                                                 <div class="form-group checkbox-reset">
                                                     <label class="custom-checkbox mb-0">
@@ -280,5 +306,74 @@ document.getElementById("email").addEventListener("input", function(){
                 $('#verify_email').hide();
             });
         </script>-->
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var loginForm = document.getElementById('userLoginForm');
+    var email = document.getElementById('email');
+    var password = document.getElementById('password-field');
+
+    function debounce(fn, delay) {
+        var timer;
+        return function () {
+            var context = this;
+            var args = arguments;
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                fn.apply(context, args);
+            }, delay);
+        };
+    }
+
+    var debouncedEmailValidation = debounce(function () {
+        validateEmail('email');
+    }, 200);
+
+    var debouncedPasswordValidation = debounce(function () {
+        validatePassword('password-field');
+    }, 200);
+
+    if (email) {
+        email.addEventListener('input', function () {
+            if (this.value.trim() === '') {
+                clearValidation('email');
+            } else {
+                debouncedEmailValidation();
+            }
+        });
+
+        email.addEventListener('blur', function () {
+            validateEmail('email');
+        });
+    }
+
+    if (password) {
+        password.addEventListener('input', function () {
+            if (this.value.trim() === '') {
+                clearValidation('password-field');
+            } else {
+                debouncedPasswordValidation();
+            }
+        });
+
+        password.addEventListener('blur', function () {
+            validatePassword('password-field');
+        });
+    }
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', function (e) {
+            var isValid = true;
+
+            if (!validateEmail('email')) isValid = false;
+            if (!validatePassword('password-field')) isValid = false;
+
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+    }
+});
+</script>
     </body>
 </html>

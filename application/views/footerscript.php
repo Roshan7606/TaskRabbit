@@ -28,6 +28,7 @@
 
 <script src="<?php echo base_url(); ?>assets/js/texttospeech.js" type="text/javascript"></script>
 
+<script src="<?php echo base_url(); ?>assets/js/form-validation.js"></script>
 <!--js-->
 <script>
     $base_url = "http://localhost/MUNCHBOX/";
