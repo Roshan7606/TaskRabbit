@@ -24,7 +24,6 @@
 <script src="<?php echo base_url(); ?>assets/js/munchbox.js"></script>
 <!-- /Place all Scripts Here -->
 <!--fontawesome-->
-<script src="<?php echo base_url(); ?>assets/fontawesome-free-5.11.2-web/css/all.min.css"/></script>
 
 <script src="<?php echo base_url(); ?>assets/js/texttospeech.js" type="text/javascript"></script>
 
@@ -137,4 +136,16 @@
             })(window, document);
 </script>
 
+<script>
+$(document).on('click', '.toggle-password', function () {
+    var input = $($(this).attr("data-name"));
 
+    if (input.attr("type") === "password") {
+        input.attr("type", "text");
+        $(this).text("🙈");
+    } else {
+        input.attr("type", "password");
+        $(this).text("👁");
+    }
+});
+</script>

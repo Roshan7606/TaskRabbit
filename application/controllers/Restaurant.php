@@ -29,7 +29,7 @@ class Restaurant extends CI_Controller
 
             if ($this->form_validation->run() == TRUE) 
             {
-                $email = trim();
+                $email = trim($this->input->post("email"));
                 $ps    = trim($this->input->post("ps"));
 
                 $detail = $this->md->my_select("tbl_restaurant", "*", array("email" => $email));
@@ -47,6 +47,8 @@ class Restaurant extends CI_Controller
                     {
                         $this->session->set_userdata("seller_email", $detail[0]->restaurant_id);
                         $this->session->set_userdata("seller_logintime", date("Y-m-d H:i:s"));
+                        redirect("Restaurant-Home");
+
 
                         if ($this->input->post("svp") == "yes")
                         {

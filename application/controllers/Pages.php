@@ -113,45 +113,52 @@ $data["food_item_detail"] = $this->md->my_query("select cat.name as category,sub
         $this->load->view("democard");
     }
 
-    public function login() {
-        $data = array();
+public function login()
+{
+    $data = array();
 
-        if ($this->input->post("login")) {
+    if ($this->input->method() === 'post')
+    {
+        $email = strtolower(trim($this->input->post("email")));
+        $password = trim($this->input->post("ps"));
 
-            if ($this->input->post("email") != "") {
-                if ($this->input->post("ps") != "") {
-                    $email = $this->input->post("email");
-                    $detail = $this->md->my_select("tbl_user", "*", array("email" => $email));
-                    $count = count($detail);
-                    if ($count == 1) {
-                        $ps = $this->input->post("ps");
-                        $nps = $this->encryption->decrypt($detail[0]->password);
-                        if ($ps == $nps) {
-                            $this->session->set_userdata("user_username", $detail[0]->user_id);
-                            $this->session->set_userdata("user_logintime", date("Y-m-d H:i:s"));
-                            if ($this->input->post("svp")) {
-                                $exp = 60 * 60 * 24 * 3;
-                                set_cookie("user_username", $this->input->post("username"), $exp);
-                                set_cookie("user_password", $this->input->post("ps"), $exp);
-                            }
-                            redirect("Restaurant/0");
-                        } else {
-                            $data["error"] = "Invalid Username Or Password";
-                        }
-                    } else {
-                        $data["error"] = "Invalid Username Or Password";
-                    }
-                } else {
-                    $data["error"] = "Invalid Username Or Password";
+        if ($email != "" && $password != "")
+        {
+            $detail = $this->db
+                ->where("LOWER(email)", $email)
+                ->get("tbl_user")
+                ->row();
+
+            if (!$detail)
+            {
+                $data["error"] = "Account not found. Please register first.";
+            }
+            else
+            {
+                $storedPassword = $this->encryption->decrypt($detail->password);
+
+                if ($password !== $storedPassword)
+                {
+                    $data["error"] = "Invalid password.";
                 }
-            } else {
-                $data["error"] = "Invalid Username Or Password";
+                else
+                {
+                    $this->session->set_userdata("user_username", $detail->user_id);
+                    $this->session->set_userdata("user_logintime", date("Y-m-d H:i:s"));
+
+                    redirect("Restaurant/0");
+                    return;
+                }
             }
         }
+
         $this->load->view("login", $data);
+        return;
     }
 
-    public function signup() {
+    $this->load->view("login");
+}
+    public function signup() {  
         $data = array();
         if ($this->input->post("add_register")) {
             $this->form_validation->set_rules("name", "", "required|regex_match[/^[A-Za-z ]+$/]", array("required" => "This Field Is Required", "regex_match" => "Only Alpha Allow"));
@@ -160,7 +167,7 @@ $data["food_item_detail"] = $this->md->my_query("select cat.name as category,sub
             $this->form_validation->set_rules("ps", "", "required|min_length[8]", array("required" => "This Field Is Required", "min_length" => "Password Must Be In Minimum 8 Character"));
             if ($this->form_validation->run() == TRUE) {
                 $name = strtolower($this->input->post("name"));
-                $wh["name"] = $this->input->post("email");
+                $wh["email"] = $this->input->post("email");
                 $count = count($this->md->my_select("tbl_user", "*", $wh));
                 if ($count != 0) {
                     $data["error"] = $name . " Is Already Exist";

@@ -10,6 +10,53 @@
         <?php
         $this->load->view("CSS");
         ?>
+
+        <style>
+    .premium-field-wrap {
+        position: relative;
+    }
+
+    .premium-input.input-valid {
+        border: 2px solid #28a745 !important;
+        box-shadow: 0 0 0 0.12rem rgba(40, 167, 69, 0.15) !important;
+    }
+
+    .premium-input.input-invalid {
+        border: 2px solid #dc3545 !important;
+        box-shadow: 0 0 0 0.12rem rgba(220, 53, 69, 0.15) !important;
+    }
+
+    .valid-tick {
+        display: none;
+        position: absolute;
+        right: 42px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #28a745;
+        font-weight: bold;
+        font-size: 16px;
+        z-index: 5;
+    }
+
+    .premium-error {
+        display: block;
+        margin-top: 6px;
+        font-size: 13px;
+        color: #dc3545;
+        font-weight: 500;
+    }
+    .field-icon {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #333;
+        z-index: 10;
+        font-size: 16px;
+    }
+</style>
+
     </head>
 
     <body>
@@ -30,8 +77,15 @@
                             
                             <div class="login-sec" id="form_register">
                                 <div class="login-box">
-                                    <form name="user_register" method="post" action="" novalidate="">
+                                    <form name="user_register" method="post" action="<?php echo base_url('Sign-up'); ?>" novalidate autocomplete="off" id="userSignupForm">
                                         <h4 class="text-light-black fw-600">Create your account</h4>
+                                        
+                                        <?php if (!empty($error)) { ?>
+                                            <div style="background:#f8d7da;color:#721c24;padding:12px 14px;border:1px solid #f5c6cb;border-radius:6px;margin:15px 0;">
+                                                <?php echo $error; ?>
+                                            </div>
+                                        <?php } ?>
+
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
@@ -49,18 +103,30 @@
                                                     <?php
                                                         }
                                                     ?>
-                                       
-                                                    <input type="text" name="name" check_control="alpha" title="Only Alphabats Allow." class="form-control form-control-submit <?php
-                                                        if(form_error("name"))
-                                                        {
-                                                            echo "form_vis_error";
-                                                        }                                                
-                                                   ?>" placeholder="First Name" value="<?php
-                                                        if( !isset($success) && set_value("name"))
-                                                        {
-                                                            echo set_value("name");
-                                                        }
-                                                   ?>" required>
+
+                                                    <div class="premium-field-wrap">
+                                                        <input type="text"
+                                                            id="name"
+                                                            name="name"
+                                                            class="form-control form-control-submit premium-input <?php
+                                                                    if(form_error("name"))
+                                                                    {
+                                                                        echo "form_vis_error";
+                                                                    }
+                                                            ?>"
+                                                            placeholder="First Name"
+                                                            value="<?php
+                                                                    if(!isset($success) && set_value('name'))
+                                                                    {
+                                                                        echo set_value('name');
+                                                                    }
+                                                            ?>"
+                                                            required
+                                                            onblur="validateName('name')">
+                                                        <span class="valid-tick" id="tick_name">✔</span>
+                                                    </div>
+
+                                                    <small id="error_name" class="premium-error"></small>
                                                 </div>
                                             </div>
                                             <div class="col-12">
@@ -79,17 +145,30 @@
                                                     <?php
                                                         }
                                                     ?>
-                                                    <input type="text" check_control="mobile" name="mobile" title="Only Numeric Allow." class="form-control form-control-submit form-control-submit <?php
-                                                        if(form_error("mobile"))
-                                                        {
-                                                            echo "form_vis_error";
-                                                        }                                                
-                                                   ?>" placeholder="Mobile" value="<?php
-                                                        if( !isset($success) && set_value("mobile"))
-                                                        {
-                                                            echo set_value("mobile");
-                                                        }
-                                                   ?>" required>
+
+                                                    <div class="premium-field-wrap">
+                                                        <input type="text"
+                                                            id="mobile"
+                                                            name="mobile"
+                                                            class="form-control form-control-submit premium-input <?php
+                                                                    if(form_error("mobile"))
+                                                                    {
+                                                                        echo "form_vis_error";
+                                                                    }
+                                                            ?>"
+                                                            placeholder="Mobile"
+                                                            value="<?php
+                                                                    if(!isset($success) && set_value('mobile'))
+                                                                    {
+                                                                        echo set_value('mobile');
+                                                                    }
+                                                            ?>"
+                                                            required
+                                                            onblur="validatePhone('mobile')">
+                                                        <span class="valid-tick" id="tick_mobile">✔</span>
+                                                    </div>
+
+                                                    <small id="error_mobile" class="premium-error"></small>
                                                 </div>
                                                 <div class="form-group">
                                                     <?php
@@ -106,20 +185,32 @@
                                                     <?php
                                                         }
                                                     ?>
-                                                    <input type="email" check_control="email" name="email" title="Enter valid Email." class="form-control form-control-submit form-control-submit <?php
-                                                        if(form_error("email"))
-                                                        {
-                                                            echo "form_vis_error";
-                                                        }                                                
-                                                   ?>" placeholder="Email I'd" value="<?php
-                                                        if( !isset($success) && set_value("email"))
-                                                        {
-                                                            echo set_value("email");
-                                                        }
-                                                   ?>" required>
+
+                                                    <div class="premium-field-wrap">
+                                                        <input type="email"
+                                                            id="email"
+                                                            name="email"
+                                                            class="form-control form-control-submit premium-input <?php
+                                                                    if(form_error("email"))
+                                                                    {
+                                                                        echo "form_vis_error";
+                                                                    }
+                                                            ?>"
+                                                            placeholder="Email I'd"
+                                                            value="<?php
+                                                                    if(!isset($success) && set_value('email'))
+                                                                    {
+                                                                        echo set_value('email');
+                                                                    }
+                                                            ?>"
+                                                            required
+                                                            onblur="validateEmail('email')">
+                                                        <span class="valid-tick" id="tick_email">✔</span>
+                                                    </div>
+
+                                                    <small id="error_email" class="premium-error"></small>
                                                 </div>
                                                 <div class="form-group">
-                                                    
                                                     <?php
                                                         if(form_error("ps"))
                                                         {
@@ -130,22 +221,36 @@
                                                         else
                                                         {
                                                     ?>
-                                                        <label class="text-light-white fs-14">Password (8 character minimum)</label>
+                                                        <label class="text-light-white fs-14">Password (min 8 chars, 1 uppercase, 1 number, 1 special)</label>
                                                     <?php
                                                         }
                                                     ?>
-                                                    <input type="password" check_control="" id="password-field" name="ps" class="form-control form-control-submit form-control-submit <?php
-                                                        if(form_error("ps"))
-                                                        {
-                                                            echo "form_vis_error";
-                                                        }                                                
-                                                   ?>" placeholder="Password" value="<?php
-                                                        if( !isset($success) && set_value("ps"))
-                                                        {
-                                                            echo set_value("ps");
-                                                        }
-                                                   ?>" required>
-                                                    <div data-name="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></div>
+
+                                                    <div class="premium-field-wrap">
+                                                        <input type="password"
+                                                            id="password-field"
+                                                            name="ps"
+                                                            class="form-control form-control-submit premium-input <?php
+                                                                    if(form_error("ps"))
+                                                                    {
+                                                                        echo "form_vis_error";
+                                                                    }
+                                                            ?>"
+                                                            placeholder="Password"
+                                                            value="<?php
+                                                                    if(!isset($success) && set_value('ps'))
+                                                                    {
+                                                                        echo set_value('ps');
+                                                                    }
+                                                            ?>"
+                                                            required
+                                                            onblur="validatePassword('password-field')">
+
+                                                        <span class="valid-tick" id="tick_password-field">✔</span>
+                                                        <span data-name="#password-field" class="field-icon toggle-password">👁</span>
+                                                    </div>
+
+                                                    <small id="error_password-field" class="premium-error"></small>
                                                 </div>
                                                 <div class="form-group checkbox-reset">
                                                     <label class="custom-checkbox mb-0">
@@ -194,19 +299,86 @@
             </div>
         </div>
         <?php
-            if(isset($error))
-            {
-        ?>
-        <div class="add-alert-message animated bounceInDown ">
-            <img src="<?php echo base_url(); ?>assets/img/animated-gif/4970-unapproved-cross.gif">
-            <p><?php echo $error; ?></p>
-        </div>
-        <?php
-            }
-        ?> 
-        <?php
         $this->load->view("footerscript");
         ?>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var signupForm = document.getElementById('userSignupForm');
+            var name = document.getElementById('name');
+            var mobile = document.getElementById('mobile');
+            var email = document.getElementById('email');
+            var password = document.getElementById('password-field');
+
+            if (name) {
+                name.addEventListener('input', function () {
+                    if (this.value.trim() === '') {
+                        clearValidation('name');
+                    } else {
+                        validateName('name');
+                    }
+                });
+                name.addEventListener('blur', function () {
+                    validateName('name');
+                });
+            }
+
+            if (mobile) {
+                mobile.addEventListener('input', function () {
+                    if (this.value.trim() === '') {
+                        clearValidation('mobile');
+                    } else {
+                        validatePhone('mobile');
+                    }
+                });
+                mobile.addEventListener('blur', function () {
+                    validatePhone('mobile');
+                });
+            }
+
+            if (email) {
+                email.addEventListener('input', function () {
+                    if (this.value.trim() === '') {
+                        clearValidation('email');
+                    } else {
+                        validateEmail('email');
+                    }
+                });
+                email.addEventListener('blur', function () {
+                    validateEmail('email');
+                });
+            }
+
+            if (password) {
+                password.addEventListener('input', function () {
+                    if (this.value.trim() === '') {
+                        clearValidation('password-field');
+                    } else {
+                        validatePassword('password-field');
+                    }
+                });
+                password.addEventListener('blur', function () {
+                    validatePassword('password-field');
+                });
+            }
+
+            if (signupForm) {
+                signupForm.addEventListener('submit', function (e) {
+                    var isValid = true;
+
+                    if (!validateName('name')) isValid = false;
+                    if (!validatePhone('mobile')) isValid = false;
+                    if (!validateEmail('email')) isValid = false;
+                    if (!validatePassword('password-field')) isValid = false;
+
+                    if (!isValid) {
+                        e.preventDefault();
+                    }
+                });
+            }
+        });
+        </script>
+
 <!--        <script>
             $(document).ready(function () {
                 $('#form_register').hide();

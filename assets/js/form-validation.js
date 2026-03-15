@@ -121,16 +121,46 @@ function validateEmail(id) {
     var field = document.getElementById(id);
     if (!field) return true;
 
-    var value = field.value.trim();
-    var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var value = field.value.trim().toLowerCase();
+
+    // Basic email structure check
+    var basicRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+
+    // Allowed real extensions
+    var allowedExtensions = [
+        "com", "in", "org", "net", "edu", "gov", "co",
+        "io", "info", "biz", "co.in", "ac.in", "firm.in",
+        "gen.in", "ind.in", "us", "uk", "co.uk", "ae",
+        "ca", "au", "de", "fr", "jp", "sg"
+    ];
 
     if (value === '') {
         showError(id, "Email required");
         return false;
     }
 
-    if (!regex.test(value)) {
+    if (!basicRegex.test(value)) {
         showError(id, "Invalid email address");
+        return false;
+    }
+
+    var domainPart = value.split('@')[1];
+    if (!domainPart) {
+        showError(id, "Invalid email address");
+        return false;
+    }
+
+    var isAllowed = false;
+
+    for (var i = 0; i < allowedExtensions.length; i++) {
+        if (domainPart.endsWith('.' + allowedExtensions[i])) {
+            isAllowed = true;
+            break;
+        }
+    }
+
+    if (!isAllowed) {
+        showError(id, "Enter email with valid domain extension");
         return false;
     }
 
@@ -138,19 +168,14 @@ function validateEmail(id) {
     return true;
 }
 
-function validatePassword(id) {
+function validateLoginPassword(id) {
     var field = document.getElementById(id);
-    if (!field) return true;
+    if (!field) return false;
 
-    var value = field.value;
+    var value = field.value.trim();
 
-    if (value.trim() === '') {
+    if (value === "") {
         showError(id, "Password required");
-        return false;
-    }
-
-    if (value.length < 6) {
-        showError(id, "Minimum 6 characters");
         return false;
     }
 

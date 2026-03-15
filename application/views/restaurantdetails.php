@@ -1102,7 +1102,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
     function scrollToServices(){
-    document.getElementById("food").scrollIntoView({
+    document.getElementById("food").scrollIntoView({     
         behavior:"smooth"
     });
 }

@@ -46,7 +46,19 @@
                 color: #dc3545;
                 font-weight: 500;
             }
+
+            .field-icon {
+                position: absolute;
+                right: 14px;
+                top: 50%;
+                transform: translateY(-50%);
+                cursor: pointer;
+                color: #333;
+                z-index: 10;
+                font-size: 16px;
+            }
         </style>
+        
     </head>
     <body>
         <div class="inner-wrapper">
@@ -63,8 +75,17 @@
                         <div class="section-2 user-page main-padding">
                             <div class="login-sec" id="login_form">
                                 <div class="login-box">
-                                    <form method="post" name="user_login" action="" novalidate="" autocomplete="off" id="userLoginForm">
+                                    <form method="post" name="user_login" action="<?php echo base_url('Log-in'); ?>" novalidate autocomplete="off" id="userLoginForm">
+                                        <input type="hidden" name="login" value="1">
+
                                         <h4 class="text-light-black fw-600">Sign in with your TaskRabbit account</h4>
+
+                                        <?php if (!empty($error)) { ?>
+                                            <div style="background:#f8d7da;color:#721c24;padding:12px 14px;border:1px solid #f5c6cb;border-radius:6px;margin:15px 0;">
+                                                <?php echo $error; ?>
+                                            </div>
+                                        <?php } ?>
+
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
@@ -129,10 +150,10 @@
                                                             ?>" 
                                                             placeholder="Password"
                                                             required
-                                                            onblur="validatePassword('password-field')">
+                                                            onblur="validateLoginPassword('password-field')">
 
                                                         <span class="valid-tick" id="tick_password-field">✔</span>
-                                                        <div data-name="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></div>
+                                                        <span data-name="#password-field" class="field-icon toggle-password">👁</span>
                                                     </div>
 
                                                     <small id="error_password-field" class="premium-error"></small>
@@ -142,8 +163,9 @@
                                                         <input type="checkbox" name="svp" value="yes"> <span class="checkmark"></span> Keep me signed in</label> <a id="login_forget" href="#">Reset password</a>
                                                 </div>
                                                 <div class="form-group">
-                                                    <input type="submit" class="btn-second btn-submit full-width" name="login" value="Login">
-                                                        <img src="<?php echo base_url(); ?>assets/img/M.png" alt="btn logo" value="Sign In">
+<button type="submit" class="btn-second btn-submit full-width" name="login">
+Login
+</button>                                                        <img src="<?php echo base_url(); ?>assets/img/M.png" alt="btn logo" value="Sign In">
                                                         
                                                 </div>
                                                 
@@ -284,17 +306,6 @@
             </div>
         </div>
         <?php
-            if(isset($error))
-            {
-        ?>
-        <div class="add-alert-message animated bounceInDown ">
-            <img src="<?php echo base_url(); ?>assets/img/animated-gif/4970-unapproved-cross.gif">
-            <p><?php echo $error; ?></p>
-        </div>
-        <?php
-            }
-        ?> 
-        <?php
         $this->load->view("footerscript");
         ?>
 <!--        <script>
@@ -313,32 +324,20 @@ document.addEventListener('DOMContentLoaded', function () {
     var email = document.getElementById('email');
     var password = document.getElementById('password-field');
 
-    function debounce(fn, delay) {
-        var timer;
-        return function () {
-            var context = this;
-            var args = arguments;
-            clearTimeout(timer);
-            timer = setTimeout(function () {
-                fn.apply(context, args);
-            }, delay);
-        };
-    }
-
-    var debouncedEmailValidation = debounce(function () {
-        validateEmail('email');
-    }, 200);
-
-    var debouncedPasswordValidation = debounce(function () {
-        validatePassword('password-field');
-    }, 200);
-
     if (email) {
         email.addEventListener('input', function () {
             if (this.value.trim() === '') {
                 clearValidation('email');
             } else {
-                debouncedEmailValidation();
+                validateEmail('email');
+            }
+        });
+
+        email.addEventListener('keyup', function () {
+            if (this.value.trim() === '') {
+                clearValidation('email');
+            } else {
+                validateEmail('email');
             }
         });
 
@@ -352,27 +351,33 @@ document.addEventListener('DOMContentLoaded', function () {
             if (this.value.trim() === '') {
                 clearValidation('password-field');
             } else {
-                debouncedPasswordValidation();
+                validateLoginPassword('password-field');
+            }
+        });
+
+        password.addEventListener('keyup', function () {
+            if (this.value.trim() === '') {
+                clearValidation('password-field');
+            } else {
+                validateLoginPassword('password-field');
             }
         });
 
         password.addEventListener('blur', function () {
-            validatePassword('password-field');
-        });
+            validateLoginPassword('password-field');
     }
+if (loginForm) {
+    loginForm.addEventListener('submit', function (e) {
+        var isValid = true;
 
-    if (loginForm) {
-        loginForm.addEventListener('submit', function (e) {
-            var isValid = true;
+        if (!validateEmail('email')) isValid = false;
+        if (!validateLoginPassword('password-field')) isValid = false;
 
-            if (!validateEmail('email')) isValid = false;
-            if (!validatePassword('password-field')) isValid = false;
-
-            if (!isValid) {
-                e.preventDefault();
-            }
-        });
-    }
+        if (!isValid) {
+            e.preventDefault();
+        }
+    });
+}
 });
 </script>
     </body>
