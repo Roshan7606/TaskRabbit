@@ -134,7 +134,7 @@
                                                             echo $this->input->cookie("seller_password");
                                                         }
                                                         ?>"
-                                                        onblur="validatePassword('seller_password')">
+                                                        onblur="validateLoginPassword('seller_password')">
 
                                                     <span class="valid-tick" id="tick_seller_password">✔</span>
 
@@ -276,7 +276,7 @@
                     if (this.value.trim() === '') {
                         clearValidation('seller_password');
                     } else {
-                        validatePassword('seller_password');
+                        validateLoginPassword('seller_password');
                     }
                 });
 
@@ -284,12 +284,12 @@
                     if (this.value.trim() === '') {
                         clearValidation('seller_password');
                     } else {
-                        validatePassword('seller_password');
+                        validateLoginPassword('seller_password');
                     }
                 });
 
                 password.addEventListener('blur', function () {
-                    validatePassword('seller_password');
+                    validateLoginPassword('seller_password');
                 });
             }
 
@@ -298,7 +298,7 @@
                     var isValid = true;
 
                     if (!validateEmail('seller_email')) isValid = false;
-                    if (!validatePassword('seller_password')) isValid = false;
+                    if (!validateLoginPassword('seller_password')) isValid = false;
 
                     if (!isValid) {
                         e.preventDefault();
