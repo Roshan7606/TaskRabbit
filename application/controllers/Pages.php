@@ -307,18 +307,75 @@ public function login()
             ->get()
             ->result();
 
-        $data["star_rating"] = $this->md->my_query(
-            "select AVG(rating) as rate_star , count(*) as cnt_rate
-            from tbl_review_rating
-            where restaurant_id = ".$id
-        );
+        $data["eligible_review_services"] = array();
 
-        $data["review_rating"] = $this->md->my_query(
-            "select us.*, re.*
-            from tbl_user as us, tbl_review_rating as re
-            where re.restaurant_id = '".$id."'
-            and us.user_id = re.user_id"
-        );
+        if ($this->session->userdata("user_username"))
+        {
+            $user_id = $this->session->userdata("user_username");
+
+            $data["eligible_review_services"] = $this->db
+                ->select("MAX(b.booking_id) as booking_id, b.provider_id, b.provider_service_id, b.category_id, c.name as service_name")
+                ->from("tbl_service_bookings b")
+                ->join("tbl_category c", "c.category_id = b.category_id", "left")
+                ->where("b.user_id", $user_id)
+                ->where("b.provider_id", $id)
+                ->where("b.booking_status", "accepted")
+                ->where("b.provider_service_id NOT IN (
+                    SELECT provider_service_id 
+                    FROM tbl_service_reviews 
+                    WHERE user_id = ".$this->db->escape($user_id)." 
+                    AND provider_id = ".$this->db->escape($id)." 
+                    AND status = 1
+                )", null, false)
+                ->group_by("b.provider_service_id")
+                ->group_by("b.category_id")
+                ->group_by("b.provider_id")
+                ->order_by("booking_id", "DESC")
+                ->get()
+                ->result();
+        }
+
+        $data["service_rating_map"] = array();
+
+        $service_rating_rows = $this->db
+            ->select("provider_service_id, ROUND(AVG(rating),1) as avg_rating, COUNT(*) as total_reviews")
+            ->from("tbl_service_reviews")
+            ->where("provider_id", $id)
+            ->where("status", 1)
+            ->group_by("provider_service_id")
+            ->get()
+            ->result();
+
+        foreach ($service_rating_rows as $row)
+        {
+            $data["service_rating_map"][$row->provider_service_id] = array(
+                "avg_rating"    => $row->avg_rating,
+                "total_reviews" => $row->total_reviews
+            );
+        }
+
+        $data["star_rating"] = $this->db
+            ->select("AVG(rating) as rate_star, COUNT(*) as cnt_rate")
+            ->from("tbl_service_reviews")
+            ->where("provider_id", $id)
+            ->where("status", 1)
+            ->get()
+            ->result();
+
+        if (empty($data["star_rating"])) {
+            $data["star_rating"] = array((object) array("rate_star" => 0, "cnt_rate" => 0));
+        }
+
+        $data["review_rating"] = $this->db
+            ->select("sr.*, u.name, u.profile, c.name as service_name")
+            ->from("tbl_service_reviews sr")
+            ->join("tbl_user u", "u.user_id = sr.user_id", "left")
+            ->join("tbl_category c", "c.category_id = sr.category_id", "left")
+            ->where("sr.provider_id", $id)
+            ->where("sr.status", 1)
+            ->order_by("sr.review_id", "DESC")
+            ->get()
+            ->result();
 
         $data["schedule_details"] = $this->md->my_select(
             "tbl_schedule",
@@ -382,7 +439,7 @@ public function login()
         $this->form_validation->set_rules('service_time', 'Service Time', 'required');
 
         if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('error', validation_errors());
+            // $this->session->set_flashdata('booking_error', validation_errors());
             redirect($_SERVER['HTTP_REFERER']);
             return;
         }
@@ -403,7 +460,7 @@ public function login()
         $service_time = $this->input->post('service_time');
 
         if (strtotime($service_date) < strtotime(date('Y-m-d'))) {
-            $this->session->set_flashdata('error', 'Past date is not allowed.');
+            // $this->session->set_flashdata('booking_error', 'Past date is not allowed.');
             redirect($_SERVER['HTTP_REFERER']);
             return;
         }
@@ -416,7 +473,7 @@ public function login()
             ->row();
 
         if (!$service_exists) {
-            $this->session->set_flashdata('error', 'Invalid service selected.');
+            $this->session->set_flashdata('booking_error', 'Invalid service selected.');
             redirect($_SERVER['HTTP_REFERER']);
             return;
         }
@@ -424,6 +481,7 @@ public function login()
         $expires_at = date('Y-m-d H:i:s', strtotime('+2 minutes'));
 
         $ins = array(
+            'user_id' => $this->session->userdata("user_username"),
             'provider_id' => $provider_id,
             'provider_service_id' => $provider_service_id,
             'category_id' => $category_id,
@@ -1040,6 +1098,87 @@ public function login()
         $data["order_detail"] = $this->md->my_query("select tr.*,it.item_name,it.measurement,it.description,it.category_id,it.image from tbl_transaction as tr,tbl_item as it,tbl_bill as bl where tr.item_id = it.item_id and it.restaurant_id = tr.restaurant_id and bl.bill_id = tr.bill_id and tr.bill_id = " . $this->uri->segment(2) . " and tr.user_id = " . $this->session->userdata("user_username"));
         $data["bill_detail"] = $this->md->my_select("tbl_bill", "*", array("bill_id" => $this->uri->segment(2), "user_id" => $this->session->userdata("user_username")));
         $this->load->view("user_bill", $data);
+    }
+
+    public function submit_service_review()
+    {
+        $this->security();
+
+        $user_id = $this->session->userdata("user_username");
+
+        $this->form_validation->set_rules("provider_id", "", "required|numeric");
+        $this->form_validation->set_rules("booking_id", "", "required|numeric");
+        $this->form_validation->set_rules("provider_service_id", "", "required|numeric");
+        $this->form_validation->set_rules("category_id", "", "required|numeric");
+        $this->form_validation->set_rules("rating", "", "required|numeric|greater_than[0]|less_than[6]");
+        $this->form_validation->set_rules("review_text", "", "required|min_length[3]|max_length[1000]");
+
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->session->set_flashdata("review_error", validation_errors());
+            redirect($_SERVER['HTTP_REFERER']);
+            return;
+        }
+
+        $provider_id         = (int)$this->input->post("provider_id");
+        $booking_id          = (int)$this->input->post("booking_id");
+        $provider_service_id = (int)$this->input->post("provider_service_id");
+        $category_id         = (int)$this->input->post("category_id");
+        $rating              = (int)$this->input->post("rating");
+        $review_text         = trim($this->input->post("review_text"));
+
+        // 1) Check booking belongs to logged-in user and is accepted
+        $booking = $this->db
+            ->where("booking_id", $booking_id)
+            ->where("user_id", $user_id)
+            ->where("provider_id", $provider_id)
+            ->where("provider_service_id", $provider_service_id)
+            ->where("category_id", $category_id)
+            ->where("booking_status", "accepted")
+            ->get("tbl_service_bookings")
+            ->row();
+
+        if (!$booking)
+        {
+            $this->session->set_flashdata("review_error", "You can review only accepted booked services.");
+            redirect($_SERVER['HTTP_REFERER']);
+            return;
+        }
+
+        // 2) Check already reviewed or not
+        $already_reviewed = $this->db
+            ->where("user_id", $user_id)
+            ->where("provider_id", $provider_id)
+            ->where("provider_service_id", $provider_service_id)
+            ->where("category_id", $category_id)
+            ->where("status", 1)
+            ->get("tbl_service_reviews")
+            ->row();
+
+        if ($already_reviewed)
+        {
+            $this->session->set_flashdata("review_error", "You have already reviewed this service.");
+            redirect($_SERVER['HTTP_REFERER']);
+            return;
+        }
+
+        // 3) Insert review
+        $ins = array(
+            "booking_id"          => $booking_id,
+            "user_id"             => $user_id,
+            "provider_id"         => $provider_id,
+            "provider_service_id" => $provider_service_id,
+            "category_id"         => $category_id,
+            "rating"              => $rating,
+            "review_text"         => $review_text,
+            "status"              => 1,
+            "created_at"          => date("Y-m-d H:i:s")
+        );
+
+        $this->db->insert("tbl_service_reviews", $ins);
+
+        $this->session->set_flashdata("review_success", "Review submitted successfully.");
+        redirect("Restaurant-Details/".$provider_id);
     }
 
 }

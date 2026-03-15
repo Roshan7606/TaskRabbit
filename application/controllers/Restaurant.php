@@ -635,9 +635,21 @@ class Restaurant extends CI_Controller
     {
         $this->security();
         $data = array();
-        $id = $this->session->userdata("seller_email");
-        $data["review_rating"] = $this->md->my_query("select us.*,re.* from tbl_user as us,tbl_review_rating as re where re.restaurant_id = '".$id."' and us.user_id = re.user_id");
-        $this->load->view("seller/itemreviewrating",$data);   
+
+        $provider_id = $this->session->userdata("seller_email");
+
+        $data["review_rating"] = $this->db
+            ->select("sr.*, u.name as user_name, u.profile, c.name as service_name")
+            ->from("tbl_service_reviews sr")
+            ->join("tbl_user u", "u.user_id = sr.user_id", "left")
+            ->join("tbl_category c", "c.category_id = sr.category_id", "left")
+            ->where("sr.provider_id", $provider_id)
+            ->where("sr.status", 1)
+            ->order_by("sr.review_id", "DESC")
+            ->get()
+            ->result();
+
+        $this->load->view("seller/itemreviewrating", $data);   
     }
     public function menu() 
     {

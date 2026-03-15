@@ -47,6 +47,60 @@
             display: none;
             margin-bottom: 15px;
         }
+
+        .service-rating-block .text-yellow i {
+            color: #f5c518 !important;
+        }
+
+        .service-rating-block .text-dark-white i {
+            color: #dcdcdc !important;
+        }
+
+        .service-rating-block {
+            display: block;
+            margin: 6px 0 8px 0;
+        }
+
+        .service-rating-block .rating-stars {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            margin-bottom: 2px;
+        }
+
+        .service-rating-block .rating-stars {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            margin-bottom: 2px;
+            line-height: 1;
+        }
+
+        .service-rating-block .star-filled,
+        .service-rating-block .star-empty {
+            font-size: 14px;
+            display: inline-block;
+        }
+
+        .service-rating-block .star-filled {
+            color: #f5c518 !important;
+        }
+
+        .service-rating-block .star-empty {
+            color: #d9d9d9 !important;
+        }
+
+        .service-rating-block .rating-text {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .review-star {
+            font-size: 30px;
+            color: #ffc107;
+            cursor: pointer;
+            margin-right: 2px;
+        }
         </style>
 
     </head>
@@ -190,7 +244,13 @@
                         </div>
 
                         <div class="restaurent-logo" style="margin-left: 40%;">
-<img src="<?php echo base_url('uploads/providers/'.$restaurent_detail[0]->coverpic); ?>" class="img-fluid" alt="#">                        </div>
+                        <?php
+                        $cover_img = !empty($restaurent_detail[0]->coverpic)
+                            ? base_url($restaurent_detail[0]->coverpic)
+                            : base_url('assets/img/banner.jpg');
+                        ?>
+                        <img src="<?php echo $cover_img; ?>" class="img-fluid" alt="#">                        
+                        </div>
                     </div>
                 </div>
             </div>
@@ -313,11 +373,6 @@
                                     <div id="">
                                         <div class="card-body no-padding">
 
-                                            <?php if ($this->session->flashdata('error')) { ?>
-                                                <div class="alert alert-danger" style="margin:15px;">
-                                                    <?php echo $this->session->flashdata('error'); ?>
-                                                </div>
-                                            <?php } ?>
                                             <div class="row">
 
                                                 <?php if (!empty($service_items)) { ?>
@@ -339,6 +394,38 @@
                                                                                             <?php echo $item->category_name; ?>
                                                                                         </a>
                                                                                     </h6>
+
+                                                                                    <?php
+                                                                                    $avg_rating = 0;
+                                                                                    $total_reviews = 0;
+
+                                                                                    if (isset($service_rating_map[$item->id])) {
+                                                                                        $avg_rating = (float)$service_rating_map[$item->id]["avg_rating"];
+                                                                                        $total_reviews = (int)$service_rating_map[$item->id]["total_reviews"];
+                                                                                    }
+
+                                                                                    $rounded_rating = round($avg_rating);
+                                                                                    ?>
+
+                                                                                    <?php if ($total_reviews > 0) { ?>
+                                                                                        <div class="service-rating-block">
+                                                                                            <div class="rating-stars">
+                                                                                                <?php for ($i = 1; $i <= 5; $i++) { ?>
+                                                                                                    <?php if ($i <= $rounded_rating) { ?>
+                                                                                                        <span class="star-filled">&#9733;</span>
+                                                                                                    <?php } else { ?>
+                                                                                                        <span class="star-empty">&#9733;</span>
+                                                                                                    <?php } ?>
+                                                                                                <?php } ?>
+                                                                                            </div>
+
+                                                                                            <div class="rating-text">
+                                                                                                <?php echo number_format($avg_rating, 1); ?>
+                                                                                                (<?php echo $total_reviews; ?> review<?php echo ($total_reviews != 1 ? 's' : ''); ?>)
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    <?php } ?>
+
                                                                                     <p class="font-item-prize-style">
                                                                                         &#8377; <?php echo number_format($item->service_price, 2); ?>
                                                                                     </p>
@@ -570,7 +657,7 @@
                                     </div>
 
                                     <div class="review-date">
-                                        <span class="text-light-white"><?php echo date("M d,Y", strtotime($single->date)); ?></span>
+                                        <span class="text-light-white"><?php echo date("M d, Y", strtotime($single->created_at)); ?></span>
                                     </div>
                                 </div>
 
@@ -595,7 +682,8 @@
                                     ?>
                                 </div>
 
-                                <p class="text-light-black"><?php echo ucfirst($single->review); ?></p>
+                                <p class="text-light-black"><strong>Service:</strong> <?php echo ucfirst($single->service_name); ?></p>
+                                <p class="text-light-black"><?php echo ucfirst($single->review_text); ?></p>
                             </div>
                             <?php
                         }
@@ -609,33 +697,69 @@
                                 <h2 class="text-light-white mb-2 fw-600">Be one of the first to review</h2>
                                 <p class="text-light-white">Order now and write a review to give others the inside scoop.</p>
 
+                                <?php if($this->session->flashdata('review_success')) { ?>
+                                    <div class="alert alert-success" style="margin-bottom:15px;">
+                                        <?php echo $this->session->flashdata('review_success'); ?>
+                                    </div>
+                                <?php } ?>
+
+                                <?php if($this->session->flashdata('review_error')) { ?>
+                                    <div class="alert alert-danger" style="margin-bottom:15px;">
+                                        <?php echo $this->session->flashdata('review_error'); ?>
+                                    </div>
+                                <?php } ?>
+
                                 <?php
                                 if ($this->session->userdata("user_username")) {
-                                    ?>
-                                    <div class="rating plugin-rating" title="Give Rating On Restaurant">
-                                        <span class="fs-31 text-dark-white rating-star-1" id="star-value">
-                                            <i class="fas fa-star" onmouseover="ratingstar(1)"></i>
-                                        </span>
-                                        <span class="fs-31 text-dark-white rating-star-2" id="star-value">
-                                            <i class="fas fa-star" onmouseover="ratingstar(2)"></i>
-                                        </span>
-                                        <span class="fs-31 text-dark-white rating-star-3" id="star-value">
-                                            <i class="fas fa-star" onmouseover="ratingstar(3)"></i>
-                                        </span>
-                                        <span class="fs-31 text-dark-white rating-star-4" id="star-value">
-                                            <i class="fas fa-star" onmouseover="ratingstar(4)"></i>
-                                        </span>
-                                        <span class="fs-31 text-dark-white rating-star-5" id="star-value">
-                                            <i class="fas fa-star" onmouseover="ratingstar(5)"></i>
-                                        </span>
-                                    </div>
+                                    if (!empty($eligible_review_services)) {
+                                        ?>
+                                        <form method="post" action="<?php echo base_url('Pages/submit_service_review'); ?>">
+                                            <input type="hidden" name="provider_id" value="<?php echo $current_provider_id; ?>">
 
-                                    <input type="text" class="form-control" placeholder="<?php echo ucfirst($user_detail[0]->name); ?>" readonly="">
-                                    <br>
-                                    <textarea class="visitor_review form-control" rows="8" id="review_visitor" placeholder="Please Enter Your Review"></textarea>
-                                    <p class="text-light-white" id="review_message"></p>
-                                    <button class="btn-reorder" onclick="insert_review('<?php echo $restaurent_detail[0]->restaurant_id; ?>');">Give Review</button>
-                                    <?php
+                                            <div class="form-group" style="margin-bottom:15px;">
+                                                <label class="text-light-white">Select Service</label>
+                                                <select name="review_service_data" id="review_service_data" class="form-control" required>
+                                                    <option value="">Select Service</option>
+                                                    <?php foreach($eligible_review_services as $single) { ?>
+                                                        <option value="<?php echo $single->booking_id . '|' . $single->provider_service_id . '|' . $single->category_id; ?>">
+                                                            <?php echo $single->service_name; ?>
+                                                        </option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+
+                                            <input type="hidden" name="booking_id" id="booking_id">
+                                            <input type="hidden" name="provider_service_id" id="provider_service_id">
+                                            <input type="hidden" name="category_id" id="category_id">
+
+                                            <div class="form-group" style="margin-bottom:15px;">
+                                                <label class="text-light-white">Rating</label>
+                                                <div style="line-height:1;">
+                                                    <span class="review-star" data-value="1">☆</span>
+                                                    <span class="review-star" data-value="2">☆</span>
+                                                    <span class="review-star" data-value="3">☆</span>
+                                                    <span class="review-star" data-value="4">☆</span>
+                                                    <span class="review-star" data-value="5">☆</span>
+                                                </div>
+                                                <input type="hidden" name="rating" id="rating" required>
+                                            </div>
+
+                                            <div class="form-group" style="margin-bottom:15px;">
+                                                <input type="text" class="form-control" value="<?php echo ucfirst($user_detail[0]->name); ?>" readonly="">
+                                            </div>
+
+                                            <div class="form-group" style="margin-bottom:15px;">
+                                                <textarea name="review_text" class="visitor_review form-control" rows="8" placeholder="Please Enter Your Review" required></textarea>
+                                            </div>
+
+                                            <button type="submit" class="btn-reorder">Give Review</button>
+                                        </form>
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <p class="text-light-white">You can review only accepted booked services which are not reviewed yet.</p>
+                                        <?php
+                                    }
                                 } else {
                                     ?>
                                     <p class="text-light-white">For giving review please <a href ="<?php echo base_url("Log-in"); ?>">LogIn/Sign Up</a> first</p>
@@ -728,6 +852,12 @@
                                 Please correct the highlighted fields.
                             </div>
 
+                            <!-- <?php if($this->session->flashdata('booking_error')) { ?>
+                                <div class="alert alert-danger" style="margin-bottom:15px;">
+                                    <?php echo $this->session->flashdata('booking_error'); ?>
+                                </div>
+                            <?php } ?> -->
+
                             <div class="form-group">
                                 <label>Service Price</label>
                                 <input type="text" id="modal_service_price" class="form-control" readonly>
@@ -772,7 +902,7 @@
                             <div class="form-group">
                                 <label>Address</label>
                                 <div class="position-relative">
-                                    <textarea name="customer_address" id="customer_address" class="form-control premium-input" maxlength="300" required onblur="validateRequired('customer_address', 'Address is required')"></textarea>
+                                    <textarea name="customer_address" id="customer_address" class="form-control premium-input" maxlength="300" required onblur="validateAddressField()"></textarea>
                                     <span class="valid-tick textarea-tick" id="tick_customer_address">✔</span>
                                 </div>
                                 <small class="text-danger" id="error_customer_address"></small>
@@ -781,7 +911,7 @@
                             <div class="form-group">
                                 <label>Description</label>
                                 <div class="position-relative">
-                                    <textarea name="customer_description" id="customer_description" class="form-control premium-input" placeholder="Write your work details" maxlength="500" required onblur="validateRequired('customer_description', 'Description is required')"></textarea>
+                                    <textarea name="customer_description" id="customer_description" class="form-control premium-input" placeholder="Write your work details" maxlength="500" required onblur="validateDescriptionField()"></textarea>
                                     <span class="valid-tick textarea-tick" id="tick_customer_description">✔</span>
                                 </div>
                                 <small class="text-danger" id="error_customer_description"></small>
@@ -870,10 +1000,14 @@
         
         <script>
     $(document).ready(function() {
-        $('a[href*=#]').bind('click', function(e) {
-            e.preventDefault();
-
+        $('a[href*="#"]').on('click', function(e) {
             var target = $(this).attr("href");
+
+            if (!target || target === "#" || $(target).length === 0) {
+                return;
+            }
+
+            e.preventDefault();
 
             $('html, body').stop().animate({
                 scrollTop: $(target).offset().top
@@ -980,6 +1114,70 @@
         };
     }
 
+function validateAddressField() {
+    var input = document.getElementById('customer_address');
+    var error = document.getElementById('error_customer_address');
+    var tick = document.getElementById('tick_customer_address');
+
+    if (!input) return false;
+
+    var value = input.value.trim();
+
+    if (value === '') {
+        input.classList.remove('input-valid');
+        input.classList.add('input-invalid');
+        if (tick) tick.style.display = 'none';
+        if (error) error.innerText = 'Address is required';
+        return false;
+    }
+
+    if (value.length < 10) {
+        input.classList.remove('input-valid');
+        input.classList.add('input-invalid');
+        if (tick) tick.style.display = 'none';
+        if (error) error.innerText = 'Address must be at least 10 characters';
+        return false;
+    }
+
+    input.classList.remove('input-invalid');
+    input.classList.add('input-valid');
+    if (tick) tick.style.display = 'block';
+    if (error) error.innerText = '';
+    return true;
+}
+
+function validateDescriptionField() {
+    var input = document.getElementById('customer_description');
+    var error = document.getElementById('error_customer_description');
+    var tick = document.getElementById('tick_customer_description');
+
+    if (!input) return false;
+
+    var value = input.value.trim();
+
+    if (value === '') {
+        input.classList.remove('input-valid');
+        input.classList.add('input-invalid');
+        if (tick) tick.style.display = 'none';
+        if (error) error.innerText = 'Description is required';
+        return false;
+    }
+
+    if (value.length < 10) {
+        input.classList.remove('input-valid');
+        input.classList.add('input-invalid');
+        if (tick) tick.style.display = 'none';
+        if (error) error.innerText = 'Description must be at least 10 characters';
+        return false;
+    }
+
+    input.classList.remove('input-invalid');
+    input.classList.add('input-valid');
+    if (tick) tick.style.display = 'block';
+    if (error) error.innerText = '';
+    return true;
+}
+
 function validateBookingForm() {
     var valid = true;
 
@@ -987,8 +1185,8 @@ function validateBookingForm() {
     if (!validateName('customer_last_name')) valid = false;
     if (!validatePhone('customer_phone')) valid = false;
     if (!validateEmail('customer_email')) valid = false;
-    if (!validateRequired('customer_address', 'Address is required')) valid = false;
-    if (!validateRequired('customer_description', 'Description is required')) valid = false;
+    if (!validateAddressField()) valid = false;
+    if (!validateDescriptionField()) valid = false;
     if (!validateRequired('service_date', 'Date is required')) valid = false;
     if (!validateRequired('service_time', 'Time is required')) valid = false;
 
@@ -1005,8 +1203,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var debouncedLastName = debounce(function(){ validateName('customer_last_name'); }, 300);
     var debouncedPhone = debounce(function(){ validatePhone('customer_phone'); }, 300);
     var debouncedEmail = debounce(function(){ validateEmail('customer_email'); }, 300);
-    var debouncedAddress = debounce(function(){ validateRequired('customer_address', 'Address is required'); }, 300);
-    var debouncedDescription = debounce(function(){ validateRequired('customer_description', 'Description is required'); }, 300);
+    var debouncedAddress = debounce(function(){ validateAddressField(); }, 300);
+    var debouncedDescription = debounce(function(){ validateDescriptionField(); }, 300);
 
     var firstName = document.getElementById('customer_first_name');
     var lastName = document.getElementById('customer_last_name');
@@ -1107,6 +1305,68 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 }
 </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    var serviceDropdown = document.getElementById("review_service_data");
+    var bookingIdInput = document.getElementById("booking_id");
+    var providerServiceIdInput = document.getElementById("provider_service_id");
+    var categoryIdInput = document.getElementById("category_id");
+    var ratingInput = document.getElementById("rating");
+    var stars = document.querySelectorAll(".review-star");
+
+    if (serviceDropdown) {
+        serviceDropdown.addEventListener("change", function () {
+            var value = this.value;
+            if (value !== "") {
+                var parts = value.split("|");
+                bookingIdInput.value = parts[0];
+                providerServiceIdInput.value = parts[1];
+                categoryIdInput.value = parts[2];
+            } else {
+                bookingIdInput.value = "";
+                providerServiceIdInput.value = "";
+                categoryIdInput.value = "";
+            }
+        });
+    }
+
+    if (stars.length > 0) {
+        stars.forEach(function(star) {
+            star.addEventListener("click", function() {
+                var selected = parseInt(this.getAttribute("data-value"));
+                ratingInput.value = selected;
+
+                stars.forEach(function(s, index) {
+                    if ((index + 1) <= selected) {
+                        s.textContent = "★";
+                    } else {
+                        s.textContent = "☆";
+                    }
+                });
+            });
+        });
+    }
+});
+</script>
+
+<!-- <script>
+document.addEventListener("DOMContentLoaded", function () {
+    <?php if($this->session->flashdata('booking_error')) { ?>
+        if (!sessionStorage.getItem('booking_error_modal_shown')) {
+            $('#bookingModal').modal('show');
+            sessionStorage.setItem('booking_error_modal_shown', '1');
+        }
+    <?php } else { ?>
+        sessionStorage.removeItem('booking_error_modal_shown');
+    <?php } ?>
+
+    $('#bookingModal').on('hidden.bs.modal', function () {
+        sessionStorage.removeItem('booking_error_modal_shown');
+    });
+});
+</script> -->
+
     </body>
 </html>
 

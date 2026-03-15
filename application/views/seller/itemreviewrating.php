@@ -71,18 +71,19 @@
                                             else
                                             {
                                 ?>
-                                               <img class="round" height="40" width="40" avatar="<?php echo substr($single->name, 0,1); ?>">
+                                               <img class="round" height="40" width="40" avatar="<?php echo substr($single->user_name, 0,1); ?>">
                                 <?php                
                                             }
                                  ?>    
                                     <div class="reviewer-name">
-                                        <p class="fs-17 text-light-black fw-600 review-box-user-name"><?php echo ucwords($single->name); ?></p>
+                                        <p class="fs-17 text-light-black fw-600 review-box-user-name"><?php echo ucwords($single->user_name); ?></p>
                                     </div> 
                                 </div>
-                                <div class="review-date"> <span class="text-light-white"><?php echo date("M d,Y",strtotime($single->date)); ?></span>
+                                <div class="review-date"> <span class="text-light-white"><?php echo date("M d,Y",strtotime($single->created_at)); ?></span>
                                 </div>
                             </div>
-                            <div class="ratings"> 
+                            <div class="ratings">
+                                <p class="text-light-black"><strong>Service:</strong> <?php echo ucfirst($single->service_name); ?></p> 
                                 <?php $cnt_star = round($single->rating); 
                                 for($i = 1;$i<=5;$i++)
                                 {
@@ -106,7 +107,7 @@
                             ?>
                               
                             </div>
-                                <p class="text-light-black"><?php echo ucfirst($single->review); ?></p> 
+                                <p class="text-light-black"><?php echo ucfirst($single->review_text); ?></p> 
                             <!--<span class="text-light-white fs-12 food-order">Kathy-->
                               
 <!--                            <ul class="food">
