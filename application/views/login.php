@@ -49,13 +49,18 @@
 
             .field-icon {
                 position: absolute;
-                right: 14px;
+                right: 10px;
                 top: 50%;
                 transform: translateY(-50%);
                 cursor: pointer;
                 color: #333;
-                z-index: 10;
+                z-index: 999;
                 font-size: 16px;
+                background: transparent;
+                border: none;
+                outline: none;
+                padding: 0;
+                line-height: 1;
             }
         </style>
         
@@ -153,7 +158,7 @@
                                                             onblur="validateLoginPassword('password-field')">
 
                                                         <span class="valid-tick" id="tick_password-field">✔</span>
-                                                        <span data-name="#password-field" class="field-icon toggle-password">👁</span>
+                                                        <button type="button" class="field-icon" onclick="togglePasswordField('password-field', this)">👁</button>
                                                     </div>
 
                                                     <small id="error_password-field" class="premium-error"></small>
@@ -365,19 +370,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
         password.addEventListener('blur', function () {
             validateLoginPassword('password-field');
+        });
     }
-if (loginForm) {
-    loginForm.addEventListener('submit', function (e) {
-        var isValid = true;
 
-        if (!validateEmail('email')) isValid = false;
-        if (!validateLoginPassword('password-field')) isValid = false;
+    if (loginForm) {
+        loginForm.addEventListener('submit', function (e) {
+            var isValid = true;
 
-        if (!isValid) {
-            e.preventDefault();
-        }
-    });
-}
+            if (!validateEmail('email')) isValid = false;
+            if (!validateLoginPassword('password-field')) isValid = false;
+
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+    }
 });
 </script>
     </body>

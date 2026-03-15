@@ -72,23 +72,22 @@ function validateRequired(id, message) {
 
 function validateName(id) {
     var field = document.getElementById(id);
-    if (!field) return true;
+    if (!field) return false;
 
     var value = field.value.trim();
-    var regex = /^[A-Za-z ]+$/;
 
-    if (value === '') {
-        showError(id, "Field is required");
+    if (value === "") {
+        showError(id, "Name required");
+        return false;
+    }
+
+    if (!/^[A-Za-z ]+$/.test(value)) {
+        showError(id, "Only letters allowed");
         return false;
     }
 
     if (value.length < 2) {
-        showError(id, "Minimum 2 characters required");
-        return false;
-    }
-
-    if (!regex.test(value)) {
-        showError(id, "Only letters and spaces allowed");
+        showError(id, "Name must be at least 2 characters");
         return false;
     }
 
@@ -161,6 +160,41 @@ function validateEmail(id) {
 
     if (!isAllowed) {
         showError(id, "Enter email with valid domain extension");
+        return false;
+    }
+
+    showValid(id);
+    return true;
+}
+
+function validatePassword(id) {
+    var field = document.getElementById(id);
+    if (!field) return false;
+
+    var value = field.value.trim();
+
+    if (value === "") {
+        showError(id, "Password required");
+        return false;
+    }
+
+    if (value.length < 8) {
+        showError(id, "Password must be at least 8 characters");
+        return false;
+    }
+
+    if (!/[A-Z]/.test(value)) {
+        showError(id, "Password must contain at least 1 uppercase letter");
+        return false;
+    }
+
+    if (!/[0-9]/.test(value)) {
+        showError(id, "Password must contain at least 1 number");
+        return false;
+    }
+
+    if (!/[!@#$%^&*(),.?":{}|<>_\-\\/\[\]+=;`~]/.test(value)) {
+        showError(id, "Password must contain at least 1 special character");
         return false;
     }
 

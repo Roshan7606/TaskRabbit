@@ -158,40 +158,100 @@ public function login()
 
     $this->load->view("login");
 }
-    public function signup() {  
+    public function signup()
+    {
         $data = array();
-        if ($this->input->post("add_register")) {
-            $this->form_validation->set_rules("name", "", "required|regex_match[/^[A-Za-z ]+$/]", array("required" => "This Field Is Required", "regex_match" => "Only Alpha Allow"));
-            $this->form_validation->set_rules("mobile", "", "required|regex_match[/^[0-9]+$/]|min_length[10]|max_length[10]", array("required" => "This Field Is Required", "min_length" => "Minimum 10 character allow", "max_length" => "Maximum 10 character allow"));
-            $this->form_validation->set_rules("email", "", "required|valid_email", array("required" => "This Field Is Required", "valid_email" => "Enter Valid Email"));
-            $this->form_validation->set_rules("ps", "", "required|min_length[8]", array("required" => "This Field Is Required", "min_length" => "Password Must Be In Minimum 8 Character"));
-            if ($this->form_validation->run() == TRUE) {
-                $name = strtolower($this->input->post("name"));
-                $wh["email"] = $this->input->post("email");
-                $count = count($this->md->my_select("tbl_user", "*", $wh));
-                if ($count != 0) {
-                    $data["error"] = $name . " Is Already Exist";
-                } else {
-                    $ins['user_id'] = 0;
-                    $ins['status'] = 1;
-                    $ins['name'] = $name;
-                    $ins['contact_no'] = $this->input->post("mobile");
-                    $ins['email'] = $this->input->post("email");
-                    $ins['password'] = $this->encryption->encrypt($this->input->post("ps"));
-                    $result = $this->md->my_insert("tbl_user", $ins);
-                    if ($result == 1) {
-                        $user_id = $this->md->my_select("tbl_user", "*", array("email" => $this->input->post("email")));
-                        if (count($user_id) != 0) {
-                            $this->session->set_userdata("user_username", $user_id[0]->user_id);
-                            redirect("Restaurant/0");
-                        }
-                    } else {
 
-                        $data["error"] = "Somethis Is Wrong";
+        if ($this->input->post("add_register"))
+        {
+            $this->form_validation->set_rules(
+                "name",
+                "",
+                "required|regex_match[/^[A-Za-z ]+$/]",
+                array(
+                    "required" => "This Field Is Required",
+                    "regex_match" => "Only Alpha Allow"
+                )
+            );
+
+            $this->form_validation->set_rules(
+                "mobile",
+                "",
+                "required|regex_match[/^[0-9]+$/]|min_length[10]|max_length[10]",
+                array(
+                    "required" => "This Field Is Required",
+                    "min_length" => "Minimum 10 character allow",
+                    "max_length" => "Maximum 10 character allow"
+                )
+            );
+
+            $this->form_validation->set_rules(
+                "email",
+                "",
+                "required|valid_email",
+                array(
+                    "required" => "This Field Is Required",
+                    "valid_email" => "Enter Valid Email"
+                )
+            );
+
+            $this->form_validation->set_rules(
+                "ps",
+                "",
+                "required|min_length[8]",
+                array(
+                    "required" => "This Field Is Required",
+                    "min_length" => "Password Must Be In Minimum 8 Character"
+                )
+            );
+
+            if ($this->form_validation->run() == TRUE)
+            {
+                $name   = strtolower(trim($this->input->post("name")));
+                $email  = trim($this->input->post("email"));
+                $mobile = trim($this->input->post("mobile"));
+
+                $email_check = count($this->md->my_select("tbl_user", "*", array("email" => $email)));
+                if ($email_check > 0)
+                {
+                    $data["error"] = "Email is already registered.";
+                }
+                else
+                {
+                    $mobile_check = count($this->md->my_select("tbl_user", "*", array("contact_no" => $mobile)));
+                    if ($mobile_check > 0)
+                    {
+                        $data["error"] = "Mobile number is already registered.";
+                    }
+                    else
+                    {
+                        $ins['user_id'] = 0;
+                        $ins['status'] = 1;
+                        $ins['name'] = $name;
+                        $ins['contact_no'] = $mobile;
+                        $ins['email'] = $email;
+                        $ins['password'] = $this->encryption->encrypt($this->input->post("ps"));
+
+                        $result = $this->md->my_insert("tbl_user", $ins);
+
+                        if ($result == 1)
+                        {
+                            $user_id = $this->md->my_select("tbl_user", "*", array("email" => $email));
+                            if (count($user_id) != 0)
+                            {
+                                $this->session->set_userdata("user_username", $user_id[0]->user_id);
+                                redirect("Restaurant/0");
+                            }
+                        }
+                        else
+                        {
+                            $data["error"] = "Somethis Is Wrong";
+                        }
                     }
                 }
             }
         }
+
         $this->load->view("signup", $data);
     }
 

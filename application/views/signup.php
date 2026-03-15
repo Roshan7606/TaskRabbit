@@ -39,21 +39,31 @@
     }
 
     .premium-error {
-        display: block;
-        margin-top: 6px;
-        font-size: 13px;
-        color: #dc3545;
-        font-weight: 500;
+        display: block !important;
+        margin-top: 6px !important;
+        font-size: 13px !important;
+        color: #dc3545 !important;
+        font-weight: 500 !important;
+        min-height: 18px;
     }
     .field-icon {
         position: absolute;
-        right: 14px;
+        right: 10px;
         top: 50%;
         transform: translateY(-50%);
         cursor: pointer;
         color: #333;
-        z-index: 10;
+        z-index: 999;
         font-size: 16px;
+        background: transparent;
+        border: none;
+        outline: none;
+        padding: 0;
+        line-height: 1;
+    }
+
+    .premium-field-wrap .premium-input {
+        padding-right: 45px;
     }
 </style>
 
@@ -247,7 +257,7 @@
                                                             onblur="validatePassword('password-field')">
 
                                                         <span class="valid-tick" id="tick_password-field">✔</span>
-                                                        <span data-name="#password-field" class="field-icon toggle-password">👁</span>
+                                                        <button type="button" class="field-icon" onclick="togglePasswordField('password-field', this)">👁</button>
                                                     </div>
 
                                                     <small id="error_password-field" class="premium-error"></small>
@@ -366,10 +376,26 @@
                 signupForm.addEventListener('submit', function (e) {
                     var isValid = true;
 
-                    if (!validateName('name')) isValid = false;
-                    if (!validatePhone('mobile')) isValid = false;
-                    if (!validateEmail('email')) isValid = false;
-                    if (!validatePassword('password-field')) isValid = false;
+                    clearValidation('name');
+                    clearValidation('mobile');
+                    clearValidation('email');
+                    clearValidation('password-field');
+
+                    if (!validateName('name')) {
+                        isValid = false;
+                    }
+
+                    if (!validatePhone('mobile')) {
+                        isValid = false;
+                    }
+
+                    if (!validateEmail('email')) {
+                        isValid = false;
+                    }
+
+                    if (!validatePassword('password-field')) {
+                        isValid = false;
+                    }
 
                     if (!isValid) {
                         e.preventDefault();

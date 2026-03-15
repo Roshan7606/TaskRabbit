@@ -88,58 +88,121 @@ class Restaurant extends CI_Controller
 
     public function signupdetail()
     {
-        $data=array();
+        $data = array();
+
+        $gujarat = array(array("name" => "Gujarat"));
+        $surat = array(array("name" => "Surat"));
+
         if ($this->input->post("signup")) 
         {
-             $this->form_validation->set_rules("ownname", "", "required", array('required' => "Please Enter Owner Name.", "regex_match" => "Please Enter valid Owner Name."));
-             $this->form_validation->set_rules("ownmobile", "", "required|regex_match[/^[0-9]+$/]|min_length[10]|max_length[10]", array('required' => "Please Enter Owner Mobile Number.", "regex_match" => "Please Enter valid Owner Mobile Number.", "min_length" => "Please Enter Minimum 10 characters.", "max_length" => "Please Enter Maximum 10 characters."));
-             $this->form_validation->set_rules("ownemail", "", "required|regex_match[/^[A-Za-z0-9@.]+$/]", array('required' => "Please Enter Owner Email.", "regex_match" => "Please Enter valid Owner Email."));
-             $this->form_validation->set_rules("resopentime", "", "required", array('required' => "Please Select Restaurant Open Time."));
-             $this->form_validation->set_rules("resclosetime", "", "required", array('required' => "Please Select Restaurant Open Time."));
-             $this->form_validation->set_rules("state", "", "required", array('required' => "Please Select State"));
-             $this->form_validation->set_rules("city", "", "required", array('required' => "Please Select City"));
-             $this->form_validation->set_rules("area", "", "required", array('required' => "Please Select Area"));
-             if ($this->form_validation->run() == TRUE) 
-             {
-                 $inres["restaurant_id"] = 0;
-                 $inres["restaurant_name"] = $this->session->userdata("restaurant_name");
-                 $inres["owner_name"] = $this->input->post("ownname");
-                 $inres["owner_email"] = $this->input->post("ownemail");
-                 $inres["owner_contactno"] = $this->input->post("ownmobile");
-                 $inres["contact_no"] = $this->session->userdata("contact_no");
-                 $inres["email"] = $this->session->userdata("email");
-                 $inres["password"] = $this->encryption->encrypt($this->session->userdata("ps"));
-                 $inres["location_id"] = $this->input->post("area");
-                 $inres["status"] = 0;
-                 $result = $this->md->my_insert("tbl_restaurant",$inres);
-                 if($result == 1)
-                 {
-                     $restaurant_id = $this->md->my_select("tbl_restaurant","*",array("email"=>$this->session->userdata("email")))[0]->restaurant_id;
-                     $days=array("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday");
-                     foreach ($days as $single)
-                     {
-                         $shins["shedule_id"] = 0;
-                         $shins["seller_id"] = $restaurant_id;
-                         $shins["day_name"] = $single;
-                         $shins["open_time"] = $this->input->post("resopentime");
-                         $shins["close_time"] = $this->input->post("resclosetime");
-                         $result = $this->md->my_insert("tbl_shedule",$shins);
-                     }
-                     $this->session->set_userdata("seller_email",$restaurant_id);
-                     $this->session->unset_userdata("restaurant_name","");
-                     $this->session->unset_userdata("contact_no","");
-                     $this->session->unset_userdata("email","");
-                     $this->session->unset_userdata("ps","");
-                     redirect("Restaurant-Home");
-                 }
-                 else
-                 {
-                     $data["error"] = "Something is wrong";
-                 }
-             }   
+            $this->form_validation->set_rules(
+                "ownname",
+                "",
+                "required|regex_match[/^[A-Za-z ]+$/]",
+                array(
+                    'required'    => "Please Enter Owner Name.",
+                    'regex_match' => "Please Enter valid Owner Name."
+                )
+            );
+
+            $this->form_validation->set_rules(
+                "ownmobile",
+                "",
+                "required|regex_match[/^[0-9]+$/]|exact_length[10]",
+                array(
+                    'required'     => "Please Enter Owner Mobile Number.",
+                    'regex_match'  => "Please Enter valid Owner Mobile Number.",
+                    'exact_length' => "Owner mobile number must be 10 digits."
+                )
+            );
+
+            $this->form_validation->set_rules(
+                "ownemail",
+                "",
+                "required|valid_email|regex_match[/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.(com|in|org|net|co\.in)$/i]",
+                array(
+                    'required'    => "Please Enter Owner Email.",
+                    'valid_email' => "Please Enter valid Owner Email.",
+                    'regex_match' => "Enter email with valid domain extension"
+                )
+            );
+
+            $this->form_validation->set_rules(
+                "area",
+                "",
+                "required",
+                array(
+                    'required' => "Please Select Area"
+                )
+            );
+
+            if ($this->form_validation->run() == TRUE) 
+            {
+                $other_email  = trim($this->input->post("ownemail"));
+                $other_mobile = trim($this->input->post("ownmobile"));
+
+                $email_check = count($this->md->my_select("tbl_restaurant", "*", array("owner_email" => $other_email)));
+                if ($email_check > 0)
+                {
+                    $data["error"] = "Other email is already registered.";
+                }
+                else
+                {
+                    $mobile_check = count($this->md->my_select("tbl_restaurant", "*", array("owner_contactno" => $other_mobile)));
+                    if ($mobile_check > 0)
+                    {
+                        $data["error"] = "Other mobile number is already registered.";
+                    }
+                    else
+                    {
+                        $inres["restaurant_id"]   = 0;
+                        $inres["restaurant_name"] = $this->session->userdata("restaurant_name");
+                        $inres["owner_name"]      = trim($this->input->post("ownname"));
+                        $inres["owner_email"]     = $other_email;
+                        $inres["owner_contactno"] = $other_mobile;
+                        $inres["contact_no"]      = $this->session->userdata("contact_no");
+                        $inres["email"]           = $this->session->userdata("email");
+                        $inres["password"]        = $this->encryption->encrypt($this->session->userdata("ps"));
+                        $inres["location_id"]     = $this->input->post("area");
+                        $inres["status"]          = 0;
+
+                        $result = $this->md->my_insert("tbl_restaurant", $inres);
+
+                        if ($result == 1)
+                        {
+                            $restaurant_id = $this->md->my_select(
+                                "tbl_restaurant",
+                                "*",
+                                array("email" => $this->session->userdata("email"))
+                            )[0]->restaurant_id;
+
+                            $this->session->set_userdata("seller_email", $restaurant_id);
+
+                            $this->session->unset_userdata("restaurant_name");
+                            $this->session->unset_userdata("contact_no");
+                            $this->session->unset_userdata("email");
+                            $this->session->unset_userdata("ps");
+
+                            redirect("Restaurant-Home");
+                        }
+                        else
+                        {
+                            $data["error"] = "Something is wrong";
+                        }
+                    }
+                }
+            }
         }
-        $data["state_detail"] = $this->md->my_select("tbl_location","*",array("label"=>"state"));
-        $this->load->view("seller/signup_detail",$data);
+
+        $data["gujarat_detail"] = $gujarat;
+        $data["surat_detail"] = $surat;
+
+        $data["surat_areas"] = $this->md->my_select("tbl_location", "*", array(
+            "label" => "area",
+            "parent_id" => 50
+        ));
+
+        $this->load->view("seller/signup_detail", $data);
     }
     public function logout() 
     {
@@ -162,40 +225,83 @@ class Restaurant extends CI_Controller
     }
     public function signup() 
     {
-        $data=array();
+        $data = array();
+
         if ($this->input->post("signup")) 
-        {    
-            $this->form_validation->set_rules("resname", "", "required", array('required' => "Please Enter Restautant Name.", "regex_match" => "Please Enter valid Restautant Name."));
-            $this->form_validation->set_rules("mobile", "", "required|regex_match[/^[0-9]+$/]|min_length[10]|max_length[10]", array('required' => "Please Enter Mobile Number.", "regex_match" => "Please Enter valid Mobile Number.", "min_length" => "Please Enter Minimum 10 characters.", "max_length" => "<i class='fas fa-exclamation-circle' style='margin-right : 4px;display:inline'></i> Please Enter Maximum 10 characters."));
-            $this->form_validation->set_rules("email", "", "required|regex_match[/^[A-Za-z0-9@.]+$/]", array('required' => "Please Enter Email.", "regex_match" => "Please Enter valid Email."));
-            $this->form_validation->set_rules("ps", "", "required|regex_match[/^[a-zA-Z0-9]+$/]|min_length[8]|max_length[16]", array('required' => "Please Enter Password.", "regex_match" => "Please Enter valid Password.", "min_length" => "Password Must Be In 8-16 characters.", "max_length" => "<i class='fas fa-exclamation-circle' style='margin-right : 4px;display:inline'></i> Password Must be In 8-16 characters."));
+        {
+            $this->form_validation->set_rules(
+                "resname",
+                "",
+                "required|regex_match[/^[A-Za-z ]+$/]",
+                array(
+                    'required'    => "Please Enter Restaurant Name.",
+                    'regex_match' => "Please Enter valid Restaurant Name."
+                )
+            );
+
+            $this->form_validation->set_rules(
+                "mobile",
+                "",
+                "required|regex_match[/^[0-9]+$/]|exact_length[10]",
+                array(
+                    'required'    => "Please Enter Mobile Number.",
+                    'regex_match' => "Please Enter valid Mobile Number.",
+                    'exact_length'=> "Mobile number must be 10 digits."
+                )
+            );
+
+            $this->form_validation->set_rules(
+                "email",
+                "",
+                "required|valid_email|regex_match[/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.(com|in|org|net|co\.in)$/i]",
+                array(
+                    'required'    => "Please Enter Email.",
+                    'valid_email' => "Please Enter valid Email.",
+                    'regex_match' => "Enter email with valid domain extension"
+                )
+            );
+
+            $this->form_validation->set_rules(
+                "ps",
+                "",
+                "required|regex_match[/^(?=.*[A-Z])(?=.*[0-9])(?=.*[\W_]).{8,}$/]",
+                array(
+                    'required'    => "Please Enter Password.",
+                    'regex_match' => "Password must be minimum 8 characters and include at least 1 uppercase letter, 1 number, and 1 special character."
+                )
+            );
+
             if ($this->form_validation->run() == TRUE) 
-            {   
-                
-                $wh["email"] = $this->input->post("email");
-                $count = count($this->md->my_select("tbl_restaurant", "*", $wh));
-                if ($count != 0) 
+            {
+                $email  = trim($this->input->post("email"));
+                $mobile = trim($this->input->post("mobile"));
+
+                $email_check = count($this->md->my_select("tbl_restaurant", "*", array("email" => $email)));
+                if ($email_check > 0) 
                 {
-                    $data["error"] =  $this->input->post("email"). " Is Already Exist";
-                } 
-                else 
+                    $data["error"] = "Email is already registered.";
+                }
+                else
                 {
-                    $this->session->set_userdata("restaurant_name",$this->input->post("resname"));
-                    $this->session->set_userdata("contact_no",$this->input->post("mobile"));
-                    $this->session->set_userdata("email",$this->input->post("email"));
-                    $this->session->set_userdata("ps",$this->input->post("ps"));
-                    
-                    
-                    
-//                        $this->session->set_userdata("seller_email_package",$this->input->post("email"));
-//                        redirect("Packages");
+                    $mobile_check = count($this->md->my_select("tbl_restaurant", "*", array("contact_no" => $mobile)));
+                    if ($mobile_check > 0) 
+                    {
+                        $data["error"] = "Mobile number is already registered.";
+                    }
+                    else
+                    {
+                        $this->session->set_userdata("restaurant_name", trim($this->input->post("resname")));
+                        $this->session->set_userdata("contact_no", $mobile);
+                        $this->session->set_userdata("email", $email);
+                        $this->session->set_userdata("ps", $this->input->post("ps"));
+
                         redirect("Restaurant-Sign-Up-Details");
-                    
+                    }
                 }
             }
         }
-        
-        $this->load->view("seller/signup",$data);   
+
+        $this->load->view("seller/signup", $data);   
     }
     public function editprofile() 
     {

@@ -137,15 +137,16 @@
 </script>
 
 <script>
-$(document).on('click', '.toggle-password', function () {
-    var input = $($(this).attr("data-name"));
+function togglePasswordField(inputId, btn) {
+    var input = document.getElementById(inputId);
+    if (!input) return;
 
-    if (input.attr("type") === "password") {
-        input.attr("type", "text");
-        $(this).text("🙈");
+    if (input.type === 'password') {
+        input.type = 'text';
+        btn.textContent = '🙈';
     } else {
-        input.attr("type", "password");
-        $(this).text("👁");
+        input.type = 'password';
+        btn.textContent = '👁';
     }
-});
+}
 </script>
