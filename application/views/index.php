@@ -35,20 +35,21 @@
                             </div>
                             <div class="login-box bg-login">
                                 <div class="col-12 typing-div" >
-<h1 class="hero-title">
-    Find Help for <br> Everyday Tasks
-</h1>
+                            <h1 class="hero-title">
+                                Find Help for <br> Everyday Tasks
+                            </h1>
 
-<p class="hero-subtitle">
-    Cleaning • Repair • Delivery • Electrician
-</p>                                    <div class="input-group row">
+                                <p class="hero-subtitle">
+                                    Cleaning • Repair • Delivery • Electrician
+                                </p>                                  
+                                  <div class="input-group row">
                                         <div class="input-group2 col-xl-12">
                                             <!--<input type="search" class="form-control form-control-submit" placeholder="Enter Location" id="searchbox" value="" style="position:relative;">-->
                                             <?php 
                                                     $city_detail = $this->md->my_query("select st.name as state, ct.name as city, ct.location_id as res_location , count(*) as cnt_res from tbl_location as st, tbl_location as ct,tbl_restaurant as se,tbl_location as ar where se.location_id = ar.location_id and ct.location_id = ar.parent_id and ct.parent_id = st.location_id and se.status = 1  GROUP BY ct.name");
                                                   
                                             ?>
-                                            <img src="<?php echo base_url();  ?>assets/img/index-loc.png" class="res-index-loc-img" >
+                                            <!-- <img src="<?php echo base_url();  ?>assets/img/index-loc.png" class="res-index-loc-img" >
                                             <select class="form-control height-42 index-serch" onchange="findresindex(this.value)">
                                                
                                                 <option>Select City </option>
@@ -63,7 +64,7 @@
                                                 
                                                 
                                               
-                                            </select>
+                                            </select> -->
                                             <!--<a href="#" id="microphone" title="Speak for find food"><i class="fas fa-microphone-alt munch-microphone" style=""></i></a>-->
                                             <div class="input-group-prepend">
                                                 <button class="input-group-text text-light-green">
