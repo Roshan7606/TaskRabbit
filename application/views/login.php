@@ -12,32 +12,59 @@
         <?php
         $this->load->view("CSS");
         ?>
+        <style>
+            .premium-field-wrap {
+                position: relative;
+            }
+
+            .premium-input.input-valid {
+                border: 2px solid #28a745 !important;
+                box-shadow: 0 0 0 0.12rem rgba(40, 167, 69, 0.15) !important;
+            }
+
+            .premium-input.input-invalid {
+                border: 2px solid #dc3545 !important;
+                box-shadow: 0 0 0 0.12rem rgba(220, 53, 69, 0.15) !important;
+            }
+
+            .valid-tick {
+                display: none;
+                position: absolute;
+                right: 42px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #28a745;
+                font-weight: bold;
+                font-size: 16px;
+                z-index: 5;
+            }
+
+            .premium-error {
+                display: block;
+                margin-top: 6px;
+                font-size: 13px;
+                color: #dc3545;
+                font-weight: 500;
+            }
+
+            .field-icon {
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                cursor: pointer;
+                color: #333;
+                z-index: 999;
+                font-size: 16px;
+                background: transparent;
+                border: none;
+                outline: none;
+                padding: 0;
+                line-height: 1;
+            }
+        </style>
+        
     </head>
-<script>
-document.getElementById("email").addEventListener("input", function(){
-
-    var email = this.value.trim();
-    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    var error = document.getElementById("email_error");
-
-    if(email === "")
-    {
-        error.innerHTML = "Email is required";
-        this.style.border = "2px solid red";
-    }
-    else if(!emailPattern.test(email))
-    {
-        error.innerHTML = "Enter valid email address";
-        this.style.border = "2px solid red";
-    }
-    else
-    {
-        error.innerHTML = "";
-        this.style.border = "2px solid green";
-    }
-
-});
-</script>
     <body>
         <div class="inner-wrapper">
             <div class="container-fluid no-padding">
@@ -53,8 +80,17 @@ document.getElementById("email").addEventListener("input", function(){
                         <div class="section-2 user-page main-padding">
                             <div class="login-sec" id="login_form">
                                 <div class="login-box">
-                                    <form method="post" name="user_login" action="" novalidate=""  autocomplete="off">
+                                    <form method="post" name="user_login" action="<?php echo base_url('Log-in'); ?>" novalidate autocomplete="off" id="userLoginForm">
+                                        <input type="hidden" name="login" value="1">
+
                                         <h4 class="text-light-black fw-600">Sign in with your TaskRabbit account</h4>
+
+                                        <?php if (!empty($error)) { ?>
+                                            <div style="background:#f8d7da;color:#721c24;padding:12px 14px;border:1px solid #f5c6cb;border-radius:6px;margin:15px 0;">
+                                                <?php echo $error; ?>
+                                            </div>
+                                        <?php } ?>
+
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
@@ -71,21 +107,25 @@ document.getElementById("email").addEventListener("input", function(){
                                                     <label class="text-light-white fs-14">Email</label>
                                                     <?php
                                                         }
-                                                     ?>   
-                                                    
-                                                   <input type="email" 
-       id="email"
-       name="email" 
-       class="form-control form-control-submit <?php
-            if(form_error("email"))
-            {
-                echo "form_vis_error";
-            }
-       ?>" 
-       placeholder="Email Id" required>
+                                                    ?>   
 
-<small id="email_error" style="color:red;"></small>
-                                                  
+                                                    <div class="premium-field-wrap">
+                                                        <input type="email" 
+                                                            id="email"
+                                                            name="email" 
+                                                            class="form-control form-control-submit premium-input <?php
+                                                                    if(form_error("email"))
+                                                                    {
+                                                                        echo "form_vis_error";
+                                                                    }
+                                                            ?>" 
+                                                            placeholder="Email Id"
+                                                            required
+                                                            onblur="validateEmail('email')">
+                                                        <span class="valid-tick" id="tick_email">✔</span>
+                                                    </div>
+
+                                                    <small id="error_email" class="premium-error"></small>
                                                 </div>
                                                 <div class="form-group">
                                                     <?php
@@ -98,26 +138,39 @@ document.getElementById("email").addEventListener("input", function(){
                                                         else
                                                         {
                                                     ?>
-                                                    <label class="text-light-white fs-14">Paasword</label>
+                                                    <label class="text-light-white fs-14">Password</label>
                                                     <?php
                                                         }
-                                                     ?>   
-                                                    <input type="password" id="password-field" name="ps" class="form-control form-control-submit <?php
-                                                        if(form_error("ps"))
-                                                        {
-                                                            echo "form_vis_error";
-                                                        }                                                
-                                                   ?>" placeholder="Password" required>
-                                                   
-                                                    <div data-name="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></div>
+                                                    ?>   
+
+                                                    <div class="premium-field-wrap">
+                                                        <input type="password" 
+                                                            id="password-field" 
+                                                            name="ps" 
+                                                            class="form-control form-control-submit premium-input <?php
+                                                                    if(form_error("ps"))
+                                                                    {
+                                                                        echo "form_vis_error";
+                                                                    }                                                
+                                                            ?>" 
+                                                            placeholder="Password"
+                                                            required
+                                                            onblur="validateLoginPassword('password-field')">
+
+                                                        <span class="valid-tick" id="tick_password-field">✔</span>
+                                                        <button type="button" class="field-icon" onclick="togglePasswordField('password-field', this)">👁</button>
+                                                    </div>
+
+                                                    <small id="error_password-field" class="premium-error"></small>
                                                 </div>
                                                 <div class="form-group checkbox-reset">
                                                     <label class="custom-checkbox mb-0">
                                                         <input type="checkbox" name="svp" value="yes"> <span class="checkmark"></span> Keep me signed in</label> <a id="login_forget" href="#">Reset password</a>
                                                 </div>
                                                 <div class="form-group">
-                                                    <input type="submit" class="btn-second btn-submit full-width" name="login" value="Login">
-                                                        <img src="<?php echo base_url(); ?>assets/img/M.png" alt="btn logo" value="Sign In">
+<button type="submit" class="btn-second btn-submit full-width" name="login">
+Login
+</button>                                                        <img src="<?php echo base_url(); ?>assets/img/M.png" alt="btn logo" value="Sign In">
                                                         
                                                 </div>
                                                 
@@ -258,17 +311,6 @@ document.getElementById("email").addEventListener("input", function(){
             </div>
         </div>
         <?php
-            if(isset($error))
-            {
-        ?>
-        <div class="add-alert-message animated bounceInDown ">
-            <img src="<?php echo base_url(); ?>assets/img/animated-gif/4970-unapproved-cross.gif">
-            <p><?php echo $error; ?></p>
-        </div>
-        <?php
-            }
-        ?> 
-        <?php
         $this->load->view("footerscript");
         ?>
 <!--        <script>
@@ -280,5 +322,70 @@ document.getElementById("email").addEventListener("input", function(){
                 $('#verify_email').hide();
             });
         </script>-->
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var loginForm = document.getElementById('userLoginForm');
+    var email = document.getElementById('email');
+    var password = document.getElementById('password-field');
+
+    if (email) {
+        email.addEventListener('input', function () {
+            if (this.value.trim() === '') {
+                clearValidation('email');
+            } else {
+                validateEmail('email');
+            }
+        });
+
+        email.addEventListener('keyup', function () {
+            if (this.value.trim() === '') {
+                clearValidation('email');
+            } else {
+                validateEmail('email');
+            }
+        });
+
+        email.addEventListener('blur', function () {
+            validateEmail('email');
+        });
+    }
+
+    if (password) {
+        password.addEventListener('input', function () {
+            if (this.value.trim() === '') {
+                clearValidation('password-field');
+            } else {
+                validateLoginPassword('password-field');
+            }
+        });
+
+        password.addEventListener('keyup', function () {
+            if (this.value.trim() === '') {
+                clearValidation('password-field');
+            } else {
+                validateLoginPassword('password-field');
+            }
+        });
+
+        password.addEventListener('blur', function () {
+            validateLoginPassword('password-field');
+        });
+    }
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', function (e) {
+            var isValid = true;
+
+            if (!validateEmail('email')) isValid = false;
+            if (!validateLoginPassword('password-field')) isValid = false;
+
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+    }
+});
+</script>
     </body>
 </html>

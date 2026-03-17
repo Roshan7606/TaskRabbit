@@ -217,7 +217,14 @@ Learn more
 </div>
 
 </section>
-
+        </div>
+        </section>
+        <!-- Navigation -->
+        <!-- slider -->
+        
+        <!-- slider -->
+        <!-- about us -->
+     
 
 
 
@@ -292,93 +299,40 @@ Learn more
 
 
 
-        <!-- <section class="how-it-works-premium">
+  
+
+    
+       <section class="about-stats">
+
 <div class="container">
 
-<div class="section-title text-center">
-<h6>OUR PROCESS</h6>
-<h2>How Does It Work</h2>
+<div class="row text-center justify-content-center">
+
+<div class="col-lg-2 col-md-3 col-6">
+<h2 class="counter" data-count="3.4">0</h2>
+<p>Tasks Completed</p>
 </div>
 
-<div class="process-timeline">
-
-<div class="process-step">
-<div class="process-circle">01</div>
-<div class="process-content">
-<i class="fas fa-search"></i>
-<h5>Search</h5>
-<p>We provided facility to search your favourite service.</p>
-</div>
+<div class="col-lg-2 col-md-3 col-6">
+<h2 class="counter" data-count="120">0</h2>
+<p>Trusted Taskers</p>
 </div>
 
-<div class="process-step">
-<div class="process-circle">02</div>
-<div class="process-content">
-<i class="fas fa-shopping-bag"></i>
-<h5>Select</h5>
-<p>Choose from a wide range of trusted service providers.</p>
-</div>
+<div class="col-lg-2 col-md-3 col-6">
+<h2 class="counter" data-count="50">0</h2>
+<p>Cities Covered</p>
 </div>
 
-<div class="process-step">
-<div class="process-circle">03</div>
-<div class="process-content">
-<i class="fas fa-stopwatch"></i>
-<h5>Book</h5>
-<p>Book your service easily within your preferred time.</p>
-</div>
-</div>
-
-<div class="process-step">
-<div class="process-circle">04</div>
-<div class="process-content">
-<i class="fas fa-map-marker-alt"></i>
-<h5>Enjoy</h5>
-<p>Relax while professionals complete your task.</p>
-</div>
+<div class="col-lg-2 col-md-3 col-6">
+<h2 class="counter" data-count="98">0</h2>
+<p>Customer Satisfaction</p>
 </div>
 
 </div>
 
 </div>
-</section> -->
 
-
-
-
-
-
-
-
-
-
-
-        
-        <section class="about-stats">
-        <div class="row text-center">
-
-        <div class="col-md-3">
-        <h2 class="counter" data-count="3.4">0</h2>
-        <p>Tasks Completed</p>
-        </div>
-
-        <div class="col-md-3">
-        <h2 class="counter" data-count="120">0</h2>
-        <p>Trusted Taskers</p>
-        </div>
-
-        <div class="col-md-3">
-        <h2 class="counter" data-count="50">0</h2>
-        <p>Cities Covered</p>
-        </div>
-
-        <div class="col-md-3">
-        <h2 class="counter" data-count="98">0</h2>
-        <p>Customer Satisfaction</p>
-        </div>
-
-        </div>
-        </section>
+</section>
 
         <section class="testimonials section-padding bg-light-theme">
 <div class="container">
@@ -456,7 +410,7 @@ Learn more
 </section>
 
 
-       
+
 
 
 <section class="cta-section">

@@ -47,6 +47,60 @@
             display: none;
             margin-bottom: 15px;
         }
+
+        .service-rating-block .text-yellow i {
+            color: #f5c518 !important;
+        }
+
+        .service-rating-block .text-dark-white i {
+            color: #dcdcdc !important;
+        }
+
+        .service-rating-block {
+            display: block;
+            margin: 6px 0 8px 0;
+        }
+
+        .service-rating-block .rating-stars {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            margin-bottom: 2px;
+        }
+
+        .service-rating-block .rating-stars {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            margin-bottom: 2px;
+            line-height: 1;
+        }
+
+        .service-rating-block .star-filled,
+        .service-rating-block .star-empty {
+            font-size: 14px;
+            display: inline-block;
+        }
+
+        .service-rating-block .star-filled {
+            color: #f5c518 !important;
+        }
+
+        .service-rating-block .star-empty {
+            color: #d9d9d9 !important;
+        }
+
+        .service-rating-block .rating-text {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .review-star {
+            font-size: 30px;
+            color: #ffc107;
+            cursor: pointer;
+            margin-right: 2px;
+        }
         </style>
 
     </head>
@@ -189,8 +243,47 @@
                             </div>
                         </div>
 
+                        <div class="container">
+    <div class="provider-profile-card">
+
+        <div class="provider-left">
+
+            <img src="<?php echo base_url() . $restaurent_detail[0]->coverpic; ?>" class="provider-avatar">
+
+            <div>
+                <h2><?php echo $restaurent_detail[0]->restaurant_name; ?></h2>
+
+                <p class="provider-location">
+                    <?php echo $restaurent_address_detail[0]->area; ?> • 
+                    <?php echo $restaurent_address_detail[0]->city; ?> • 
+                    <?php echo $restaurent_address_detail[0]->state; ?>
+                </p>
+
+                <div class="provider-rating">
+                    ⭐ <?php echo round($star_rating[0]->rate_star,1); ?>
+                    <span>(<?php echo $star_rating[0]->cnt_rate; ?> reviews)</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <button class="hire-btn" onclick="scrollToServices()">
+            Hire Now
+        </button>
+
+    </div>
+</div>
+
+
                         <div class="restaurent-logo" style="margin-left: 40%;">
-<img src="<?php echo base_url('uploads/providers/'.$restaurent_detail[0]->coverpic); ?>" class="img-fluid" alt="#">                        </div>
+                        <?php
+                        $cover_img = !empty($restaurent_detail[0]->coverpic)
+                            ? base_url($restaurent_detail[0]->coverpic)
+                            : base_url('assets/img/banner.jpg');
+                        ?>
+                        <img src="<?php echo $cover_img; ?>" class="img-fluid" alt="#">                        
+                        </div>
                     </div>
                 </div>
             </div>
@@ -259,30 +352,9 @@
                     <div class="col-xl-12 col-lg-12">
                         <div class="row">
 
-                            <div class="col-xl-3 col-lg-3">
-                                <div class="card sidebar-card">
-                                    <div class="user-menu scrollnav">
-                                        <ul class="nav-pills">
-                                            <li class="user-menu-li">Services</li>
-                                            <li class="display-none"><a href="" class="active-cuisin ">Search Result</a></li>
+                        
 
-                                            <?php if (!empty($service_items)) { ?>
-                                                <?php foreach ($service_items as $single) { ?>
-                                                    <li>
-                                                        <a href="javascript:void(0);"><?php echo $single->category_name; ?></a>
-                                                    </li>
-                                                <?php } ?>
-                                            <?php } else { ?>
-                                                <li>
-                                                    <a href="javascript:void(0);">No services found</a>
-                                                </li>
-                                            <?php } ?>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6 restaurent-meal-head mb-md-40">
+                            <div class="col-lg-12 restaurent-meal-head mb-md-40">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="card-header background-header-card padding-left-none">
@@ -299,9 +371,6 @@
                                             <div class="row">
                                                 <div class="col-md-12 m-b-10 padding-right-none">
                                                     <div class="sb-example-3">
-                                                        <div class="search__container">
-                                                            <input class="search__input" type="text" placeholder="Search services">
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -313,19 +382,24 @@
                                     <div id="">
                                         <div class="card-body no-padding">
 
-                                            <?php if ($this->session->flashdata('error')) { ?>
-                                                <div class="alert alert-danger" style="margin:15px;">
-                                                    <?php echo $this->session->flashdata('error'); ?>
-                                                </div>
-                                            <?php } ?>
                                             <div class="row">
 
                                                 <?php if (!empty($service_items)) { ?>
                                                     <?php foreach ($service_items as $item) { ?>    
-                                                        <div class="col-md-12 food-category-detail-heading">
-                                                            <h4><?php echo ucwords($item->category_name); ?></h4>
-                                                            <p>1 Service</p>
-                                                        </div>
+                                                        <div class="col-lg-12">
+
+<div class="premium-service-card">
+
+<!-- <div class="service-left">
+<img src="<?php echo base_url(); ?>assets/img/service-demo.jpg" class="service-img">
+</div> -->
+
+<div class="service-right">
+
+<div class="service-top">
+<h5><?php echo $item->category_name; ?></h5>
+<span class="verified-badge">✔ Verified</span>
+</div>
 
                                                         <div class="col-lg-12">
                                                             <div class="restaurent-product-list">
@@ -344,39 +418,35 @@
                                                                                     </p>
                                                                                 </div>
 
-                                                                                <div class="restaurent-product-label">
-                                                                                    <span class="rectangle-tag product-label-ovo-veg-tag">Service</span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+<div class="service-price">
+₹ <?php echo number_format($item->service_price,2); ?>
+</div>
 
-                                                                        <div class="restaurent-product-caption-box">
-                                                                            <span class="text-light-white">
-                                                                                <?php
-                                                                                if (!empty($item->description)) {
-                                                                                    echo $item->description;
-                                                                                } else {
-                                                                                    echo "Professional service available";
-                                                                                }
-                                                                                ?>
-                                                                            </span>
-                                                                        </div>
-                                                                        <div style="margin-top: 15px;">
-                                                                            <button type="button"
-                                                                                    class="btn btn-danger"
-                                                                                    onclick="handleBookingClick(
-                                                                                        '<?php echo $restaurent_detail[0]->restaurant_id; ?>',
-                                                                                        '<?php echo $item->id; ?>',
-                                                                                        '<?php echo $item->category_id; ?>',
-                                                                                        '<?php echo htmlspecialchars($item->category_name, ENT_QUOTES); ?>',
-                                                                                        '<?php echo $item->service_price; ?>'
-                                                                                    )">
-                                                                                Book Now
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+<p class="service-desc">
+<?php
+if (!empty($item->description)) {
+echo $item->description;
+} else {
+echo "Professional service available";
+}
+?>
+</p>
+
+<button class="premium-book-btn"
+onclick="handleBookingClick(
+'<?php echo $restaurent_detail[0]->restaurant_id; ?>',
+'<?php echo $item->id; ?>',
+'<?php echo $item->category_id; ?>',
+'<?php echo htmlspecialchars($item->category_name, ENT_QUOTES); ?>',
+'<?php echo $item->service_price; ?>'
+)">
+Book Now
+</button>
+
+</div>
+
+
+</div>
                                                         </div>
                                                     <?php } ?>
                                                 <?php } else { ?>
@@ -570,7 +640,7 @@
                                     </div>
 
                                     <div class="review-date">
-                                        <span class="text-light-white"><?php echo date("M d,Y", strtotime($single->date)); ?></span>
+                                        <span class="text-light-white"><?php echo date("M d, Y", strtotime($single->created_at)); ?></span>
                                     </div>
                                 </div>
 
@@ -595,7 +665,8 @@
                                     ?>
                                 </div>
 
-                                <p class="text-light-black"><?php echo ucfirst($single->review); ?></p>
+                                <p class="text-light-black"><strong>Service:</strong> <?php echo ucfirst($single->service_name); ?></p>
+                                <p class="text-light-black"><?php echo ucfirst($single->review_text); ?></p>
                             </div>
                             <?php
                         }
@@ -609,33 +680,69 @@
                                 <h2 class="text-light-white mb-2 fw-600">Be one of the first to review</h2>
                                 <p class="text-light-white">Order now and write a review to give others the inside scoop.</p>
 
+                                <?php if($this->session->flashdata('review_success')) { ?>
+                                    <div class="alert alert-success" style="margin-bottom:15px;">
+                                        <?php echo $this->session->flashdata('review_success'); ?>
+                                    </div>
+                                <?php } ?>
+
+                                <?php if($this->session->flashdata('review_error')) { ?>
+                                    <div class="alert alert-danger" style="margin-bottom:15px;">
+                                        <?php echo $this->session->flashdata('review_error'); ?>
+                                    </div>
+                                <?php } ?>
+
                                 <?php
                                 if ($this->session->userdata("user_username")) {
-                                    ?>
-                                    <div class="rating plugin-rating" title="Give Rating On Restaurant">
-                                        <span class="fs-31 text-dark-white rating-star-1" id="star-value">
-                                            <i class="fas fa-star" onmouseover="ratingstar(1)"></i>
-                                        </span>
-                                        <span class="fs-31 text-dark-white rating-star-2" id="star-value">
-                                            <i class="fas fa-star" onmouseover="ratingstar(2)"></i>
-                                        </span>
-                                        <span class="fs-31 text-dark-white rating-star-3" id="star-value">
-                                            <i class="fas fa-star" onmouseover="ratingstar(3)"></i>
-                                        </span>
-                                        <span class="fs-31 text-dark-white rating-star-4" id="star-value">
-                                            <i class="fas fa-star" onmouseover="ratingstar(4)"></i>
-                                        </span>
-                                        <span class="fs-31 text-dark-white rating-star-5" id="star-value">
-                                            <i class="fas fa-star" onmouseover="ratingstar(5)"></i>
-                                        </span>
-                                    </div>
+                                    if (!empty($eligible_review_services)) {
+                                        ?>
+                                        <form method="post" action="<?php echo base_url('Pages/submit_service_review'); ?>">
+                                            <input type="hidden" name="provider_id" value="<?php echo $current_provider_id; ?>">
 
-                                    <input type="text" class="form-control" placeholder="<?php echo ucfirst($user_detail[0]->name); ?>" readonly="">
-                                    <br>
-                                    <textarea class="visitor_review form-control" rows="8" id="review_visitor" placeholder="Please Enter Your Review"></textarea>
-                                    <p class="text-light-white" id="review_message"></p>
-                                    <button class="btn-reorder" onclick="insert_review('<?php echo $restaurent_detail[0]->restaurant_id; ?>');">Give Review</button>
-                                    <?php
+                                            <div class="form-group" style="margin-bottom:15px;">
+                                                <label class="text-light-white">Select Service</label>
+                                                <select name="review_service_data" id="review_service_data" class="form-control" required>
+                                                    <option value="">Select Service</option>
+                                                    <?php foreach($eligible_review_services as $single) { ?>
+                                                        <option value="<?php echo $single->booking_id . '|' . $single->provider_service_id . '|' . $single->category_id; ?>">
+                                                            <?php echo $single->service_name; ?>
+                                                        </option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+
+                                            <input type="hidden" name="booking_id" id="booking_id">
+                                            <input type="hidden" name="provider_service_id" id="provider_service_id">
+                                            <input type="hidden" name="category_id" id="category_id">
+
+                                            <div class="form-group" style="margin-bottom:15px;">
+                                                <label class="text-light-white">Rating</label>
+                                                <div style="line-height:1;">
+                                                    <span class="review-star" data-value="1">☆</span>
+                                                    <span class="review-star" data-value="2">☆</span>
+                                                    <span class="review-star" data-value="3">☆</span>
+                                                    <span class="review-star" data-value="4">☆</span>
+                                                    <span class="review-star" data-value="5">☆</span>
+                                                </div>
+                                                <input type="hidden" name="rating" id="rating" required>
+                                            </div>
+
+                                            <div class="form-group" style="margin-bottom:15px;">
+                                                <input type="text" class="form-control" value="<?php echo ucfirst($user_detail[0]->name); ?>" readonly="">
+                                            </div>
+
+                                            <div class="form-group" style="margin-bottom:15px;">
+                                                <textarea name="review_text" class="visitor_review form-control" rows="8" placeholder="Please Enter Your Review" required></textarea>
+                                            </div>
+
+                                            <button type="submit" class="btn-reorder">Give Review</button>
+                                        </form>
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <p class="text-light-white">You can review only accepted booked services which are not reviewed yet.</p>
+                                        <?php
+                                    }
                                 } else {
                                     ?>
                                     <p class="text-light-white">For giving review please <a href ="<?php echo base_url("Log-in"); ?>">LogIn/Sign Up</a> first</p>
@@ -728,6 +835,12 @@
                                 Please correct the highlighted fields.
                             </div>
 
+                            <!-- <?php if($this->session->flashdata('booking_error')) { ?>
+                                <div class="alert alert-danger" style="margin-bottom:15px;">
+                                    <?php echo $this->session->flashdata('booking_error'); ?>
+                                </div>
+                            <?php } ?> -->
+
                             <div class="form-group">
                                 <label>Service Price</label>
                                 <input type="text" id="modal_service_price" class="form-control" readonly>
@@ -736,7 +849,7 @@
                             <div class="form-group">
                                 <label>First Name</label>
                                 <div class="position-relative">
-                                    <input type="text" name="customer_first_name" id="customer_first_name" class="form-control premium-input" maxlength="50" required>
+                                    <input type="text" name="customer_first_name" id="customer_first_name" class="form-control premium-input" maxlength="50" required onblur="validateName('customer_first_name')">
                                     <span class="valid-tick" id="tick_customer_first_name">✔</span>
                                 </div>
                                 <small class="text-danger" id="error_customer_first_name"></small>
@@ -745,7 +858,7 @@
                             <div class="form-group">
                                 <label>Last Name</label>
                                 <div class="position-relative">
-                                    <input type="text" name="customer_last_name" id="customer_last_name" class="form-control premium-input" maxlength="50" required>
+                                    <input type="text" name="customer_last_name" id="customer_last_name" class="form-control premium-input" maxlength="50" required onblur="validateName('customer_last_name')">
                                     <span class="valid-tick" id="tick_customer_last_name">✔</span>
                                 </div>
                                 <small class="text-danger" id="error_customer_last_name"></small>
@@ -754,7 +867,7 @@
                             <div class="form-group">
                                 <label>Phone Number</label>
                                 <div class="position-relative">
-                                    <input type="text" name="customer_phone" id="customer_phone" class="form-control premium-input" maxlength="10" required>
+                                    <input type="text" name="customer_phone" id="customer_phone" class="form-control premium-input" maxlength="10" required onblur="validatePhone('customer_phone')">
                                     <span class="valid-tick" id="tick_customer_phone">✔</span>
                                 </div>
                                 <small class="text-danger" id="error_customer_phone"></small>
@@ -763,7 +876,7 @@
                             <div class="form-group">
                                 <label>Email</label>
                                 <div class="position-relative">
-                                    <input type="email" name="customer_email" id="customer_email" class="form-control premium-input" maxlength="100" required>
+                                    <input type="email" name="customer_email" id="customer_email" class="form-control premium-input" maxlength="100" required onblur="validateEmail('customer_email')">
                                     <span class="valid-tick" id="tick_customer_email">✔</span>
                                 </div>
                                 <small class="text-danger" id="error_customer_email"></small>
@@ -772,7 +885,7 @@
                             <div class="form-group">
                                 <label>Address</label>
                                 <div class="position-relative">
-                                    <textarea name="customer_address" id="customer_address" class="form-control premium-input" maxlength="300" required></textarea>
+                                    <textarea name="customer_address" id="customer_address" class="form-control premium-input" maxlength="300" required onblur="validateAddressField()"></textarea>
                                     <span class="valid-tick textarea-tick" id="tick_customer_address">✔</span>
                                 </div>
                                 <small class="text-danger" id="error_customer_address"></small>
@@ -781,7 +894,7 @@
                             <div class="form-group">
                                 <label>Description</label>
                                 <div class="position-relative">
-                                    <textarea name="customer_description" id="customer_description" class="form-control premium-input" placeholder="Write your work details" maxlength="500" required></textarea>
+                                    <textarea name="customer_description" id="customer_description" class="form-control premium-input" placeholder="Write your work details" maxlength="500" required onblur="validateDescriptionField()"></textarea>
                                     <span class="valid-tick textarea-tick" id="tick_customer_description">✔</span>
                                 </div>
                                 <small class="text-danger" id="error_customer_description"></small>
@@ -790,7 +903,7 @@
                             <div class="form-group">
                                 <label>Preferred Date</label>
                                 <div class="position-relative">
-                                    <input type="date" name="service_date" id="service_date" class="form-control premium-input" min="<?php echo date('Y-m-d'); ?>" required>
+                                    <input type="date" name="service_date" id="service_date" class="form-control premium-input" min="<?php echo date('Y-m-d'); ?>" required onblur="validateRequired('service_date', 'Date is required')">
                                     <span class="valid-tick" id="tick_service_date">✔</span>
                                 </div>
                                 <small class="text-danger" id="error_service_date"></small>
@@ -799,7 +912,7 @@
                             <div class="form-group">
                                 <label>Preferred Time</label>
                                 <div class="position-relative">
-                                    <input type="time" name="service_time" id="service_time" class="form-control premium-input" required>
+                                    <input type="time" name="service_time" id="service_time" class="form-control premium-input" required onblur="validateRequired('service_time', 'Time is required')">
                                     <span class="valid-tick" id="tick_service_time">✔</span>
                                 </div>
                                 <small class="text-danger" id="error_service_time"></small>
@@ -870,10 +983,14 @@
         
         <script>
     $(document).ready(function() {
-        $('a[href*=#]').bind('click', function(e) {
-            e.preventDefault();
-
+        $('a[href*="#"]').on('click', function(e) {
             var target = $(this).attr("href");
+
+            if (!target || target === "#" || $(target).length === 0) {
+                return;
+            }
+
+            e.preventDefault();
 
             $('html, body').stop().animate({
                 scrollTop: $(target).offset().top
@@ -955,32 +1072,6 @@
         $('#bookingModal').modal('show');
     }
 
-    function showError(id, message) {
-        var errorEl = document.getElementById('error_' + id);
-        var inputEl = document.getElementById(id);
-        var tickEl = document.getElementById('tick_' + id);
-
-        if (errorEl) errorEl.innerText = message;
-        if (inputEl) {
-            inputEl.classList.remove('input-valid');
-            inputEl.classList.add('input-invalid');
-        }
-        if (tickEl) tickEl.style.display = 'none';
-    }
-
-    function showValid(id) {
-        var errorEl = document.getElementById('error_' + id);
-        var inputEl = document.getElementById(id);
-        var tickEl = document.getElementById('tick_' + id);
-
-        if (errorEl) errorEl.innerText = '';
-        if (inputEl) {
-            inputEl.classList.remove('input-invalid');
-            inputEl.classList.add('input-valid');
-        }
-        if (tickEl) tickEl.style.display = 'inline';
-    }
-
     function clearFieldState(id) {
         var errorEl = document.getElementById('error_' + id);
         var inputEl = document.getElementById(id);
@@ -1006,238 +1097,259 @@
         };
     }
 
-    function validateFirstName() {
-        var id = 'customer_first_name';
-        var value = document.getElementById(id).value.trim();
-        var regex = /^[A-Za-z ]+$/;
+function validateAddressField() {
+    var input = document.getElementById('customer_address');
+    var error = document.getElementById('error_customer_address');
+    var tick = document.getElementById('tick_customer_address');
 
-        if (value === '') return showError(id, 'First name is required'), false;
-        if (value.length < 2) return showError(id, 'Minimum 2 characters required'), false;
-        if (!regex.test(value)) return showError(id, 'Only letters allowed'), false;
+    if (!input) return false;
 
-        showValid(id);
-        return true;
+    var value = input.value.trim();
+
+    if (value === '') {
+        input.classList.remove('input-valid');
+        input.classList.add('input-invalid');
+        if (tick) tick.style.display = 'none';
+        if (error) error.innerText = 'Address is required';
+        return false;
     }
 
-    function validateLastName() {
-        var id = 'customer_last_name';
-        var value = document.getElementById(id).value.trim();
-        var regex = /^[A-Za-z ]+$/;
-
-        if (value === '') return showError(id, 'Last name is required'), false;
-        if (value.length < 2) return showError(id, 'Minimum 2 characters required'), false;
-        if (!regex.test(value)) return showError(id, 'Only letters allowed'), false;
-
-        showValid(id);
-        return true;
+    if (value.length < 10) {
+        input.classList.remove('input-valid');
+        input.classList.add('input-invalid');
+        if (tick) tick.style.display = 'none';
+        if (error) error.innerText = 'Address must be at least 10 characters';
+        return false;
     }
 
-    function validatePhone() {
-        var id = 'customer_phone';
-        var value = document.getElementById(id).value.trim();
-        var regex = /^[0-9]{10}$/;
+    input.classList.remove('input-invalid');
+    input.classList.add('input-valid');
+    if (tick) tick.style.display = 'block';
+    if (error) error.innerText = '';
+    return true;
+}
 
-        if (value === '') return showError(id, 'Phone number is required'), false;
-        if (!regex.test(value)) return showError(id, 'Enter valid 10 digit phone number'), false;
+function validateDescriptionField() {
+    var input = document.getElementById('customer_description');
+    var error = document.getElementById('error_customer_description');
+    var tick = document.getElementById('tick_customer_description');
 
-        showValid(id);
-        return true;
+    if (!input) return false;
+
+    var value = input.value.trim();
+
+    if (value === '') {
+        input.classList.remove('input-valid');
+        input.classList.add('input-invalid');
+        if (tick) tick.style.display = 'none';
+        if (error) error.innerText = 'Description is required';
+        return false;
     }
 
-    function validateEmail() {
-        var id = 'customer_email';
-        var value = document.getElementById(id).value.trim();
-        var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        if (value === '') return showError(id, 'Email is required'), false;
-        if (!regex.test(value)) return showError(id, 'Enter valid email address'), false;
-
-        showValid(id);
-        return true;
+    if (value.length < 10) {
+        input.classList.remove('input-valid');
+        input.classList.add('input-invalid');
+        if (tick) tick.style.display = 'none';
+        if (error) error.innerText = 'Description must be at least 10 characters';
+        return false;
     }
 
-    function validateAddress() {
-        var id = 'customer_address';
-        var value = document.getElementById(id).value.trim();
+    input.classList.remove('input-invalid');
+    input.classList.add('input-valid');
+    if (tick) tick.style.display = 'block';
+    if (error) error.innerText = '';
+    return true;
+}
 
-        if (value === '') return showError(id, 'Address is required'), false;
-        if (value.length < 10) return showError(id, 'Address must be at least 10 characters'), false;
+function validateBookingForm() {
+    var valid = true;
 
-        showValid(id);
-        return true;
+    if (!validateName('customer_first_name')) valid = false;
+    if (!validateName('customer_last_name')) valid = false;
+    if (!validatePhone('customer_phone')) valid = false;
+    if (!validateEmail('customer_email')) valid = false;
+    if (!validateAddressField()) valid = false;
+    if (!validateDescriptionField()) valid = false;
+    if (!validateRequired('service_date', 'Date is required')) valid = false;
+    if (!validateRequired('service_time', 'Time is required')) valid = false;
+
+    var summary = document.getElementById('validation_summary');
+    if (summary) summary.style.display = valid ? 'none' : 'block';
+
+    return valid;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    var bookingForm = document.getElementById('bookingForm');
+
+    var debouncedFirstName = debounce(function(){ validateName('customer_first_name'); }, 300);
+    var debouncedLastName = debounce(function(){ validateName('customer_last_name'); }, 300);
+    var debouncedPhone = debounce(function(){ validatePhone('customer_phone'); }, 300);
+    var debouncedEmail = debounce(function(){ validateEmail('customer_email'); }, 300);
+    var debouncedAddress = debounce(function(){ validateAddressField(); }, 300);
+    var debouncedDescription = debounce(function(){ validateDescriptionField(); }, 300);
+
+    var firstName = document.getElementById('customer_first_name');
+    var lastName = document.getElementById('customer_last_name');
+    var phone = document.getElementById('customer_phone');
+    var email = document.getElementById('customer_email');
+    var address = document.getElementById('customer_address');
+    var description = document.getElementById('customer_description');
+    var serviceDate = document.getElementById('service_date');
+    var serviceTime = document.getElementById('service_time');
+
+    if (firstName) {
+        firstName.addEventListener('input', function () {
+            if (this.value.trim() === '') clearFieldState('customer_first_name');
+            else debouncedFirstName();
+        });
     }
 
-    function validateDescription() {
-        var id = 'customer_description';
-        var value = document.getElementById(id).value.trim();
-
-        if (value === '') return showError(id, 'Description is required'), false;
-        if (value.length < 10) return showError(id, 'Description must be at least 10 characters'), false;
-
-        showValid(id);
-        return true;
+    if (lastName) {
+        lastName.addEventListener('input', function () {
+            if (this.value.trim() === '') clearFieldState('customer_last_name');
+            else debouncedLastName();
+        });
     }
 
-    function validateServiceDate() {
-        var id = 'service_date';
-        var value = document.getElementById(id).value;
-
-        if (value === '') return showError(id, 'Date is required'), false;
-
-        var today = new Date();
-        today.setHours(0,0,0,0);
-
-        var selectedDate = new Date(value);
-        selectedDate.setHours(0,0,0,0);
-
-        if (selectedDate < today) return showError(id, 'Past date is not allowed'), false;
-
-        showValid(id);
-        return true;
+    if (phone) {
+        phone.addEventListener('input', function () {
+            this.value = this.value.replace(/\D/g, '');
+            if (this.value.trim() === '') clearFieldState('customer_phone');
+            else debouncedPhone();
+        });
     }
 
-    function validateServiceTime() {
-        var id = 'service_time';
-        var value = document.getElementById(id).value;
-
-        if (value === '') return showError(id, 'Time is required'), false;
-
-        showValid(id);
-        return true;
+    if (email) {
+        email.addEventListener('input', function () {
+            if (this.value.trim() === '') clearFieldState('customer_email');
+            else debouncedEmail();
+        });
     }
 
-    function validateBookingForm() {
-        var valid = true;
-
-        if (!validateFirstName()) valid = false;
-        if (!validateLastName()) valid = false;
-        if (!validatePhone()) valid = false;
-        if (!validateEmail()) valid = false;
-        if (!validateAddress()) valid = false;
-        if (!validateDescription()) valid = false;
-        if (!validateServiceDate()) valid = false;
-        if (!validateServiceTime()) valid = false;
-
-        var summary = document.getElementById('validation_summary');
-        if (summary) summary.style.display = valid ? 'none' : 'block';
-
-        return valid;
+    if (address) {
+        address.addEventListener('input', function () {
+            if (this.value.trim() === '') clearFieldState('customer_address');
+            else debouncedAddress();
+        });
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        var bookingForm = document.getElementById('bookingForm');
+    if (description) {
+        description.addEventListener('input', function () {
+            if (this.value.trim() === '') clearFieldState('customer_description');
+            else debouncedDescription();
+        });
+    }
 
-        var debouncedFirstName = debounce(validateFirstName, 300);
-        var debouncedLastName = debounce(validateLastName, 300);
-        var debouncedPhone = debounce(validatePhone, 300);
-        var debouncedEmail = debounce(validateEmail, 300);
-        var debouncedAddress = debounce(validateAddress, 300);
-        var debouncedDescription = debounce(validateDescription, 300);
+    if (serviceDate) {
+        serviceDate.addEventListener('change', function () {
+            validateRequired('service_date', 'Date is required');
+        });
+    }
 
-        var firstName = document.getElementById('customer_first_name');
-        var lastName = document.getElementById('customer_last_name');
-        var phone = document.getElementById('customer_phone');
-        var email = document.getElementById('customer_email');
-        var address = document.getElementById('customer_address');
-        var description = document.getElementById('customer_description');
-        var serviceDate = document.getElementById('service_date');
-        var serviceTime = document.getElementById('service_time');
+    if (serviceTime) {
+        serviceTime.addEventListener('change', function () {
+            validateRequired('service_time', 'Time is required');
+        });
+    }
 
-        if (firstName) {
-            firstName.addEventListener('input', function(){
-                if (this.value.trim() === '') clearFieldState('customer_first_name');
-                else debouncedFirstName();
-            });
-            firstName.addEventListener('blur', validateFirstName);
-        }
-
-        if (lastName) {
-            lastName.addEventListener('input', function(){
-                if (this.value.trim() === '') clearFieldState('customer_last_name');
-                else debouncedLastName();
-            });
-            lastName.addEventListener('blur', validateLastName);
-        }
-
-        if (phone) {
-            phone.addEventListener('input', function(){
-                this.value = this.value.replace(/\D/g, '');
-                if (this.value.trim() === '') clearFieldState('customer_phone');
-                else debouncedPhone();
-            });
-            phone.addEventListener('blur', validatePhone);
-        }
-
-        if (email) {
-            email.addEventListener('input', function(){
-                if (this.value.trim() === '') clearFieldState('customer_email');
-                else debouncedEmail();
-            });
-            email.addEventListener('blur', validateEmail);
-        }
-
-        if (address) {
-            address.addEventListener('input', function(){
-                if (this.value.trim() === '') clearFieldState('customer_address');
-                else debouncedAddress();
-            });
-            address.addEventListener('blur', validateAddress);
-        }
-
-        if (description) {
-            description.addEventListener('input', function(){
-                if (this.value.trim() === '') clearFieldState('customer_description');
-                else debouncedDescription();
-            });
-            description.addEventListener('blur', validateDescription);
-        }
-
-        if (serviceDate) {
-            serviceDate.addEventListener('change', validateServiceDate);
-            serviceDate.addEventListener('blur', validateServiceDate);
-        }
-
-        if (serviceTime) {
-            serviceTime.addEventListener('change', validateServiceTime);
-            serviceTime.addEventListener('blur', validateServiceTime);
-        }
-
-        if (bookingForm) {
-            bookingForm.addEventListener('submit', function(e) {
-                if (!validateBookingForm()) {
-                    e.preventDefault();
-                }
-            });
-        }
-
-        var isLoggedIn = <?php echo $this->session->userdata("user_username") ? 'true' : 'false'; ?>;
-
-        if (isLoggedIn) {
-            var provider_id = sessionStorage.getItem('pending_booking_provider_id');
-            var provider_service_id = sessionStorage.getItem('pending_booking_provider_service_id');
-            var category_id = sessionStorage.getItem('pending_booking_category_id');
-            var category_name = sessionStorage.getItem('pending_booking_category_name');
-            var service_price = sessionStorage.getItem('pending_booking_service_price');
-
-            if (provider_id && provider_service_id && category_id && category_name && service_price) {
-                openBookingModal(provider_id, provider_service_id, category_id, category_name, service_price);
-
-                sessionStorage.removeItem('pending_booking_provider_id');
-                sessionStorage.removeItem('pending_booking_provider_service_id');
-                sessionStorage.removeItem('pending_booking_category_id');
-                sessionStorage.removeItem('pending_booking_category_name');
-                sessionStorage.removeItem('pending_booking_service_price');
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', function (e) {
+            if (!validateBookingForm()) {
+                e.preventDefault();
             }
+        });
+    }
+
+    var isLoggedIn = <?php echo $this->session->userdata("user_username") ? 'true' : 'false'; ?>;
+
+    if (isLoggedIn) {
+        var provider_id = sessionStorage.getItem('pending_booking_provider_id');
+        var provider_service_id = sessionStorage.getItem('pending_booking_provider_service_id');
+        var category_id = sessionStorage.getItem('pending_booking_category_id');
+        var category_name = sessionStorage.getItem('pending_booking_category_name');
+        var service_price = sessionStorage.getItem('pending_booking_service_price');
+
+        if (provider_id && provider_service_id && category_id && category_name && service_price) {
+            openBookingModal(provider_id, provider_service_id, category_id, category_name, service_price);
+
+            sessionStorage.removeItem('pending_booking_provider_id');
+            sessionStorage.removeItem('pending_booking_provider_service_id');
+            sessionStorage.removeItem('pending_booking_category_id');
+            sessionStorage.removeItem('pending_booking_category_name');
+            sessionStorage.removeItem('pending_booking_service_price');
         }
-    });
+    }
+});
 
     function scrollToServices(){
-    document.getElementById("food").scrollIntoView({
+    document.getElementById("food").scrollIntoView({     
         behavior:"smooth"
     });
 }
 </script>
-        </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    var serviceDropdown = document.getElementById("review_service_data");
+    var bookingIdInput = document.getElementById("booking_id");
+    var providerServiceIdInput = document.getElementById("provider_service_id");
+    var categoryIdInput = document.getElementById("category_id");
+    var ratingInput = document.getElementById("rating");
+    var stars = document.querySelectorAll(".review-star");
+
+    if (serviceDropdown) {
+        serviceDropdown.addEventListener("change", function () {
+            var value = this.value;
+            if (value !== "") {
+                var parts = value.split("|");
+                bookingIdInput.value = parts[0];
+                providerServiceIdInput.value = parts[1];
+                categoryIdInput.value = parts[2];
+            } else {
+                bookingIdInput.value = "";
+                providerServiceIdInput.value = "";
+                categoryIdInput.value = "";
+            }
+        });
+    }
+
+    if (stars.length > 0) {
+        stars.forEach(function(star) {
+            star.addEventListener("click", function() {
+                var selected = parseInt(this.getAttribute("data-value"));
+                ratingInput.value = selected;
+
+                stars.forEach(function(s, index) {
+                    if ((index + 1) <= selected) {
+                        s.textContent = "★";
+                    } else {
+                        s.textContent = "☆";
+                    }
+                });
+            });
+        });
+    }
+});
+</script>
+
+<!-- <script>
+document.addEventListener("DOMContentLoaded", function () {
+    <?php if($this->session->flashdata('booking_error')) { ?>
+        if (!sessionStorage.getItem('booking_error_modal_shown')) {
+            $('#bookingModal').modal('show');
+            sessionStorage.setItem('booking_error_modal_shown', '1');
+        }
+    <?php } else { ?>
+        sessionStorage.removeItem('booking_error_modal_shown');
+    <?php } ?>
+
+    $('#bookingModal').on('hidden.bs.modal', function () {
+        sessionStorage.removeItem('booking_error_modal_shown');
+    });
+});
+</script> -->
+
     </body>
 </html>
 

@@ -16,7 +16,7 @@ class Authorization extends CI_Controller
     public function index() 
     {
         $data = array();
-        if ($this->input->post("login")) 
+        if ($this->) 
         {
             $this->form_validation->set_rules("username", "", "required", array('required' => "Please Enter Email."));
             $this->form_validation->set_rules("ps", "", "required", array('required' => "Please Enter Password."));
