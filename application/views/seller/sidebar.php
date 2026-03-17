@@ -31,26 +31,6 @@
             </li>
 
             <li class="nav-item dropdown">
-                <a class="dropdown-toggle" href="#">
-                    <span class="icon-holder">
-                        <i class="fas fa-tools sidebar-icon" title="Services"></i>
-                    </span>
-                    <span class="title sidebar-title">Services</span>
-                    <span class="arrow">
-                        <i class="arrow-icon"></i>
-                    </span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="<?php echo base_url("Restaurant-Add-Items"); ?>" class="sidebar-title">Add Service</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url("Restaurant-Manage-Items"); ?>" class="sidebar-title">Manage Services</a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="nav-item dropdown">
                 <a class="dropdown-toggle" href="<?php echo base_url("Restaurant-Manage-Schedule"); ?>">
                     <span class="icon-holder">
                         <i class="fas fa-calendar-check sidebar-icon" title="Availability"></i>

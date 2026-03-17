@@ -497,73 +497,95 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <h3 class="text-light-black fw-700 title"><?php echo ucwords($restaurent_detail[0]->restaurant_name); ?></h3>
-                        <p class="text-light-green no-margin">Services Category Provided By Us</p>
+                        <div class="card" style="border:1px solid #eee; border-radius:10px;">
+                            <div class="card-body">
 
-                        <div class="rating">
-                            <?php
-                            $cnt_star = round($star_rating[0]->rate_star);
-                            for ($i = 1; $i <= 5; $i++) {
-                                if ($i <= $cnt_star) {
-                                    ?>
-                                    <span class="text-yellow fs-16">
-                                        <i class="fas fa-star"></i>
-                                    </span>
-                                    <?php
-                                } else {
-                                    ?>
-                                    <span class="text-dark-white fs-16">
-                                        <i class="fas fa-star"></i>
-                                    </span>
-                                    <?php
-                                }
-                            }
-                            ?>
+                                <h3 class="text-light-black fw-700 title" style="margin-bottom: 20px;">
+                                    <?php echo ucwords($restaurent_detail[0]->restaurant_name); ?>
+                                </h3>
+
+                                <div class="mb-4">
+                                    <h4 style="font-size:18px; font-weight:700; margin-bottom:15px; color:#222;">
+                                        Provider Account Information
+                                    </h4>
+
+                                    <div style="display:flex; padding:8px 0; border-bottom:1px solid #f1f1f1;">
+                                        <div style="width:220px; font-weight:600; color:#333;">Provider Name</div>
+                                        <div style="flex:1; color:#555;">
+                                            <?php echo !empty($restaurent_detail[0]->owner_name) ? ucwords($restaurent_detail[0]->owner_name) : 'Not Available'; ?>
+                                        </div>
+                                    </div>
+
+                                    <div style="display:flex; padding:8px 0; border-bottom:1px solid #f1f1f1;">
+                                        <div style="width:220px; font-weight:600; color:#333;">Phone Number</div>
+                                        <div style="flex:1; color:#555;">
+                                            <?php echo !empty($restaurent_detail[0]->contact_no) ? $restaurent_detail[0]->contact_no : 'Not Available'; ?>
+                                        </div>
+                                    </div>
+
+                                    <div style="display:flex; padding:8px 0; border-bottom:1px solid #f1f1f1;">
+                                        <div style="width:220px; font-weight:600; color:#333;">Email Address</div>
+                                        <div style="flex:1; color:#555;">
+                                            <?php echo !empty($restaurent_detail[0]->email) ? $restaurent_detail[0]->email : 'Not Available'; ?>
+                                        </div>
+                                    </div>
+
+                                    <div style="display:flex; padding:8px 0; border-bottom:1px solid #f1f1f1;">
+                                        <div style="width:220px; font-weight:600; color:#333;">Location</div>
+                                        <div style="flex:1; color:#555;">
+                                            <?php
+                                            if (count($restaurent_address_detail) != 0) {
+                                                echo $restaurent_address_detail[0]->area . ', ' . $restaurent_address_detail[0]->city . ', ' . $restaurent_address_detail[0]->state;
+                                            } else {
+                                                echo 'Not Available';
+                                            }
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <h4 style="font-size:18px; font-weight:700; margin-bottom:15px; color:#222;">
+                                        Professional Details
+                                    </h4>
+
+                                    <div style="display:flex; padding:8px 0; border-bottom:1px solid #f1f1f1;">
+                                        <div style="width:220px; font-weight:600; color:#333;">Primary Skill</div>
+                                        <div style="flex:1; color:#555;">
+                                            <?php echo !empty($restaurent_detail[0]->primary_skill) ? ucwords($restaurent_detail[0]->primary_skill) : 'Not Available'; ?>
+                                        </div>
+                                    </div>
+
+                                    <div style="display:flex; padding:8px 0; border-bottom:1px solid #f1f1f1;">
+                                        <div style="width:220px; font-weight:600; color:#333;">Experience</div>
+                                        <div style="flex:1; color:#555;">
+                                            <?php echo !empty($restaurent_detail[0]->experience) ? $restaurent_detail[0]->experience : 'Not Available'; ?>
+                                        </div>
+                                    </div>
+
+                                    <div style="display:flex; padding:8px 0; border-bottom:1px solid #f1f1f1;">
+                                        <div style="width:220px; font-weight:600; color:#333;">Starting Price</div>
+                                        <div style="flex:1; color:#555;">
+                                            <?php echo !empty($restaurent_detail[0]->starting_price) ? '₹ ' . $restaurent_detail[0]->starting_price : 'Not Available'; ?>
+                                        </div>
+                                    </div>
+
+                                    <div style="display:flex; padding:8px 0; border-bottom:1px solid #f1f1f1;">
+                                        <div style="width:220px; font-weight:600; color:#333;">Languages</div>
+                                        <div style="flex:1; color:#555;">
+                                            <?php echo !empty($restaurent_detail[0]->languages) ? ucwords($restaurent_detail[0]->languages) : 'Not Available'; ?>
+                                        </div>
+                                    </div>
+
+                                    <div style="padding:8px 0;">
+                                        <div style="font-weight:600; color:#333; margin-bottom:8px;">About Me</div>
+                                        <div style="color:#555; line-height:1.7;">
+                                            <?php echo !empty($restaurent_detail[0]->about_me) ? nl2br(htmlspecialchars($restaurent_detail[0]->about_me)) : 'Not Available'; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
-                        <ul class="about-restaurent">
-                            <li>
-                                <i class="fas fa-phone-alt"></i>
-                                <span>
-                                    <a href="tel:<?php
-                                    if ($restaurent_detail[0]->contact_no != "") {
-                                        echo $restaurent_detail[0]->contact_no;
-                                    } else {
-                                        echo "Data not inserted";
-                                    }
-                                    ?>" class="text-light-white">
-                                        <?php
-                                        if ($restaurent_detail[0]->contact_no != "") {
-                                            echo $restaurent_detail[0]->contact_no;
-                                        } else {
-                                            echo "Data not inserted";
-                                        }
-                                        ?>
-                                    </a>
-                                </span>
-                            </li>
-
-                            <li>
-                                <i class="far fa-envelope"></i>
-                                <span>
-                                    <a href="mailto:<?php
-                                    if ($restaurent_detail[0]->email != "") {
-                                        echo $restaurent_detail[0]->email;
-                                    } else {
-                                        echo "Data not inserted";
-                                    }
-                                    ?>" class="text-light-white">
-                                        <?php
-                                        if ($restaurent_detail[0]->email != "") {
-                                            echo $restaurent_detail[0]->email;
-                                        } else {
-                                            echo "Data not inserted";
-                                        }
-                                        ?>
-                                    </a>
-                                </span>
-                            </li>
-                        </ul>
                     </div>
 
                     <div class="col-md-6">
@@ -571,18 +593,24 @@
                             <div class="card">
                                 <div class="card-header text-light-white fw-700 fs-16">Available Service Timing</div>
                                 <div class="card-body">
-                                    <?php
-                                    if (!empty($schedule_details)) {
-                                        foreach ($schedule_details as $single) {
-                                            ?>
-                                            <div class="schedule-box">
-                                                <div class="day text-light-black"><?php echo $single->day_name; ?></div>
-                                                <div class="time text-light-black">Available: <?php echo date("h:ia", strtotime($single->open_time)); ?> - <?php echo date("h:ia", strtotime($single->close_time)); ?></div>
+                                    <?php if (!empty($schedule_details)) { ?>
+                                        <?php foreach ($schedule_details as $single) { ?>
+                                            <div class="schedule-box" style="padding:8px 0; border-bottom:1px solid #eee;">
+                                                <div class="day text-light-black" style="font-weight:600;">
+                                                    <?php echo $single->day_name; ?>
+                                                </div>
+                                                <div class="time text-light-black">
+                                                    <?php echo date("h:i A", strtotime($single->open_time)); ?>
+                                                    to
+                                                    <?php echo date("h:i A", strtotime($single->close_time)); ?>
+                                                </div>
                                             </div>
-                                            <?php
-                                        }
-                                    }
-                                    ?>
+                                        <?php } ?>
+                                    <?php } else { ?>
+                                        <div class="schedule-box">
+                                            <div class="time text-light-black">No timing available.</div>
+                                        </div>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>

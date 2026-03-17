@@ -164,7 +164,7 @@ class Restaurant extends CI_Controller
                         $inres["email"]           = $this->session->userdata("email");
                         $inres["password"]        = $this->encryption->encrypt($this->session->userdata("ps"));
                         $inres["location_id"]     = $this->input->post("area");
-                        $inres["status"]          = 0;
+                        $inres["status"]          = 1;
 
                         $result = $this->md->my_insert("tbl_restaurant", $inres);
 
@@ -705,10 +705,61 @@ class Restaurant extends CI_Controller
         }
         $this->load->view("seller/active_status",$data);
     }
-    public function manageschedule(){
+    public function manageschedule()
+    {
+        $this->security();
+
         $data = array();
-        //$data["schedule_detail"] = $this->md->my_select("tbl_schedule","*",array("restaurant_id"=>$this->session->userdata("seller_email")));
-        $this->load->view("seller/manageschedule",$data);
+        $seller_id = $this->session->userdata("seller_email");
+
+        $days = array("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
+
+        if ($this->input->post("save_schedule"))
+        {
+            $this->db->where("seller_id", $seller_id);
+            $this->db->delete("tbl_shedule");
+
+            foreach ($days as $day)
+            {
+                $open_time  = $this->input->post("open_time_" . $day);
+                $close_time = $this->input->post("close_time_" . $day);
+
+                if (!empty($open_time) && !empty($close_time))
+                {
+                    $ins = array(
+                        "seller_id"   => $seller_id,
+                        "day_name"    => $day,
+                        "open_time"   => $open_time,
+                        "close_time"  => $close_time
+                    );
+
+                    $this->db->insert("tbl_shedule", $ins);
+                }
+            }
+
+            $this->session->set_flashdata("success", "Schedule updated successfully.");
+            redirect("Restaurant-Manage-Schedule");
+        }
+
+        $schedule_data = $this->db
+            ->where("seller_id", $seller_id)
+            ->get("tbl_shedule")
+            ->result();
+
+        $formatted_schedule = array();
+
+        foreach ($schedule_data as $row)
+        {
+            $formatted_schedule[$row->day_name] = array(
+                "open_time"  => $row->open_time,
+                "close_time" => $row->close_time
+            );
+        }
+
+        $data["days"] = $days;
+        $data["schedule"] = $formatted_schedule;
+
+        $this->load->view("seller/manageschedule", $data);
     }
     public function delete($data) 
 {      

@@ -59,7 +59,7 @@
                                     <span class="text-gray">Last Login: <?php  echo date("d-m-Y h:i:s a", strtotime($res_detail[0]->lastlogin)); ?></span>
                                 </div>
                             </div>
-                            <div class="d-md-flex align-items-center d-none">
+                            <!-- <div class="d-md-flex align-items-center d-none">
                                 <div class="media align-items-center m-v-5">
                                     <div class="font-size-27 dashboard-rating-star m-l-5">
                                         <i class="far fa-star"></i>
@@ -78,7 +78,7 @@
                                     </div>
                                     
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                         
@@ -123,7 +123,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-lg-3">
+                            <!-- <div class="col-md-6 col-lg-3">
                                 <div class="card dash-box">
                                     <div class="card-body">
                                         <a href="<?php echo base_url("Restaurant-Manage-Items"); ?>">
@@ -141,7 +141,7 @@
                                         </a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="col-md-6 col-lg-3">
                                 <div class="card dash-box">
                                     <div class="card-body">
