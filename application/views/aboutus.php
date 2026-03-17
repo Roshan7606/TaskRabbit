@@ -36,39 +36,17 @@
         
         <!-- slider -->
         <!-- about us -->
-        <section class="aboutus section-padding">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6">
-                        <div class="history-title mb-md-40">
-                            <h2>
-                                A History Written For TaskRabbit <br>
-                                <span class="text-light-green">Explore More Of Our Story</span>
-                            </h2>
-                            <p class="text-light-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
-                            <p class="text-light-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="row align-items-center">
-                            <div class="col-lg-6 col-sm-6 col-md-6">
-                                <div class="histry-img mb-xs-20">
-                                    <img src="<?php echo base_url(); ?>assets/img/about/blog/255x200/about-section-3.jpg" class="img-fluid full-width" alt="Histry">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6 col-md-6">
-                                <div class="histry-img mb-xl-20">
-                                    <img src="<?php echo base_url(); ?>assets/img/about/blog/255x200/about-section-1.jpg" class="img-fluid full-width" alt="Histry">
-                                </div>
-                                <div class="histry-img">
-                                    <img src="<?php echo base_url(); ?>assets/img/about/blog/255x200/about-section-2.jpg" class="img-fluid full-width" alt="Histry">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+     
+
+
+
+
+
+
+
+
+
+
         <!-- about us -->
         <!-- How It Woks -->
         <section class="section-padding how-it-works bg-light-theme">
@@ -140,93 +118,40 @@
 
 
 
-        <!-- <section class="how-it-works-premium">
+  
+
+    
+       <section class="about-stats">
+
 <div class="container">
 
-<div class="section-title text-center">
-<h6>OUR PROCESS</h6>
-<h2>How Does It Work</h2>
+<div class="row text-center justify-content-center">
+
+<div class="col-lg-2 col-md-3 col-6">
+<h2 class="counter" data-count="3.4">0</h2>
+<p>Tasks Completed</p>
 </div>
 
-<div class="process-timeline">
-
-<div class="process-step">
-<div class="process-circle">01</div>
-<div class="process-content">
-<i class="fas fa-search"></i>
-<h5>Search</h5>
-<p>We provided facility to search your favourite service.</p>
-</div>
+<div class="col-lg-2 col-md-3 col-6">
+<h2 class="counter" data-count="120">0</h2>
+<p>Trusted Taskers</p>
 </div>
 
-<div class="process-step">
-<div class="process-circle">02</div>
-<div class="process-content">
-<i class="fas fa-shopping-bag"></i>
-<h5>Select</h5>
-<p>Choose from a wide range of trusted service providers.</p>
-</div>
+<div class="col-lg-2 col-md-3 col-6">
+<h2 class="counter" data-count="50">0</h2>
+<p>Cities Covered</p>
 </div>
 
-<div class="process-step">
-<div class="process-circle">03</div>
-<div class="process-content">
-<i class="fas fa-stopwatch"></i>
-<h5>Book</h5>
-<p>Book your service easily within your preferred time.</p>
-</div>
-</div>
-
-<div class="process-step">
-<div class="process-circle">04</div>
-<div class="process-content">
-<i class="fas fa-map-marker-alt"></i>
-<h5>Enjoy</h5>
-<p>Relax while professionals complete your task.</p>
-</div>
+<div class="col-lg-2 col-md-3 col-6">
+<h2 class="counter" data-count="98">0</h2>
+<p>Customer Satisfaction</p>
 </div>
 
 </div>
 
 </div>
-</section> -->
 
-
-
-
-
-
-
-
-
-
-
-        
-        <section class="about-stats">
-        <div class="row text-center">
-
-        <div class="col-md-3">
-        <h2 class="counter" data-count="3.4">0</h2>
-        <p>Tasks Completed</p>
-        </div>
-
-        <div class="col-md-3">
-        <h2 class="counter" data-count="120">0</h2>
-        <p>Trusted Taskers</p>
-        </div>
-
-        <div class="col-md-3">
-        <h2 class="counter" data-count="50">0</h2>
-        <p>Cities Covered</p>
-        </div>
-
-        <div class="col-md-3">
-        <h2 class="counter" data-count="98">0</h2>
-        <p>Customer Satisfaction</p>
-        </div>
-
-        </div>
-        </section>
+</section>
 
         <section class="testimonials section-padding bg-light-theme">
 <div class="container">
@@ -304,43 +229,7 @@
 </section>
 
 
-        <section class="our-team section-padding">
-<div class="container">
 
-<div class="section-header text-center">
-<h3>Meet Our Team</h3>
-</div>
-
-<div class="row">
-
-<div class="col-md-4">
-<div class="team-box text-center">
-<img src="<?php echo base_url(); ?>assets/img/team1.jpg" class="img-fluid">
-<h6>John Smith</h6>
-<p>Founder</p>
-</div>
-</div>
-
-<div class="col-md-4">
-<div class="team-box text-center">
-<img src="<?php echo base_url(); ?>assets/img/team2.jpg" class="img-fluid">
-<h6>Emily Watson</h6>
-<p>Operations Manager</p>
-</div>
-</div>
-
-<div class="col-md-4">
-<div class="team-box text-center">
-<img src="<?php echo base_url(); ?>assets/img/team3.jpg" class="img-fluid">
-<h6>Michael Lee</h6>
-<p>Service Manager</p>
-</div>
-</div>
-
-</div>
-
-</div>
-</section>
 
 
 <section class="cta-section">
