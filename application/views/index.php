@@ -319,9 +319,7 @@ find your next job on Airtasker.
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <div class="section-header-left">
-                            <h3 class="text-light-black header-title title">Explore our Work-partner</h3>
-                        </div>
+                    
                     </div>
                 </div>
 
@@ -462,9 +460,7 @@ find your next job on Airtasker.
                         </div>
                     </div>
                 </div>
-                <center>
-                    <button class="view-more-text-index" onclick="view_more_item()">View More</button>
-                </center>
+                
             </div>
         </section>
 
@@ -472,71 +468,11 @@ find your next job on Airtasker.
 
         <!-- Top Taskers -->
 
-<section class="top-taskers section-padding">
-
-<div class="container">
-
-<h2 class="text-center">Top Taskers</h2>
-
-<div class="row">
-
-<div class="col-md-4">
-<div class="tasker-card">
-<img src="<?php echo base_url(); ?>assets/img/taskers/tasker1.jpg">
-<h4>Rahul Sharma</h4>
-<p>Handyman Expert</p>
-</div>
-</div>
-
-<div class="col-md-4">
-<div class="tasker-card">
-<img src="<?php echo base_url(); ?>assets/img/taskers/tasker2.jpg">
-<h4>Amit Patel</h4>
-<p>Cleaning Specialist</p>
-</div>
-</div>
-
-<div class="col-md-4">
-<div class="tasker-card">
-<img src="<?php echo base_url(); ?>assets/img/taskers/tasker3.jpg">
-<h4>Ravi Kumar</h4>
-<p>Electrician</p>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</section>
 
 
 
 
-<section class="app-download section-padding">
 
-<div class="container">
-
-<div class="row align-items-center">
-
-<div class="col-md-6">
-<h2>Download Our App</h2>
-<p>Book services anytime anywhere.</p>
-
-<img src="<?php echo base_url(); ?>assets/img/playstore.png">
-<img src="<?php echo base_url(); ?>assets/img/appstore.png">
-
-</div>
-
-<div class="col-md-6">
-<img src="<?php echo base_url(); ?>assets/img/mobile-app.png" class="img-fluid">
-</div>
-
-</div>
-
-</div>
-
-</section>
 
 
 
