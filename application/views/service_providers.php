@@ -66,72 +66,60 @@
                     </div>
 
                     <?php if (!empty($providers)) { ?>
-                        <?php foreach ($providers as $single) { ?>
-                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                <div class="featured-product">
-                                    <div class="featured-img">
-                                        <a href="<?php echo base_url(); ?>Restaurant-Details/<?php echo $single->restaurant_id; ?>">
-                                            <?php
-                                            if(!empty($single->coverpic))
-                                            {
-                                                $provider_image = base_url($single->coverpic);
-                                            }
-                                            else
-                                            {
-                                                $provider_image = base_url("assets/img/deals/360x178/shop-1.jpg");
-                                            }
-                                            ?>
-                                            <img src="<?php echo $provider_image; ?>" class="img-res-cover full-width" alt="#">
-                                        </a>
+                        
+                    <?php foreach ($providers as $single) { ?>
 
-                                        <div class="overlay-2 padding-10">
-                                            <span class="background-none res-open-img"></span>
-                                        </div>
-                                    </div>
+    <!-- 🔥 AHI TAMARU PREMIUM CARD -->
+    <div class="col-md-4 col-sm-6 col-12">
+        <div class="premium-card">
 
-                                    <div class="featured-product-details padding-bottom-none">
-                                        <div class="pro-title max-width-100">
-                                            <h6 class="mb-1 restaurant-name">
-                                                <a href="<?php echo base_url(); ?>Restaurant-Details/<?php echo $single->restaurant_id; ?>" class="text-light-black fw-600">
-                                                    <?php echo !empty($single->owner_name) ? $single->owner_name : $single->restaurant_name; ?>
-                                                </a>
-                                            </h6>
+            <div class="premium-img">
+                <img src="<?php echo $provider_image; ?>" alt="">
+                
+                <div class="wishlist">
+                    <i class="fas fa-heart"></i>
+                </div>
 
-                                            <p class="text-light-black mb-1">
-                                                <strong>Service:</strong>
-                                                <?php echo $single->category_name; ?>
-                                            </p>
+                <span class="badge-verified">✔ Verified</span>
+            </div>
 
-                                            <p class="text-light-black mb-1">
-                                                <strong>Starting Price:</strong>
-                                                ₹<?php echo number_format($single->service_price, 2); ?>
-                                            </p>
+            <div class="premium-body">
 
-                                            <p class="text-light-black mb-2">
-                                                <strong>Contact:</strong>
-                                                <?php echo !empty($single->owner_contactno) ? $single->owner_contactno : $single->contact_no; ?>
-                                            </p>
+                <h5 class="provider-name">
+                    <?php echo htmlspecialchars($single->owner_name ?: $single->restaurant_name); ?>
+                </h5>
 
-                                            <div class="restaurent-rating mb-xl-20">
-                                                <div class="star">
-                                                    <span class="text-dark-white fs-16"><i class="fas fa-star"></i></span>
-                                                    <span class="text-dark-white fs-16"><i class="fas fa-star"></i></span>
-                                                    <span class="text-dark-white fs-16"><i class="fas fa-star"></i></span>
-                                                    <span class="text-dark-white fs-16"><i class="fas fa-star"></i></span>
-                                                    <span class="text-dark-white fs-16"><i class="fas fa-star"></i></span>
-                                                </div>
-                                                <span class="fs-12 text-light-black">Available Provider</span>
-                                            </div>
+                <p class="provider-service">
+                    <?php echo $single->category_name; ?>
+                </p>
 
-                                            <a href="<?php echo base_url(); ?>Restaurant-Details/<?php echo $single->restaurant_id; ?>" class="btn-second btn-submit">
-                                                View Profile
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php } ?>
-                    <?php } else { ?>
+                <div class="rating">
+                    ⭐⭐⭐⭐☆ <span>(4.5)</span>
+                </div>
+
+                <div class="price">
+                    ₹<?php echo number_format($single->service_price, 2); ?>
+                </div>
+
+                <p class="location">
+                    <i class="fas fa-map-marker-alt"></i> Surat
+                </p>
+
+                <span class="status available">Available Now</span>
+
+                <a href="<?php echo base_url(); ?>Provider-Details/<?php echo $single->restaurant_id; ?>" 
+                   class="btn-premium">
+                   Book Now
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+<?php } ?>
+                    
+                    
+                
                         <div class="col-12">
                             <div class="review-img">
                                 <center>

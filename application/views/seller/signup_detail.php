@@ -6,6 +6,45 @@
         <?php
         $this->load->view("seller/headerscript");
         ?>
+        <style>
+            .premium-field-wrap {
+                position: relative;
+            }
+
+            .premium-input.input-valid {
+                border: 2px solid #28a745 !important;
+                box-shadow: 0 0 0 0.12rem rgba(40, 167, 69, 0.15);
+                padding-right: 42px;
+            }
+
+            .premium-input.input-invalid {
+                border: 2px solid #dc3545 !important;
+                box-shadow: 0 0 0 0.12rem rgba(220, 53, 69, 0.15);
+            }
+
+            .field-valid-icon {
+                position: absolute;
+                right: 12px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 18px;
+                height: 18px;
+                display: none;
+                z-index: 5;
+            }
+
+            .validation-error {
+                color: #dc3545;
+                font-size: 13px;
+                margin-top: 6px;
+                display: block;
+            }
+
+            .fixed-field {
+                background: #f8f9fa !important;
+                cursor: not-allowed;
+            }
+        </style>
     </head>
     <body>
         <div class="app">
@@ -17,317 +56,171 @@
                                 <div class="card shadow-lg">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center justify-content-between m-b-30">
-
                                             <h2 class="m-b-0 log-head">Other Details</h2>
                                         </div>
-                                        <form method="post" action="" name="signup">
+
+                                        <form method="post" action="" name="signup" id="sellerSignupDetailForm" novalidate>
                                             <div class="row">
                                                 <div class="col-md-6">
 
                                                     <div class="form-group">
-                                                        <?php
-                                                        if (form_error("ownname")) {
-                                                            ?>
-                                                            <label class="text-light-white fs-14 form_vis_error_text error_label_color"><?php echo form_error("ownname"); ?></label>
-                                                            <?php
-                                                        } else {
-                                                            ?>
-                                                            <label class="font-weight-semibold" for="restaurantname">Owner Name:</label>
-                                                            <?php
-                                                        }
-                                                        ?>
-                                                            <input type="text" autofocus="" name="ownname" id="restaurantname" title="Only Alpha Is Allow" placeholder="Owner Name" class="form-control <?php
-                                                        if (form_error('ownname')) {
-                                                            echo 'my_error';
-                                                        }
-                                                        ?>" value="<?php
-                                                               if (!isset($success) && set_value("ownname")) {
-                                                                   echo set_value("ownname");
-                                                               }
-                                                               ?>">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <?php
-                                                        if (form_error("ownmobile")) {
-                                                            ?>
-                                                            <label class="text-light-white fs-14 form_vis_error_text error_label_color"><?php echo form_error("ownmobile"); ?></label>
-                                                            <?php
-                                                        } else {
-                                                            ?>
-                                                            <label class="font-weight-semibold" for="mobile">Owner Mobile No:</label>
-                                                            <?php
-                                                        }
-                                                        ?>
-                                                        <input type="text"  check_control="number" id="mobile" name="ownmobile" title="Only Numeric Is Allow" placeholder="Owner Mobile No" class="form-control <?php
-                                                        if (form_error('ownmobile')) {
-                                                            echo 'my_error';
-                                                        }
-                                                        ?>" value="<?php
-                                                               if (!isset($success) && set_value("ownmobile")) {
-                                                                   echo set_value("ownmobile");
-                                                               }
-                                                               ?>">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <?php
-                                                        if (form_error("ownemail")) {
-                                                            ?>
-                                                            <label class="text-light-white fs-14 form_vis_error_text error_label_color"><?php echo form_error("ownemail"); ?></label>
-                                                            <?php
-                                                        } else {
-                                                            ?>
-                                                            <label class="font-weight-semibold" for="email">Owner Email:</label>
-                                                            <?php
-                                                        }
-                                                        ?>
-                                                        <input type="email" autocomplete="off" id="email" name="ownemail" placeholder="Owner Email" check_control="" class="form-control <?php
-                                                        if (form_error('ownemail')) {
-                                                            echo 'my_error';
-                                                        }
-                                                        ?>" value="<?php
-                                                               if (!isset($success) && set_value("ownemail")) {
-                                                                   echo set_value("ownemail");
-                                                               }
-                                                               ?>">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <?php
-                                                        if (form_error("resclosetime") || form_error("resopentime")) {
-                                                            ?>
-                                                            <label class="text-light-white fs-14 form_vis_error_text error_label_color"><?php
-                                                                if (form_error("resclosetime") || form_error("resopentime")) {
-                                                                    if (form_error("resclosetime")) {
-                                                                        echo form_error("resclosetime");
-                                                                    } else {
-                                                                        echo form_error("resopentime");
-                                                                    }
-                                                                }
-                                                                ?>
-                                                            </label>
-                                                            <?php
-                                                        } else {
-                                                            ?>
-                                                            <label class="font-weight-semibold" for="ps">Restaurant Service Time:</label>
-                                                            <?php
-                                                        }
-                                                        ?>
-                                                        <div class="row">
-                                                            <div class="col-md-5 padding-right-none">
-                                                                <input type="time" id="ps" name="resopentime"  check_control="" title="Please Select Restaurant Opening Time" class="form-control <?php
-                                                                if (form_error('resopentime')) {
-                                                                    echo 'my_error';
-                                                                }
-                                                                ?>" value="<?php
-                                                                       if (!isset($success) && set_value("resopentime")) {
-                                                                           echo set_value("resopentime");
-                                                                       }
-                                                                       ?>">
-
-                                                            </div>
-                                                            <div class="col-md-2 text-center padding-left-none padding-right-none p-t-10">
-                                                                <label>To</label>
-                                                            </div>
-                                                            <div class="col-md-5 padding-left-none ">
-                                                                <input type="time" id="ps" name="resclosetime" title="Please Select Restaurant Closing Time"  check_control="" class="form-control <?php
-                                                                if (form_error('resclosetime')) {
-                                                                    echo 'my_error';
-                                                                }
-                                                                ?>" value="<?php
-                                                                       if (!isset($success) && set_value("resclosetime")) {
-                                                                           echo set_value("resclosetime");
-                                                                       }
-                                                                       ?>">
-                                                            </div>
+                                                        <label class="font-weight-semibold" for="ownname">Owner Name:</label>
+                                                        <div class="premium-field-wrap">
+                                                            <input
+                                                                type="text"
+                                                                autofocus
+                                                                name="ownname"
+                                                                id="ownname"
+                                                                placeholder="Owner Name"
+                                                                class="form-control premium-input <?php if (form_error('ownname')) { echo 'my_error input-invalid'; } ?>"
+                                                                value="<?php echo set_value('ownname'); ?>"
+                                                            >
+                                                            <!-- <img src="<?php echo base_url(); ?>assets/img/tick.png" id="tick_ownname" class="field-valid-icon" alt="valid"> -->
                                                         </div>
-
-
-
-
+                                                        <small id="error_ownname" class="validation-error"><?php echo form_error("ownname"); ?></small>
                                                     </div>
-                                                </div>   
+
+                                                    <div class="form-group">
+                                                        <label class="font-weight-semibold" for="ownmobile">Other Mobile No:</label>
+                                                        <div class="premium-field-wrap">
+                                                            <input
+                                                                type="text"
+                                                                name="ownmobile"
+                                                                id="ownmobile"
+                                                                maxlength="10"
+                                                                placeholder="Other Mobile No"
+                                                                class="form-control premium-input <?php if (form_error('ownmobile')) { echo 'my_error input-invalid'; } ?>"
+                                                                value="<?php echo set_value('ownmobile'); ?>"
+                                                            >
+                                                            <!-- <img src="<?php echo base_url(); ?>assets/img/tick.png" id="tick_ownmobile" class="field-valid-icon" alt="valid"> -->
+                                                        </div>
+                                                        <small id="error_ownmobile" class="validation-error"><?php echo form_error("ownmobile"); ?></small>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="font-weight-semibold" for="ownemail">Other Email:</label>
+                                                        <div class="premium-field-wrap">
+                                                            <input
+                                                                type="email"
+                                                                autocomplete="off"
+                                                                id="ownemail"
+                                                                name="ownemail"
+                                                                placeholder="Other Email"
+                                                                class="form-control premium-input <?php if (form_error('ownemail')) { echo 'my_error input-invalid'; } ?>"
+                                                                value="<?php echo set_value('ownemail'); ?>"
+                                                            >
+                                                            <!-- <img src="<?php echo base_url(); ?>assets/img/tick.png" id="tick_ownemail" class="field-valid-icon" alt="valid"> -->
+                                                        </div>
+                                                        <small id="error_ownemail" class="validation-error"><?php echo form_error("ownemail"); ?></small>
+                                                    </div>
+
+                                                </div>
+
                                                 <div class="col-md-6">
 
                                                     <div class="form-group">
-                                                        <?php
-                                                        if (form_error("state")) {
-                                                            ?>
-                                                            <label class="text-light-white fs-14 form_vis_error_text error_label_color"><?php echo form_error("state"); ?></label>
-                                                            <?php
-                                                        } else {
-                                                            ?>
-                                                            <label class="font-weight-semibold" for="state">State:</label>
-                                                            <?php
-                                                        }
-                                                        ?>
-                                                        <select name="state" name="state" class="form-control <?php
-                                                        if (form_error("city")) {
-                                                            echo "form_error";
-                                                        }
-                                                        ?>" onchange="set_combo1('city', this.value);">
-                                                            <option value="">Select State</option>
-                                                            <?php
-                                                            foreach ($state_detail as $single) {
-                                                                ?>
-                                                                <option value="<?php echo $single->location_id; ?>" <?php
-                                                                if (!isset($success) && set_select("state", $single->location_id)) {
-                                                                    echo "selected";
-                                                                }
-                                                                ?>><?php echo $single->name; ?></option>
-                                                                        <?php
-                                                                    }
-                                                                    ?>
-                                                        </select>
+                                                        <label class="font-weight-semibold">State:</label>
+                                                        <input type="text" class="form-control fixed-field" value="Gujarat" readonly>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <?php
-                                                        if (form_error("city")) {
-                                                            ?>
-                                                            <label class="text-light-white fs-14 form_vis_error_text error_label_color"><?php echo form_error("city"); ?></label>
-                                                            <?php
-                                                        } else {
-                                                            ?>
-                                                            <label class="font-weight-semibold" for="state">City:</label>
-                                                            <?php
-                                                        }
-                                                        ?>
-                                                        <select id="city" name="city" class="form-control <?php
-                                                        if (form_error("city")) {
-                                                            echo "form_error";
-                                                        }
-                                                        ?>" onchange="set_combo1('area', this.value);">
-                                                            <option value="">Select City</option>
-                                                            <?php
-                                                            if ($this->input->post("state") && !isset($success)) {
-                                                                $recordset = $this->md->my_select("tbl_location", "*", array("label" => "city", "parent_id" => $this->input->post("state")));
-                                                                foreach ($recordset as $data) {
-                                                                    ?>
-                                                                    <option value="<?php echo $data->location_id; ?>"<?php
-                                                                    if (!isset($success) && set_select("city", $data->location_id)) {
-                                                                        echo "selected";
-                                                                    }
-                                                                    ?>><?php echo $data->name; ?></option>
-                                                                            <?php
-                                                                        }
-                                                                    }
-                                                                    ?>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <?php
-                                                        if (form_error("area")) {
-                                                            ?>
-                                                            <label class="text-light-white fs-14 form_vis_error_text error_label_color"><?php echo form_error("area"); ?></label>
-                                                            <?php
-                                                        } else {
-                                                            ?>
-                                                            <label class="font-weight-semibold" for="state">Area:</label>
-                                                            <?php
-                                                        }
-                                                        ?>
-                                                        <select name="area" id="area" class="form-control <?php
-                                                        if (form_error("city")) {
-                                                            echo "form_error";
-                                                        }
-                                                        ?>">
-                                                            <option value="">Select Area</option>
-                                                            <?php
-                                                            if ($this->input->post("city") && !isset($success)) {
-                                                                $recordset = $this->md->my_select("tbl_location", "*", array("label" => "area", "parent_id" => $this->input->post("city")));
-                                                                foreach ($recordset as $data) {
-                                                                    ?>
-                                                                    <option value="<?php echo $data->location_id; ?>"<?php
-                                                                    if (!isset($success) && set_select("area", $data->location_id)) {
-                                                                        echo "selected";
-                                                                    }
-                                                                    ?>><?php echo $data->name; ?></option>
-                                                                            <?php
-                                                                        }
-                                                                    }
-                                                                    ?>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="font-weight-semibold" for="state"></label>
-                                                        <div class="d-flex text-right justify-content-between p-t-15">
 
-                                                            <button class="btn btn-primary signup-detail-btn " type="submit" name="signup" value="signup">Sign UP</button>
+                                                    <div class="form-group">
+                                                        <label class="font-weight-semibold">City:</label>
+                                                        <input type="text" class="form-control fixed-field" value="Surat" readonly>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="font-weight-semibold" for="area">Area:</label>
+                                                        <div class="premium-field-wrap">
+                                                            <select
+                                                                name="area"
+                                                                id="area"
+                                                                class="form-control premium-input <?php if (form_error('area')) { echo 'my_error input-invalid'; } ?>"
+                                                            >
+                                                                <option value="">Select Area</option>
+                                                                <?php if (isset($surat_areas) && !empty($surat_areas)) { ?>
+                                                                    <?php foreach ($surat_areas as $single) { ?>
+                                                                        <option value="<?php echo $single->location_id; ?>" <?php echo set_select("area", $single->location_id); ?>>
+                                                                            <?php echo $single->name; ?>
+                                                                        </option>
+                                                                    <?php } ?>
+                                                                <?php } ?>
+                                                            </select>
+                                                            <!-- <img src="<?php echo base_url(); ?>assets/img/tick.png" id="tick_area" class="field-valid-icon" alt="valid"> -->
+                                                        </div>
+                                                        <small id="error_area" class="validation-error"><?php echo form_error("area"); ?></small>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="font-weight-semibold"></label>
+                                                        <div class="d-flex text-right justify-content-between p-t-15">
+                                                            <button class="btn btn-primary signup-detail-btn" type="submit" name="signup" value="signup">Sign UP</button>
                                                         </div>
                                                     </div>
 
-                                                    <!--                                                    <div class="col-lg-12">
-                                                    <?php
-                                                    if (isset($success)) {
-                                                        ?>
-                                                                                                                        <div class="alert my_alert_success alert-success alert-dismissible fade in animated bounceInDown">
-                                                                                                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                                                                                            <i class="fa fa-info-circle"></i> 
-                                                                                                                            <strong>Yeah, </strong> <small><?php echo $success; ?></small>
-                                                                                                                        </div>
-                                                            
-                                                        <?php
-                                                    }
-                                                    if (isset($error)) {
-                                                        ?>
-                                                                                                                        <div class="alert my_alert alert-warning alert-dismissible fade in animated bounceInUp">
-                                                                                                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                                                                                            <i class="fa fa-bell"></i> 
-                                                                                                                            <strong>Oops! </strong> <small><?php echo $error; ?></small>
-                                                                                                                        </div>
-                                                        <?php
-                                                    }
-                                                    ?>
-                                                    
-                                                                                                        </div>-->
-
                                                 </div>
-                                            </div>      
+                                            </div>
                                         </form>
+
+                                        <?php if (isset($error)) { ?>
+                                            <div class="alert my_alert alert-warning alert-dismissible fade in animated bounceInUp mt-3">
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                <i class="fa fa-bell"></i>
+                                                <strong>Oops! </strong> <small><?php echo $error; ?></small>
+                                            </div>
+                                        <?php } ?>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    <?php
-                    $this->load->view("seller/footer");
-                    ?>
-                </div>
 
+                    <?php $this->load->view("seller/footer"); ?>
+                </div>
             </div>
         </div>
-        <!--script type="text/javascript">
-            $(document).ready(function(){
-                $("#ps").val("");
-            });
-        </script-->
-        <script>
-            $c = 1;
-            function showpass(id, cls)
-            {
-                if ($c == 1)
-                {
-                    $(id).attr("type", "text");
-                    $(id).attr("title", "Show");
-                    $(cls).css("color", "red");
-                    $(cls).removeClass("fa-eye");
-                    $(cls).addClass("fa-eye-slash");
-                    $c = 0;
-                } else
-                {
-                    $(id).attr("type", "password");
-                    $(id).attr("title", "Hide");
-                    $(cls).css("color", "#000");
-                    $(cls).removeClass("fa-eye-slash");
-                    $(cls).addClass("fa-eye");
-                    $c = 1;
-                }
 
-            }
-        </script>
-        <?php
-        $this->load->view("seller/footerscript");
-        ?>
+        <?php $this->load->view("seller/footerscript"); ?>
         <script src="<?php echo base_url(); ?>seller_assets/js/munchbox_ajax.js" type="text/javascript"></script>
 
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var form = document.getElementById("sellerSignupDetailForm");
+                var ownname = document.getElementById("ownname");
+                var ownmobile = document.getElementById("ownmobile");
+                var ownemail = document.getElementById("ownemail");
+                var area = document.getElementById("area");
+
+                if (ownmobile) {
+                    ownmobile.addEventListener("input", function () { validatePhone("ownmobile"); });
+                    ownmobile.addEventListener("blur", function () { validatePhone("ownmobile"); });
+                }
+
+                if (ownemail) {
+                    ownemail.addEventListener("input", function () { validateEmail("ownemail"); });
+                    ownemail.addEventListener("blur", function () { validateEmail("ownemail"); });
+                }
+
+                if (area) {
+                    area.addEventListener("change", function () {
+                        validateRequired("area", "Please Select Area");
+                    });
+                }
+
+                if (form) {
+                    form.addEventListener("submit", function (e) {
+                        var isValid = true;
+
+                        if (!validatePhone("ownmobile")) isValid = false;
+                        if (!validateEmail("ownemail")) isValid = false;
+                        if (!validateRequired("area", "Please Select Area")) isValid = false;
+
+                        if (!isValid) {
+                            e.preventDefault();
+                        }
+                    });
+                }
+            });
+        </script>
     </body>
 </html>

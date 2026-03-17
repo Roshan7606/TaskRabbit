@@ -6665,3 +6665,141 @@ padding-right:0 !important;
     color:#ff6b00;
 }
 
+/* ===== PREMIUM CARD ===== */
+
+.premium-card{
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(12px);
+    border-radius:20px;
+    overflow:hidden;
+    transition:.4s;
+    box-shadow:0 15px 40px rgba(0,0,0,0.08);
+    position:relative;
+}
+
+.premium-card:hover{
+    transform:translateY(-12px);
+    box-shadow:0 30px 80px rgba(0,0,0,0.18);
+}
+
+/* IMAGE */
+.premium-img{
+    position:relative;
+    height:220px;
+    overflow:hidden;
+}
+
+.premium-img img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.5s;
+}
+
+.premium-card:hover img{
+    transform:scale(1.1);
+}
+
+/* WISHLIST */
+.wishlist{
+    position:absolute;
+    top:15px;
+    right:15px;
+    background:white;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    cursor:pointer;
+    transition:.3s;
+}
+
+.wishlist:hover{
+    background:#ff3b3b;
+    color:#fff;
+    transform:scale(1.1);
+}
+
+/* VERIFIED BADGE */
+.badge-verified{
+    position:absolute;
+    bottom:15px;
+    left:15px;
+    background:#00c853;
+    color:#fff;
+    padding:5px 12px;
+    border-radius:20px;
+    font-size:12px;
+}
+
+/* BODY */
+.premium-body{
+    padding:22px;
+}
+
+/* NAME */
+.provider-name{
+    font-size:18px;
+    font-weight:700;
+}
+
+/* SERVICE */
+.provider-service{
+    color:#777;
+    font-size:14px;
+}
+
+/* RATING */
+.rating{
+    color:#ffb400;
+    font-size:14px;
+    margin:5px 0;
+}
+
+/* PRICE */
+.price{
+    font-size:20px;
+    font-weight:700;
+    color:#e63946;
+}
+
+/* LOCATION */
+.location{
+    font-size:13px;
+    color:#888;
+}
+
+/* STATUS */
+.status{
+    display:inline-block;
+    margin:10px 0;
+    padding:5px 12px;
+    border-radius:20px;
+    font-size:12px;
+}
+
+.status.available{
+    background:#e8f5e9;
+    color:#2e7d32;
+}
+
+/* BUTTON */
+.btn-premium{
+    display:block;
+    text-align:center;
+    padding:12px;
+    border-radius:30px;
+    background:linear-gradient(135deg,#ff3b3b,#ff6b6b);
+    color:#fff;
+    font-weight:600;
+    transition:.3s;
+}
+
+.btn-premium:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(255,0,0,0.3);
+    color:#fff;
+}

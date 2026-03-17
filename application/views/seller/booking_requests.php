@@ -74,12 +74,6 @@
                                     </div>
                                 <?php } ?>
 
-                                <?php if ($this->session->flashdata('error')) { ?>
-                                    <div class="alert alert-danger">
-                                        <?php echo $this->session->flashdata('error'); ?>
-                                    </div>
-                                <?php } ?>
-
                                 <?php if (!empty($bookings)) { ?>
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-hover">
