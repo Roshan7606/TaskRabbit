@@ -8,8 +8,25 @@
         <?php
         $this->load->view("seller/headerscript");
         ?>
+                <style>
+.premium-input.input-valid{
+border:2px solid #28a745 !important;
+}
+
+.premium-input.input-invalid{
+border:2px solid #dc3545 !important;
+}
+
+.validation-error{
+color:#dc3545;
+font-size:13px;
+margin-top:5px;
+display:block;
+}
+</style>
     </head>
     <body>
+
         <div class="app">
             <div class="layout">
 
@@ -68,11 +85,14 @@
                                 <h4 class="m-b-20">My Services</h4>
                                 <p class="m-b-25">Select the services you want to offer and enter your service price.</p>
 
-                                <?php if ($this->session->flashdata('success')) { ?>
-                                    <div class="alert alert-success">
-                                        <?php echo $this->session->flashdata('success'); ?>
-                                    </div>
-                                <?php } ?>
+                                            <?php 
+                                            $success = $this->session->flashdata('success');
+                                            if ($success) { 
+                                            ?>
+                                            <div class="alert alert-success">
+                                            <?php echo $success; ?>
+                                            </div>
+                                            <?php } ?>
 
                                 <?php if ($this->session->flashdata('error')) { ?>
                                     <div class="alert alert-danger">
@@ -121,8 +141,11 @@
                                                                     class="form-control"
                                                                     placeholder="Enter price"
                                                                     value="<?php echo $saved_price; ?>"
-                                                                    min="0"
+                                                                    min="1"
+                                                                    
                                                                 >
+                                                                <small class="validation-error" id="error_<?php echo $cat->category_id; ?>"></small>
+
                                                             </td>
                                                         </tr>
                                                     <?php } ?>
@@ -157,5 +180,109 @@
         <?php
         $this->load->view("seller/footerscript");
         ?>
-    </body>
+           
+    
+ <script>
+
+document.querySelector("form").addEventListener("submit", function(e){
+
+let valid = true;
+
+document.querySelectorAll('input[type="checkbox"][name="category_id[]"]').forEach(function(checkbox){
+
+if(checkbox.checked){
+
+let catId = checkbox.value;
+
+let priceInput = document.querySelector('input[name="price['+catId+']"]');
+
+if(priceInput.value === "" || priceInput.value <= 0){
+
+alert("Price must be greater than 0 for selected service.");
+
+priceInput.focus();
+
+valid = false;
+
+}
+
+}
+
+});
+
+if(!valid){
+e.preventDefault();
+}
+
+});
+
+function validatePrice(catId){
+
+let input = document.getElementById("price_"+catId);
+let error = document.getElementById("error_price_"+catId);
+
+let value = input.value.trim();
+
+if(value === "" || value <= 0){
+
+input.classList.remove("input-valid");
+input.classList.add("input-invalid");
+
+error.innerHTML = "Price must be greater than 0";
+
+return false;
+
+}else{
+
+input.classList.remove("input-invalid");
+input.classList.add("input-valid");
+
+error.innerHTML = "";
+
+return true;
+
+}
+
+}
+
+document.querySelectorAll('input[name="category_id[]"]').forEach(function(checkbox){
+
+checkbox.addEventListener("change",function(){
+
+let catId = this.value;
+let input = document.getElementById("price_"+catId);
+
+if(this.checked){
+
+input.addEventListener("input",function(){
+validatePrice(catId);
+});
+
+}
+
+});
+
+});
+
+document.querySelector("form").addEventListener("submit",function(e){
+
+let valid = true;
+
+document.querySelectorAll('input[name="category_id[]"]:checked').forEach(function(checkbox){
+
+let catId = checkbox.value;
+
+if(!validatePrice(catId)){
+valid=false;
+}
+
+});
+
+if(!valid){
+e.preventDefault();
+}
+
+});
+</script>
+   </body>
 </html>

@@ -253,7 +253,7 @@ class Restaurant extends CI_Controller
             $this->form_validation->set_rules(
                 "email",
                 "",
-                "required|valid_email|regex_match[/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.(com|in|org|net|co\.in)$/i]",
+                "required|valid_email|regex_match[/^[a-z0-9._%+-]+@[a-z0-9.-]+\.(com|in|org|net|co\.in)$/]",
                 array(
                     'required'    => "Please Enter Email.",
                     'valid_email' => "Please Enter valid Email.",
