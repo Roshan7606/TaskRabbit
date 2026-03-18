@@ -136,145 +136,78 @@ $data["food_item_detail"] = $this->md->my_query("select cat.name as category,sub
         $this->load->view("democard");
     }
 
-public function login()
-{
-    $data = array();
-
-    if ($this->input->method() === 'post')
-    {
-        $email = strtolower(trim($this->input->post("email")));
-        $password = trim($this->input->post("ps"));
-
-        if ($email != "" && $password != "")
-        {
-            $detail = $this->db
-                ->where("LOWER(email)", $email)
-                ->get("tbl_user")
-                ->row();
-
-            if (!$detail)
-            {
-                $data["error"] = "Account not found. Please register first.";
-            }
-            else
-            {
-                $storedPassword = $this->encryption->decrypt($detail->password);
-
-                if ($password !== $storedPassword)
-                {
-                    $data["error"] = "Invalid password.";
-                }
-                else
-                {
-                    $this->session->set_userdata("user_username", $detail->user_id);
-                    $this->session->set_userdata("user_logintime", date("Y-m-d H:i:s"));
-
-                    redirect("Restaurant/0");
-                    return;
-                }
-            }
-        }
-
-        $this->load->view("login", $data);
-        return;
-    }
-
-    $this->load->view("login");
-}
-    public function signup()
-    {
+    public function login() {
         $data = array();
 
-        if ($this->input->post("add_register"))
-        {
-            $this->form_validation->set_rules(
-                "name",
-                "",
-                "required|regex_match[/^[A-Za-z ]+$/]",
-                array(
-                    "required" => "This Field Is Required",
-                    "regex_match" => "Only Alpha Allow"
-                )
-            );
+        if ($this->input->post("login")) {
 
-            $this->form_validation->set_rules(
-                "mobile",
-                "",
-                "required|regex_match[/^[0-9]+$/]|min_length[10]|max_length[10]",
-                array(
-                    "required" => "This Field Is Required",
-                    "min_length" => "Minimum 10 character allow",
-                    "max_length" => "Maximum 10 character allow"
-                )
-            );
-
-            $this->form_validation->set_rules(
-                "email",
-                "",
-                "required|valid_email",
-                array(
-                    "required" => "This Field Is Required",
-                    "valid_email" => "Enter Valid Email"
-                )
-            );
-
-            $this->form_validation->set_rules(
-                "ps",
-                "",
-                "required|min_length[8]",
-                array(
-                    "required" => "This Field Is Required",
-                    "min_length" => "Password Must Be In Minimum 8 Character"
-                )
-            );
-
-            if ($this->form_validation->run() == TRUE)
-            {
-                $name   = strtolower(trim($this->input->post("name")));
-                $email  = trim($this->input->post("email"));
-                $mobile = trim($this->input->post("mobile"));
-
-                $email_check = count($this->md->my_select("tbl_user", "*", array("email" => $email)));
-                if ($email_check > 0)
-                {
-                    $data["error"] = "Email is already registered.";
-                }
-                else
-                {
-                    $mobile_check = count($this->md->my_select("tbl_user", "*", array("contact_no" => $mobile)));
-                    if ($mobile_check > 0)
-                    {
-                        $data["error"] = "Mobile number is already registered.";
-                    }
-                    else
-                    {
-                        $ins['user_id'] = 0;
-                        $ins['status'] = 1;
-                        $ins['name'] = $name;
-                        $ins['contact_no'] = $mobile;
-                        $ins['email'] = $email;
-                        $ins['password'] = $this->encryption->encrypt($this->input->post("ps"));
-
-                        $result = $this->md->my_insert("tbl_user", $ins);
-
-                        if ($result == 1)
-                        {
-                            $user_id = $this->md->my_select("tbl_user", "*", array("email" => $email));
-                            if (count($user_id) != 0)
-                            {
-                                $this->session->set_userdata("user_username", $user_id[0]->user_id);
-                                redirect("Restaurant/0");
+            if ($this->input->post("email") != "") {
+                if ($this->input->post("ps") != "") {
+                    $email = $this->input->post("email");
+                    $detail = $this->md->my_select("tbl_user", "*", array("email" => $email));
+                    $count = count($detail);
+                    if ($count == 1) {
+                        $ps = $this->input->post("ps");
+                        $nps = $this->encryption->decrypt($detail[0]->password);
+                        if ($ps == $nps) {
+                            $this->session->set_userdata("user_username", $detail[0]->user_id);
+                            $this->session->set_userdata("user_logintime", date("Y-m-d H:i:s"));
+                            if ($this->input->post("svp")) {
+                                $exp = 60 * 60 * 24 * 3;
+                                set_cookie("user_username", $this->input->post("username"), $exp);
+                                set_cookie("user_password", $this->input->post("ps"), $exp);
                             }
+                            redirect("Restaurant/0");
+                        } else {
+                            $data["error"] = "Invalid Username Or Password";
                         }
-                        else
-                        {
-                            $data["error"] = "Somethis Is Wrong";
+                    } else {
+                        $data["error"] = "Invalid Username Or Password";
+                    }
+                } else {
+                    $data["error"] = "Invalid Username Or Password";
+                }
+            } else {
+                $data["error"] = "Invalid Username Or Password";
+            }
+        }
+        $this->load->view("login", $data);
+    }
+
+    public function signup() {
+        $data = array();
+        if ($this->input->post("add_register")) {
+            $this->form_validation->set_rules("name", "", "required|regex_match[/^[A-Za-z ]+$/]", array("required" => "This Field Is Required", "regex_match" => "Only Alpha Allow"));
+            $this->form_validation->set_rules("mobile", "", "required|regex_match[/^[0-9]+$/]|min_length[10]|max_length[10]", array("required" => "This Field Is Required", "min_length" => "Minimum 10 character allow", "max_length" => "Maximum 10 character allow"));
+            $this->form_validation->set_rules("email", "", "required|valid_email", array("required" => "This Field Is Required", "valid_email" => "Enter Valid Email"));
+            $this->form_validation->set_rules("ps", "", "required|min_length[8]", array("required" => "This Field Is Required", "min_length" => "Password Must Be In Minimum 8 Character"));
+            if ($this->form_validation->run() == TRUE) {
+                $name = strtolower($this->input->post("name"));
+                $wh["name"] = $this->input->post("email");
+                $count = count($this->md->my_select("tbl_user", "*", $wh));
+                if ($count != 0) {
+                    $data["error"] = $name . " Is Already Exist";
+                } else {
+                    $ins['user_id'] = 0;
+                    $ins['status'] = 1;
+                    $ins['name'] = $name;
+                    $ins['contact_no'] = $this->input->post("mobile");
+                    $ins['email'] = $this->input->post("email");
+                    $ins['password'] = $this->encryption->encrypt($this->input->post("ps"));
+                    $result = $this->md->my_insert("tbl_user", $ins);
+                    if ($result == 1) {
+                        $user_id = $this->md->my_select("tbl_user", "*", array("email" => $this->input->post("email")));
+                        if (count($user_id) != 0) {
+                            $this->session->set_userdata("user_username", $user_id[0]->user_id);
+                            redirect("Restaurant/0");
                         }
+                    } else {
+
+                        $data["error"] = "Somethis Is Wrong";
                     }
                 }
             }
         }
-
         $this->load->view("signup", $data);
     }
 
@@ -330,75 +263,18 @@ public function login()
             ->get()
             ->result();
 
-        $data["eligible_review_services"] = array();
+        $data["star_rating"] = $this->md->my_query(
+            "select AVG(rating) as rate_star , count(*) as cnt_rate
+            from tbl_review_rating
+            where restaurant_id = ".$id
+        );
 
-        if ($this->session->userdata("user_username"))
-        {
-            $user_id = $this->session->userdata("user_username");
-
-            $data["eligible_review_services"] = $this->db
-                ->select("MAX(b.booking_id) as booking_id, b.provider_id, b.provider_service_id, b.category_id, c.name as service_name")
-                ->from("tbl_service_bookings b")
-                ->join("tbl_category c", "c.category_id = b.category_id", "left")
-                ->where("b.user_id", $user_id)
-                ->where("b.provider_id", $id)
-                ->where("b.booking_status", "accepted")
-                ->where("b.provider_service_id NOT IN (
-                    SELECT provider_service_id 
-                    FROM tbl_service_reviews 
-                    WHERE user_id = ".$this->db->escape($user_id)." 
-                    AND provider_id = ".$this->db->escape($id)." 
-                    AND status = 1
-                )", null, false)
-                ->group_by("b.provider_service_id")
-                ->group_by("b.category_id")
-                ->group_by("b.provider_id")
-                ->order_by("booking_id", "DESC")
-                ->get()
-                ->result();
-        }
-
-        $data["service_rating_map"] = array();
-
-        $service_rating_rows = $this->db
-            ->select("provider_service_id, ROUND(AVG(rating),1) as avg_rating, COUNT(*) as total_reviews")
-            ->from("tbl_service_reviews")
-            ->where("provider_id", $id)
-            ->where("status", 1)
-            ->group_by("provider_service_id")
-            ->get()
-            ->result();
-
-        foreach ($service_rating_rows as $row)
-        {
-            $data["service_rating_map"][$row->provider_service_id] = array(
-                "avg_rating"    => $row->avg_rating,
-                "total_reviews" => $row->total_reviews
-            );
-        }
-
-        $data["star_rating"] = $this->db
-            ->select("AVG(rating) as rate_star, COUNT(*) as cnt_rate")
-            ->from("tbl_service_reviews")
-            ->where("provider_id", $id)
-            ->where("status", 1)
-            ->get()
-            ->result();
-
-        if (empty($data["star_rating"])) {
-            $data["star_rating"] = array((object) array("rate_star" => 0, "cnt_rate" => 0));
-        }
-
-        $data["review_rating"] = $this->db
-            ->select("sr.*, u.name, u.profile, c.name as service_name")
-            ->from("tbl_service_reviews sr")
-            ->join("tbl_user u", "u.user_id = sr.user_id", "left")
-            ->join("tbl_category c", "c.category_id = sr.category_id", "left")
-            ->where("sr.provider_id", $id)
-            ->where("sr.status", 1)
-            ->order_by("sr.review_id", "DESC")
-            ->get()
-            ->result();
+        $data["review_rating"] = $this->md->my_query(
+            "select us.*, re.*
+            from tbl_user as us, tbl_review_rating as re
+            where re.restaurant_id = '".$id."'
+            and us.user_id = re.user_id"
+        );
 
         $data["schedule_details"] = $this->db
             ->where("seller_id", $id)
@@ -462,7 +338,7 @@ public function login()
         $this->form_validation->set_rules('service_time', 'Service Time', 'required');
 
         if ($this->form_validation->run() == FALSE) {
-            // $this->session->set_flashdata('booking_error', validation_errors());
+            $this->session->set_flashdata('error', validation_errors());
             redirect($_SERVER['HTTP_REFERER']);
             return;
         }
@@ -483,7 +359,7 @@ public function login()
         $service_time = $this->input->post('service_time');
 
         if (strtotime($service_date) < strtotime(date('Y-m-d'))) {
-            // $this->session->set_flashdata('booking_error', 'Past date is not allowed.');
+            $this->session->set_flashdata('error', 'Past date is not allowed.');
             redirect($_SERVER['HTTP_REFERER']);
             return;
         }
@@ -496,7 +372,7 @@ public function login()
             ->row();
 
         if (!$service_exists) {
-            $this->session->set_flashdata('booking_error', 'Invalid service selected.');
+            $this->session->set_flashdata('error', 'Invalid service selected.');
             redirect($_SERVER['HTTP_REFERER']);
             return;
         }
@@ -504,7 +380,6 @@ public function login()
         $expires_at = date('Y-m-d H:i:s', strtotime('+2 minutes'));
 
         $ins = array(
-            'user_id' => $this->session->userdata("user_username"),
             'provider_id' => $provider_id,
             'provider_service_id' => $provider_service_id,
             'category_id' => $category_id,
@@ -1121,87 +996,6 @@ public function login()
         $data["order_detail"] = $this->md->my_query("select tr.*,it.item_name,it.measurement,it.description,it.category_id,it.image from tbl_transaction as tr,tbl_item as it,tbl_bill as bl where tr.item_id = it.item_id and it.restaurant_id = tr.restaurant_id and bl.bill_id = tr.bill_id and tr.bill_id = " . $this->uri->segment(2) . " and tr.user_id = " . $this->session->userdata("user_username"));
         $data["bill_detail"] = $this->md->my_select("tbl_bill", "*", array("bill_id" => $this->uri->segment(2), "user_id" => $this->session->userdata("user_username")));
         $this->load->view("user_bill", $data);
-    }
-
-    public function submit_service_review()
-    {
-        $this->security();
-
-        $user_id = $this->session->userdata("user_username");
-
-        $this->form_validation->set_rules("provider_id", "", "required|numeric");
-        $this->form_validation->set_rules("booking_id", "", "required|numeric");
-        $this->form_validation->set_rules("provider_service_id", "", "required|numeric");
-        $this->form_validation->set_rules("category_id", "", "required|numeric");
-        $this->form_validation->set_rules("rating", "", "required|numeric|greater_than[0]|less_than[6]");
-        $this->form_validation->set_rules("review_text", "", "required|min_length[3]|max_length[1000]");
-
-        if ($this->form_validation->run() == FALSE)
-        {
-            $this->session->set_flashdata("review_error", validation_errors());
-            redirect($_SERVER['HTTP_REFERER']);
-            return;
-        }
-
-        $provider_id         = (int)$this->input->post("provider_id");
-        $booking_id          = (int)$this->input->post("booking_id");
-        $provider_service_id = (int)$this->input->post("provider_service_id");
-        $category_id         = (int)$this->input->post("category_id");
-        $rating              = (int)$this->input->post("rating");
-        $review_text         = trim($this->input->post("review_text"));
-
-        // 1) Check booking belongs to logged-in user and is accepted
-        $booking = $this->db
-            ->where("booking_id", $booking_id)
-            ->where("user_id", $user_id)
-            ->where("provider_id", $provider_id)
-            ->where("provider_service_id", $provider_service_id)
-            ->where("category_id", $category_id)
-            ->where("booking_status", "accepted")
-            ->get("tbl_service_bookings")
-            ->row();
-
-        if (!$booking)
-        {
-            $this->session->set_flashdata("review_error", "You can review only accepted booked services.");
-            redirect($_SERVER['HTTP_REFERER']);
-            return;
-        }
-
-        // 2) Check already reviewed or not
-        $already_reviewed = $this->db
-            ->where("user_id", $user_id)
-            ->where("provider_id", $provider_id)
-            ->where("provider_service_id", $provider_service_id)
-            ->where("category_id", $category_id)
-            ->where("status", 1)
-            ->get("tbl_service_reviews")
-            ->row();
-
-        if ($already_reviewed)
-        {
-            $this->session->set_flashdata("review_error", "You have already reviewed this service.");
-            redirect($_SERVER['HTTP_REFERER']);
-            return;
-        }
-
-        // 3) Insert review
-        $ins = array(
-            "booking_id"          => $booking_id,
-            "user_id"             => $user_id,
-            "provider_id"         => $provider_id,
-            "provider_service_id" => $provider_service_id,
-            "category_id"         => $category_id,
-            "rating"              => $rating,
-            "review_text"         => $review_text,
-            "status"              => 1,
-            "created_at"          => date("Y-m-d H:i:s")
-        );
-
-        $this->db->insert("tbl_service_reviews", $ins);
-
-        $this->session->set_flashdata("review_success", "Review submitted successfully.");
-        redirect("Restaurant-Details/".$provider_id);
     }
 
 }
