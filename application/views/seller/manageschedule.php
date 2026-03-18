@@ -42,74 +42,76 @@
                                         <h4 class="card-title">Service Shedule:</h4>
                                     </div>
                                     <div class="card-body">
-                                        <div class="schedule-details">
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    <p>Date</p>
+
+                                            <?php if($this->session->flashdata("success")) { ?>
+                                                <div class="alert alert-success">
+                                                    <?php echo $this->session->flashdata("success"); ?>
                                                 </div>
-                                                <div class="col-md-3">
-                                                    <p>Day Name</p>
+                                            <?php } ?>
+
+                                            <form method="post" action="">
+                                                <div class="schedule-details">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <p><strong>Day Name</strong></p>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <p><strong>Open Time</strong></p>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <p><strong>Close Time</strong></p>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <p><strong>Status</strong></p>
+                                                        </div>
+                                                        <div class="col-md-12 schedule-border-line m-b-10"></div>
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-2">
-                                                    <p>Open Time</p>
+
+                                                <div class="row schedule-details-subcard">
+                                                    <?php foreach($days as $day) { 
+                                                        $open_time = isset($schedule[$day]) ? $schedule[$day]['open_time'] : "";
+                                                        $close_time = isset($schedule[$day]) ? $schedule[$day]['close_time'] : "";
+                                                    ?>
+                                                        <div class="col-md-4 m-b-15">
+                                                            <label><?php echo $day; ?></label>
+                                                        </div>
+
+                                                        <div class="col-md-3 m-b-15">
+                                                            <input 
+                                                                type="time" 
+                                                                name="open_time_<?php echo $day; ?>" 
+                                                                class="form-control"
+                                                                value="<?php echo $open_time; ?>"
+                                                            >
+                                                        </div>
+
+                                                        <div class="col-md-3 m-b-15">
+                                                            <input 
+                                                                type="time" 
+                                                                name="close_time_<?php echo $day; ?>" 
+                                                                class="form-control"
+                                                                value="<?php echo $close_time; ?>"
+                                                            >
+                                                        </div>
+
+                                                        <div class="col-md-2 m-b-15">
+                                                            <?php if(!empty($open_time) && !empty($close_time)) { ?>
+                                                                <span class="badge badge-success">Set</span>
+                                                            <?php } else { ?>
+                                                                <span class="badge badge-danger">Not Set</span>
+                                                            <?php } ?>
+                                                        </div>
+                                                    <?php } ?>
+
+                                                    <div class="col-md-12 mt-3">
+                                                        <button type="submit" name="save_schedule" value="1" class="btn btn-primary">
+                                                            Save Schedule
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-2">
-                                                    <p>Close Time</p>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <p>Action</p>
-                                                </div>
-                                                <div class="col-md-12 schedule-border-line m-b-10">
-                                                
-                                                </div>
-                                            </div>
+                                            </form>
                                         </div>
-                                        
-                                         <!--<form name="sceduleform" method="post" action="">-->
-                                        <div class="row schedule-details-subcard">
-                                           
-                                            <?php
-                                         
-                                            for($i=0;$i<7;$i++)
-                                            {
-                                                $day_name = date("l",strtotime("+".$i." day"));
-                                                $schedule_detail = $this->md->my_select("tbl_schedule","*",array("day_name"=>$day_name,"restaurant_id"=>$this->session->userdata("seller_email")));
-                                                foreach($schedule_detail as $single)
-                                                {
-                                            
-                       
-                                         ?>
-                                            <div class="col-md-3 m-b-10">
-                                                    <p><?php
-                                                        
-                                                        echo date("d-m-y",strtotime("+".$i." day")); 
-                                                    ?></p>
-                                                </div>
-                                             <div class="col-md-3 m-b-10">
-                                                    <p><?php echo $single->day_name; ?></p>
-                                                </div>
-                                                <div class="col-md-2 m-b-10">
-                                                    <p class="schedule_p_<?php echo $single->schedule_id; ?>"> <?php echo date("h:i:s A", strtotime($single->open_time)); ?></p>
-                                                    <input  class="schedule_input_<?php echo $single->schedule_id; ?> display-none form-control" type="time" id="schedule_opentime_<?php echo $single->schedule_id; ?>" value="<?php echo $single->open_time; ?>">
-                                                </div>
-                                                <div class="col-md-2 m-b-10">
-                                                    <p class="schedule_p_<?php echo $single->schedule_id; ?>"> <?php echo date("h:i:s A", strtotime($single->close_time)); ?></p>
-                                                    <input class=" schedule_input_<?php echo $single->schedule_id; ?> form-control display-none" type="time" id="schedule_closetime_<?php echo $single->schedule_id; ?>" value="<?php echo $single->close_time; ?>">
-                                                </div>
-                                                <div class="col-md-2 m-b-10">
-                                                    <button class="btn btn-primary update_btn_schedule_<?php echo $single->schedule_id; ?>" title="Click Here To Update Schedule Details" onclick="updateschedule('<?php echo $single->schedule_id; ?>','show')">Edit</button>
-                                                    <button class="btn btn-primary update-btn-schedule display-none" type="submit" value="update">Update Schedule</button>
-                                                    
-                                                </div>
-                                            
-                                        <?php
-                                                }
-                                            }
-                                        ?>
-                                                
-                                        </div>
-                                        <!--</form>-->
-                                    </div>
                                 </div>
                             </div>
                         </div>

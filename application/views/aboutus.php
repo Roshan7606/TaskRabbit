@@ -23,12 +23,200 @@
         ?>
          <div class="main-sec"></div>
 
-         <section class="about-hero">
-        <div class="container text-center">
 
-        <h1>About TaskRabbit</h1>
-        <p>Connecting people with trusted service professionals.</p>
 
+<section class="task-hero">
+
+<div class="container hero-grid">
+
+<div class="hero-text">
+
+<h1>
+Post a task. Get offers. Get it done!
+</h1>
+
+<p>
+The best place for people and businesses to outsource tasks
+</p>
+
+<!-- <a href="#" class="task-btn">
+Post a task for free
+<span>→</span>
+</a> -->
+
+</div>
+
+
+<div class="hero-image">
+
+<div class="image-card">
+
+ <img src="<?php echo base_url(); ?>assets/img/hero-task.WEBP" alt="icon">
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<section class="task-describe">
+
+<div class="container describe-grid">
+
+<div class="describe-image">
+
+<div class="phone-card">
+<img src="<?php echo base_url(); ?>assets/img/task-mobile.webp" alt="icon">
+</div>
+
+</div>
+
+
+<div class="describe-text">
+
+<h2>Describe what you need done</h2>
+
+<p>
+Describe what you need done in a few sentences.
+Keep it simple and clear to attract the best Taskers.
+</p>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<section class="task-budget">
+
+<div class="container budget-grid">
+
+<div class="budget-text">
+
+<h2>Set your budget</h2>
+
+<p>
+Don't worry, you can adjust your budget later and
+discuss it with potential Taskers if needed.
+</p>
+
+</div>
+
+
+<div class="budget-image">
+
+<div class="phone-card">
+
+<img src="<?php echo base_url(); ?>assets/img/budget.webp" alt="icon">
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+
+<section class="task-offers">
+
+<div class="container offers-grid">
+
+<div class="offers-image">
+
+<div class="phone-card">
+
+<img src="<?php echo base_url(); ?>assets/img/offer-mobile.webp" alt="icon">
+
+</div>
+
+</div>
+
+
+<div class="offers-text">
+
+<h2>Receive quotes. Pick the most suitable Tasker.</h2>
+
+<p>
+Take a look at profiles, ratings, completion rate and reviews 
+to pick the Tasker you'd like to work with. When the task is 
+done, say thanks by releasing payment and writing a review so 
+everyone can know what a great job they've done.
+</p>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+
+<section class="task-payment">
+
+<div class="container payment-grid">
+
+<div class="payment-image">
+
+<img src="<?php echo base_url(); ?>assets/img/cod-mobile.webp" alt="icon">
+
+<div class="payment-card">
+
+<span class="status-dot"></span>
+Task complete
+
+<a href="#" class="release-btn">
+Release payment →
+</a>
+
+</div>
+
+</div>
+
+
+<div class="payment-text">
+
+<h2>Payments on lock</h2>
+
+<p>
+Airtasker Pay is the seamless and secure way to get your tasks
+completed. Once you accept an offer on a task, the agreed upon
+amount is held secure until the task is complete.
+</p>
+
+<p>
+Once complete, you'll simply need to release the payment.
+We'll then transfer the task payment to the Tasker's bank account.
+</p>
+
+<ul class="payment-list">
+
+<li>Fast and hassle free payment</li>
+<li>Cashless payments, no cash in hand</li>
+<li>You are always in control</li>
+
+</ul>
+
+<a href="#" class="payment-btn">
+Learn more
+</a>
+
+</div>
+
+</div>
+
+</section>
         </div>
         </section>
         <!-- Navigation -->
@@ -36,39 +224,10 @@
         
         <!-- slider -->
         <!-- about us -->
-        <section class="aboutus section-padding">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6">
-                        <div class="history-title mb-md-40">
-                            <h2>
-                                A History Written For TaskRabbit <br>
-                                <span class="text-light-green">Explore More Of Our Story</span>
-                            </h2>
-                            <p class="text-light-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.</p>
-                            <p class="text-light-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="row align-items-center">
-                            <div class="col-lg-6 col-sm-6 col-md-6">
-                                <div class="histry-img mb-xs-20">
-                                    <img src="<?php echo base_url(); ?>assets/img/about/blog/255x200/about-section-3.jpg" class="img-fluid full-width" alt="Histry">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6 col-md-6">
-                                <div class="histry-img mb-xl-20">
-                                    <img src="<?php echo base_url(); ?>assets/img/about/blog/255x200/about-section-1.jpg" class="img-fluid full-width" alt="Histry">
-                                </div>
-                                <div class="histry-img">
-                                    <img src="<?php echo base_url(); ?>assets/img/about/blog/255x200/about-section-2.jpg" class="img-fluid full-width" alt="Histry">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+     
+
+
+
         <!-- about us -->
         <!-- How It Woks -->
         <section class="section-padding how-it-works bg-light-theme">
@@ -140,93 +299,40 @@
 
 
 
-        <!-- <section class="how-it-works-premium">
+  
+
+    
+       <section class="about-stats">
+
 <div class="container">
 
-<div class="section-title text-center">
-<h6>OUR PROCESS</h6>
-<h2>How Does It Work</h2>
+<div class="row text-center justify-content-center">
+
+<div class="col-lg-2 col-md-3 col-6">
+<h2 class="counter" data-count="3.4">0</h2>
+<p>Tasks Completed</p>
 </div>
 
-<div class="process-timeline">
-
-<div class="process-step">
-<div class="process-circle">01</div>
-<div class="process-content">
-<i class="fas fa-search"></i>
-<h5>Search</h5>
-<p>We provided facility to search your favourite service.</p>
-</div>
+<div class="col-lg-2 col-md-3 col-6">
+<h2 class="counter" data-count="120">0</h2>
+<p>Trusted Taskers</p>
 </div>
 
-<div class="process-step">
-<div class="process-circle">02</div>
-<div class="process-content">
-<i class="fas fa-shopping-bag"></i>
-<h5>Select</h5>
-<p>Choose from a wide range of trusted service providers.</p>
-</div>
+<div class="col-lg-2 col-md-3 col-6">
+<h2 class="counter" data-count="50">0</h2>
+<p>Cities Covered</p>
 </div>
 
-<div class="process-step">
-<div class="process-circle">03</div>
-<div class="process-content">
-<i class="fas fa-stopwatch"></i>
-<h5>Book</h5>
-<p>Book your service easily within your preferred time.</p>
-</div>
-</div>
-
-<div class="process-step">
-<div class="process-circle">04</div>
-<div class="process-content">
-<i class="fas fa-map-marker-alt"></i>
-<h5>Enjoy</h5>
-<p>Relax while professionals complete your task.</p>
-</div>
+<div class="col-lg-2 col-md-3 col-6">
+<h2 class="counter" data-count="98">0</h2>
+<p>Customer Satisfaction</p>
 </div>
 
 </div>
 
 </div>
-</section> -->
 
-
-
-
-
-
-
-
-
-
-
-        
-        <section class="about-stats">
-        <div class="row text-center">
-
-        <div class="col-md-3">
-        <h2 class="counter" data-count="3.4">0</h2>
-        <p>Tasks Completed</p>
-        </div>
-
-        <div class="col-md-3">
-        <h2 class="counter" data-count="120">0</h2>
-        <p>Trusted Taskers</p>
-        </div>
-
-        <div class="col-md-3">
-        <h2 class="counter" data-count="50">0</h2>
-        <p>Cities Covered</p>
-        </div>
-
-        <div class="col-md-3">
-        <h2 class="counter" data-count="98">0</h2>
-        <p>Customer Satisfaction</p>
-        </div>
-
-        </div>
-        </section>
+</section>
 
         <section class="testimonials section-padding bg-light-theme">
 <div class="container">
@@ -304,43 +410,7 @@
 </section>
 
 
-        <section class="our-team section-padding">
-<div class="container">
 
-<div class="section-header text-center">
-<h3>Meet Our Team</h3>
-</div>
-
-<div class="row">
-
-<div class="col-md-4">
-<div class="team-box text-center">
-<img src="<?php echo base_url(); ?>assets/img/team1.jpg" class="img-fluid">
-<h6>John Smith</h6>
-<p>Founder</p>
-</div>
-</div>
-
-<div class="col-md-4">
-<div class="team-box text-center">
-<img src="<?php echo base_url(); ?>assets/img/team2.jpg" class="img-fluid">
-<h6>Emily Watson</h6>
-<p>Operations Manager</p>
-</div>
-</div>
-
-<div class="col-md-4">
-<div class="team-box text-center">
-<img src="<?php echo base_url(); ?>assets/img/team3.jpg" class="img-fluid">
-<h6>Michael Lee</h6>
-<p>Service Manager</p>
-</div>
-</div>
-
-</div>
-
-</div>
-</section>
 
 
 <section class="cta-section">

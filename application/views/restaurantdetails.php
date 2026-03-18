@@ -243,6 +243,39 @@
                             </div>
                         </div>
 
+                        <div class="container">
+    <div class="provider-profile-card">
+
+        <div class="provider-left">
+
+            <img src="<?php echo base_url() . $restaurent_detail[0]->coverpic; ?>" class="provider-avatar">
+
+            <div>
+                <h2><?php echo $restaurent_detail[0]->restaurant_name; ?></h2>
+
+                <p class="provider-location">
+                    <?php echo $restaurent_address_detail[0]->area; ?> • 
+                    <?php echo $restaurent_address_detail[0]->city; ?> • 
+                    <?php echo $restaurent_address_detail[0]->state; ?>
+                </p>
+
+                <div class="provider-rating">
+                    ⭐ <?php echo round($star_rating[0]->rate_star,1); ?>
+                    <span>(<?php echo $star_rating[0]->cnt_rate; ?> reviews)</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <button class="hire-btn" onclick="scrollToServices()">
+            Hire Now
+        </button>
+
+    </div>
+</div>
+
+
                         <div class="restaurent-logo" style="margin-left: 40%;">
                         <?php
                         $cover_img = !empty($restaurent_detail[0]->coverpic)
@@ -319,30 +352,9 @@
                     <div class="col-xl-12 col-lg-12">
                         <div class="row">
 
-                            <div class="col-xl-3 col-lg-3">
-                                <div class="card sidebar-card">
-                                    <div class="user-menu scrollnav">
-                                        <ul class="nav-pills">
-                                            <li class="user-menu-li">Services</li>
-                                            <li class="display-none"><a href="" class="active-cuisin ">Search Result</a></li>
+                        
 
-                                            <?php if (!empty($service_items)) { ?>
-                                                <?php foreach ($service_items as $single) { ?>
-                                                    <li>
-                                                        <a href="javascript:void(0);"><?php echo $single->category_name; ?></a>
-                                                    </li>
-                                                <?php } ?>
-                                            <?php } else { ?>
-                                                <li>
-                                                    <a href="javascript:void(0);">No services found</a>
-                                                </li>
-                                            <?php } ?>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6 restaurent-meal-head mb-md-40">
+                            <div class="col-lg-12 restaurent-meal-head mb-md-40">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="card-header background-header-card padding-left-none">
@@ -359,9 +371,6 @@
                                             <div class="row">
                                                 <div class="col-md-12 m-b-10 padding-right-none">
                                                     <div class="sb-example-3">
-                                                        <div class="search__container">
-                                                            <input class="search__input" type="text" placeholder="Search services">
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -377,10 +386,20 @@
 
                                                 <?php if (!empty($service_items)) { ?>
                                                     <?php foreach ($service_items as $item) { ?>    
-                                                        <div class="col-md-12 food-category-detail-heading">
-                                                            <h4><?php echo ucwords($item->category_name); ?></h4>
-                                                            <p>1 Service</p>
-                                                        </div>
+                                                        <div class="col-lg-12">
+
+<div class="premium-service-card">
+
+<!-- <div class="service-left">
+<img src="<?php echo base_url(); ?>assets/img/service-demo.jpg" class="service-img">
+</div> -->
+
+<div class="service-right">
+
+<div class="service-top">
+<h5><?php echo $item->category_name; ?></h5>
+<span class="verified-badge">✔ Verified</span>
+</div>
 
                                                         <div class="col-lg-12">
                                                             <div class="restaurent-product-list">
@@ -394,76 +413,40 @@
                                                                                             <?php echo $item->category_name; ?>
                                                                                         </a>
                                                                                     </h6>
-
-                                                                                    <?php
-                                                                                    $avg_rating = 0;
-                                                                                    $total_reviews = 0;
-
-                                                                                    if (isset($service_rating_map[$item->id])) {
-                                                                                        $avg_rating = (float)$service_rating_map[$item->id]["avg_rating"];
-                                                                                        $total_reviews = (int)$service_rating_map[$item->id]["total_reviews"];
-                                                                                    }
-
-                                                                                    $rounded_rating = round($avg_rating);
-                                                                                    ?>
-
-                                                                                    <?php if ($total_reviews > 0) { ?>
-                                                                                        <div class="service-rating-block">
-                                                                                            <div class="rating-stars">
-                                                                                                <?php for ($i = 1; $i <= 5; $i++) { ?>
-                                                                                                    <?php if ($i <= $rounded_rating) { ?>
-                                                                                                        <span class="star-filled">&#9733;</span>
-                                                                                                    <?php } else { ?>
-                                                                                                        <span class="star-empty">&#9733;</span>
-                                                                                                    <?php } ?>
-                                                                                                <?php } ?>
-                                                                                            </div>
-
-                                                                                            <div class="rating-text">
-                                                                                                <?php echo number_format($avg_rating, 1); ?>
-                                                                                                (<?php echo $total_reviews; ?> review<?php echo ($total_reviews != 1 ? 's' : ''); ?>)
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    <?php } ?>
-
                                                                                     <p class="font-item-prize-style">
                                                                                         &#8377; <?php echo number_format($item->service_price, 2); ?>
                                                                                     </p>
                                                                                 </div>
 
-                                                                                <div class="restaurent-product-label">
-                                                                                    <span class="rectangle-tag product-label-ovo-veg-tag">Service</span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+<div class="service-price">
+₹ <?php echo number_format($item->service_price,2); ?>
+</div>
 
-                                                                        <div class="restaurent-product-caption-box">
-                                                                            <span class="text-light-white">
-                                                                                <?php
-                                                                                if (!empty($item->description)) {
-                                                                                    echo $item->description;
-                                                                                } else {
-                                                                                    echo "Professional service available";
-                                                                                }
-                                                                                ?>
-                                                                            </span>
-                                                                        </div>
-                                                                        <div style="margin-top: 15px;">
-                                                                            <button type="button"
-                                                                                    class="btn btn-danger"
-                                                                                    onclick="handleBookingClick(
-                                                                                        '<?php echo $restaurent_detail[0]->restaurant_id; ?>',
-                                                                                        '<?php echo $item->id; ?>',
-                                                                                        '<?php echo $item->category_id; ?>',
-                                                                                        '<?php echo htmlspecialchars($item->category_name, ENT_QUOTES); ?>',
-                                                                                        '<?php echo $item->service_price; ?>'
-                                                                                    )">
-                                                                                Book Now
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+<p class="service-desc">
+<?php
+if (!empty($item->description)) {
+echo $item->description;
+} else {
+echo "Professional service available";
+}
+?>
+</p>
+
+<button class="premium-book-btn"
+onclick="handleBookingClick(
+'<?php echo $restaurent_detail[0]->restaurant_id; ?>',
+'<?php echo $item->id; ?>',
+'<?php echo $item->category_id; ?>',
+'<?php echo htmlspecialchars($item->category_name, ENT_QUOTES); ?>',
+'<?php echo $item->service_price; ?>'
+)">
+Book Now
+</button>
+
+</div>
+
+
+</div>
                                                         </div>
                                                     <?php } ?>
                                                 <?php } else { ?>
@@ -497,73 +480,95 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <h3 class="text-light-black fw-700 title"><?php echo ucwords($restaurent_detail[0]->restaurant_name); ?></h3>
-                        <p class="text-light-green no-margin">Services Category Provided By Us</p>
+                        <div class="card" style="border:1px solid #eee; border-radius:10px;">
+                            <div class="card-body">
 
-                        <div class="rating">
-                            <?php
-                            $cnt_star = round($star_rating[0]->rate_star);
-                            for ($i = 1; $i <= 5; $i++) {
-                                if ($i <= $cnt_star) {
-                                    ?>
-                                    <span class="text-yellow fs-16">
-                                        <i class="fas fa-star"></i>
-                                    </span>
-                                    <?php
-                                } else {
-                                    ?>
-                                    <span class="text-dark-white fs-16">
-                                        <i class="fas fa-star"></i>
-                                    </span>
-                                    <?php
-                                }
-                            }
-                            ?>
+                                <h3 class="text-light-black fw-700 title" style="margin-bottom: 20px;">
+                                    <?php echo ucwords($restaurent_detail[0]->restaurant_name); ?>
+                                </h3>
+
+                                <div class="mb-4">
+                                    <h4 style="font-size:18px; font-weight:700; margin-bottom:15px; color:#222;">
+                                        Provider Account Information
+                                    </h4>
+
+                                    <div style="display:flex; padding:8px 0; border-bottom:1px solid #f1f1f1;">
+                                        <div style="width:220px; font-weight:600; color:#333;">Provider Name</div>
+                                        <div style="flex:1; color:#555;">
+                                            <?php echo !empty($restaurent_detail[0]->owner_name) ? ucwords($restaurent_detail[0]->owner_name) : 'Not Available'; ?>
+                                        </div>
+                                    </div>
+
+                                    <div style="display:flex; padding:8px 0; border-bottom:1px solid #f1f1f1;">
+                                        <div style="width:220px; font-weight:600; color:#333;">Phone Number</div>
+                                        <div style="flex:1; color:#555;">
+                                            <?php echo !empty($restaurent_detail[0]->contact_no) ? $restaurent_detail[0]->contact_no : 'Not Available'; ?>
+                                        </div>
+                                    </div>
+
+                                    <div style="display:flex; padding:8px 0; border-bottom:1px solid #f1f1f1;">
+                                        <div style="width:220px; font-weight:600; color:#333;">Email Address</div>
+                                        <div style="flex:1; color:#555;">
+                                            <?php echo !empty($restaurent_detail[0]->email) ? $restaurent_detail[0]->email : 'Not Available'; ?>
+                                        </div>
+                                    </div>
+
+                                    <div style="display:flex; padding:8px 0; border-bottom:1px solid #f1f1f1;">
+                                        <div style="width:220px; font-weight:600; color:#333;">Location</div>
+                                        <div style="flex:1; color:#555;">
+                                            <?php
+                                            if (count($restaurent_address_detail) != 0) {
+                                                echo $restaurent_address_detail[0]->area . ', ' . $restaurent_address_detail[0]->city . ', ' . $restaurent_address_detail[0]->state;
+                                            } else {
+                                                echo 'Not Available';
+                                            }
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <h4 style="font-size:18px; font-weight:700; margin-bottom:15px; color:#222;">
+                                        Professional Details
+                                    </h4>
+
+                                    <div style="display:flex; padding:8px 0; border-bottom:1px solid #f1f1f1;">
+                                        <div style="width:220px; font-weight:600; color:#333;">Primary Skill</div>
+                                        <div style="flex:1; color:#555;">
+                                            <?php echo !empty($restaurent_detail[0]->primary_skill) ? ucwords($restaurent_detail[0]->primary_skill) : 'Not Available'; ?>
+                                        </div>
+                                    </div>
+
+                                    <div style="display:flex; padding:8px 0; border-bottom:1px solid #f1f1f1;">
+                                        <div style="width:220px; font-weight:600; color:#333;">Experience</div>
+                                        <div style="flex:1; color:#555;">
+                                            <?php echo !empty($restaurent_detail[0]->experience) ? $restaurent_detail[0]->experience : 'Not Available'; ?>
+                                        </div>
+                                    </div>
+
+                                    <div style="display:flex; padding:8px 0; border-bottom:1px solid #f1f1f1;">
+                                        <div style="width:220px; font-weight:600; color:#333;">Starting Price</div>
+                                        <div style="flex:1; color:#555;">
+                                            <?php echo !empty($restaurent_detail[0]->starting_price) ? '₹ ' . $restaurent_detail[0]->starting_price : 'Not Available'; ?>
+                                        </div>
+                                    </div>
+
+                                    <div style="display:flex; padding:8px 0; border-bottom:1px solid #f1f1f1;">
+                                        <div style="width:220px; font-weight:600; color:#333;">Languages</div>
+                                        <div style="flex:1; color:#555;">
+                                            <?php echo !empty($restaurent_detail[0]->languages) ? ucwords($restaurent_detail[0]->languages) : 'Not Available'; ?>
+                                        </div>
+                                    </div>
+
+                                    <div style="padding:8px 0;">
+                                        <div style="font-weight:600; color:#333; margin-bottom:8px;">About Me</div>
+                                        <div style="color:#555; line-height:1.7;">
+                                            <?php echo !empty($restaurent_detail[0]->about_me) ? nl2br(htmlspecialchars($restaurent_detail[0]->about_me)) : 'Not Available'; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
-                        <ul class="about-restaurent">
-                            <li>
-                                <i class="fas fa-phone-alt"></i>
-                                <span>
-                                    <a href="tel:<?php
-                                    if ($restaurent_detail[0]->contact_no != "") {
-                                        echo $restaurent_detail[0]->contact_no;
-                                    } else {
-                                        echo "Data not inserted";
-                                    }
-                                    ?>" class="text-light-white">
-                                        <?php
-                                        if ($restaurent_detail[0]->contact_no != "") {
-                                            echo $restaurent_detail[0]->contact_no;
-                                        } else {
-                                            echo "Data not inserted";
-                                        }
-                                        ?>
-                                    </a>
-                                </span>
-                            </li>
-
-                            <li>
-                                <i class="far fa-envelope"></i>
-                                <span>
-                                    <a href="mailto:<?php
-                                    if ($restaurent_detail[0]->email != "") {
-                                        echo $restaurent_detail[0]->email;
-                                    } else {
-                                        echo "Data not inserted";
-                                    }
-                                    ?>" class="text-light-white">
-                                        <?php
-                                        if ($restaurent_detail[0]->email != "") {
-                                            echo $restaurent_detail[0]->email;
-                                        } else {
-                                            echo "Data not inserted";
-                                        }
-                                        ?>
-                                    </a>
-                                </span>
-                            </li>
-                        </ul>
                     </div>
 
                     <div class="col-md-6">
@@ -571,18 +576,24 @@
                             <div class="card">
                                 <div class="card-header text-light-white fw-700 fs-16">Available Service Timing</div>
                                 <div class="card-body">
-                                    <?php
-                                    if (!empty($schedule_details)) {
-                                        foreach ($schedule_details as $single) {
-                                            ?>
-                                            <div class="schedule-box">
-                                                <div class="day text-light-black"><?php echo $single->day_name; ?></div>
-                                                <div class="time text-light-black">Available: <?php echo date("h:ia", strtotime($single->open_time)); ?> - <?php echo date("h:ia", strtotime($single->close_time)); ?></div>
+                                    <?php if (!empty($schedule_details)) { ?>
+                                        <?php foreach ($schedule_details as $single) { ?>
+                                            <div class="schedule-box" style="padding:8px 0; border-bottom:1px solid #eee;">
+                                                <div class="day text-light-black" style="font-weight:600;">
+                                                    <?php echo $single->day_name; ?>
+                                                </div>
+                                                <div class="time text-light-black">
+                                                    <?php echo date("h:i A", strtotime($single->open_time)); ?>
+                                                    to
+                                                    <?php echo date("h:i A", strtotime($single->close_time)); ?>
+                                                </div>
                                             </div>
-                                            <?php
-                                        }
-                                    }
-                                    ?>
+                                        <?php } ?>
+                                    <?php } else { ?>
+                                        <div class="schedule-box">
+                                            <div class="time text-light-black">No timing available.</div>
+                                        </div>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>

@@ -26,11 +26,11 @@
                             </a>
                         </div>
                         
-                        <div class="gem-points">
+                        <!-- <div class="gem-points">
                             <a href="<?php echo base_url("City"); ?>"><i class="fas fa-city fs-23"></i>
                                 <span>Cities</span>
                             </a>
-                        </div>
+                        </div> -->
                         <div class="gem-points">
                             <a href="<?php echo base_url("About-us"); ?>">
                                 <span>About Us</span>

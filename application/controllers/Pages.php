@@ -27,18 +27,41 @@ class Pages extends CI_Controller {
         date_default_timezone_set("Asia/Kolkata");
         $restaurant_details = $this->md->my_select("tbl_restaurant", "*");
         $current_day = strval(date("l"));
+
         foreach ($restaurant_details as $single) {
-            $shedule_time = $this->md->my_select("tbl_schedule", "*", array("restaurant_id" => $single->restaurant_id, "day_name" => $current_day));
-            $open_time = strtotime($shedule_time[0]->open_time);
-            $close_time = strtotime($shedule_time[0]->close_time);
-            $cur_time = strtotime(date("H:i"));
+            $shedule_time = $this->md->my_select(
+                "tbl_shedule",
+                "*",
+                array(
+                    "seller_id" => $single->restaurant_id,
+                    "day_name"  => $current_day
+                )
+            );
 
-            if ($cur_time >= $open_time && $cur_time <= $close_time) {
+            if (!empty($shedule_time)) {
+                $open_time = strtotime($shedule_time[0]->open_time);
+                $close_time = strtotime($shedule_time[0]->close_time);
+                $cur_time = strtotime(date("H:i"));
 
-                $this->md->my_update("tbl_restaurant", array("service_status" => "opened"), array("restaurant_id" => $single->restaurant_id));
+                if ($cur_time >= $open_time && $cur_time <= $close_time) {
+                    $this->md->my_update(
+                        "tbl_restaurant",
+                        array("service_status" => "opened"),
+                        array("restaurant_id" => $single->restaurant_id)
+                    );
+                } else {
+                    $this->md->my_update(
+                        "tbl_restaurant",
+                        array("service_status" => "closed"),
+                        array("restaurant_id" => $single->restaurant_id)
+                    );
+                }
             } else {
-
-                $this->md->my_update("tbl_restaurant", array("service_status" => "closed"), array("restaurant_id" => $single->restaurant_id));
+                $this->md->my_update(
+                    "tbl_restaurant",
+                    array("service_status" => "closed"),
+                    array("restaurant_id" => $single->restaurant_id)
+                );
             }
         }
     }
@@ -377,11 +400,11 @@ public function login()
             ->get()
             ->result();
 
-        $data["schedule_details"] = $this->md->my_select(
-            "tbl_schedule",
-            "*",
-            array("restaurant_id" => $id)
-        );
+        $data["schedule_details"] = $this->db
+            ->where("seller_id", $id)
+            ->order_by("FIELD(day_name,'Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday')", "", false)
+            ->get("tbl_shedule")
+            ->result();
 
         $this->load->view("restaurantdetails", $data);
     }
