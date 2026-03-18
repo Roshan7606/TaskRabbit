@@ -164,7 +164,7 @@ class Restaurant extends CI_Controller
                         $inres["email"]           = $this->session->userdata("email");
                         $inres["password"]        = $this->encryption->encrypt($this->session->userdata("ps"));
                         $inres["location_id"]     = $this->input->post("area");
-                        $inres["status"]          = 0;
+                        $inres["status"]          = 1;
 
                         $result = $this->md->my_insert("tbl_restaurant", $inres);
 
@@ -253,7 +253,7 @@ class Restaurant extends CI_Controller
             $this->form_validation->set_rules(
                 "email",
                 "",
-                "required|valid_email|regex_match[/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.(com|in|org|net|co\.in)$/i]",
+                "required|valid_email|regex_match[/^[a-z0-9._%+-]+@[a-z0-9.-]+\.(com|in|org|net|co\.in)$/]",
                 array(
                     'required'    => "Please Enter Email.",
                     'valid_email' => "Please Enter valid Email.",

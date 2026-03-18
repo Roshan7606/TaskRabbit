@@ -73,7 +73,8 @@
                                                                 id="ownname"
                                                                 placeholder="Owner Name"
                                                                 class="form-control premium-input <?php if (form_error('ownname')) { echo 'my_error input-invalid'; } ?>"
-                                                                value="<?php echo set_value('ownname'); ?>"
+                                                                value="<?php echo $this->session->userdata('restaurant_name'); ?>"
+                                                                    readonly
                                                             >
                                                             <!-- <img src="<?php echo base_url(); ?>assets/img/tick.png" id="tick_ownname" class="field-valid-icon" alt="valid"> -->
                                                         </div>
@@ -90,7 +91,8 @@
                                                                 maxlength="10"
                                                                 placeholder="Other Mobile No"
                                                                 class="form-control premium-input <?php if (form_error('ownmobile')) { echo 'my_error input-invalid'; } ?>"
-                                                                value="<?php echo set_value('ownmobile'); ?>"
+                                                                value="<?php echo $this->session->userdata('contact_no'); ?>"
+                                                                    readonly
                                                             >
                                                             <!-- <img src="<?php echo base_url(); ?>assets/img/tick.png" id="tick_ownmobile" class="field-valid-icon" alt="valid"> -->
                                                         </div>
@@ -107,7 +109,8 @@
                                                                 name="ownemail"
                                                                 placeholder="Other Email"
                                                                 class="form-control premium-input <?php if (form_error('ownemail')) { echo 'my_error input-invalid'; } ?>"
-                                                                value="<?php echo set_value('ownemail'); ?>"
+                                                                value="<?php echo $this->session->userdata('email'); ?>"
+                                                                    readonly
                                                             >
                                                             <!-- <img src="<?php echo base_url(); ?>assets/img/tick.png" id="tick_ownemail" class="field-valid-icon" alt="valid"> -->
                                                         </div>
