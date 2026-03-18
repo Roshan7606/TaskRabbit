@@ -207,6 +207,142 @@
         <?php
         $this->load->view("footerscript");
         ?>
+
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var signupForm = document.getElementById('userSignupForm');
+            var name = document.getElementById('name');
+            var mobile = document.getElementById('mobile');
+            var email = document.getElementById('email');
+            var password = document.getElementById('password-field');
+
+            if (name) {
+                name.addEventListener('input', function () {
+                    if (this.value.trim() === '') {
+                        clearValidation('name');
+                    } else {
+                        validateName('name');
+                    }
+                });
+                name.addEventListener('blur', function () {
+                    validateName('name');
+                });
+            }
+
+            if (mobile) {
+                mobile.addEventListener('input', function () {
+                    if (this.value.trim() === '') {
+                        clearValidation('mobile');
+                    } else {
+                        validatePhone('mobile');
+                    }
+                });
+                mobile.addEventListener('blur', function () {
+                    validatePhone('mobile');
+                });
+            }
+
+            if (email) {
+                email.addEventListener('input', function () {
+                    if (this.value.trim() === '') {
+                        clearValidation('email');
+                    } else {
+                        validateEmail('email');
+                    }
+                });
+                email.addEventListener('blur', function () {
+                    validateEmail('email');
+                });
+            }
+
+            if (password) {
+                password.addEventListener('input', function () {
+                    if (this.value.trim() === '') {
+                        clearValidation('password-field');
+                    } else {
+                        validatePassword('password-field');
+                    }
+                });
+                password.addEventListener('blur', function () {
+                    validatePassword('password-field');
+                });
+            }
+
+            if (signupForm) {
+                signupForm.addEventListener('submit', function (e) {
+                    var isValid = true;
+
+                    clearValidation('name');
+                    clearValidation('mobile');
+                    clearValidation('email');
+                    clearValidation('password-field');
+
+                    if (!validateName('name')) {
+                        isValid = false;
+                    }
+
+                    if (!validatePhone('mobile')) {
+                        isValid = false;
+                    }
+
+                    if (!validateEmail('email')) {
+                        isValid = false;
+                    }
+
+                    if (!validatePassword('password-field')) {
+                        isValid = false;
+                    }
+
+                    if (!isValid) {
+                        e.preventDefault();
+                    }
+                });
+            }
+        });
+        function validateEmail(id) {
+
+    var input = document.getElementById(id);
+    var error = document.getElementById("error_" + id);
+
+    if (!input) return true;
+
+    var value = input.value.trim();
+
+    input.value = value.toLowerCase();
+
+    var regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.(com|in|org|net|co\.in)$/;
+
+    if (value === "") {
+
+        error.innerHTML = "Please Enter Email.";
+
+        input.classList.remove("input-valid");
+        input.classList.add("input-invalid");
+
+        return false;
+    }
+
+    if (!regex.test(value)) {
+
+        error.innerHTML = "Enter valid email.";
+
+        input.classList.remove("input-valid");
+        input.classList.add("input-invalid");
+
+        return false;
+    }
+
+    error.innerHTML = "";
+
+    input.classList.remove("input-invalid");
+    input.classList.add("input-valid");
+
+    return true;
+}
+
+        </script>
+
 <!--        <script>
             $(document).ready(function () {
                 $('#form_register').hide();

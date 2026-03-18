@@ -208,5 +208,121 @@
         <?php
         $this->load->view("seller/footerscript");
         ?>
+
+
+        <script>
+            function togglePasswordField(inputId, btn) {
+                var input = document.getElementById(inputId);
+                if (!input) return;
+
+                if (input.type === "password") {
+                    input.type = "text";
+                    btn.innerHTML = "🙈";
+                } else {
+                    input.type = "password";
+                    btn.innerHTML = "👁";
+                }
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                var form = document.getElementById("sellerSignupForm");
+                var resname = document.getElementById("resname");
+                var mobile = document.getElementById("mobile");
+                var email = document.getElementById("email");
+                var password = document.getElementById("ps");
+
+                if (resname) {
+                    resname.addEventListener("input", function () {
+                        validateName("resname");
+                    });
+                    resname.addEventListener("blur", function () {
+                        validateName("resname");
+                    });
+                }
+
+                if (mobile) {
+                    mobile.addEventListener("input", function () {
+                        validatePhone("mobile");
+                    });
+                    mobile.addEventListener("blur", function () {
+                        validatePhone("mobile");
+                    });
+                }
+
+                if (email) {
+                    email.addEventListener("input", function () {
+                        validateEmail("email");
+                    });
+                    email.addEventListener("blur", function () {
+                        validateEmail("email");
+                    });
+                }
+
+                if (password) {
+                    password.addEventListener("input", function () {
+                        validatePassword("ps");
+                    });
+                    password.addEventListener("blur", function () {
+                        validatePassword("ps");
+                    });
+                }
+
+                if (form) {
+                    form.addEventListener("submit", function (e) {
+                        var isValid = true;
+
+                        if (!validateName("resname")) isValid = false;
+                        if (!validatePhone("mobile")) isValid = false;
+                        if (!validateEmail("email")) isValid = false;
+                        if (!validatePassword("ps")) isValid = false;
+
+                        if (!isValid) {
+                            e.preventDefault();
+                        }
+                    });
+                }
+            });
+            function validateEmail(id) {
+
+    var input = document.getElementById(id);
+    var error = document.getElementById("error_" + id);
+
+    if (!input) return true;
+
+    var value = input.value.trim();
+
+    input.value = value.toLowerCase();
+
+    var regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.(com|in|org|net|co\.in)$/;
+
+    if (value === "") {
+
+        error.innerHTML = "Please Enter Email.";
+
+        input.classList.remove("input-valid");
+        input.classList.add("input-invalid");
+
+        return false;
+    }
+
+    if (!regex.test(value)) {
+
+        error.innerHTML = "Enter valid email.";
+
+        input.classList.remove("input-valid");
+        input.classList.add("input-invalid");
+
+        return false;
+    }
+
+    error.innerHTML = "";
+
+    input.classList.remove("input-invalid");
+    input.classList.add("input-valid");
+
+    return true;
+}
+
+        </script>
     </body>
 </html>

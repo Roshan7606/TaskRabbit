@@ -280,5 +280,112 @@ document.getElementById("email").addEventListener("input", function(){
                 $('#verify_email').hide();
             });
         </script>-->
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var loginForm = document.getElementById('userLoginForm');
+    var email = document.getElementById('email');
+    var password = document.getElementById('password-field');
+
+    if (email) {
+        email.addEventListener('input', function () {
+            if (this.value.trim() === '') {
+                clearValidation('email');
+            } else {
+                validateEmail('email');
+            }
+        });
+
+        email.addEventListener('keyup', function () {
+            if (this.value.trim() === '') {
+                clearValidation('email');
+            } else {
+                validateEmail('email');
+            }
+        });
+
+        email.addEventListener('blur', function () {
+            validateEmail('email');
+        });
+    }
+
+    if (password) {
+        password.addEventListener('input', function () {
+            if (this.value.trim() === '') {
+                clearValidation('password-field');
+            } else {
+                validateLoginPassword('password-field');
+            }
+        });
+
+        password.addEventListener('keyup', function () {
+            if (this.value.trim() === '') {
+                clearValidation('password-field');
+            } else {
+                validateLoginPassword('password-field');
+            }
+        });
+
+        password.addEventListener('blur', function () {
+            validateLoginPassword('password-field');
+        });
+    }
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', function (e) {
+            var isValid = true;
+
+            if (!validateEmail('email')) isValid = false;
+            if (!validateLoginPassword('password-field')) isValid = false;
+
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+    }
+});
+function validateEmail(id) {
+
+    var input = document.getElementById(id);
+    var error = document.getElementById("error_" + id);
+
+    if (!input) return true;
+
+    var value = input.value.trim();
+
+    input.value = value.toLowerCase();
+
+    var regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.(com|in|org|net|co\.in)$/;
+
+    if (value === "") {
+
+        error.innerHTML = "Please Enter Email.";
+
+        input.classList.remove("input-valid");
+        input.classList.add("input-invalid");
+
+        return false;
+    }
+
+    if (!regex.test(value)) {
+
+        error.innerHTML = "Enter valid email.";
+
+        input.classList.remove("input-valid");
+        input.classList.add("input-invalid");
+
+        return false;
+    }
+
+    error.innerHTML = "";
+
+    input.classList.remove("input-invalid");
+    input.classList.add("input-valid");
+
+    return true;
+}
+</script>
+
     </body>
 </html>

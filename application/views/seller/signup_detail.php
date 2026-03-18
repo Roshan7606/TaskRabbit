@@ -45,8 +45,24 @@
                                                                    echo set_value("ownname");
                                                                }
                                                                ?>">
+                                                        <label class="font-weight-semibold" for="ownname">Owner Name:</label>
+                                                        <div class="premium-field-wrap">
+                                                            <input
+                                                                type="text"
+                                                                autofocus
+                                                                name="ownname"
+                                                                id="ownname"
+                                                                placeholder="Owner Name"
+                                                                class="form-control premium-input <?php if (form_error('ownname')) { echo 'my_error input-invalid'; } ?>"
+                                                                value="<?php echo $this->session->userdata('restaurant_name'); ?>"
+                                                                    readonly
+                                                            >
+                                                            <!-- <img src="<?php echo base_url(); ?>assets/img/tick.png" id="tick_ownname" class="field-valid-icon" alt="valid"> -->
+                                                        </div>
+                                                        <small id="error_ownname" class="validation-error"><?php echo form_error("ownname"); ?></small>
                                                     </div>
                                                     <div class="form-group">
+
                                                         <?php
                                                         if (form_error("ownmobile")) {
                                                             ?>
@@ -67,8 +83,26 @@
                                                                    echo set_value("ownmobile");
                                                                }
                                                                ?>">
+
+                                                        <label class="font-weight-semibold" for="ownmobile">Other Mobile No:</label>
+                                                        <div class="premium-field-wrap">
+                                                            <input
+                                                                type="text"
+                                                                name="ownmobile"
+                                                                id="ownmobile"
+                                                                maxlength="10"
+                                                                placeholder="Other Mobile No"
+                                                                class="form-control premium-input <?php if (form_error('ownmobile')) { echo 'my_error input-invalid'; } ?>"
+                                                                value="<?php echo $this->session->userdata('contact_no'); ?>"
+                                                                    readonly
+                                                            >
+                                                            <!-- <img src="<?php echo base_url(); ?>assets/img/tick.png" id="tick_ownmobile" class="field-valid-icon" alt="valid"> -->
+                                                        </div>
+                                                        <small id="error_ownmobile" class="validation-error"><?php echo form_error("ownmobile"); ?></small>
+
                                                     </div>
                                                     <div class="form-group">
+
                                                         <?php
                                                         if (form_error("ownemail")) {
                                                             ?>
@@ -89,6 +123,23 @@
                                                                    echo set_value("ownemail");
                                                                }
                                                                ?>">
+
+                                                        <label class="font-weight-semibold" for="ownemail">Other Email:</label>
+                                                        <div class="premium-field-wrap">
+                                                            <input
+                                                                type="email"
+                                                                autocomplete="off"
+                                                                id="ownemail"
+                                                                name="ownemail"
+                                                                placeholder="Other Email"
+                                                                class="form-control premium-input <?php if (form_error('ownemail')) { echo 'my_error input-invalid'; } ?>"
+                                                                value="<?php echo $this->session->userdata('email'); ?>"
+                                                                    readonly
+                                                            >
+                                                            <!-- <img src="<?php echo base_url(); ?>assets/img/tick.png" id="tick_ownemail" class="field-valid-icon" alt="valid"> -->
+                                                        </div>
+                                                        <small id="error_ownemail" class="validation-error"><?php echo form_error("ownemail"); ?></small>
+
                                                     </div>
                                                     <div class="form-group">
                                                         <?php

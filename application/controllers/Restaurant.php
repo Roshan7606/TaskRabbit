@@ -260,11 +260,56 @@ class Restaurant extends CI_Controller
     {
         $data=array();
         if ($this->input->post("signup")) 
+
         {    
             $this->form_validation->set_rules("resname", "", "required", array('required' => "Please Enter Restautant Name.", "regex_match" => "Please Enter valid Restautant Name."));
             $this->form_validation->set_rules("mobile", "", "required|regex_match[/^[0-9]+$/]|min_length[10]|max_length[10]", array('required' => "Please Enter Mobile Number.", "regex_match" => "Please Enter valid Mobile Number.", "min_length" => "Please Enter Minimum 10 characters.", "max_length" => "<i class='fas fa-exclamation-circle' style='margin-right : 4px;display:inline'></i> Please Enter Maximum 10 characters."));
             $this->form_validation->set_rules("email", "", "required|regex_match[/^[A-Za-z0-9@.]+$/]", array('required' => "Please Enter Email.", "regex_match" => "Please Enter valid Email."));
             $this->form_validation->set_rules("ps", "", "required|regex_match[/^[a-zA-Z0-9]+$/]|min_length[8]|max_length[16]", array('required' => "Please Enter Password.", "regex_match" => "Please Enter valid Password.", "min_length" => "Password Must Be In 8-16 characters.", "max_length" => "<i class='fas fa-exclamation-circle' style='margin-right : 4px;display:inline'></i> Password Must be In 8-16 characters."));
+
+        {
+            $this->form_validation->set_rules(
+                "resname",
+                "",
+                "required|regex_match[/^[A-Za-z ]+$/]",
+                array(
+                    'required'    => "Please Enter Restaurant Name.",
+                    'regex_match' => "Please Enter valid Restaurant Name."
+                )
+            );
+
+            $this->form_validation->set_rules(
+                "mobile",
+                "",
+                "required|regex_match[/^[0-9]+$/]|exact_length[10]",
+                array(
+                    'required'    => "Please Enter Mobile Number.",
+                    'regex_match' => "Please Enter valid Mobile Number.",
+                    'exact_length'=> "Mobile number must be 10 digits."
+                )
+            );
+
+            $this->form_validation->set_rules(
+                "email",
+                "",
+                "required|valid_email|regex_match[/^[a-z0-9._%+-]+@[a-z0-9.-]+\.(com|in|org|net|co\.in)$/]",
+                array(
+                    'required'    => "Please Enter Email.",
+                    'valid_email' => "Please Enter valid Email.",
+                    'regex_match' => "Enter email with valid domain extension"
+                )
+            );
+
+            $this->form_validation->set_rules(
+                "ps",
+                "",
+                "required|regex_match[/^(?=.*[A-Z])(?=.*[0-9])(?=.*[\W_]).{8,}$/]",
+                array(
+                    'required'    => "Please Enter Password.",
+                    'regex_match' => "Password must be minimum 8 characters and include at least 1 uppercase letter, 1 number, and 1 special character."
+                )
+            );
+
             if ($this->form_validation->run() == TRUE) 
             {   
                 

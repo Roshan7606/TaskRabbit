@@ -179,5 +179,111 @@
 
             }
         </script>
+
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var loginForm = document.getElementById('sellerLoginForm');
+            var email = document.getElementById('seller_email');
+            var password = document.getElementById('seller_password');
+
+            if (email) {
+                email.addEventListener('input', function () {
+                    if (this.value.trim() === '') {
+                        clearValidation('seller_email');
+                    } else {
+                        validateEmail('seller_email');
+                    }
+                });
+
+                email.addEventListener('keyup', function () {
+                    if (this.value.trim() === '') {
+                        clearValidation('seller_email');
+                    } else {
+                        validateEmail('seller_email');
+                    }
+                });
+
+                email.addEventListener('blur', function () {
+                    validateEmail('seller_email');
+                });
+            }
+
+            if (password) {
+                password.addEventListener('input', function () {
+                    if (this.value.trim() === '') {
+                        clearValidation('seller_password');
+                    } else {
+                        validateLoginPassword('seller_password');
+                    }
+                });
+
+                password.addEventListener('keyup', function () {
+                    if (this.value.trim() === '') {
+                        clearValidation('seller_password');
+                    } else {
+                        validateLoginPassword('seller_password');
+                    }
+                });
+
+                password.addEventListener('blur', function () {
+                    validateLoginPassword('seller_password');
+                });
+            }
+
+            if (loginForm) {
+                loginForm.addEventListener('submit', function (e) {
+                    var isValid = true;
+
+                    if (!validateEmail('seller_email')) isValid = false;
+                    if (!validateLoginPassword('seller_password')) isValid = false;
+
+                    if (!isValid) {
+                        e.preventDefault();
+                    }
+                });
+            }
+        });
+        function validateEmail(id) {
+
+    var input = document.getElementById(id);
+    var error = document.getElementById("error_" + id);
+
+    if (!input) return true;
+
+    var value = input.value.trim();
+
+    input.value = value.toLowerCase();
+
+    var regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.(com|in|org|net|co\.in)$/;
+
+    if (value === "") {
+
+        error.innerHTML = "Please Enter Email.";
+
+        input.classList.remove("input-valid");
+        input.classList.add("input-invalid");
+
+        return false;
+    }
+
+    if (!regex.test(value)) {
+
+        error.innerHTML = "Enter valid email.";
+
+        input.classList.remove("input-valid");
+        input.classList.add("input-invalid");
+
+        return false;
+    }
+
+    error.innerHTML = "";
+
+    input.classList.remove("input-invalid");
+    input.classList.add("input-valid");
+
+    return true;
+}
+        </script>
     </body>
 </html>
