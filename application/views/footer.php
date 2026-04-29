@@ -82,14 +82,14 @@
                         </li>
                         <li><a href="<?php echo base_url("Terms-condition"); ?>" class="text-white fw-600">Terms & Condition</a>
                         </li>
-                        <li><a href="<?php echo base_url("Feedback"); ?>" class="text-white fw-600">Give Feedback</a>
+                        <!-- <li><a href="<?php echo base_url("Feedback"); ?>" class="text-white fw-600">Give Feedback</a> -->
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="col-xl col-lg-3 col-md-3 col-sm-6">
                 <div class="footer-links">
-                    <h6 class="text-white">Cities</h6>
+                    <!-- <h6 class="text-white">Cities</h6> -->
                     <ul>
                         <?php 
                             $record_city = $this->md->my_query("select st.name as state, ct.name as city, ct.location_id as res_location , count(*) as cnt_res from tbl_location as st, tbl_location as ct,tbl_restaurant as se,tbl_location as ar where se.location_id = ar.location_id and ct.location_id = ar.parent_id and ct.parent_id = st.location_id  GROUP BY ct.name LIMIT 5");
@@ -102,7 +102,7 @@
                                 
                             }
                         ?>
-                        <li><a href="<?php echo base_url("City"); ?>" class="fw-500 Underline" style="color: #ff0000;font-size: 14px;">View More...</a>
+                        <!-- <li><a href="<?php echo base_url("City"); ?>" class="fw-500 Underline" style="color: #ff0000;font-size: 14px;">View More...</a> -->
                         </li>
                     </ul>
                 </div>

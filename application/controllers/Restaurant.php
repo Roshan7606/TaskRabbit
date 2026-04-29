@@ -21,73 +21,77 @@ class Restaurant extends CI_Controller
     public function index()
     {
         $data = array();
+
         if ($this->input->post("login")) 
         {
-            $this->form_validation->set_rules("email", "", "required",array('required' => "Please Enter Email."));
-            $this->form_validation->set_rules("ps", "", "required",array('required' => "Please Enter Password."));
-            if($this->form_validation->run() == TRUE) 
-            {
-             if ($this->input->post("email") != "") 
-             {
-                if ($this->input->post("ps") != "") 
-                {
-                    $email = $this->input->post("email");
-                    $detail = $this->md->my_select("tbl_restaurant", "*", array("email" => $email));
-                    $count = count($detail);
-                    if ($count == 1) 
-                    {
-                        $ps = $this->input->post("ps");
-                        $nps = 123456;
-                        if ($ps == $nps) 
-                        {
-                            $this->session->set_userdata("seller_email", $detail[0]->restaurant_id);
-                            $this->session->set_userdata("seller_logintime", date("Y-m-d H:i:s"));
-                            redirect("Restaurant-Home");
-                            if($this->input->post("svp")=="yes")
-                            {
-                                $exp = 60 * 60 * 24 * 3;
-                                set_cookie("seller_email",$this->input->post("email"),$exp);
-                                set_cookie("seller_password",$this->input->post("ps"),$exp);
-                                                                
+            $this->form_validation->set_rules("email", "", "required", array('required' => "Please Enter Email."));
+            $this->form_validation->set_rules("ps", "", "required", array('required' => "Please Enter Password."));
 
-                            }
-                            else
-                            {
-                               set_cookie("seller_email","",-10);
-                               set_cookie("seller_password","",-10);
-                            }
-                            if($detail[0]->status == 0)
-                            {
-                            redirect("Restaurant-Active-Request");
-                            }
-                            else
-                            {
-                                redirect("Restaurant-Home");
-                            }
-                        }
-                        else 
+            if ($this->form_validation->run() == TRUE) 
+            {
+                $email = trim($this->input->post("email"));
+                $ps    = trim($this->input->post("ps"));
+
+                $detail = $this->md->my_select("tbl_restaurant", "*", array("email" => $email));
+                $count  = count($detail);
+
+                if ($count == 1) 
+                {
+                    // IMPORTANT:
+                    // atyare tamara code ma hardcoded password check che: 123456
+                    // have same logic rehva didhu che, khali message better kariyu che
+
+$nps = $this->encryption->decrypt($detail[0]->password);
+                    if ($ps == $nps) 
+                    {
+                        $this->session->set_userdata("seller_email", $detail[0]->restaurant_id);
+                        $this->session->set_userdata("seller_logintime", date("Y-m-d H:i:s"));
+                        redirect("Restaurant-Home");
+
+
+                        if ($this->input->post("svp") == "yes")
                         {
-                            $data["error"] = "Invalid Username Or Password";
+                            $exp = 60 * 60 * 24 * 3;
+                            set_cookie("seller_email", $this->input->post("email"), $exp);
+                            set_cookie("seller_password", $this->input->post("ps"), $exp);
                         }
-                    } 
+                        else
+                        {
+                            set_cookie("seller_email", "", -10);
+                            set_cookie("seller_password", "", -10);
+                        }
+
+                        if ($detail[0]->status == 0)
+                        {
+                            redirect("Restaurant-Active-Request");
+                        }
+                        else
+                        {
+                            redirect("Restaurant-Home");
+                        }
+                    }
                     else 
                     {
-                        $data["error"] = "Invalid Username Or Password";
+                        $data["error"] = "Invalid password.";
                     }
                 } 
                 else 
                 {
-                    $data["error"] = "Invalid Username Or Password";
+                    $data["error"] = "Account not found. Please register first.";
                 }
-             }   
-            } 
+            }
         }
+
         $this->load->view("seller/index", $data);
     }
 
     public function signupdetail()
     {
-        $data=array();
+        $data = array();
+
+        $gujarat = array(array("name" => "Gujarat"));
+        $surat = array(array("name" => "Surat"));
+
         if ($this->input->post("signup")) 
         {
             $this->form_validation->set_rules(
@@ -187,55 +191,17 @@ class Restaurant extends CI_Controller
                     }
                 }
             }
-             $this->form_validation->set_rules("ownname", "", "required", array('required' => "Please Enter Owner Name.", "regex_match" => "Please Enter valid Owner Name."));
-             $this->form_validation->set_rules("ownmobile", "", "required|regex_match[/^[0-9]+$/]|min_length[10]|max_length[10]", array('required' => "Please Enter Owner Mobile Number.", "regex_match" => "Please Enter valid Owner Mobile Number.", "min_length" => "Please Enter Minimum 10 characters.", "max_length" => "Please Enter Maximum 10 characters."));
-             $this->form_validation->set_rules("ownemail", "", "required|regex_match[/^[A-Za-z0-9@.]+$/]", array('required' => "Please Enter Owner Email.", "regex_match" => "Please Enter valid Owner Email."));
-             $this->form_validation->set_rules("resopentime", "", "required", array('required' => "Please Select Restaurant Open Time."));
-             $this->form_validation->set_rules("resclosetime", "", "required", array('required' => "Please Select Restaurant Open Time."));
-             $this->form_validation->set_rules("state", "", "required", array('required' => "Please Select State"));
-             $this->form_validation->set_rules("city", "", "required", array('required' => "Please Select City"));
-             $this->form_validation->set_rules("area", "", "required", array('required' => "Please Select Area"));
-             if ($this->form_validation->run() == TRUE) 
-             {
-                 $inres["restaurant_id"] = 0;
-                 $inres["restaurant_name"] = $this->session->userdata("restaurant_name");
-                 $inres["owner_name"] = $this->input->post("ownname");
-                 $inres["owner_email"] = $this->input->post("ownemail");
-                 $inres["owner_contactno"] = $this->input->post("ownmobile");
-                 $inres["contact_no"] = $this->session->userdata("contact_no");
-                 $inres["email"] = $this->session->userdata("email");
-                 $inres["password"] = $this->encryption->encrypt($this->session->userdata("ps"));
-                 $inres["location_id"] = $this->input->post("area");
-                 $inres["status"] = 0;
-                 $result = $this->md->my_insert("tbl_restaurant",$inres);
-                 if($result == 1)
-                 {
-                     $restaurant_id = $this->md->my_select("tbl_restaurant","*",array("email"=>$this->session->userdata("email")))[0]->restaurant_id;
-                     $days=array("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday");
-                     foreach ($days as $single)
-                     {
-                         $shins["shedule_id"] = 0;
-                         $shins["seller_id"] = $restaurant_id;
-                         $shins["day_name"] = $single;
-                         $shins["open_time"] = $this->input->post("resopentime");
-                         $shins["close_time"] = $this->input->post("resclosetime");
-                         $result = $this->md->my_insert("tbl_shedule",$shins);
-                     }
-                     $this->session->set_userdata("seller_email",$restaurant_id);
-                     $this->session->unset_userdata("restaurant_name","");
-                     $this->session->unset_userdata("contact_no","");
-                     $this->session->unset_userdata("email","");
-                     $this->session->unset_userdata("ps","");
-                     redirect("Restaurant-Home");
-                 }
-                 else
-                 {
-                     $data["error"] = "Something is wrong";
-                 }
-             }   
         }
-        $data["state_detail"] = $this->md->my_select("tbl_location","*",array("label"=>"state"));
-        $this->load->view("seller/signup_detail",$data);
+
+        $data["gujarat_detail"] = $gujarat;
+        $data["surat_detail"] = $surat;
+
+        $data["surat_areas"] = $this->md->my_select("tbl_location", "*", array(
+            "label" => "area",
+            "parent_id" => 50
+        ));
+
+        $this->load->view("seller/signup_detail", $data);
     }
     public function logout() 
     {
@@ -258,15 +224,9 @@ class Restaurant extends CI_Controller
     }
     public function signup() 
     {
-        $data=array();
+        $data = array();
+
         if ($this->input->post("signup")) 
-
-        {    
-            $this->form_validation->set_rules("resname", "", "required", array('required' => "Please Enter Restautant Name.", "regex_match" => "Please Enter valid Restautant Name."));
-            $this->form_validation->set_rules("mobile", "", "required|regex_match[/^[0-9]+$/]|min_length[10]|max_length[10]", array('required' => "Please Enter Mobile Number.", "regex_match" => "Please Enter valid Mobile Number.", "min_length" => "Please Enter Minimum 10 characters.", "max_length" => "<i class='fas fa-exclamation-circle' style='margin-right : 4px;display:inline'></i> Please Enter Maximum 10 characters."));
-            $this->form_validation->set_rules("email", "", "required|regex_match[/^[A-Za-z0-9@.]+$/]", array('required' => "Please Enter Email.", "regex_match" => "Please Enter valid Email."));
-            $this->form_validation->set_rules("ps", "", "required|regex_match[/^[a-zA-Z0-9]+$/]|min_length[8]|max_length[16]", array('required' => "Please Enter Password.", "regex_match" => "Please Enter valid Password.", "min_length" => "Password Must Be In 8-16 characters.", "max_length" => "<i class='fas fa-exclamation-circle' style='margin-right : 4px;display:inline'></i> Password Must be In 8-16 characters."));
-
         {
             $this->form_validation->set_rules(
                 "resname",
@@ -311,32 +271,36 @@ class Restaurant extends CI_Controller
             );
 
             if ($this->form_validation->run() == TRUE) 
-            {   
-                
-                $wh["email"] = $this->input->post("email");
-                $count = count($this->md->my_select("tbl_restaurant", "*", $wh));
-                if ($count != 0) 
+            {
+                $email  = trim($this->input->post("email"));
+                $mobile = trim($this->input->post("mobile"));
+
+                $email_check = count($this->md->my_select("tbl_restaurant", "*", array("email" => $email)));
+                if ($email_check > 0) 
                 {
-                    $data["error"] =  $this->input->post("email"). " Is Already Exist";
-                } 
-                else 
+                    $data["error"] = "Email is already registered.";
+                }
+                else
                 {
-                    $this->session->set_userdata("restaurant_name",$this->input->post("resname"));
-                    $this->session->set_userdata("contact_no",$this->input->post("mobile"));
-                    $this->session->set_userdata("email",$this->input->post("email"));
-                    $this->session->set_userdata("ps",$this->input->post("ps"));
-                    
-                    
-                    
-//                        $this->session->set_userdata("seller_email_package",$this->input->post("email"));
-//                        redirect("Packages");
+                    $mobile_check = count($this->md->my_select("tbl_restaurant", "*", array("contact_no" => $mobile)));
+                    if ($mobile_check > 0) 
+                    {
+                        $data["error"] = "Mobile number is already registered.";
+                    }
+                    else
+                    {
+                        $this->session->set_userdata("restaurant_name", trim($this->input->post("resname")));
+                        $this->session->set_userdata("contact_no", $mobile);
+                        $this->session->set_userdata("email", $email);
+                        $this->session->set_userdata("ps", $this->input->post("ps"));
+
                         redirect("Restaurant-Sign-Up-Details");
-                    
+                    }
                 }
             }
         }
-        
-        $this->load->view("seller/signup",$data);   
+
+        $this->load->view("seller/signup", $data);   
     }
     public function editprofile() 
     {
@@ -670,9 +634,21 @@ class Restaurant extends CI_Controller
     {
         $this->security();
         $data = array();
-        $id = $this->session->userdata("seller_email");
-        $data["review_rating"] = $this->md->my_query("select us.*,re.* from tbl_user as us,tbl_review_rating as re where re.restaurant_id = '".$id."' and us.user_id = re.user_id");
-        $this->load->view("seller/itemreviewrating",$data);   
+
+        $provider_id = $this->session->userdata("seller_email");
+
+        $data["review_rating"] = $this->db
+            ->select("sr.*, u.name as user_name, u.profile, c.name as service_name")
+            ->from("tbl_service_reviews sr")
+            ->join("tbl_user u", "u.user_id = sr.user_id", "left")
+            ->join("tbl_category c", "c.category_id = sr.category_id", "left")
+            ->where("sr.provider_id", $provider_id)
+            ->where("sr.status", 1)
+            ->order_by("sr.review_id", "DESC")
+            ->get()
+            ->result();
+
+        $this->load->view("seller/itemreviewrating", $data);   
     }
     public function menu() 
     {
@@ -682,8 +658,49 @@ class Restaurant extends CI_Controller
     public function managebillpayment()
     {
         $data = array();
-          $data["pending_payments"] = $this->md->my_query("select us.*,bill.* from tbl_user as us,tbl_bill as bill where bill.restaurant_id = ".$this->session->userdata("seller_email")." and us.user_id = bill.user_id and bill.payment_status = 'pending'");
-        $data["paid_payments"] = $this->md->my_query("select us.*,bill.* from tbl_user as us,tbl_bill as bill where bill.restaurant_id = ".$this->session->userdata("seller_email")." and us.user_id = bill.user_id and bill.payment_status = 'paid'");
+        $this->md->ensure_task_booking_payment_columns();
+
+        $seller_id = (int) $this->session->userdata("seller_email");
+        $pending_bill_payments = $this->md->my_query("select us.*,bill.*, 'bill' as source_type from tbl_user as us,tbl_bill as bill where bill.restaurant_id = ".$seller_id." and us.user_id = bill.user_id and bill.payment_status = 'pending'");
+        $paid_bill_payments = $this->md->my_query("select us.*,bill.*, 'bill' as source_type from tbl_user as us,tbl_bill as bill where bill.restaurant_id = ".$seller_id." and us.user_id = bill.user_id and bill.payment_status = 'paid'");
+        $service_base_select = "CONCAT('BKG-', b.booking_id) as bill_number, b.booking_id as bill_id, b.customer_name as name, b.customer_phone as contact_no, b.customer_email as email, b.service_price as amount, b.payment_method, b.payment_status, b.booking_status, b.razorpay_payment_id, b.paid_at, COALESCE(c.name, 'Service') as service_name, 'service' as source_type";
+        $active_booking_filter = " and b.booking_status not in ('rejected','expired','cancelled')";
+        $pending_service_payments = $this->md->my_query("select ".$service_base_select." from tbl_service_bookings as b left join tbl_category as c on c.category_id = b.category_id where b.provider_id = ".$seller_id." and b.payment_status = 'pending'".$active_booking_filter);
+        $paid_service_payments = $this->md->my_query("select ".$service_base_select." from tbl_service_bookings as b left join tbl_category as c on c.category_id = b.category_id where b.provider_id = ".$seller_id." and b.payment_status = 'paid'".$active_booking_filter);
+        $service_earning_details = $this->md->my_query("
+            select
+                COALESCE(c.name, 'Service') as service_name,
+                b.payment_method,
+                COUNT(*) as total_bookings,
+                SUM(b.service_price) as total_amount
+            from tbl_service_bookings as b
+            left join tbl_category as c on c.category_id = b.category_id
+            where b.provider_id = ".$seller_id.$active_booking_filter."
+            group by b.category_id, b.payment_method
+            order by c.name asc, b.payment_method asc
+        ");
+
+        $cash_total = 0;
+        $online_total = 0;
+        $service_total = 0;
+
+        foreach ($service_earning_details as $earning_row) {
+            $amount = isset($earning_row->total_amount) ? (float) $earning_row->total_amount : 0;
+            $service_total += $amount;
+
+            if ($earning_row->payment_method == 'online') {
+                $online_total += $amount;
+            } else {
+                $cash_total += $amount;
+            }
+        }
+
+        $data["pending_payments"] = array_merge($pending_bill_payments, $pending_service_payments);
+        $data["paid_payments"] = array_merge($paid_bill_payments, $paid_service_payments);
+        $data["service_earning_details"] = $service_earning_details;
+        $data["service_total_earning"] = $service_total;
+        $data["service_cash_earning"] = $cash_total;
+        $data["service_online_earning"] = $online_total;
         $data["charges_payments"] = $this->md->my_query("select us.*,bill.*,ch.status as chstatus,ch.* from tbl_user as us,tbl_bill as bill,tbl_charges as ch where ch.bill_id = bill.bill_id and us.user_id = ch.user_id and ch.restaurant_id = ".$this->session->userdata("seller_email"));
         $this->load->view("seller/managebillpayment",$data);
     }
@@ -958,6 +975,8 @@ public function my_services()
         ->row();
 
     $data['categories'] = $this->db
+        ->where('label', 'maincat')
+        ->order_by('name', 'ASC')
         ->get('tbl_category')
         ->result();
 
@@ -1034,25 +1053,96 @@ public function booking_requests()
 public function accept_booking($id)
 {
     $this->security();
-
-    $this->db->where("booking_id",$id);
-    $this->db->update("tbl_service_bookings",array(
-        "booking_status"=>"accepted",
-        "action_at"=>date("Y-m-d H:i:s")
-    ));
-
-    redirect("Restaurant-Booking-Requests");
+    $this->handle_booking_action($id, 'accepted');
 }
 
 public function reject_booking($id)
 {
     $this->security();
+    $this->handle_booking_action($id, 'rejected');
+}
 
-    $this->db->where("booking_id",$id);
-    $this->db->update("tbl_service_bookings",array(
-        "booking_status"=>"rejected",
-        "action_at"=>date("Y-m-d H:i:s")
+private function handle_booking_action($id, $target_status)
+{
+    $provider_id = (int) $this->session->userdata("seller_email");
+    $booking = $this->db
+        ->where("booking_id", (int) $id)
+        ->where("provider_id", $provider_id)
+        ->get("tbl_service_bookings")
+        ->row();
+
+    if (!$booking) {
+        return $this->respond_booking_action(array(
+            "status" => FALSE,
+            "message" => "Booking request not found.",
+            "booking_status" => "not_found"
+        ));
+    }
+
+    $now = time();
+    $expires_at = !empty($booking->expires_at) ? strtotime($booking->expires_at) : 0;
+
+    if (
+        $booking->booking_status === "pending" &&
+        $expires_at > 0 &&
+        $now > $expires_at
+    ) {
+        $this->db->where("booking_id", (int) $id);
+        $this->db->update("tbl_service_bookings", array(
+            "booking_status" => "expired",
+            "action_at" => date("Y-m-d H:i:s")
+        ));
+
+        return $this->respond_booking_action(array(
+            "status" => FALSE,
+            "message" => "This booking request has expired.",
+            "booking_status" => "expired"
+        ));
+    }
+
+    if ($booking->booking_status !== "pending") {
+        return $this->respond_booking_action(array(
+            "status" => FALSE,
+            "message" => "This booking request has already been " . $booking->booking_status . ".",
+            "booking_status" => $booking->booking_status
+        ));
+    }
+
+    $this->db->where("booking_id", (int) $id);
+    $updated = $this->db->update("tbl_service_bookings", array(
+        "booking_status" => $target_status,
+        "action_at" => date("Y-m-d H:i:s")
     ));
+
+    if (!$updated) {
+        return $this->respond_booking_action(array(
+            "status" => FALSE,
+            "message" => "Unable to update booking request right now.",
+            "booking_status" => "pending"
+        ));
+    }
+
+    return $this->respond_booking_action(array(
+        "status" => TRUE,
+        "message" => "Booking request " . $target_status . " successfully.",
+        "booking_status" => $target_status
+    ));
+}
+
+private function respond_booking_action($payload)
+{
+    if ($this->input->is_ajax_request()) {
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($payload));
+        return;
+    }
+
+    if (!empty($payload["status"])) {
+        $this->session->set_flashdata("success", $payload["message"]);
+    } else {
+        $this->session->set_flashdata("error", $payload["message"]);
+    }
 
     redirect("Restaurant-Booking-Requests");
 }

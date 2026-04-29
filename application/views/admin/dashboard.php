@@ -29,6 +29,7 @@
                             </div>
                         </div>
                     </div><!-- end .page title-->
+                    <div id="adminNotificationMount" class="admin-notification-page-hook" aria-hidden="true"></div>
                     <div class="row">
                         <div class="col-md-3 col-sm-6 col-xs-12">
                             <div class="widget-box clearfix dash-hover">
@@ -91,7 +92,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-3 col-sm-6 col-xs-12">
+                        <!-- <div class="col-md-3 col-sm-6 col-xs-12">
                             <div class="widget-box clearfix dash-hover">
                                 <a href="<?php echo base_url('Admin-Manage-State'); ?>">
                                     <div>
@@ -104,8 +105,8 @@
                                     </div>
                                 </a>
                             </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 col-xs-12">
+                        </div> -->
+                        <!-- <div class="col-md-3 col-sm-6 col-xs-12">
                             <div class="widget-box clearfix dash-hover">
                                 <a href="<?php echo base_url('Admin-Manage-City'); ?>">
                                     <div>
@@ -118,7 +119,7 @@
                                     </div>
                                 </a>
                             </div>
-                        </div>
+                        </div> -->
                     </div> 
                 </div>
         </section>

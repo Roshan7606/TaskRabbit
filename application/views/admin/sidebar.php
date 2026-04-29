@@ -12,8 +12,10 @@
                                 <img class="img-circle" src="<?php echo base_url(); ?>admin_assets/images/admin_profile/avtar_default.jpg"  alt="">
                                 <?php
                             } else {
+                                $profile_file = FCPATH . $admin_detail[0]->profile;
+                                $profile_version = file_exists($profile_file) ? filemtime($profile_file) : time();
                                 ?>
-                                <img src="<?php echo base_url() . $admin_detail[0]->profile; ?>" class="img-circle" >
+                                <img src="<?php echo base_url() . $admin_detail[0]->profile; ?>?v=<?php echo $profile_version; ?>" class="img-circle" >
                                 <?php
                             }
                             ?>
@@ -36,14 +38,14 @@
                 <li>
                     <a href="<?php echo base_url("Admin-Home") ?>"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard </span></span></a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="mailbox.html"><i class="fas fa-street-view"></i> <span class="nav-label">Location</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
                         <li><a href="<?php echo base_url("Admin-Manage-State"); ?>">State</a></li>
                         <li><a href="<?php echo base_url("Admin-Manage-City"); ?>">City</a></li>
                         <li><a href="<?php echo base_url("Admin-Manage-Area"); ?>">Area</a></li>
                     </ul>
-                </li>
+                </li> -->
             
                 <li>
                     <a href="#"><i class="fas fa-tools"></i> <span class="nav-label">Service Provider</span><span class="fa arrow"></span></a>

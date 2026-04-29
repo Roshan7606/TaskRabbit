@@ -24,10 +24,10 @@
 <script src="<?php echo base_url(); ?>assets/js/munchbox.js"></script>
 <!-- /Place all Scripts Here -->
 <!--fontawesome-->
-<script src="<?php echo base_url(); ?>assets/fontawesome-free-5.11.2-web/css/all.min.css"/></script>
 
 <script src="<?php echo base_url(); ?>assets/js/texttospeech.js" type="text/javascript"></script>
 
+<script src="<?php echo base_url(); ?>assets/js/form-validation.js"></script>
 <!--js-->
 <script>
     $base_url = "http://localhost/MUNCHBOX/";
@@ -136,4 +136,17 @@
             })(window, document);
 </script>
 
+<script>
+function togglePasswordField(inputId, btn) {
+    var input = document.getElementById(inputId);
+    if (!input) return;
 
+    if (input.type === 'password') {
+        input.type = 'text';
+        btn.textContent = '🙈';
+    } else {
+        input.type = 'password';
+        btn.textContent = '👁';
+    }
+}
+</script>

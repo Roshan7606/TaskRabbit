@@ -78,6 +78,10 @@ $route['Admin-Edit-Profile'] = "Authorization/changepassword";
 $route['Remove/(:any)/(:any)'] = "Authorization/delete/$2/$3";
 $route['Active-Deactive/(:any)/(:any)'] = "Authorization/activedeactive/$2/$3";
 $route['Admin-Logout'] = "Authorization/logout";
+$route['admin/get_notifications'] = "Authorization/get_notifications";
+$route['admin/get_notifications.php'] = "Authorization/get_notifications";
+$route['admin/mark_notifications_read'] = "Authorization/mark_notifications_read";
+$route['admin/mark_notifications_read.php'] = "Authorization/mark_notifications_read";
 $route['Edit-State/(:any)'] = "Edit/state/$2";
 $route['Edit-City/(:any)'] = "Edit/city/$2";
 $route['Edit-Area/(:any)'] = "Edit/area/$2";
@@ -120,6 +124,7 @@ $route['Package-Update/(:any)/(:any)'] = "Backend/package_update/$2/$3";
 
 /* BOOKING ROUTES START */
 $route['submit-booking'] = "Pages/submit_booking";
+$route['create-razorpay-booking-order'] = "Pages/create_razorpay_booking_order";
 $route['check-booking-status/(:num)'] = "Pages/check_booking_status/$1";
 $route['booking-waiting/(:num)'] = "Pages/booking_waiting/$1";
 
@@ -134,3 +139,4 @@ $route['Admin-Bookings'] = "Authorization/bookings";
 $route['Restaurant-Booking-Requests'] = 'Restaurant/booking_requests';
 $route['Restaurant-Accept-Booking/(:num)'] = 'Restaurant/accept_booking/$1';
 $route['Restaurant-Reject-Booking/(:num)'] = 'Restaurant/reject_booking/$1';
+$route['TaskProviderController/get_new_tasks_notifications'] = 'TaskProviderController/get_new_tasks_notifications';

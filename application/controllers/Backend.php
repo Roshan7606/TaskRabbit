@@ -773,17 +773,93 @@ class Backend extends CI_Controller
     }
     public function insert_review()
     {
-        $ins["review_id"] = 0;
-        $ins["user_id"] = $this->session->userdata("user_username");
-        $ins["restaurant_id"] = $this->input->post("restaurant_id");
-        $ins["review"] = $this->input->post("message");
-        $ins["date"] = date('Y-m-d h-i-s');
-        $ins["rating"] = $this->input->post("rating");
-        $result = $this->md->my_insert("tbl_review_rating",$ins);
-        if($result == 1)
-        {
-            echo "1";
+        $this->output->set_content_type('application/json');
+
+        $user_id = $this->session->userdata("user_username");
+
+        if (!$user_id) {
+            echo json_encode(array(
+                "status" => "error",
+                "message" => "Please log in to submit a review."
+            ));
+            return;
         }
+
+        $provider_id         = (int) $this->input->post("provider_id");
+        $booking_id          = (int) $this->input->post("booking_id");
+        $provider_service_id = (int) $this->input->post("provider_service_id");
+        $category_id         = (int) $this->input->post("category_id");
+        $rating              = (int) $this->input->post("rating");
+        $review_text         = trim($this->input->post("review_text"));
+
+        if (
+            $provider_id <= 0 ||
+            $booking_id <= 0 ||
+            $provider_service_id <= 0 ||
+            $category_id <= 0 ||
+            $rating < 1 ||
+            $rating > 5 ||
+            $review_text === ''
+        ) {
+            echo json_encode(array(
+                "status" => "error",
+                "message" => "Please complete all review fields correctly."
+            ));
+            return;
+        }
+
+        $booking = $this->db
+            ->where("booking_id", $booking_id)
+            ->where("user_id", $user_id)
+            ->where("provider_id", $provider_id)
+            ->where("provider_service_id", $provider_service_id)
+            ->where("category_id", $category_id)
+            ->where_in("booking_status", array("accepted", "completed"))
+            ->get("tbl_service_bookings")
+            ->row();
+
+        if (!$booking) {
+            echo json_encode(array(
+                "status" => "error",
+                "message" => "You can only review after completing a service."
+            ));
+            return;
+        }
+
+        $exists = $this->db
+            ->where("user_id", $user_id)
+            ->where("provider_id", $provider_id)
+            ->where("provider_service_id", $provider_service_id)
+            ->where("category_id", $category_id)
+            ->get("tbl_service_reviews")
+            ->row();
+
+        if ($exists) {
+            echo json_encode(array(
+                "status" => "error",
+                "message" => "Already reviewed"
+            ));
+            return;
+        }
+
+        $ins = array(
+            "booking_id"          => $booking_id,
+            "user_id"             => $user_id,
+            "provider_id"         => $provider_id,
+            "provider_service_id" => $provider_service_id,
+            "category_id"         => $category_id,
+            "rating"              => $rating,
+            "review_text"         => $review_text,
+            "status"              => 1,
+            "created_at"          => date("Y-m-d H:i:s")
+        );
+
+        $this->db->insert("tbl_service_reviews", $ins);
+
+        echo json_encode(array(
+            "status" => "success",
+            "message" => "Review submitted successfully."
+        ));
     }
     public function activeitem()
     {

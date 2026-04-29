@@ -758,25 +758,30 @@ function ratingstar(cnt)
     });
     // instagram slider
     var swiper = new Swiper('.instagram-slider', {
-        slidesPerView: 2,
+        slidesPerView: 5,
+        spaceBetween: 20,
         loop: true,
+        centeredSlides: true,
+        initialSlide: 2,
         autoplay: {
-            delay: 2500,
+            delay: 2000,
             disableOnInteraction: false,
         },
+        speed: 900,
+        grabCursor: true,
         navigation: false,
         breakpoints: {
-            480: {
-                slidesPerView: 3,
+            320: {
+                slidesPerView: 2,
+                spaceBetween: 12,
             },
             768: {
                 slidesPerView: 4,
+                spaceBetween: 16,
             },
-            992: {
-                slidesPerView: 6,
-            },
-            1500: {
-                slidesPerView: 8,
+            1024: {
+                slidesPerView: 5,
+                spaceBetween: 20,
             },
         }
     });

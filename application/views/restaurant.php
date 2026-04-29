@@ -21,276 +21,73 @@
         <div class="main-sec"></div>
         <!-- Navigation -->
         
-        <section class="section-padding-top exclusive-deals">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-1"></div>
-
-                    <div class="col-md-10 res-search-bar">
-                        <div class="row">
-                            <div class="col-md-3 search-res-box-1">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <img src="<?php echo base_url(); ?>assets/img/food-and-restaurant.png" class="search-img-find">
-                                    </div>
-                                    <div class="col-md-10">
-                                        <select class="form-control" id="select_search" name="select_search" onchange="findres($('#searchbox-textbox').val(),this.value)">
-                                            <option value="3">Service</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-8 search-res-textbox">
-                                    <input type="text"
-                                        name="text_search"
-                                        class="form-control"
-                                        onkeyup="findres(this.value,$('#select_search').val())"
-                                        id="searchbox-textbox"
-                                        autocomplete="off">
-
-                                    <div id="search_suggestion" style="
-                                        position:absolute;
-                                        background:white;
-                                        width:100%;
-                                        z-index:999;
-                                        border:1px solid #ddd;
-                                        border-radius:10px;
-                                        display:none;">
-                                        </div>
-                                </div>
-                                <div class="col-md-1 search-res-btn">
-                                    <!-- <img src="<?php echo base_url(); ?>assets/img/love.png" class="search-img-find-icon"> -->
-                                </div>
-                            </div>
-
-                            <div class="col-md-8 search-res-textbox">
         
-                            </div>
-
-                            <div class="col-md-1 search-res-btn">
-                                <img src="<?php echo base_url(); ?>assets/img/love.png" class="search-img-find-icon">
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-1"></div>
-                </div>
-            </section>
 
 
 <!-- TASKRABBIT SERVICE BAR -->
-<section class="task-service-bar">
+<?php
+$service_icons = array('fa-tools', 'fa-tv', 'fa-truck', 'fa-broom', 'fa-tree', 'fa-hammer', 'fa-paint-roller', 'fa-fire');
+$active_category_id = !empty($restaurent) ? (int) $restaurent[0]->category_id : 0;
+?>
+<section class="task-service-bar premium-restaurant-shell">
     <div class="container">
-        <div class="service-wrapper">
-
-            <div class="service-item active" data-service="assembly">
-            <i class="fas fa-tools"></i>
-            <p>Assembly</p>
+        <div class="service-bar-panel">
+            <div class="service-bar-copy text-center">
+                <span class="service-eyebrow">Explore Services</span>
+                <h2 class="service-bar-title">Book premium help for every home project</h2>
+                <p class="service-bar-subtitle">Switch between services to discover the most popular categories and trusted support for your next task.</p>
+                <div class="service-bar-highlights">
+                    <span class="service-highlight-pill"><i class="fas fa-shield-alt"></i> Verified Taskers</span>
+                    <span class="service-highlight-pill"><i class="fas fa-bolt"></i> Same-Day Options</span>
+                    <span class="service-highlight-pill"><i class="fas fa-star"></i> Premium Experience</span>
+                </div>
             </div>
 
-            <div class="service-item" data-service="mounting">
-            <i class="fas fa-tv"></i>
-            <p>Mounting</p>
-            </div>
-
-            <div class="service-item" data-service="moving">
-            <i class="fas fa-truck"></i>
-            <p>Moving</p>
-            </div>
-
-            <div class="service-item" data-service="cleaning">
-            <i class="fas fa-broom"></i>
-            <p>Cleaning</p>
-            </div>
-
-            <div class="service-item" data-service="outdoor">
-            <i class="fas fa-tree"></i>
-            <p>Outdoor Help</p>
-            </div>
-
-            <div class="service-item" data-service="repairs">
-            <i class="fas fa-hammer"></i>
-            <p>Home Repairs</p>
-            </div>
-
-            <div class="service-item" data-service="painting">
-            <i class="fas fa-paint-roller"></i>
-            <p>Painting</p>
-            </div>
-
-            <div class="service-item" data-service="trending">
-            <i class="fas fa-fire"></i>
-            <p>Trending</p>
+            <div class="service-wrapper">
+                <?php if (!empty($restaurent)) { ?>
+                    <?php foreach ($restaurent as $index => $service_category) { ?>
+                        <div class="service-item <?php echo $index === 0 ? 'active' : ''; ?>" data-category-id="<?php echo (int) $service_category->category_id; ?>">
+                            <span class="service-icon-wrap"><i class="fas <?php echo $service_icons[$index % count($service_icons)]; ?>"></i></span>
+                            <p><?php echo htmlspecialchars($service_category->restaurant_name, ENT_QUOTES, 'UTF-8'); ?></p>
+                        </div>
+                    <?php } ?>
+                <?php } else { ?>
+                    <div class="service-empty-state">No services added yet.</div>
+                <?php } ?>
             </div>
         </div>
     </div>
 </section>
-            
 
+<div id="serviceContent" class="service-content-shell">
+    <?php if (!empty($restaurent)) { ?>
+        <?php foreach ($restaurent as $index => $service_category) { ?>
+            <?php
+            $category_id = (int) $service_category->category_id;
+            $category_name = htmlspecialchars($service_category->restaurant_name, ENT_QUOTES, 'UTF-8');
+            $category_image = !empty($service_category->coverpic)
+                ? base_url('uploads/category/' . $service_category->coverpic)
+                : base_url('assets/img/deals/360x178/shop-1.jpg');
+            ?>
+            <div class="service-box" data-category-id="<?php echo $category_id; ?>" <?php echo $index === 0 ? '' : 'style="display:none;"'; ?>>
+                <div class="service-bg">
+                    <div class="service-image">
+                        <img src="<?php echo $category_image; ?>" alt="<?php echo $category_name; ?>">
+                    </div>
 
-<div id="serviceContent">
-
-<!-- Assembly -->
-<div class="service-box" id="assembly">
-
-<div class="service-bg">
-
-<div class="service-image">
-<img src="<?php echo base_url(); ?>assets/img/services/assembly.webp">
-</div>
-
-<div class="service-card">
-<h3>Assembly</h3>
-
-<ul>
-<li>Assemble or disassemble furniture items.</li>
-<li>Now Trending: desks, shelves and furniture builds.</li>
-</ul>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- Mounting -->
-<div class="service-box" id="mounting" style="display:none;">
-<div class="service-bg">
-
-<div class="service-image">
-<img src="<?php echo base_url(); ?>assets/img/services/mounting.webp">
-</div>
-
-<div class="service-card">
-<h3>Mounting</h3>
-<ul>
-<li>Securely mount TVs, mirrors and shelves.</li>
-<li>Now Trending: gallery walls and wraparound shelves.</li>
-</ul>
-</div>
-
-</div>
-</div>
-
-
-<!-- Moving -->
-<div class="service-box" id="moving" style="display:none;">
-<div class="service-bg">
-
-<div class="service-image">
-<img src="<?php echo base_url(); ?>assets/img/services/moving.webp">
-</div>
-
-<div class="service-card">
-<h3>Moving</h3>
-<ul>
-<li>Help moving furniture and heavy items.</li>
-<li>Now Trending: apartment moves and packing help.</li>
-</ul>
-</div>
-
-</div>
-</div>
-
-
-<!-- Cleaning -->
-<div class="service-box" id="cleaning" style="display:none;">
-<div class="service-bg">
-
-<div class="service-image">
-<img src="<?php echo base_url(); ?>assets/img/services/cleaning.webp">
-</div>
-
-<div class="service-card">
-<h3>Cleaning</h3>
-<ul>
-<li>Professional home and office cleaning.</li>
-<li>Now Trending: deep cleaning and eco-friendly cleaning.</li>
-</ul>
-</div>
-
-</div>
-</div>
-
-
-<!-- Outdoor -->
-<div class="service-box" id="outdoor" style="display:none;">
-<div class="service-bg">
-
-<div class="service-image">
-<img src="<?php echo base_url(); ?>assets/img/services/outdoor.webp">
-</div>
-
-<div class="service-card">
-<h3>Outdoor Help</h3>
-<ul>
-<li>Yard work, lawn care and snow removal.</li>
-<li>Now Trending: seasonal yard maintenance.</li>
-</ul>
-</div>
-
-</div>
-</div>
-
-
-<!-- Repairs -->
-<div class="service-box" id="repairs" style="display:none;">
-<div class="service-bg">
-
-<div class="service-image">
-<img src="<?php echo base_url(); ?>assets/img/services/repair.webp">
-</div>
-
-<div class="service-card">
-<h3>Home Repairs</h3>
-<ul>
-<li>Electrical, plumbing and home fixes.</li>
-<li>Now Trending: small home improvement projects.</li>
-</ul>
-</div>
-
-</div>
-</div>
-
-
-<!-- Painting -->
-<div class="service-box" id="painting" style="display:none;">
-<div class="service-bg">
-
-<div class="service-image">
-<img src="<?php echo base_url(); ?>assets/img/services/painting.webp">
-</div>
-
-<div class="service-card">
-<h3>Painting</h3>
-<ul>
-<li>Interior and exterior painting services.</li>
-<li>Now Trending: accent walls and decorative painting.</li>
-</ul>
-</div>
-
-</div>
-</div>
-
-
-<!-- Trending -->
-<div class="service-box" id="trending" style="display:none;">
-<div class="service-bg">
-
-<div class="service-image">
-<img src="<?php echo base_url(); ?>assets/img/services/trending.webp">
-</div>
-
-<div class="service-card">
-<h3>Trending</h3>
-<ul>
-<li>Most popular services requested by users.</li>
-<li>Book trusted taskers for trending tasks.</li>
-</ul>
-</div>
-
-</div>
-</div>
+                    <div class="service-card">
+                        <span class="service-card-label">Popular service</span>
+                        <h3><?php echo $category_name; ?></h3>
+                        <p class="service-card-text">Choose trusted taskers offering <?php echo $category_name; ?> with clear pricing and seamless booking.</p>
+                        <ul>
+                            <li>Available providers are shown below for the selected category.</li>
+                            <li>Manage this service from the admin panel to update what customers see.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+    <?php } ?>
 
 
 
@@ -300,15 +97,17 @@
 
 
         <!-- Featured partners -->
-        <section class="featured-partners section-padding-top">
+        <section class="featured-partners section-padding-top premium-services-section">
             <div class="container">
 
 
 
-                <div class="row section-padding-bottom u-line">
+                <div class="row section-padding-bottom u-line premium-services-row">
                     <div class="col-12">
-                        <div class="section-header-left">
+                        <div class="section-header-left premium-section-header">
+                            <span class="service-eyebrow">Curated categories</span>
                             <h3 class="text-light-black header-title">Populer Services</h3>
+                            <p class="premium-section-subtitle">Browse standout services with elevated design, clear actions and a cleaner premium card experience.</p>
                             <div class="user-line margin-b-none m-t-10"></div>
                         </div>
                     </div>
@@ -330,31 +129,14 @@
                     <?php
                     } else {
                         foreach ($restaurent as $single) {
+                            $is_active_category = ((int) $single->category_id === (int) $active_category_id);
                     ?>
-                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                <div class="featured-product">
-
-                                    <div class="featured-img">
-                                        <a href="<?php echo base_url(); ?>Service-Providers/<?php echo $single->category_id; ?>">
-                                            <?php
-                                            if ($single->coverpic == "") {
-                                            ?>
-                                                <img src="<?php echo base_url(); ?>assets/img/deals/360x178/shop-1.jpg" class="img-res-cover full-width" alt="#">
-                                            <?php
-                                            } else {
-                                            ?>
-                                                <img src="<?php echo base_url(); ?>uploads/category/<?php echo $single->coverpic; ?>" class="img-res-cover full-width" alt="#">
-                                            <?php
-                                            }
-                                            ?>
-                                        </a>
-
-                                        <div class="overlay-2 padding-10">
-                                            <span class="background-none res-open-img"></span>
-                                        </div>
-
-                                        <div class="overlay-2 padding-10">
-                                            <button id="btn_wishlist_<?php echo $single->restaurant_id; ?>" data-target="#wishlistmodal" onclick="<?php
+                            <div class="col-md-4 col-sm-6 col-xs-12 premium-service-col" data-category-id="<?php echo (int) $single->category_id; ?>" <?php echo $is_active_category ? '' : 'style="display:none;"'; ?>>
+                                <div class="neo-card">
+                                    <div class="neo-card-shell">
+                                        <span class="neo-card-badge">Popular Service</span>
+                                        <div class="neo-card-action">
+                                            <button class="neo-card-wishlist" id="btn_wishlist_<?php echo $single->restaurant_id; ?>" data-target="#wishlistmodal" onclick="<?php
                                                 if ($this->session->userdata("user_username")) {
                                             ?>
                                                     wishlist('<?php echo $single->restaurant_id; ?>', 'Restaurant')
@@ -373,43 +155,45 @@
                                                 )));
                                                 if ($query == 1) {
                                                 ?>
-                                                    <span class="circle-tag reataurant-wishlist-icon">
+                                                    <!-- <span class="circle-tag reataurant-wishlist-icon">
                                                         <img id="add-wishlist-Restaurant-heart-image-<?php echo $single->restaurant_id; ?>" src="<?php echo base_url(); ?>assets/img/svg/010-heart.svg" title="Already Added In Favourite" alt="tag">
-                                                    </span>
+                                                    </span> -->
                                                 <?php
                                                 } else {
                                                 ?>
-                                                    <span class="circle-tag reataurant-wishlist-icon">
+                                                    <!-- <span class="circle-tag reataurant-wishlist-icon">
                                                         <img id="add-wishlist-Restaurant-heart-image-<?php echo $single->restaurant_id; ?>" src="<?php echo base_url(); ?>assets/img/svg/013-heart-1.svg" title="Add To Favourite" alt="tag">
-                                                    </span>
+                                                    </span> -->
                                                 <?php
                                                 }
                                                 ?>
                                             </button>
                                         </div>
-                                    </div>
 
-                                    <div class="featured-product-details padding-bottom-none height-151px">
-                                        <div class="pro-title max-width-100 height-107px">
-                                            <h6 class="mb-1 restaurant-name">
-                                                <a href="<?php echo base_url(); ?>Service-Providers/<?php echo $single->category_id; ?>" class="text-light-black fw-600">
+                                        <a class="neo-card-img" href="<?php echo base_url(); ?>Service-Providers/<?php echo $single->category_id; ?>">
+                                            <?php
+                                            if ($single->coverpic == "") {
+                                            ?>
+                                                <img src="<?php echo base_url(); ?>assets/img/deals/360x178/shop-1.jpg" class="img-res-cover full-width" alt="#">
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <img src="<?php echo base_url(); ?>uploads/category/<?php echo $single->coverpic; ?>" class="img-res-cover full-width" alt="#">
+                                            <?php
+                                            }
+                                            ?>
+                                        </a>
+
+                                        <div class="neo-card-body">
+                                            <span class="neo-card-kicker">-</span>
+                                            <h6 class="mb-1 neo-card-title">
+                                                <a href="<?php echo base_url(); ?>Service-Providers/<?php echo $single->category_id; ?>">
                                                     <?php echo $single->restaurant_name; ?>
                                                 </a>
                                             </h6>
-
-                                            <div class="restaurent-rating mb-xl-20">
-                                                <div class="star">
-                                                    <span class="text-dark-white fs-16"><i class="fas fa-star"></i></span>
-                                                    <span class="text-dark-white fs-16"><i class="fas fa-star"></i></span>
-                                                    <span class="text-dark-white fs-16"><i class="fas fa-star"></i></span>
-                                                    <span class="text-dark-white fs-16"><i class="fas fa-star"></i></span>
-                                                    <span class="text-dark-white fs-16"><i class="fas fa-star"></i></span>
-                                                </div>
-                                                <span class="fs-12 text-light-black">Service Category</span>
-                                            </div>
+                                            <p class="neo-card-subtitle">Premium task support with trusted professionals and a seamless booking experience.</p>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                     <?php
@@ -421,10 +205,11 @@
         </section>
 
 
-        <section class="faq-section">
+        <section class="faq-section premium-faq-section">
 <div class="container">
 
 <div class="faq-header text-center">
+<span class="service-eyebrow">Support</span>
 <h2>Frequently Asked Questions</h2>
 <p>Everything you need to know about our services</p>
 </div>
@@ -434,7 +219,7 @@
 <div class="faq-item">
 <button class="faq-question">
 How does TaskRabbit work?
-<span class="faq-icon">+</span>
+<span class="faq-icon"><i class="fas fa-plus"></i></span>
 </button>
 
 <div class="faq-answer">
@@ -445,7 +230,7 @@ How does TaskRabbit work?
 <div class="faq-item">
 <button class="faq-question">
 How do I book a service?
-<span class="faq-icon">+</span>
+<span class="faq-icon"><i class="fas fa-plus"></i></span>
 </button>
 
 <div class="faq-answer">
@@ -456,7 +241,7 @@ How do I book a service?
 <div class="faq-item">
 <button class="faq-question">
 Are Taskers verified?
-<span class="faq-icon">+</span>
+<span class="faq-icon"><i class="fas fa-plus"></i></span>
 </button>
 
 <div class="faq-answer">
@@ -467,7 +252,7 @@ Are Taskers verified?
 <div class="faq-item">
 <button class="faq-question">
 What services are available?
-<span class="faq-icon">+</span>
+<span class="faq-icon"><i class="fas fa-plus"></i></span>
 </button>
 
 <div class="faq-answer">
@@ -591,11 +376,13 @@ $('.service-item').click(function(){
 $('.service-item').removeClass('active');
 $(this).addClass('active');
 
-var service = $(this).data('service');
+var categoryId = $(this).data('category-id');
 
 $('.service-box').hide();
+$('.service-box[data-category-id="'+categoryId+'"]').fadeIn();
 
-$('#'+service).fadeIn();
+$('.premium-service-col').hide();
+$('.premium-service-col[data-category-id="'+categoryId+'"]').fadeIn();
 
 });
 $('.faq-question').click(function(){

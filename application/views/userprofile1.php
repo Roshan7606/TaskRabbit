@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <meta name="keywords" content="#">
         <meta name="description" content="#">
-        <title>Munchbox | Contact Us</title>
+        <title>TaskRabbit | Contact Us</title>
         <?php
         $this->load->view("CSS");
         ?>

@@ -14,3 +14,4 @@
 
 <link href="<?php echo base_url();  ?>admin_assets/css/animate.css" rel="stylesheet" type="text/css"/>
 <link href="<?php echo base_url();  ?>admin_assets/css/select.css" rel="stylesheet" type="text/css"/>
+<link href="<?php echo base_url();  ?>admin_assets/css/admin-premium.css" rel="stylesheet" type="text/css"/>

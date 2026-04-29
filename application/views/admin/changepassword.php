@@ -3,7 +3,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Admin Edit Profile|| MUNCHBOX - The Foodies Food</title>
+        <title>Admin Edit Profile || TaskRabbit</title>
         <?php
         $this->load->view('admin/headscript');
         ?>
@@ -108,30 +108,33 @@
                                                                         if($admin_detail[0]->profile=="")
                                                                         {
                                                                             ?>
-                                                                        <img class="img" src="<?php echo base_url(); ?>admin_assets/images/admin_profile/avtar_default.jpg"  alt="">
+                                                                        <img id="profile-cover" class="img" src="<?php echo base_url(); ?>admin_assets/images/admin_profile/avtar_default.jpg"  alt="">
                                                                         <?php
                                                                         }
                                                                         else
                                                                         {
+                                                                            $profile_file = FCPATH . $admin_detail[0]->profile;
+                                                                            $profile_version = file_exists($profile_file) ? filemtime($profile_file) : time();
                                                                             ?>
-                                                                        <img id="profile-cover" src="<?php echo base_url().$admin_detail[0]->profile; ?>" class="img" >
+                                                                        <img id="profile-cover" src="<?php echo base_url().$admin_detail[0]->profile; ?>?v=<?php echo $profile_version; ?>" class="img" >
                                                                         <?php
                                                                         }
                                                                         ?>
                                                                         
                                                                         <i class="fas fa-camera icon" style="font-size: 25px;" title="Choose Profile Picture"></i>
-                                                                        <input type="file" id="user-img-pro" name="admin_profile" onchange="readURL1(this);" style="display: none;">
+                                                                        <input type="file" id="user-img-pro" name="admin_profile" accept="image/jpeg,image/jpg,image/png" onchange="readURL1(this);" style="display: none;">
                                                                         <p class="form-php-error"></p>
                                                                     </div>
                                                                 </div>  
-                                                            </label>                       
+                                                            </label>
+                                                            <p class="text-muted" style="margin-top: 10px;">JPG, JPEG or PNG image upload karo, pachhi Save Image dabavo.</p>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="container">
-                                            <input type="submit" name="apply" value="Edit Profile" class="btn btnadd" style="margin-top: 2.2%;margin-left: 19%;">
+                                            <input type="submit" name="apply" value="Save Image" class="btn btnadd" style="margin-top: 2.2%;margin-left: 19%;">
                                         </div>
                                     </form>
                                 </div>

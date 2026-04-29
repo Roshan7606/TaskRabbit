@@ -16,243 +16,122 @@
         ?>
     </head>
 
-    <body style="background: #F3F3F3;">
+    <body style="background: linear-gradient(180deg, #fffdf8 0%, #f8fafc 45%, #fdf2f8 100%);">
         <!-- Navigation -->
         <?php
         $this->load->view("header");
         ?>
 
-        <div class="main-sec" style="height: 70px;">
-
-        </div>
+        <div class="main-sec" style="height: 70px;"></div>
         <?php
         $this->load->view("user_profile_top");
-        ?>  
+        ?>
 
+        <style>
+            .booking-tabs { margin-bottom: 24px; }
+            .booking-tabs .nav-tabs { border: none; display: inline-flex; padding: 6px; border-radius: 999px; background: #f8fafc; gap: 8px; }
+            .booking-tabs .nav-tabs > li { float: none; margin: 0; }
+            .booking-tabs .nav-tabs > li > a { border: none !important; border-radius: 999px; margin: 0; padding: 12px 18px; color: #6b7280; font-weight: 700; background: transparent; transition: all 0.3s ease; }
+            .booking-tabs .nav-tabs > li.active > a,
+            .booking-tabs .nav-tabs > li.active > a:hover,
+            .booking-tabs .nav-tabs > li.active > a:focus { color: #fff; background: linear-gradient(135deg, #fb923c 0%, #f472b6 100%); box-shadow: 0 12px 24px rgba(244, 114, 182, 0.22); }
+            .booking-summary-chip { display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 14px; background: #fff7ed; color: #9a3412; font-size: 13px; font-weight: 700; }
+            .booking-summary-chip i { color: #fb923c; }
+            .booking-table-card { border-radius: 20px; border: 1px solid #edf2f7; background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.96)); overflow: hidden; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+            .booking-table-card:hover { transform: translateY(-2px); box-shadow: 0 18px 34px rgba(15, 23, 42, 0.08); }
+            .booking-table-wrap { overflow-x: auto; }
+            .booking-table { width: 100%; margin-bottom: 0; border-collapse: separate; border-spacing: 0; }
+            .booking-table thead th { padding: 18px 20px; border: none !important; background: #f8fafc; color: #6b7280; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+            .booking-table tbody td { padding: 20px; border-top: 1px solid #eef2f7 !important; border-left: none !important; border-right: none !important; border-bottom: none !important; color: #1f2937; font-size: 14px; vertical-align: middle !important; }
+            .booking-table tbody tr { transition: background 0.25s ease; }
+            .booking-table tbody tr:hover { background: rgba(251, 146, 60, 0.04); }
+            .booking-cell-strong { font-weight: 700; color: #111827; }
+            .booking-status-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 96px; padding: 8px 14px; border-radius: 999px; font-size: 12px; font-weight: 800; letter-spacing: 0.02em; text-transform: capitalize; }
+            .booking-status-accepted { background: rgba(34, 197, 94, 0.14); color: #166534; }
+            .booking-status-pending { background: rgba(250, 204, 21, 0.2); color: #854d0e; }
+            .booking-status-expired, .booking-status-cancelled, .booking-status-rejected { background: rgba(248, 113, 113, 0.16); color: #991b1b; }
+            .booking-status-default { background: #f3f4f6; color: #4b5563; }
+            .booking-empty-state { padding: 46px 20px !important; text-align: center; color: #6b7280; font-weight: 600; }
 
+            @media (max-width: 767px) {
+                .booking-tabs .nav-tabs { display: flex; width: 100%; }
+                .booking-tabs .nav-tabs > li { flex: 1 1 auto; }
+                .booking-tabs .nav-tabs > li > a { text-align: center; }
+                .booking-table thead th, .booking-table tbody td { padding: 16px 14px; }
+            }
+        </style>
 
-        <div class="container" style="margin-bottom: 20px;">
+        <div class="container dashboard-shell">
             <div class="row">
                 <?php
                 $this->load->view("user_profile_sidebar");
                 ?>
-                <div class="col-md-9 col-sm-9 col-xs-12">
-                    <div class="user-menu-display">
-                        <h2>Booking</h2>
-                        <div class="wishlist-nav">
-                            <!-- Nav tabs -->
-                            <ul class="nav nav-tabs " role="tablist">
+                <div class="col-md-9 col-sm-9 col-xs-12 dashboard-main-column">
+                    <div class="dashboard-panel user-menu-display">
+                        <div class="dashboard-panel-header">
+                            <div>
+                                <h2>Booking</h2>
+                                <p>Track your booking history in a cleaner, more organized workspace.</p>
+                            </div>
+                            <div class="booking-summary-chip">
+                                <i class="fa fa-calendar-check-o"></i>
+                                <span><?php echo count($res_ord_detail_active); ?> booking<?php if(count($res_ord_detail_active) != 1){ echo "s"; } ?></span>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-section-body booking-tabs wishlist-nav">
+                            <ul class="nav nav-tabs" role="tablist">
                                 <li role="presentation" class="wishlist-li active" id="wishlist-item">
-                                    <a href="#fooditem" aria-controls="fooditem" role="tab" data-toggle="tab">Active booking</a>
-                                </li>
-                                <li role="presentation" class="" id="wishlist-res">
-                                    <a href="#restaurant" aria-controls="restaurant" role="tab" data-toggle="tab">Past booking</a>
-                                </li>
-                                <li role="presentation" class="" id="wishlist-cancel">
-                                    <a href="#cancelorder" aria-controls="cancelorder" role="tab" data-toggle="tab">Canceled booking</a>
+                                    <a href="#fooditem" aria-controls="fooditem" role="tab" data-toggle="tab">History booking</a>
                                 </li>
                             </ul>
 
-                            <!-- Tab panes -->
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane active" id="fooditem">
-                                    <div class="row wishlist-item restaurant-wishlist" id="user_wishlist_item">
-                                        <?php
-                                            if(count($res_ord_detail_active) == 0)
-                                            {
-                                         ?>
-                                            <div class="wishlist-empty">
-                                                <center>
-                                                    <!-- <img src="<?php echo base_url(); ?>assets/img/no-order-vis.png"> -->
-                                                    <h3>Where is the Booking?</h3>
-                                                    <h6>Once you place a Booking, it will display here.</h6>
-                                                </center>
+                                    <div class="wishlist-item restaurant-wishlist" id="user_wishlist_item">
+                                        <div class="booking-table-card">
+                                            <div class="booking-table-wrap">
+                                                <table class="table booking-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Tasker name</th>
+                                                            <th>Category</th>
+                                                            <th>Date</th>
+                                                            <th>Time</th>
+                                                            <th>Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php if(count($res_ord_detail_active)==0){ ?>
+                                                        <tr><td colspan="7" class="booking-empty-state">No Data</td></tr>
+                                                        <?php } ?>
+
+                                                        <?php foreach($res_ord_detail_active as $row){ ?>
+                                                        <?php
+                                                            $status_class = "booking-status-default";
+                                                            $booking_status = strtolower(trim($row->booking_status));
+                                                            if($booking_status == "accepted"){ $status_class = "booking-status-accepted"; }
+                                                            elseif($booking_status == "pending"){ $status_class = "booking-status-pending"; }
+                                                            elseif($booking_status == "expired"){ $status_class = "booking-status-expired"; }
+                                                            elseif($booking_status == "cancelled"){ $status_class = "booking-status-cancelled"; }
+                                                            elseif($booking_status == "rejected"){ $status_class = "booking-status-rejected"; }
+                                                        ?>
+                                                        <tr>
+                                                            <td class="booking-cell-strong"><?php echo $row->restaurant_name; ?></td>
+                                                            <td><?php echo $row->category_name; ?></td>
+                                                            <td><?php echo $row->service_date; ?></td>
+                                                            <td><?php echo $row->service_time; ?></td>
+                                                            <td><span class="booking-status-badge <?php echo $status_class; ?>"><?php echo $row->booking_status; ?></span></td>
+                                                        </tr>
+                                                        <?php } ?>
+                                                    </tbody>
+                                                </table>
                                             </div>
-                                        <?php
-                                            }
-                                            else
-                                            {
-                                        foreach ($res_ord_detail_active as $single) {
-                                            ?>
-                                            <div class="past-order">
-                                                <div class="container-fluid">
-                                                    <div class="row">
-                                                        <div class="order_img col-md-3">
-                                                            <img src="<?php echo base_url() . $single->coverpic; ?>">
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <a href="<?php echo base_url("Restaurant-Details") . "/" . $single->restaurant_id; ?>" class="order-text-main"><b><?php echo ucwords($single->restaurant_name); ?></b></a>
-                                                            <br/>
-                                                            <a href="<?php echo base_url("City") ?>" class="order-text-sub"><?php echo ucwords($single->area) . "," . ucwords($single->city) . "," . ucwords($single->state) ?></a>
-                                                            <label style="font-size: 12px;" class="order-text-sub">ORDER  #<?php echo $single->bill_number; ?> | <?php echo date('d-m-y', strtotime($single->bill_date)); ?></label><br/>
-                                                            <a href="<?php echo base_url("Order-Detail")."/".$single->bill_id; ?>"  class="btn-munchbox-text"><b>VIEW DETAILS</b></a>
-                                                        </div>
-                                                        <div class="col-md-5 order_time text-right">
-                                                            <b class="font-weight-500 font-size-16"> Order Status:</b> <b class="font-weight-500 text-danger"><?php
-                                                                if($single->status == "pending,")
-                                                                {
-                                                                    echo "Pending";
-                                                                }
-                                                                elseif($single->status == "pending,prepared,")
-                                                                {
-                                                                    echo "Prepared";
-                                                                }
-                                                                else
-                                                                {
-                                                                    echo "Delivery On way";
-                                                                }
-                                                            ?></b>
-
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="border-userprofile"></div>
-                                                </div>
-                                                <div class="container-fluid order-name-price">
-                                                    <div class="row">
-
-                                                        <div class="col-md-9 order-btn-reorder">
-                                                            <a onclick="$('#modal-cancel-bill-id').val('<?php echo $single->bill_id; ?>')" data-target="#cancelmodal" data-toggle="modal"  class="btn btn-checkout-modal">Cancel Order</a>
-
-
-                                                        </div>
-                                                        <div class="col-md-3">
-
-                                                            <label style="font-size: 14px;" >Total Paid: &#8377;<?php echo $single->amount; ?></label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                            <?php
-                                        }
-                                            }
-                                        ?>
-                                    </div>
-                                </div>
-                                <div role="tabpanel" class="tab-pane" id="restaurant">
-                                    <div class="row wishlist-item restaurant-wishlist" id="user_wishlist_restaurant">
-                                        <?php
-                                            if(count($res_ord_detail_past) == 0)
-                                            {
-                                         ?>
-                                            <div class="wishlist-empty">
-                                                <center>
-                                                    <!-- <img src="<?php echo base_url(); ?>assets/img/no-order-vis.png"> -->
-                                                    <h3>Where is your Booking?</h3>
-                                                    <h6>Once your Book is Delivered,It will display here.</h6>
-                                                </center>
-                                            </div>
-                                        <?php
-                                            }
-                                            else
-                                            {
-                                        foreach ($res_ord_detail_past as $single) {
-                                            ?>
-                                            <div class="past-order">
-                                                <div class="container-fluid">
-                                                    <div class="row">
-                                                        <div class="order_img col-md-3">
-                                                            <img src="<?php echo base_url() . $single->coverpic; ?>">
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <a href="<?php echo base_url("Restaurant-Details") . "/" . $single->restaurant_id; ?>" class="order-text-main"><b><?php echo ucwords($single->restaurant_name); ?></b></a>
-                                                            <br/>
-                                                            <a href="<?php echo base_url("City") ?>" class="order-text-sub"><?php echo ucwords($single->area) . "," . ucwords($single->city) . "," . ucwords($single->state) ?></a>
-                                                            <label style="font-size: 12px;" class="order-text-sub">ORDER  #<?php echo $single->bill_number; ?> | <?php echo date('d-m-y', strtotime($single->bill_date)); ?></label><br/>
-                                                            <a href="<?php echo base_url("Order-Detail")."/".$single->bill_id; ?>"  class="btn-munchbox-text"><b>VIEW DETAILS</b></a>
-                                                        </div>
-                                                        <div class="col-md-5 order_time text-right">
-                                                            <b class="font-weight-500 font-size-16"> Order Status:</b> <b class="font-weight-500 text-success">Delivered</b>
-
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="border-userprofile"></div>
-                                                </div>
-                                                <div class="container-fluid order-name-price">
-                                                    <div class="row">
-
-                                                        <div class="col-md-9 order-btn-reorder">
-                                                            <a onclick="$('#modal-reorder-bill-id').val('<?php echo $single->bill_id; ?>')" class="btn btn-checkout-modal" data-target="#reordermodal" data-toggle="modal">Reorder</a>
-
-
-                                                        </div>
-                                                        <div class="col-md-3">
-
-                                                            <label style="font-size: 14px;" >Total Paid: &#8377;<?php echo $single->amount; ?></label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                            <?php
-                                        }
-                                            }
-                                        ?>
+                                        </div>
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="cancelorder">
-                                    <div class="row wishlist-item restaurant-wishlist" id="user_wishlist_cancel">
-                                        <?php
-                                            if(count($res_ord_detail_cancel) == 0)
-                                            {
-                                         ?>
-                                            <div class="wishlist-empty">
-                                                <center>
-                                                    <!-- <img src="<?php echo base_url(); ?>assets/img/no-order-vis.png"> -->
-                                                    <h3>Where is your Booking?</h3>
-                                                    <h6>Once you Canceled Booking,It will display here.</h6>
-                                                </center>
-                                            </div>
-                                        <?php
-                                            }
-                                            else
-                                            {
-                                        foreach ($res_ord_detail_cancel as $single) {
-                                            ?>
-                                            <div class="past-order">
-                                                <div class="container-fluid">
-                                                    <div class="row">
-                                                        <div class="order_img col-md-3">
-                                                            <img src="<?php echo base_url() . $single->coverpic; ?>">
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <a href="<?php echo base_url("Restaurant-Details") . "/" . $single->restaurant_id; ?>" class="order-text-main"><b><?php echo ucwords($single->restaurant_name); ?></b></a>
-                                                            <br/>
-                                                            <a href="<?php echo base_url("City") ?>" class="order-text-sub"><?php echo ucwords($single->area) . "," . ucwords($single->city) . "," . ucwords($single->state) ?></a>
-                                                            <label style="font-size: 12px;" class="order-text-sub">ORDER  #<?php echo $single->bill_number; ?> | <?php echo date('d-m-y', strtotime($single->bill_date)); ?></label><br/>
-                                                            <a href="<?php echo base_url("Order-Detail")."/".$single->bill_id; ?>"  class="btn-munchbox-text"><b>VIEW DETAILS</b></a>
-                                                        </div>
-                                                        <div class="col-md-5 order_time text-right">
-                                                            <b class="font-weight-500 font-size-16"> Order Status:</b> <b class="font-weight-500 text-danger">Canceled</b>
-
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="border-userprofile"></div>
-                                                </div>
-                                                <div class="container-fluid order-name-price">
-                                                    <div class="row">
-
-                                                        <div class="col-md-9 order-btn-reorder">
-                                                            <a onclick="$('#modal-reorder-bill-id').val('<?php echo $single->bill_id; ?>')" class="btn btn-checkout-modal" data-target="#reordermodal" data-toggle="modal">Reorder</a>
-
-
-                                                        </div>
-                                                        <div class="col-md-3">
-
-                                                            <label style="font-size: 14px;" >Total Paid: &#8377;<?php echo $single->amount; ?></label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                            <?php
-                                        }
-                                            }
-                                        ?>
-                                    </div>
+                                    <div class="row wishlist-item restaurant-wishlist" id="user_wishlist_cancel"></div>
                                 </div>
                             </div>
                         </div>
@@ -332,11 +211,6 @@
             </div>
         </div>
 
-        
-    </div>
-
-
-
     <?php
     $this->load->view("footerscript");
     ?>
@@ -345,7 +219,3 @@
 
 
 </html>
-
-
-
-

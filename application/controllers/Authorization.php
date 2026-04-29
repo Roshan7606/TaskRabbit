@@ -85,6 +85,129 @@ class Authorization extends CI_Controller
         $this->security();
         $this->load->view("admin/dashboard");
     }
+    public function get_notifications()
+    {
+        if (!$this->require_admin_ajax_auth()) {
+            return;
+        }
+
+        $admin_id = $this->get_notification_admin_id();
+        $response = $this->build_notification_response($admin_id, 10);
+        $this->output_json($response);
+    }
+    public function mark_notifications_read()
+    {
+        if (!$this->require_admin_ajax_auth()) {
+            return;
+        }
+
+        if (strtoupper($this->input->method()) !== "POST") {
+            $this->output_json(array(
+                "status" => "error",
+                "message" => "Invalid request method."
+            ), 405);
+            return;
+        }
+
+        $admin_id = $this->get_notification_admin_id();
+
+        if ($this->db->table_exists("notifications")) {
+            $this->db
+                ->where("user_id", $admin_id)
+                ->where("is_read", 0)
+                ->update("notifications", array("is_read" => 1));
+        }
+
+        $response = $this->build_notification_response($admin_id, 10);
+        $response["status"] = "success";
+        $response["message"] = "Notifications marked as read.";
+        $this->output_json($response);
+    }
+    private function require_admin_ajax_auth()
+    {
+        if ($this->session->userdata("admin_username")) {
+            return TRUE;
+        }
+
+        $this->output_json(array(
+            "status" => "error",
+            "message" => "Unauthorized"
+        ), 401);
+
+        return FALSE;
+    }
+    private function output_json($payload, $status_code = 200)
+    {
+        $this->output
+            ->set_status_header($status_code)
+            ->set_content_type("application/json")
+            ->set_output(json_encode($payload));
+    }
+    private function get_notification_admin_id()
+    {
+        $admin_id = (int) $this->session->userdata("admin_username");
+
+        if ($admin_id > 0) {
+            return $admin_id;
+        }
+
+        return 1;
+    }
+    private function build_notification_response($admin_id, $limit = 10)
+    {
+        $this->ensure_notifications_table();
+
+        $notifications = $this->db
+            ->select("id, user_id, message, type, is_read, created_at")
+            ->where("user_id", $admin_id)
+            ->order_by("id", "DESC")
+            ->limit((int) $limit)
+            ->get("notifications")
+            ->result_array();
+
+        $latest_unread = $this->db
+            ->select("id, user_id, message, type, is_read, created_at")
+            ->where("user_id", $admin_id)
+            ->where("is_read", 0)
+            ->order_by("id", "DESC")
+            ->limit(5)
+            ->get("notifications")
+            ->result_array();
+
+        $unread_count = (int) $this->db
+            ->where("user_id", $admin_id)
+            ->where("is_read", 0)
+            ->count_all_results("notifications");
+
+        return array(
+            "status" => "success",
+            "notifications" => $notifications,
+            "latest_unread_notifications" => $latest_unread,
+            "unread_count" => $unread_count,
+            "last_notification_id" => !empty($notifications) ? (int) $notifications[0]["id"] : 0,
+            "server_time" => date("Y-m-d H:i:s")
+        );
+    }
+    private function ensure_notifications_table()
+    {
+        if ($this->db->table_exists("notifications")) {
+            return;
+        }
+
+        $this->db->query("
+            CREATE TABLE IF NOT EXISTS `notifications` (
+                `id` INT(11) NOT NULL AUTO_INCREMENT,
+                `user_id` INT(11) NOT NULL,
+                `message` TEXT NOT NULL,
+                `type` VARCHAR(50) NOT NULL DEFAULT 'task_assigned',
+                `is_read` TINYINT(1) NOT NULL DEFAULT 0,
+                `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                PRIMARY KEY (`id`),
+                KEY `idx_notifications_user_read` (`user_id`, `is_read`),
+                KEY `idx_notifications_created_at` (`created_at`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+        ");
+    }
     public function maincategory() 
     {
         $this->security();
@@ -631,21 +754,27 @@ class Authorization extends CI_Controller
         
         if($this->input->post('apply'))
         {
+            if(empty($_FILES['admin_profile']['name']))
+            {
+                $data['error'] = "Please choose profile image first.";
+            }
+            else
+            {
             $detail= $this->md->my_select("tbl_admin","*",array("admin_id"=>$this->session->userdata("admin_username")));
             $id = $detail[0]->admin_id;
 
             if($id == "")
             {
-                $config['file_name']="admin_profile_0";
+                $config['file_name']="admin_profile_0_".time();
             }
             else
             {
-                $config['file_name']="admin_profile_".$id;
+                $config['file_name']="admin_profile_".$id."_".time();
             }
             $config['upload_path']='./admin_assets/images/admin_profile/';
             $config['allowed_types']='jpeg|jpg|png';
             $config['max_size']=1024 * 4;
-            $config['overwrite']=True;
+            $config['overwrite']=False;
             $this->load->library('upload',$config);
             $this->upload->initialize($config);
              if ($this->upload->do_upload('admin_profile'))
@@ -653,14 +782,12 @@ class Authorization extends CI_Controller
                         $ins['profile']="admin_assets/images/admin_profile/".$this->upload->data('file_name');
                         $wh['admin_id'] = $this->session->userdata("admin_username");
                         $result = $this->md->my_update('tbl_admin',$ins,$wh);
-                        if($result == 1)
-                        {
-                            $data['success'] = "Profile Picture Updated Successfully";
-                        }
+                        $data['success'] = "Profile Picture Updated Successfully";
             }
             else 
             {
-                 $data['errror']= $this->upload->display_errors();
+                 $data['error']= $this->upload->display_errors();
+            }
             }
                     
         }

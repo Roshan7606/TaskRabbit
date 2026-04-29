@@ -23,25 +23,91 @@
                     <!-- Content Wrapper START -->
                     <div class="main-content">
                         <div class="page-header no-gutters has-tab">
-                            <h2 class="font-weight-normal">Manage Bill Payments</h2>
+                            <h2 class="font-weight-normal">Wallet & Earnings</h2>
                             <ul class="nav nav-tabs" >
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#tab-account">Pending</a>
+                                    <a class="nav-link active" data-toggle="tab" href="#tab-wallet">Wallet</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a  class="nav-link" data-toggle="tab" href="#tab-bank">Paid</a>
+                                    <a class="nav-link" data-toggle="tab" href="#tab-account">COD</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#tab-network">Charges</a>
+                                    <a  class="nav-link" data-toggle="tab" href="#tab-bank">Online</a>
                                 </li>
                             </ul>
                         </div>
 
                         <div class="tab-content m-t-15">
-                            <div class="tab-pane fade show active" id="tab-account" >
+                            <div class="tab-pane fade show active" id="tab-wallet">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <p class="text-muted m-b-5">Total Service Earning</p>
+                                                <h2 class="m-b-0">&#8377;<?php echo number_format((float)$service_total_earning, 2); ?></h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <p class="text-muted m-b-5">Cash Payment Earning</p>
+                                                <h2 class="m-b-0">&#8377;<?php echo number_format((float)$service_cash_earning, 2); ?></h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <p class="text-muted m-b-5">Online Payment Earning</p>
+                                                <h2 class="m-b-0">&#8377;<?php echo number_format((float)$service_online_earning, 2); ?></h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Pending Payments:</h4>
+                                        <h4 class="card-title">Service Wise Earnings</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <?php if (empty($service_earning_details)) { ?>
+                                            <center>
+                                                <img src="<?php echo base_url(); ?>seller_assets/images/others/buy.png" class="panding-order-img">
+                                                <h3 class="margin-top-10">No Service Earning Found...</h3>
+                                            </center>
+                                        <?php } else { ?>
+                                            <div class="table-responsive">
+                                                <table class="table table-hover e-commerce-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Service</th>
+                                                            <th>Payment Type</th>
+                                                            <th>Total Bookings</th>
+                                                            <th>Total Amount</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php foreach ($service_earning_details as $earning) { ?>
+                                                            <tr>
+                                                                <td><?php echo ucwords($earning->service_name); ?></td>
+                                                                <td><?php echo ($earning->payment_method == 'online') ? 'Online' : 'Cash On Delivery'; ?></td>
+                                                                <td><?php echo (int)$earning->total_bookings; ?></td>
+                                                                <td class="text-dark">&#8377;<?php echo number_format((float)$earning->total_amount, 2); ?></td>
+                                                            </tr>
+                                                        <?php } ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="tab-account" >
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">COD Payments:</h4>
                                     </div>
                                     <div class="card-body" id="pending_orders">
                                         <?php
@@ -49,7 +115,7 @@
                                             ?>
                                             <center>
                                                 <img src="<?php echo base_url(); ?>seller_assets/images/others/buy.png" class="panding-order-img">
-                                                <h3 class="margin-top-10">No Pending Payment Found...</h3>
+                                                <h3 class="margin-top-10">No COD Payment Found...</h3>
                                             </center>
                                             <?php
                                         } else {
@@ -63,6 +129,8 @@
                                                             <th>Customer Name</th>
                                                             <th>Contact No</th>
                                                             <th>Email</th>
+                                                            <th>Service</th>
+                                                            <th>Payment</th>
                                                             <th>Amount</th>
                                                             <th class="text-center">view</th>
                                                         </tr>
@@ -77,9 +145,17 @@
                                                                 <td><?php echo ucwords($single->name); ?></td>
                                                                 <td><a title="Click Here To Contact Customer" href="tel:<?php echo $single->contact_no; ?>" class="text-dark">(+91) <?php echo $single->contact_no; ?></a></td>
 
-                                                                <td><a <a title="Click Here To Send Mail To Customer" href="mailto:<?php echo $single->email; ?>" class="text-dark"><?php echo $single->email; ?></a></td>
+                                                                <td><a title="Click Here To Send Mail To Customer" href="mailto:<?php echo $single->email; ?>" class="text-dark"><?php echo $single->email; ?></a></td>
+                                                                <td><?php echo isset($single->service_name) ? ucwords($single->service_name) : '-'; ?></td>
+                                                                <td><?php echo (isset($single->payment_method) && $single->payment_method == 'online') ? 'Online' : 'Cash On Delivery'; ?></td>
                                                                 <td class="text-dark">&#8377;<?php echo $single->amount; ?></td>
-                                                                <td><a title="Click Here For View Order Detail" onclick="set_modal('<?php echo $single->bill_id; ?>', 'pending');"  data-toggle="modal" data-target="#pendingModal"><p class="margin-bottom-none btn-view-table">View Order</p></a></td>
+                                                                <td>
+                                                                    <?php if (isset($single->source_type) && $single->source_type == 'service') { ?>
+                                                                        <p class="margin-bottom-none btn-view-table">Service Booking</p>
+                                                                    <?php } else { ?>
+                                                                        <a title="Click Here For View Order Detail" onclick="set_modal('<?php echo $single->bill_id; ?>', 'pending');"  data-toggle="modal" data-target="#pendingModal"><p class="margin-bottom-none btn-view-table">View Order</p></a>
+                                                                    <?php } ?>
+                                                                </td>
                                                             </tr>
                                                             <?php
                                                         }
@@ -97,7 +173,7 @@
                             <div class="tab-pane fade" id="tab-bank">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Paid Payments:</h4>
+                                        <h4 class="card-title">Online Payments:</h4>
                                     </div>
                                     <div class="card-body"id="prepared_orders">
                                         <?php
@@ -105,7 +181,7 @@
                                             ?>
                                             <center>
                                                 <img src="<?php echo base_url(); ?>seller_assets/images/others/buy.png" class="panding-order-img">
-                                                <h3 class="margin-top-10">No Paid Payment Found...</h3>
+                                                <h3 class="margin-top-10">No Online Payment Found...</h3>
                                             </center>
                                             <?php
                                         } else {
@@ -119,6 +195,8 @@
                                                             <th>Customer Name</th>
                                                             <th>Contact No</th>
                                                             <th>Email</th>
+                                                            <th>Service</th>
+                                                            <th>Payment</th>
                                                             <th>Amount</th>
                                                             <th class="text-center">view</th>
                                                             
@@ -126,7 +204,7 @@
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        foreach ($prepared_orders as $single) {
+                                                        foreach ($paid_payments as $single) {
                                                             ?>
                                                             <tr>
 
@@ -134,8 +212,16 @@
                                                                 <td><?php echo ucwords($single->name); ?></td>
                                                                 <td><a title="Click Here To Contact Customer"  href="tel:<?php echo $single->contact_no; ?>" class="text-dark">(+91) <?php echo $single->contact_no; ?></a></td>
                                                                 <td><a title="Click Here To Send Mail To Customer" href="mailto:<?php echo $single->email; ?>" class="text-dark"><?php echo $single->email; ?></a></td>
+                                                                <td><?php echo isset($single->service_name) ? ucwords($single->service_name) : '-'; ?></td>
+                                                                <td><?php echo (isset($single->payment_method) && $single->payment_method == 'online') ? 'Online' : 'Cash On Delivery'; ?></td>
                                                                 <td class="text-dark">&#8377;<?php echo $single->amount; ?></td>
-                                                                <td><a title="Click Here For View Order Detail" onclick="set_modal('<?php echo $single->bill_id; ?>', 'prepared');"  data-toggle="modal" data-target="#preparedModal"><p class="margin-bottom-none btn-view-table">View Order</p></a></td>
+                                                                <td>
+                                                                    <?php if (isset($single->source_type) && $single->source_type == 'service') { ?>
+                                                                        <p class="margin-bottom-none btn-view-table">Online Paid</p>
+                                                                    <?php } else { ?>
+                                                                        <a title="Click Here For View Order Detail" onclick="set_modal('<?php echo $single->bill_id; ?>', 'prepared');"  data-toggle="modal" data-target="#preparedModal"><p class="margin-bottom-none btn-view-table">View Order</p></a>
+                                                                    <?php } ?>
+                                                                </td>
                                                                 
                                                             </tr>
                                                             <?php
@@ -150,86 +236,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="tab-network">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4 class="card-title">Charges Payments:</h4>
-                                    </div>
-                                    <div class="card-body" id="readydeliver_orders">
-
-                                        <?php
-                                        if (count($charges_payments) == 0) {
-                                            ?>
-                                            <center>
-                                                <img src="<?php echo base_url(); ?>seller_assets/images/others/buy.png" class="panding-order-img">
-                                                <h3 class="margin-top-10">Charges Payment Not Found...</h3>
-                                            </center>
-                                            <?php
-                                        } else {
-                                            ?>
-
-                                            <div class="table-responsive">
-                                                <table class="table table-hover e-commerce-table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Order Id</th>
-                                                            <th>Customer Name</th>
-                                                            <th>Contact No</th>
-                                                            <th>Email</th>
-                                                            <th>Amount</th>
-                                                            <th>Status</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php
-                                                        
-                                                        foreach ($charges_payments as $single) {
-                                                            ?>
-                                                            <tr>
-
-                                                                <td>#<?php echo $single->bill_number; ?></td>
-                                                                <td><?php echo ucwords($single->name); ?></td>
-                                                                <td><a title="Click Here To Contact Customer" href="tel:<?php echo $single->contact_no; ?>" class="text-dark">(+91) <?php echo $single->contact_no; ?></a></td>
-
-                                                                <td><a href="mailto:<?php echo $single->email; ?>" class="text-dark"><?php echo $single->email; ?></a></td>
-                                                                <td class="text-dark">&#8377;<?php echo $single->charged_amt; ?></td>
-                                                                <td class="<?php 
-                                                                if($single->chstatus == "unpaid")
-                                                                    {
-                                                                        echo "charges-status-unpaid";
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        echo "charges-status-paid";
-                                                                    }
-                                                                ?>"><?php 
-                                                                    if($single->chstatus == "unpaid")
-                                                                    {
-                                                                        echo "Pending";
-                                                                    }
-                                                                    elseif($single->chstatus == "paid")
-                                                                    {
-                                                                       echo "Receive";
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        echo "Pending";
-                                                                    }
-                                                                ?></td>
-                                                            </tr>
-                                                            <?php
-                                                        }
-                                                        ?>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <?php
-                                        }
-                                        ?>
-                                    </div>
-                                </div>
-                            </div>
-                            
                         </div>
 
                     </div>

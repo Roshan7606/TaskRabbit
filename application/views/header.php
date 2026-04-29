@@ -9,6 +9,11 @@
                             <img src="<?php echo base_url(); ?>assets/img/logo.png" alt="Logo" style="height:40px;width:auto; transform:scale(4);">
                         </a>
                     </div>
+                    <style>
+                                            .cart-btn {
+                        display: none !important;
+                    }
+                    </style>
                     <!-- logo -->
                     <div class="main-search mainNavCol">
                         <form class="main-search search-form full-width">
@@ -21,7 +26,7 @@
                     <div class="right-side fw-700 mainNavCol">
                         
                         <div class="gem-points">
-                            <a href="<?php echo base_url(); ?>Restaurant/0"> <i class="fas fa-concierge-bell"></i>
+                            <a href="<?php echo base_url(); ?>Restaurant/0"> <i class="fas fa-tools"></i>
                                 <span>Services</span>
                             </a>
                         </div>
@@ -32,8 +37,13 @@
                             </a>
                         </div> -->
                         <div class="gem-points">
-                            <a href="<?php echo base_url("About-us"); ?>">
+                            <a href="<?php echo base_url("About-us"); ?>"> <i class="fas fa-user"></i>
                                 <span>About Us</span>
+                            </a>
+                        </div>
+                        <div class="gem-points">
+                            <a href="<?php echo base_url("Sign-up"); ?>"> 
+                                <span>Register</span>
                             </a>
                         </div>
                         
@@ -85,27 +95,16 @@
                                     <li>
                                         <a href="<?php echo base_url("User-Order"); ?>">
                                             <div class="icon"><i class="flaticon-rewind"></i>
-                                            </div> <span class="details">Order</span>
+                                            </div> <span class="details">Bokking</span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="order-details.html">
-                                            <div class="icon"><i class="flaticon-takeaway"></i>
-                                            </div> <span class="details">My Cart</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="<?php echo base_url("User-Favourite"); ?>">
-                                            <div class="icon"><i class="flaticon-heart-1"></i>
-                                            </div> <span class="details">Favourite</span>
-                                        </a>
-                                    </li>
+                                  
                                     
                                     <li>
-                                        <a href="<?php echo base_url("Profile"); ?>">
+                                        <!-- <a href="<?php echo base_url("Profile"); ?>">
                                             <div class="icon"><i class="flaticon-user"></i>
                                             </div> <span class="details">Account</span>
-                                        </a>
+                                        </a> -->
                                     </li>
                                 </ul>
                                 <div class="user-footer"> <span class="text-light-black">Not Name?</span> <a href="<?php echo base_url("User-Logout"); ?>">Sign Out</a>
@@ -134,8 +133,9 @@
                         <!-- user cart -->
                        
                         <div class="cart-btn cart-dropdown">
-                            <a href="#" class="text-light-green fw-700"> <i class="fas fa-shopping-bag"></i>
-                                <span class="user-alert-cart" id="cart_counter"><?php 
+                            <!-- <a href="#" class="text-light-green fw-700"> <i class="fas fa-shopping-bag"></i> -->
+                                <!-- <span class="user-alert-cart" id="cart_counter"> -->
+                                    <?php 
                                 if($this->session->userdata("user_username"))
                                 {
                                          $count = $this->md->my_query("select SUM(qty) as countqty from tbl_addtocart where user_id = ".$this->session->userdata("user_username"))[0]->countqty; 

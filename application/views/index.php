@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <meta name="keywords" content="#">
         <meta name="description" content="#">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
         <title>TaskRabbit</title>
         <?php
         $this->load->view("CSS");
@@ -200,8 +201,8 @@
 
 <div class="trust-item">
 
-<h4>💲 Secure payments</h4>
-<p>Only release payment when the task is completed to your satisfaction</p>
+<h4>⚡ Verified Professionals</h4>
+<p>All taskers are background-checked and verified for your safety and trust.</p>
 
 </div>
 
@@ -219,7 +220,7 @@
 
 </div>
 
-<a class="trust-btn">Post your task for free</a>
+<!-- <a class="trust-btn">Post your task for free</a> -->
 
 </div>
 
@@ -291,10 +292,10 @@ find your next job on Airtasker.
 <div class="container join-wrap">
 
 <div class="join-left">
-<h2>Create your Profile And Start Browsing Jobs</h2>
+<h2>Create your Profile And Start Browsing Help</h2>
 <p>It’s free and takes less than a minute to sign up.</p>
 
-<a href="#" class="join-btn">Join TaskRabbit</a>
+<a href="Log-in" class="join-btn">Join TaskRabbit</a>
 </div>
 
 <div class="join-right">

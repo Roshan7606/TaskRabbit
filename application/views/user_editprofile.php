@@ -9,7 +9,7 @@
 
 
     <head>
-        <title>User-Edit Profile | Munchbox-Foodies food</title>
+        <title>User-Edit Profile | TaskRabbit</title>
         <?php
         $this->load->view("CSS");
         ?>

@@ -1,6 +1,6 @@
 <html lang="en">
     <head>
-        <title>Admin SignIn || MUNCHBOX - The Foodies Food</title>
+        <title>Admin Sign In || TaskRabbit</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?php
@@ -26,13 +26,14 @@
         <!--===============================================================================================-->
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admin_assets/css/util.css">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admin_assets/css/main.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>admin_assets/css/admin-premium.css">
         <!--===============================================================================================-->
     </head>
     <body>
         <div class="limiter">
             <div class="container-login100">
                 <div class="wrap-login100 <?php if (isset($error)) { ?>animated shake <?php } ?> ">
-                    <div class="login100-form-title" style="background-image: url(<?php echo base_url(); ?>/admin_assets/images/blog-10.jpg);">
+                    <div class="login100-form-title" style="background-image: url(<?php echo base_url(); ?>/assets/img/banner/premium-bg.jpg);">
                         <span class="login100-form-title-1">
                             Admin Sign In
                         </span>
