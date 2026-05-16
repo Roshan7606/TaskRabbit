@@ -2,7 +2,18 @@ Screenshort
 <img width="1917" height="916" alt="Screenshot 2026-05-16 161944" src="https://github.com/user-attachments/assets/d7a9ccf1-ca47-4d22-8483-30c3d93f13d4" />
 <img width="1912" height="902" alt="Screenshot 2026-05-16 162027" src="https://github.com/user-attachments/assets/9c407e64-f1f2-4398-8fa8-4c133516bc0e" />
 <img width="1919" height="908" alt="Screenshot 2026-05-16 162049" src="https://github.com/user-attachments/assets/6977bb28-db2e-43aa-b9fd-87f9289bbc8a" />
-<img width="1884" height="714" alt="Screenshot 2026-05-16 162134" src="https://github.com/user-attachments/assets/978ad3c3-f1db-405d-af54-22ab89c89224" />
+
+Service Provider
+<img width="1909" height="919" alt="Screenshot 2026-05-16 162515" src="https://github.com/user-attachments/assets/305c22bd-3865-46c3-95e7-43cee320e21c" />
+<img width="1900" height="911" alt="Screenshot 2026-05-16 162526" src="https://github.com/user-attachments/assets/e55b5c13-9162-440c-bee5-fe86f788847e" />
+<img width="1903" height="910" alt="Screenshot 2026-05-16 162537" src="https://github.com/user-attachments/assets/8c13aefc-a8df-4113-8f20-542a8e481e82" />
+
+Admin:
+Admin access URL http://localhost/TaskRabbit/Admin-Authentication
+Username:munchbox@gmail.com
+Password:123456
+<img width="1908" height="908" alt="image" src="https://github.com/user-attachments/assets/43c63273-4c20-4bd3-b181-e7099dcfb6e3" />
+
 
 **Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
 
